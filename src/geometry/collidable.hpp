@@ -2,6 +2,7 @@
 
 #include "ray.hpp"
 #include "../lead.hpp"
+#include "interval.hpp"
 
 class CollisionRecord {
     public:
@@ -22,32 +23,30 @@ class CollisionRecord {
 class CollisionObject {
     public:
 
-    virtual ~CollisionObject() = default;
-
-    virtual bool hit(const Ray& r, double ray_tmin, double ray_tmax, CollisionRecord& rec) const = 0;
+    virtual bool hit(const Ray& r, Interval ray_t, CollisionRecord& rec) const = 0;
 
 };
 
 class CollisionList : public CollisionObject {
   public:
-    std::vector<shared_ptr<CollisionObject>> objects;
+    std::vector<std::shared_ptr<CollisionObject>> objects;
 
     CollisionList() {}
     CollisionList(std::shared_ptr<CollisionObject> object) { add(object); }
 
     void clear() { objects.clear(); }
 
-    void add(shared_ptr<CollisionObject> object) {
+    void add(std::shared_ptr<CollisionObject> object) {
         objects.push_back(object);
     }
 
-    bool hit(const Ray& r, double ray_tmin, double ray_tmax, CollisionRecord& rec) const override {
+    bool hit(const Ray& r, Interval ray_t, CollisionRecord& rec) const override {
         CollisionRecord temp_rec;
         bool hit_anything = false;
-        auto closest_so_far = ray_tmax;
+        auto closest_so_far = ray_t.max;
 
         for (const auto& object : objects) {
-            if (object->hit(r, ray_tmin, closest_so_far, temp_rec)) {
+            if (object->hit(r, Interval(ray_t.min, closest_so_far), temp_rec)) {
                 hit_anything = true;
                 closest_so_far = temp_rec.t;
                 rec = temp_rec;

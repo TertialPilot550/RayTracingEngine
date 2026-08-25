@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../lead.hpp"
+#include "vector.hpp"
 
 class Ray {
     public:

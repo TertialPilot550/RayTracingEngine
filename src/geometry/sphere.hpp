@@ -7,7 +7,7 @@ class Sphere : public CollisionObject {
 
         Sphere(const point& center, double radius) : center(center), radius(std::fmax(0,radius)) {}
 
-        bool hit(const Ray& r, double ray_tmin, double ray_tmax, CollisionRecord& rec) const override {
+        bool hit(const Ray& r, Interval ray_t, CollisionRecord& rec) const override {
             vec3 oc = center - r.origin();
             auto a = r.direction().length_squared();
             auto h = dot(r.direction(), oc);
@@ -21,9 +21,9 @@ class Sphere : public CollisionObject {
 
             // Find the nearest root that lies in the acceptable range.
             auto root = (h - sqrtd) / a;
-            if (root <= ray_tmin || ray_tmax <= root) {
+            if (root <= ray_t.min || ray_t.max <= root) {
                 root = (h + sqrtd) / a;
-                if (root <= ray_tmin || ray_tmax <= root)
+                if (root <= ray_t.min || ray_t.max <= root)
                     return false;
             }
 

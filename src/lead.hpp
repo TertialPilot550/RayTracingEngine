@@ -1,15 +1,13 @@
 #pragma once
 
+// PNG Wrapper Library
+#include <png++/png.hpp>
 // Standard Library
 #include <memory>
 #include <vector>
 #include <cmath>
 #include <iostream>
 
-// User Headers
-#include "geometry/ray.hpp"
-#include "geometry/collidable.hpp"
-#include "geometry/vector.hpp"
 
 // C++ Std Usings
 using std::make_shared;
@@ -28,4 +26,20 @@ inline double radians_to_degrees(double rad) {
     return (rad * 180.0)/pi;
 }
 
+inline double random_double() {
+    return std::rand() / (RAND_MAX + 1.0);
+}
 
+inline double random_double(double min, double max) {
+    return min + (max-min)*random_double();
+}
+
+
+// User Headers
+#include "geometry/interval.hpp"
+#include "geometry/ray.hpp"
+#include "geometry/collidable.hpp"
+#include "geometry/vector.hpp"
+#include "geometry/sphere.hpp"
+#include "scene.hpp"
+#include "camera.hpp"
