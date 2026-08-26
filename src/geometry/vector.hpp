@@ -1,5 +1,8 @@
 #pragma once
 
+#include <cmath>
+#include <iostream>
+#include <array>
 
 class vec3 {
 
@@ -32,6 +35,12 @@ class vec3 {
         return *this;
     }
 
+    bool near_zero() const {
+        // Return true if the vector is close to zero in all dimensions.
+        auto s = 1e-8;
+        return (std::fabs(e[0]) < s) && (std::fabs(e[1]) < s) && (std::fabs(e[2]) < s);
+    }
+
     vec3& operator/=(double t) {
         return *this *= 1/t;
     }
@@ -42,6 +51,14 @@ class vec3 {
 
     double length_squared() const {
         return e[0]*e[0] + e[1]*e[1] + e[2]*e[2];
+    }
+
+    static vec3 random() {
+        return vec3(random_double(), random_double(), random_double());
+    }
+
+    static vec3 random(double min, double max) {
+        return vec3(random_double(min,max), random_double(min,max), random_double(min,max));
     }
 
 };
@@ -90,19 +107,43 @@ inline vec3 unit_vector(const vec3& v) {
     return v / v.length();
 }
 
+inline vec3 random_unit_vector() {
+    while (true) {
+        auto p = vec3::random(-1,1);
+        auto lensq = p.length_squared();
+        if (1e-160 < lensq && lensq <= 1)
+            return p / sqrt(lensq);
+    }
+}
+
+
+inline vec3 random_on_hemisphere(const vec3& normal) {
+    vec3 on_unit_sphere = random_unit_vector();
+    if (dot(on_unit_sphere, normal) > 0.0) // In the same hemisphere as the normal
+        return on_unit_sphere;
+    else
+        return -on_unit_sphere;
+}
+
+inline vec3 reflect(const vec3& v, const vec3& n) {
+    return v - 2*dot(v,n)*n;
+}
+
+inline vec3 refract(const vec3& uv, const vec3& n, double etai_over_etat) {
+    auto cos_theta = std::fmin(dot(-uv, n), 1.0);
+    vec3 r_out_perp =  etai_over_etat * (uv + cos_theta*n);
+    vec3 r_out_parallel = -std::sqrt(std::fabs(1.0 - r_out_perp.length_squared())) * n;
+    return r_out_perp + r_out_parallel;
+}
+
+inline vec3 random_in_unit_disk() {
+    while (true) {
+        auto p = vec3(random_double(-1,1), random_double(-1,1), 0);
+        if (p.length_squared() < 1)
+            return p;
+    }
+}
+
 using point = vec3;
 using color = vec3;
 
-void write_color(std::ostream& out, const color& pixel_color) {
-    auto r = pixel_color.x();
-    auto g = pixel_color.y();
-    auto b = pixel_color.z();
-
-    // Translate the [0,1] component values to the byte range [0,255].
-    int rbyte = int(255.999 * r);
-    int gbyte = int(255.999 * g);
-    int bbyte = int(255.999 * b);
-
-    // Write out the pixel color components.
-    out << rbyte << ' ' << gbyte << ' ' << bbyte << '\n';
-}

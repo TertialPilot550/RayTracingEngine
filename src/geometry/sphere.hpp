@@ -5,7 +5,8 @@
 class Sphere : public CollisionObject {
     public:
 
-        Sphere(const point& center, double radius) : center(center), radius(std::fmax(0,radius)) {}
+        Sphere(const point& center, double radius, std::shared_ptr<Material> material) : center(center), radius(std::fmax(0,radius)), mat(material) {
+        }
 
         bool hit(const Ray& r, Interval ray_t, CollisionRecord& rec) const override {
             vec3 oc = center - r.origin();
@@ -33,10 +34,12 @@ class Sphere : public CollisionObject {
             vec3 outward_normal = (rec.p - center) / radius;
             rec.set_face_normal(r, outward_normal);
 
+            rec.mat = mat;
+
             return true;
         }
 
-  private:
     point center;
     double radius;
+    shared_ptr<Material> mat; // pointer to the material of the object
 };

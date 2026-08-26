@@ -26,6 +26,14 @@ inline double radians_to_degrees(double rad) {
     return (rad * 180.0)/pi;
 }
 
+inline double linear_to_gamma(double linear_component)
+{
+    if (linear_component > 0)
+        return std::sqrt(linear_component);
+
+    return 0;
+}
+
 inline double random_double() {
     return std::rand() / (RAND_MAX + 1.0);
 }
@@ -41,5 +49,7 @@ inline double random_double(double min, double max) {
 #include "geometry/collidable.hpp"
 #include "geometry/vector.hpp"
 #include "geometry/sphere.hpp"
-#include "scene.hpp"
-#include "camera.hpp"
+
+#include "visual/material.hpp"
+#include "visual/scene.hpp"
+#include "visual/camera.hpp"
