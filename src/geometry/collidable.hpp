@@ -8,7 +8,7 @@ class CollisionRecord {
     public:
         point p;        // point of intersection
         vec3 normal;    // normal vector at the intersection
-        shared_ptr<Material> mat; // pointer to the material of the object hit
+        std::shared_ptr<Material> mat; // pointer to the material of the object hit
         double t;       // time of collision
         bool front_face;
 

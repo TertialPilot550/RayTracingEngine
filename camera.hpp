@@ -1,6 +1,7 @@
 #include <png++/png.hpp>
 
-#include "../lead.hpp"
+#include <thread>
+#include <functional>
 
 using rgb_png = png::rgb_pixel;
 using Image = png::image<rgb_png>;
@@ -111,7 +112,7 @@ class Camera {
         defocus_disk_v = v * defocus_radius;
     }
 
-    Ray get_ray(int i, int j) const {
+    Ray get_ray_for_pixel(int i, int j) const {
         auto offset = sample_square(); // this is the anti aliasing part. set to 0.5 to turn it off
         auto pixel_sample = pixel00_loc + ((i + offset.x()) * pixel_delta_u) + ((j + offset.y()) * pixel_delta_v);
         auto ray_origin = (defocus_angle <= 0) ? camera_center : defocus_disk_sample();
@@ -133,24 +134,43 @@ class Camera {
     Image& render(Scene& s) {
         if (last_image) delete last_image;
         last_image = new Image(image_width, image_height);
-        // std::cout << "Rendering Image of Size: [" << image_width << ", " << image_height << "]\n";
         for (int y = 0; y < last_image->get_height(); y++) {
             std::clog << "\rScanlines remaining: " << (image_height - y) << ' ' << std::flush;
             for (int x = 0; x < last_image->get_width(); x++) {
-
-
-                color pixel_color(0, 0, 0);
-                for (int i = 0; i < samples_per_pixel; i++) {
-                    Ray r = get_ray(x, y);
-                    pixel_color += process_ray(r, max_depth,s.objects);
-                }
-                write_color(std::cout, pixels_samples_scale * pixel_color, x, y);
+                sample_pixel(x, y, s);
             }
         }
-
         return *last_image;
-
     }
+
+    color sample_pixel(int x, int y, Scene& s) {
+        color pixel_color(0, 0, 0);
+        for (int i = 0; i < samples_per_pixel; i++) {
+            Ray r = get_ray_for_pixel(x, y);
+            pixel_color += process_ray(r, max_depth,s.objects);
+        }
+        write_color(std::cout, pixels_samples_scale * pixel_color, x, y);
+        return pixels_samples_scale * pixel_color;
+    }
+
+    // std::vector<void()>& get_render_tasks(Scene& s, int chunk_size = 1) {
+    //     if (last_image) delete last_image;
+    //     last_image = new Image(image_width, image_height);
+
+    //     std::vector<void()>* res = new std::vector<void()>();
+
+    //     for (int y = 0; y < last_image->get_height(); y++) {
+    //         for (int x = 0; x < last_image->get_width(); x+=chunk_size) {
+    //             std::function<color()> task = [this, x, y, &s]() {
+    //                 sample_pixel(x, y, s);
+    //             };
+    //             res->emplace_back(task);
+    //         }
+    //     }
+
+    //     return res;
+
+    // }
 
     color process_ray(const Ray& r, int depth, CollisionList& objects) {
         CollisionRecord rec;

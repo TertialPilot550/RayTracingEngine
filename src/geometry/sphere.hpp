@@ -41,5 +41,5 @@ class Sphere : public CollisionObject {
 
     point center;
     double radius;
-    shared_ptr<Material> mat; // pointer to the material of the object
+    std::shared_ptr<Material> mat; // pointer to the material of the object
 };

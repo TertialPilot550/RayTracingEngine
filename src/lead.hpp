@@ -7,11 +7,9 @@
 #include <vector>
 #include <cmath>
 #include <iostream>
+#include <functional>
+#include <random>
 
-
-// C++ Std Usings
-using std::make_shared;
-using std::shared_ptr;
 
 // Constants
 const double infinity = std::numeric_limits<double>::infinity();
@@ -35,7 +33,12 @@ inline double linear_to_gamma(double linear_component)
 }
 
 inline double random_double() {
-    return std::rand() / (RAND_MAX + 1.0);
+
+    thread_local std::mt19937 generator(std::random_device{}());
+    thread_local std::uniform_real_distribution<double> distribution(0.0, 1.0);
+
+    return distribution(generator);
+
 }
 
 inline double random_double(double min, double max) {
@@ -52,4 +55,5 @@ inline double random_double(double min, double max) {
 
 #include "visual/material.hpp"
 #include "visual/scene.hpp"
-#include "visual/camera.hpp"
+#include "visual/task_master.hpp"
+#include "visual/camera_rig.hpp"
