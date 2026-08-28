@@ -52,6 +52,7 @@ inline double random_double(double min, double max) {
 #include "geometry/collidable.hpp"
 #include "geometry/vector.hpp"
 #include "geometry/sphere.hpp"
+#include "geometry/triangle.hpp"
 
 #include "visual/material.hpp"
 #include "visual/scene.hpp"

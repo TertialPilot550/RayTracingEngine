@@ -10,11 +10,11 @@ COMS 3360 PROJECT TODO LIST
 - [X] Parallelization: 10
 
 ### IN PROGRESS
+- [ ] Ray/triangle intersections: Required
 
 
 ### Objects: Triangles, Textures, and Meshes
 - [ ] The ability to load textures (file format(s) of your choice; may use third-party libraries): Required
-- [ ] Ray/triangle intersections: Required
 - [ ] Textured spheres and triangles: Required
 - [ ] The ability to load and render triangle meshes (file format(s) of your choice; may use third-party libraries for loading): Required
 
