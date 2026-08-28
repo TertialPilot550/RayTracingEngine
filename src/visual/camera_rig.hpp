@@ -60,7 +60,7 @@ class CamControls {
     int max_depth = 50;
     double gamma = 0.6;
     int chunk_size = image_width;
-    int thread_count = 1;
+    int thread_count = 50;
 
     CamControls() {
         update();
@@ -177,9 +177,7 @@ class CameraRig {
         if (img_buffer) delete img_buffer;
         img_buffer = new Image(controls.img_w(), controls.img_h());
         
-        std::cout << "Prepping to render\n";
         render(s);
-        std::cout << "Finished rendering\n";
 
         return (*img_buffer);
     }
@@ -190,7 +188,6 @@ class CameraRig {
     // Impure
     void render(Scene& s) {
 
-        std::cout << "Entering render\n";
 
         TaskMaster tm(controls.thread_count, controls.chunk_size);
         std::vector<std::function<void()>> tasks;
@@ -218,12 +215,10 @@ class CameraRig {
             }
         }
 
-        std::cout << "Dispatching tasks\n";
 
         // Perform rendering using threads
         tm.dispatch(tasks);
 
-        std::cout << "Finished dispatch\n";
     }
 
     // Write to the image buffer (impure)
@@ -254,29 +249,21 @@ class CameraRig {
 
     // Pure 
     color process_ray(const Ray& r, int depth, CollisionList& objects) {
-        // CollisionRecord rec;
-        // if (depth <= 0) {
-        //     return color(0, 0, 0);
-        // }
-        // if (objects.hit(r, Interval(0.001, infinity), rec)) {
-        //     Ray scattered;
-        //     color attenuation;
-        //     if (rec.mat && rec.mat->scatter(r, rec, attenuation, scattered))
-        //         return attenuation * process_ray(scattered, depth-1, objects);
-        //     return color(0,0,0);
-        // }
-        // vec3 unit_direction = unit_vector(r.direction());
-        // auto a = 0.5*(unit_direction.y() + 1.0);
-        // // manually blend the background color with white to create a gradient effect
-        // return (1.0-a)*color(1.0, 1.0, 1.0) + a*color(0.5, 0.7, 1.0);
-
-        volatile double x = 0;
-
-        for (long long i = 0; i < 1000000; i++) {
-            x += i * 0.000001;
+        CollisionRecord rec;
+        if (depth <= 0) {
+            return color(0, 0, 0);
         }
-
-        return color(0, 0, 0);
+        if (objects.hit(r, Interval(0.001, infinity), rec)) {
+            Ray scattered;
+            color attenuation;
+            if (rec.mat && rec.mat->scatter(r, rec, attenuation, scattered))
+                return attenuation * process_ray(scattered, depth-1, objects);
+            return color(0,0,0);
+        }
+        vec3 unit_direction = unit_vector(r.direction());
+        auto a = 0.5*(unit_direction.y() + 1.0);
+        // manually blend the background color with white to create a gradient effect
+        return (1.0-a)*color(1.0, 1.0, 1.0) + a*color(0.5, 0.7, 1.0);
 
 
     }

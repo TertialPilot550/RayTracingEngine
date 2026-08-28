@@ -32,9 +32,8 @@ class TaskMaster {
         this->chunk_size = chunk_size;
     }
 
-    void dispatch(const std::vector<std::function<void()>>& task_list) {
+    void dispatch(std::vector<std::function<void()>>& task_list) {
 
-        std::cout << "Entered Dispath for Thread Pool\n";
 
 
         {
@@ -45,7 +44,6 @@ class TaskMaster {
         }
         workers.clear();
 
-        std::cout << "Tasks established\n";
 
         // Define n worker threads
         for (int i = 0; i < thread_count; i++) {
@@ -67,20 +65,30 @@ class TaskMaster {
 
                     task();
                     tasks_completed++;
-                }
 
+        //             std::cout << "START " << i
+        //           << " thread " << std::this_thread::get_id()
+        //           << '\n';
+
+        // std::this_thread::sleep_for(std::chrono::seconds(2));
+
+        // std::cout << "END " << i
+        //           << " thread " << std::this_thread::get_id()
+        //           << '\n';
+                }
+                
 
             });
         }
 
-        std::cout << "Display progress\n";
         
 
         // Display progress
+        if (total_tasks = 0) total_tasks = 1;
         double percent_complete = (tasks_completed * 1.0) / (total_tasks * 1.0);
         while (percent_complete < 1) {
             // Print with carriage return
-            std::cout << "\rTask Progress: " << percent_complete << " ";
+            std::cout << "\rTask Progress: " << percent_complete << " " << "(" << tasks_completed << ")";
 
             int boxes = percent_complete * 10;
             for (int i = 0; i < boxes; i++) {
@@ -97,14 +105,12 @@ class TaskMaster {
             percent_complete = (tasks_completed * 1.0) / (total_tasks * 1.0);
         }
 
-        std::cout << "Workers Created\n";
 
         // join the workers
         for (auto& worker : workers) {
             if (worker.joinable()) { worker.join(); };
         }
 
-        std::cout << "Workers Joined\n";
     }
 
 };
