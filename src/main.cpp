@@ -3,6 +3,13 @@
 
 
 int main() {
+
+    std::cout << "G!\n";
+
+    std::cout << random_double() << std::endl;
+
+    std::cout << "H!\n";
+
     DemoScene d;
 
     CamControls c;
@@ -13,9 +20,14 @@ int main() {
     c.set_focus_distance(10.0);
     c.max_depth = 50;
     CameraRig cam(c);
+
+    std::cout << "I!\n";
+
     
     png::image<png::rgb_pixel> image = cam.capture(d);
     image.write("output.png");
+    std::cout << "J!\n";
+
     return 0;
 
     // std::vector<std::function<void()>> t;

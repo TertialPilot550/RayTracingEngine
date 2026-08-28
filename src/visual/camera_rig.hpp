@@ -177,7 +177,9 @@ class CameraRig {
         if (img_buffer) delete img_buffer;
         img_buffer = new Image(controls.img_w(), controls.img_h());
         
+        std::cout << "Prepping to render\n";
         render(s);
+        std::cout << "Finished rendering\n";
 
         return (*img_buffer);
     }
@@ -187,6 +189,8 @@ class CameraRig {
 
     // Impure
     void render(Scene& s) {
+
+        std::cout << "Entering render\n";
 
         TaskMaster tm(controls.thread_count, controls.chunk_size);
         std::vector<std::function<void()>> tasks;
@@ -214,8 +218,12 @@ class CameraRig {
             }
         }
 
+        std::cout << "Dispatching tasks\n";
+
         // Perform rendering using threads
         tm.dispatch(tasks);
+
+        std::cout << "Finished dispatch\n";
     }
 
     // Write to the image buffer (impure)

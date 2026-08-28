@@ -33,6 +33,10 @@ class TaskMaster {
     }
 
     void dispatch(const std::vector<std::function<void()>>& task_list) {
+
+        std::cout << "Entered Dispath for Thread Pool\n";
+
+
         {
             std::lock_guard<std::mutex> lock(queue_mutex);
             tasks = std::move(task_list);
@@ -40,6 +44,8 @@ class TaskMaster {
             total_tasks = tasks.size();
         }
         workers.clear();
+
+        std::cout << "Tasks established\n";
 
         // Define n worker threads
         for (int i = 0; i < thread_count; i++) {
@@ -67,10 +73,8 @@ class TaskMaster {
             });
         }
 
-        // join the workers
-        for (auto& worker : workers) {
-            if (worker.joinable()) { worker.join(); };
-        }
+        std::cout << "Display progress\n";
+        
 
         // Display progress
         double percent_complete = (tasks_completed * 1.0) / (total_tasks * 1.0);
@@ -92,6 +96,15 @@ class TaskMaster {
             // update
             percent_complete = (tasks_completed * 1.0) / (total_tasks * 1.0);
         }
+
+        std::cout << "Workers Created\n";
+
+        // join the workers
+        for (auto& worker : workers) {
+            if (worker.joinable()) { worker.join(); };
+        }
+
+        std::cout << "Workers Joined\n";
     }
 
 };
