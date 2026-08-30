@@ -1,5 +1,12 @@
 MAIN = src/main.cpp
-SRC = 
+OUTPUT_PATH = ./out/app 
 
-build: 
-	g++ -g $(SRC) $(MAIN) -o app  -std=gnu++11 -I/opt/homebrew/include -L/opt/homebrew/lib `libpng-config --cflags` -lpng
+build: $(MAIN)
+	clear
+	g++ -g $(SRC) $(MAIN) -o $(OUTPUT_PATH)  -std=gnu++11 -I/opt/homebrew/include -L/opt/homebrew/lib `libpng-config --cflags` -lpng
+
+test: build
+	time $(OUTPUT_PATH) 2>> out/timing_results.txt
+
+dbg: build
+	dbg ./out/app

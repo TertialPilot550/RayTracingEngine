@@ -4,6 +4,55 @@
 #include <iostream>
 #include <array>
 
+class vec2 {
+
+    public:
+    
+    vec2() {
+        f1 = 0;
+        f2 = 0;
+    }
+
+    float f1, f2;
+
+    vec2(float f1, float f2) {}
+
+    void operator=(vec2& t) {
+        f1 = t.f1;
+        f2 = t.f2;
+    }
+    
+
+    static vec2 vertex_0() {
+        return vec2(0, 0);
+    }
+
+    static vec2 vertex_1() {
+        return vec2(0, 1);
+    }
+
+    static vec2 vertex_2() {
+        return vec2(1, 0.5);
+    }
+
+};
+
+inline vec2 operator+(const vec2& u, const vec2& v) {
+    return vec2(u.f1 + v.f1, u.f2 + v.f2);
+}
+
+inline vec2 operator-(const vec2& u, const vec2& v) {
+    return vec2(u.f1 - v.f1, u.f2 - v.f2);
+}
+
+inline vec2 operator*(double t, const vec2& v) {
+    return vec2(t*v.f1, t*v.f2);
+}
+
+inline vec2 operator*(const vec2& v, double t) {
+    return t * v;
+}
+
 class vec3 {
 
     public:

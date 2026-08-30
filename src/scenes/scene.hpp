@@ -1,5 +1,5 @@
 #pragma once
-
+#include "../lead.hpp"
 // Control Class that ensures certain relationships between it's parameters
 class CamControls {
 
@@ -145,94 +145,12 @@ class Scene {
     public:
     CamControls controls;
     CollisionList objects;
+    color background;
 
-    Scene() : controls(CamControls()) {}
-    
-
+    Scene() : controls(CamControls()), background(0,0,0) {}
 
     
 };
 
-class DemoScene : public Scene {
-
-    public:
-
-    DemoScene() {
-
-        controls.set_image_width(1200);
-        controls.set_samples_per_pixel(10);
-        controls.set_image_width(1200);
-        controls.set_vertical_fov(20);
-        controls.set_camera_pos(point(13,2,3), point(0,0,0), vec3(0,1,0));
-        controls.set_defocus_angle(0.6);
-        controls.set_focus_distance(10.0);
-        controls.max_depth = 50;
 
 
-
-
-       auto ground_material = std::make_shared<Lambertian>(color(0.5, 0.5, 0.5));
-        objects.add(std::make_shared<Sphere>(point(0,-1000,0), 1000, ground_material));
-
-        for (int a = -11; a < 11; a++) {
-            for (int b = -11; b < 11; b++) {
-                auto choose_mat = random_double();
-                point center(a + 0.9*random_double(), 0.2, b + 0.9*random_double());
-
-                if ((center - point(4, 0.2, 0)).length() > 0.9) {
-                    std::shared_ptr<Material> sphere_material;
-
-                    if (choose_mat < 0.8) {
-                        // diffuse
-                        auto albedo = color::random() * color::random();
-                        sphere_material = std::make_shared<Lambertian>(albedo);
-                        objects.add(std::make_shared<Sphere>(center, 0.2, sphere_material));
-                    } else if (choose_mat < 0.95) {
-                        // metal
-                        auto albedo = color::random(0.5, 1);
-                        auto fuzz = random_double(0, 0.5);
-                        sphere_material = std::make_shared<Metal>(albedo, fuzz);
-                        objects.add(std::make_shared<Sphere>(center, 0.2, sphere_material));
-                    } else {
-                        // glass
-                        sphere_material = std::make_shared<Dielectric>(1.5);
-                        objects.add(std::make_shared<Sphere>(center, 0.2, sphere_material));
-                    }
-                }
-            }
-        }
-
-        auto material1 = std::make_shared<Dielectric>(1.5);
-        objects.add(std::make_shared<Sphere>(point(0, 1, 0), 1.0, material1));
-    }
-
-    
-
-};
-
-class TriangleDemo : public Scene {
-    public:
-    TriangleDemo() {
-        controls.set_image_width(1200);
-        controls.set_samples_per_pixel(10);
-        controls.set_image_width(1200);
-        controls.set_vertical_fov(20);
-        controls.set_camera_pos(point(10,-50, 10), point(0,0,0), vec3(0,0,1));
-        controls.set_defocus_angle(0.6);
-        controls.set_focus_distance(10.0);
-        controls.max_depth = 50;
-
-
-        auto ground_material = std::make_shared<Lambertian>(color(0.5, 0.5, 0.5));
-        objects.add(std::make_shared<Sphere>(point(0,0,-1000), 1000, ground_material));
-
-        for (int i = 0; i < 10; i++) {
-            auto albedo = color(255.0/256, 0.0, 0.0);
-            auto mat = std::make_shared<Lambertian>(albedo);
-            objects.add(std::make_shared<Triangle>(point((i-5)*5, (i-5)*5, 0), point((i-5)*5+2, (i-5)*5+2, 0), point((i-5)*5+1, (i-5)*5+1, 5), mat));
-        }
-
-
-
-    }
-};

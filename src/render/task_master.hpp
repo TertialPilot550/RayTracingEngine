@@ -8,15 +8,15 @@
 #include <thread>
 
 /**
- * A generic thread pool implementation that take tasks
+ * @class
+ * @brief Generic Thread Pool Implementation
+ * @details A generic thread pool implementation that take tasks
  * in the form of functions with no arguments and void
  * return type
  */
-
 class TaskMaster {
 
     int thread_count;
-    int chunk_size;
     int total_tasks;
 
     std::vector<std::thread> workers;
@@ -27,11 +27,22 @@ class TaskMaster {
 
     public:
 
-    TaskMaster(int thread_count = 1, int chunk_size = 1) {
+    /**
+     * @brief The default construction uses a thread count of 1
+     */
+    TaskMaster(int thread_count = 1) {
         this->thread_count = thread_count;
-        this->chunk_size = chunk_size;
     }
 
+    /**
+     * @brief Builds a thread pool, and executed the task list based on object parameters.
+     * 
+     * @param task_list: a list of impure functions to be run on worker threads
+     * @details Uses a thread pool structure to parralelize an arbitrary list of impure functions
+     * 
+     * @note Since the functions are not required or assumed to be pure, remember to make sure they
+     * are thread safe, i.e. that they do not modify any shared state.
+     */
     void dispatch(std::vector<std::function<void()>>& task_list) {
 
 

@@ -49,7 +49,7 @@ class CameraRig {
     void render(Scene& s) {
 
 
-        TaskMaster tm(s.controls.thread_count, s.controls.chunk_size);
+        TaskMaster tm(s.controls.thread_count);
         std::vector<std::function<void()>> tasks;
 
         // For each chunk...
@@ -104,28 +104,43 @@ class CameraRig {
         auto pixel_sample = controls.viewport_origin() + ((i + offset.x()) * controls.du()) + ((j + offset.y()) * controls.dv());
         auto ray_origin = (controls.defcs_angle() <= 0) ? controls.center() : defocus_disk_sample(controls);
         auto ray_direction = pixel_sample - ray_origin;
-        return Ray(ray_origin, ray_direction);
+        auto ray_time = random_double();
+        return Ray(ray_origin, ray_direction, ray_time);
     }
 
     // Pure 
-    color process_ray(const Ray& r, int depth, CollisionList& objects) {
+    color process_ray(const Ray& r, int depth, Scene& s) {
         CollisionRecord rec;
         if (depth <= 0) {
             return color(0, 0, 0);
         }
-        if (objects.hit(r, Interval(0.001, infinity), rec)) {
-            Ray scattered;
-            color attenuation;
-            if (rec.mat && rec.mat->scatter(r, rec, attenuation, scattered))
-                return attenuation * process_ray(scattered, depth-1, objects);
-            return color(0,0,0);
+
+        // If the ray hits nothing, return the background color.
+        if (!s.objects.hit(r, Interval(0.001, infinity), rec))
+            return s.background;
+
+        Ray scattered;
+        color attenuation;
+
+        if (!rec.mat) {
+            auto b = std::make_shared<SolidColor>(0,0,0);
+            auto p = std::make_shared<SolidColor>(247, 127, 190);
+
+            auto check = std::make_shared<CheckerTexture>(2.0, b, p);
+            std::shared_ptr<Material> m = std::make_shared<Lambertian>(check);
+            rec.mat = m;
         }
-        vec3 unit_direction = unit_vector(r.direction());
-        auto a = 0.5*(unit_direction.y() + 1.0);
-        // manually blend the background color with white to create a gradient effect
-        return (1.0-a)*color(1.0, 1.0, 1.0) + a*color(0.5, 0.7, 1.0);
 
+        // (double scale, std::shared_ptr<Texture> even, std::shared_ptr<Texture> odd) : inv_scale(1.0 /scale), even(even), odd(odd) {}
 
+        color color_from_emission = rec.mat->emitted(rec.t_coords.f1, rec.t_coords.f2, rec.p);
+
+        if (!rec.mat->scatter(r, rec, attenuation, scattered))
+            return color_from_emission;
+
+        color color_from_scatter = attenuation * process_ray(scattered, depth-1, s);
+
+        return color_from_emission + color_from_scatter;
     }
 
 
@@ -134,7 +149,7 @@ class CameraRig {
         color pixel_color(0, 0, 0);
         for (int i = 0; i < s.controls.samples_per_pix(); i++) {
             Ray r = get_ray_for_pixel(x, y, s.controls);
-            pixel_color += process_ray(r, s.controls.max_depth, s.objects);
+            pixel_color += process_ray(r, s.controls.max_depth, s);
         }
         return color_correction_to_rgb(s.controls.pscale() * pixel_color);
     }

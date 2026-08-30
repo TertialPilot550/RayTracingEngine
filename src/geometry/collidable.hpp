@@ -4,13 +4,18 @@
 #include "../lead.hpp"
 #include "interval.hpp"
 class Material;
+class CollisionObject;
+
 class CollisionRecord {
     public:
         point p;        // point of intersection
         vec3 normal;    // normal vector at the intersection
         std::shared_ptr<Material> mat; // pointer to the material of the object hit
         double t;       // time of collision
+        vec2 t_coords;
         bool front_face;
+
+        void record(const Ray&r, float t, const vec3& outward_normal, const CollisionObject* obj);
 
         void set_face_normal(const Ray& r, const vec3& outward_normal) {
             // Sets the hit record normal vector.
@@ -23,10 +28,21 @@ class CollisionRecord {
 
 class CollisionObject {
     public:
+    std::shared_ptr<Material> mat;
 
     virtual bool hit(const Ray& r, Interval ray_t, CollisionRecord& rec) const = 0;
+    virtual vec2 get_tcoords(const point& p) const = 0;
 
 };
+
+void CollisionRecord::record(const Ray&r, float t, const vec3& outward_normal, const CollisionObject* obj) {
+    t = t;
+    p = r.at(t);
+    set_face_normal(r, outward_normal);
+    vec2 t_coords = obj->get_tcoords(p);
+    mat = obj->mat;
+}
+
 
 class CollisionList : public CollisionObject {
   public:
@@ -39,6 +55,10 @@ class CollisionList : public CollisionObject {
 
     void add(std::shared_ptr<CollisionObject> object) {
         objects.push_back(object);
+    }
+
+    vec2 get_tcoords(const point& p) const {
+        return vec2(0,0);
     }
 
     bool hit(const Ray& r, Interval ray_t, CollisionRecord& rec) const override {

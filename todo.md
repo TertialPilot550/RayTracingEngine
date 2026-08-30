@@ -1,31 +1,68 @@
-COMS 3360 PROJECT TODO LIST
+--- 
 
+# COMS 3360 PROJECT TODO LIST
+
+---
 ### Finished
+Ray Tracing in One Weekend: Volume One
 - [X] A camera with configurable position, orientation, and field of view: Required
 - [X] Anti-aliasing: Required
 - [X] Ray/sphere intersections: Required
 - [X] Defocus blur/depth of field: 10
+- [X] Specular, diffuse, and dielectric materials
+
+Independently Written
 - [X] A spatial subdivision acceleration structure of your choice
-- [X] Specular, diffuse, and dielectric materials (per first volume of Ray Tracing in One Weekend series)
 - [X] Parallelization: 10
+- [X] Ray/triangle intersections: Required 
 
-### IN PROGRESS
-- [ ] Ray/triangle intersections: Required
+Ray Tracing in One Weekend: Volume Two
+- [X] Perlin noise: 10                         
+- [X] The ability to load textures: Required    
+- [X] Textured spheres: Required                
+- [X] Textured quads: 10                        
+- [X] Emissive materials (lights): Required     
+
+ALL REQUIRED FEATURES COMPLETE (except triangle textures and meshes)
+POINTS SO FAR: 40 (50 if motion blur works)
+
+---
 
 
-### Objects: Triangles, Textures, and Meshes
-- [ ] The ability to load textures (file format(s) of your choice; may use third-party libraries): Required
-- [ ] Textured spheres and triangles: Required
+
+
+
+
+### NEXT
+
+- [ ] Textured triangles: Required
 - [ ] The ability to load and render triangle meshes (file format(s) of your choice; may use third-party libraries for loading): Required
 
-### Light and Motion 
-- [ ] Emissive materials (lights): Required
-- [ ] Perlin noise: 10
-- [ ] Motion blur: 10
+
+### BACKBURNER
+- [ ] Motion blur: 10                           <- Need to add motion in order to test this, and I also need to make sure that the ray intersection code for each shape properly handles motion and whatnot
+- [ ] Transformations on objects/Object Instancing: 10
+
+
+
+
+
+
+
+
+
+---
+Theoretical Point Total before acceleration and animation wrapper: All Required + 60 points (40 points remaining)
 
 ### Acceleration
 - [ ] Hybrid rendering with a GPU (depth buffer + ray tracing): 20
 - [ ] GPU acceleration (GPU computing w/ e.g., CUDA): 20
+- [ ] Importance Sampling: 15
+
+---
+Theoretical Point Total: 115
+
+- [ ] Real good documentation / report
 
 ### Stretch Goals: GUI 
 - [ ] STRETCH: Skeleton system?
