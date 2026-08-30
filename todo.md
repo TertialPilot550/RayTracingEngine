@@ -27,15 +27,22 @@ ALL REQUIRED FEATURES COMPLETE (except triangle textures and meshes)
 POINTS SO FAR: 40 (50 if motion blur works)
 
 ---
+### IN PROGRESS
+
+
+- [ ] Textured triangles: Required
 
 
 
 
+note: it stopped rendering, I just get an all black screen for all of the test. most likely because of 
+    A: texture issues (material not being assigned to the objects, from segfault issue that was happening earlier), 
+    B: lighting changes means the old scenes aren't visible anymore. 
 
 
 ### NEXT
 
-- [ ] Textured triangles: Required
+
 - [ ] The ability to load and render triangle meshes (file format(s) of your choice; may use third-party libraries for loading): Required
 
 

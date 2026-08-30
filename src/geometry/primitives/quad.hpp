@@ -1,28 +1,15 @@
 #pragma once
-#include "../lead.hpp"
+#include "../../lead.hpp"
 
 class Quad : public CollisionObject {
-  public:
     public:
-    Quad(const point& Q, const vec3& u, const vec3& v, std::shared_ptr<Material> mat)
-      : Q(Q), u(u), v(v), mat(mat)
-    {
+    Quad(const point& p, const vec3& u, const vec3& v, std::shared_ptr<Material> mat): p(p), u(u), v(v) {
         auto n = cross(u, v);
         normal = unit_vector(n);
-        D = dot(normal, Q);
+        D = dot(normal, p);
         w = n / dot(n,n);
-
-        // set_bounding_box();
+        this->mat = mat;
     }
-
-    // virtual void set_bounding_box() {
-    //     // Compute the bounding box of all four vertices.
-    //     auto bbox_diagonal1 = aabb(Q, Q + u + v);
-    //     auto bbox_diagonal2 = aabb(Q + u, Q + v);
-    //     bbox = aabb(bbox_diagonal1, bbox_diagonal2);
-    // }
-
-    // aabb bounding_box() const override { return bbox; }
 
     bool hit(const Ray& r, Interval ray_t, CollisionRecord& rec) const override {
         auto denom = dot(normal, r.direction());
@@ -51,18 +38,16 @@ class Quad : public CollisionObject {
     }
 
     vec2 get_tcoords(const point& p) const {
-        vec3 p_vector = p - Q;
+        vec3 p_vector = p - this->p;
         float a = dot(w, cross(p_vector, v));
         float b = dot(w, cross(u, p_vector));
         return vec2(a, b);
     }
 
   private:
-    point Q;
+    point p;
     vec3 u, v;
     vec3 w;
-    std::shared_ptr<Material> mat;
-    // aabb bbox;
     vec3 normal;
     double D;
 };

@@ -19,7 +19,7 @@ using Job = std::pair<std::string, Scene>;
 std::vector<Job> build_jobs() {
     std::vector<Job> job_list; 
 
-    // job_list.emplace_back(Job("TriangleDemo", triangle_demo()));
+    job_list.emplace_back(Job("TriangleDemo", triangle_demo()));
     // job_list.emplace_back(Job("SphereDemo", sphere_demo()));
     job_list.emplace_back(Job("LightDemo", light_demo()));
 

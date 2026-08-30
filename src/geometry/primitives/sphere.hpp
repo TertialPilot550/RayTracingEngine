@@ -1,11 +1,12 @@
 #pragma once
 
-#include "../lead.hpp"
+#include "../../../lead.hpp"
 
 class Sphere : public CollisionObject {
     public:
 
-        Sphere(const point& center, double radius, std::shared_ptr<Material> material) : center(center), radius(std::fmax(0,radius)), mat(material) {
+        Sphere(const point& center, double radius, std::shared_ptr<Material> material) : center(center), radius(std::fmax(0,radius)) {
+            this->mat = mat;
         }
 
         bool hit(const Ray& r, Interval ray_t, CollisionRecord& rec) const override {
@@ -51,5 +52,4 @@ class Sphere : public CollisionObject {
 
     point center;
     double radius;
-    std::shared_ptr<Material> mat; // pointer to the material of the object
 };

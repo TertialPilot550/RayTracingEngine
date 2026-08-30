@@ -1,5 +1,5 @@
 
-#include "../lead.hpp"
+#include "../../lead.hpp"
 
 class Vertex {
     public:
@@ -21,7 +21,6 @@ class Triangle : public CollisionObject {
 
     public:
     Vertex v[3];
-    std::shared_ptr<Material> mat;
 
     Triangle(point p1, point p2, point p3, std::shared_ptr<Material> mat, vec2 t1 = vec2::vertex_0(), vec2 t2 = vec2::vertex_1(), vec2 t3 = vec2::vertex_2()) {
         v[0].p = p1;
@@ -31,7 +30,7 @@ class Triangle : public CollisionObject {
         v[0].t_coords = t1;
         v[1].t_coords = t2;
         v[2].t_coords = t3;
-        mat = mat;
+        this->mat = mat;
     } 
 
     bool hit(const Ray& r, Interval ray_t, CollisionRecord& rec) const {

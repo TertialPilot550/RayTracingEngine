@@ -62,7 +62,7 @@ class CameraRig {
 
                     // Calculate pixel values for each pixel in the chunk
                     for (int i = 0; i < s.controls.chunk_size && x+i < s.controls.img_w(); i++) {
-                        res[i] = color_for_pixel_xy(x+i, y, s);
+                        res[i] = sample_for_pixel_color(x+i, y, s);
                     }
 
                     // Write to buffer after to take advanatage of locality
@@ -81,10 +81,65 @@ class CameraRig {
 
     }
 
+
+    // Pure 
+    color process_ray(const Ray& r, int depth, Scene& s) {
+        CollisionRecord rec;
+        if (depth <= 0) {
+            return color(0, 0, 0);
+        }
+
+
+        static bool only_lights = true;
+
+
+        if (only_lights) {
+            // If the ray hits nothing, return the background color.
+            if (!s.objects.hit(r, Interval(0.001, infinity), rec))
+                return s.background;
+
+            Ray scattered;
+            color attenuation;
+
+            if (!rec.mat) {
+                auto b = std::make_shared<SolidColor>(0,0,0);
+                auto p = std::make_shared<SolidColor>(235, 116, 237);
+
+                auto check = std::make_shared<CheckerTexture>(2.0, b, p);
+                std::shared_ptr<Material> m = std::make_shared<Lambertian>(check);
+                rec.mat = m;
+            }
+
+            
+            color color_from_emission = rec.mat->emitted(rec.t_coords.f1, rec.t_coords.f2, rec.p);
+
+            if (!rec.mat->scatter(r, rec, attenuation, scattered))
+                return color_from_emission;
+
+            color color_from_scatter = attenuation * process_ray(scattered, depth-1, s);
+
+            return color_from_emission + color_from_scatter;
+        } else {
+            if (s.objects.hit(r, Interval(0.001, infinity), rec)) {
+            Ray scattered;
+            color attenuation;
+            if (rec.mat && rec.mat->scatter(r, rec, attenuation, scattered))
+                return attenuation * process_ray(scattered, depth-1, s);
+            return color(0,0,0);
+        }
+            vec3 unit_direction = unit_vector(r.direction());
+            auto a = 0.5*(unit_direction.y() + 1.0);
+            // manually blend the background color with white to create a gradient effect
+            return (1.0-a)*color(1.0, 1.0, 1.0) + a*color(0.5, 0.7, 1.0);
+        }
+        
+    }
+
     // Write to the image buffer (impure)
     void write_color(const rgb& rgb, int x, int y) {
         if (img_buffer) (*img_buffer)[y][x] = png::rgb_pixel(rgb.r, rgb.g, rgb.b);
     }
+
 
     // Pure 
     vec3 sample_square() const {
@@ -108,48 +163,11 @@ class CameraRig {
         return Ray(ray_origin, ray_direction, ray_time);
     }
 
-    // Pure 
-    color process_ray(const Ray& r, int depth, Scene& s) {
-        CollisionRecord rec;
-        if (depth <= 0) {
-            return color(0, 0, 0);
-        }
-
-        // If the ray hits nothing, return the background color.
-        if (!s.objects.hit(r, Interval(0.001, infinity), rec))
-            return s.background;
-
-        Ray scattered;
-        color attenuation;
-
-        if (!rec.mat) {
-            auto b = std::make_shared<SolidColor>(0,0,0);
-            auto p = std::make_shared<SolidColor>(247, 127, 190);
-
-            auto check = std::make_shared<CheckerTexture>(2.0, b, p);
-            std::shared_ptr<Material> m = std::make_shared<Lambertian>(check);
-            rec.mat = m;
-        }
-
-        // (double scale, std::shared_ptr<Texture> even, std::shared_ptr<Texture> odd) : inv_scale(1.0 /scale), even(even), odd(odd) {}
-
-        color color_from_emission = rec.mat->emitted(rec.t_coords.f1, rec.t_coords.f2, rec.p);
-
-        if (!rec.mat->scatter(r, rec, attenuation, scattered))
-            return color_from_emission;
-
-        color color_from_scatter = attenuation * process_ray(scattered, depth-1, s);
-
-        return color_from_emission + color_from_scatter;
-    }
-
-
     // Pure
-    rgb color_for_pixel_xy(int x, int y, Scene& s) {
+    rgb sample_for_pixel_color(int x, int y, Scene& s) {
         color pixel_color(0, 0, 0);
         for (int i = 0; i < s.controls.samples_per_pix(); i++) {
-            Ray r = get_ray_for_pixel(x, y, s.controls);
-            pixel_color += process_ray(r, s.controls.max_depth, s);
+            pixel_color += process_ray(get_ray_for_pixel(x, y, s.controls), s.controls.max_depth, s);
         }
         return color_correction_to_rgb(s.controls.pscale() * pixel_color);
     }

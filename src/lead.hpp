@@ -88,12 +88,13 @@ int random_int(int min, int max) {
 #include "geometry/interval.hpp"
 #include "geometry/ray.hpp"
 #include "geometry/collidable.hpp"
+#include "geometry/vector.hpp"
+
 
 // Geometric Primitives
-#include "geometry/vector.hpp"
-#include "geometry/sphere.hpp"
-#include "geometry/triangle.hpp"
-#include "geometry/quad.hpp"
+#include "geometry/primitives/sphere.hpp"
+#include "geometry/primitives/triangle.hpp"
+#include "geometry/primitives/quad.hpp"
 
 #include "noise/perlin_noise.hpp"
 
