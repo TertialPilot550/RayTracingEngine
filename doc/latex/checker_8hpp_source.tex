@@ -1,0 +1,32 @@
+\doxysection{checker.\+hpp}
+\hypertarget{checker_8hpp_source}{}\label{checker_8hpp_source}\index{src/objects/surfaces/textures/checker.hpp@{src/objects/surfaces/textures/checker.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}../../../main.hpp"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{class\ }CheckerTexture\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_texture}{Texture}}\ \{}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \ \ \ \ CheckerTexture(\textcolor{keywordtype}{double}\ scale,\ std::shared\_ptr<Texture>\ even,\ std::shared\_ptr<Texture>\ odd)\ :\ inv\_scale(1.0\ /scale),\ even(even),\ odd(odd)\ \{\}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ color\ value(\textcolor{keywordtype}{double}\ u,\ \textcolor{keywordtype}{double}\ v,\ \textcolor{keyword}{const}\ point\&\ p)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ xInteger\ =\ int(std::floor(inv\_scale\ *\ p.x()));}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ yInteger\ =\ int(std::floor(inv\_scale\ *\ p.y()));}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ zInteger\ =\ int(std::floor(inv\_scale\ *\ p.z()));}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isEven\ =\ (xInteger\ +\ yInteger\ +\ zInteger)\ \%\ 2\ ==\ 0;}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ isEven\ ?\ even-\/>value(u,\ v,\ p)\ :\ odd-\/>value(u,\ v,\ p);}
+\DoxyCodeLine{00019\ \ \ \ \ \}}
+\DoxyCodeLine{00020\ \ \ \ \ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{double}\ inv\_scale;}
+\DoxyCodeLine{00024\ \ \ \ \ std::shared\_ptr<Texture>\ even;}
+\DoxyCodeLine{00025\ \ \ \ \ std::shared\_ptr<Texture>\ odd;}
+\DoxyCodeLine{00026\ \};}
+
+\end{DoxyCode}

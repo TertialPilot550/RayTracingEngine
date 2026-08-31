@@ -1,0 +1,26 @@
+\doxysection{metal.\+hpp}
+\hypertarget{metal_8hpp_source}{}\label{metal_8hpp_source}\index{src/objects/surfaces/materials/metal.hpp@{src/objects/surfaces/materials/metal.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}../../../main.hpp"{}}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{class\ }Metal\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_material}{Material}}\ \{}
+\DoxyCodeLine{00005\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00006\ \ \ \ \ Metal(\textcolor{keyword}{const}\ color\&\ albedo,\ \textcolor{keywordtype}{double}\ fuzziness)\ :\ albedo(albedo),\ fuzziness(fuzziness)\ \{\}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keywordtype}{bool}\ scatter(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_ray}{Ray}}\&\ r\_in,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_collision_record}{CollisionRecord}}\&\ rec,\ color\&\ attenuation,\ \doxymbox{\hyperlink{class_ray}{Ray}}\&\ scattered)\textcolor{keyword}{}}
+\DoxyCodeLine{00009\ \textcolor{keyword}{\ \ \ \ const\ override\ }\{}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ reflected\ =\ reflect(r\_in.direction(),\ rec.normal);}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ reflected\ =\ unit\_vector(reflected)\ +\ (fuzziness\ *\ random\_unit\_vector());}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ scattered\ =\ \doxymbox{\hyperlink{class_ray}{Ray}}(rec.p,\ reflected,\ r\_in.time());}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ attenuation\ =\ albedo;}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (dot(scattered.direction(),\ rec.normal)\ >\ 0);}
+\DoxyCodeLine{00015\ \ \ \ \ \}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00018\ \ \ \ \ color\ albedo;}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{double}\ fuzziness;}
+\DoxyCodeLine{00020\ \};}
+
+\end{DoxyCode}

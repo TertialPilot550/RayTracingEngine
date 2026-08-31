@@ -15,6 +15,8 @@ Independently Written
 - [X] A spatial subdivision acceleration structure of your choice
 - [X] Parallelization: 10
 - [X] Ray/triangle intersections: Required 
+- [X] Textured triangles: Required
+
 
 Ray Tracing in One Weekend: Volume Two
 - [X] Perlin noise: 10                         
@@ -29,19 +31,11 @@ POINTS SO FAR: 40 (50 if motion blur works)
 ---
 ### IN PROGRESS
 
-
-- [ ] Textured triangles: Required
-
-
-
-
-note: it stopped rendering, I just get an all black screen for all of the test. most likely because of 
-    A: texture issues (material not being assigned to the objects, from segfault issue that was happening earlier), 
-    B: lighting changes means the old scenes aren't visible anymore. 
+- BUG FIX: Check light demo, there's some weird shit going on idk what. also when i change the code back to only_light = true in process ray, everything turns white
+- [ ] Documentation: Complete README.md and create doxygen comments covering the object directory. 
 
 
 ### NEXT
-
 
 - [ ] The ability to load and render triangle meshes (file format(s) of your choice; may use third-party libraries for loading): Required
 

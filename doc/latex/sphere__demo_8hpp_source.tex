@@ -1,0 +1,55 @@
+\doxysection{sphere\+\_\+demo.\+hpp}
+\hypertarget{sphere__demo_8hpp_source}{}\label{sphere__demo_8hpp_source}\index{src/scenes/demos/sphere\_demo.hpp@{src/scenes/demos/sphere\_demo.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ "{}../scene.hpp"{}}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \doxymbox{\hyperlink{class_scene}{Scene}}\ sphere\_demo()\ \{}
+\DoxyCodeLine{00004\ \ \ \ \ \doxymbox{\hyperlink{class_scene}{Scene}}\ s;}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \ \ \ \ s.controls.set\_image\_width(1200);}
+\DoxyCodeLine{00007\ \ \ \ \ s.controls.set\_samples\_per\_pixel(10);}
+\DoxyCodeLine{00008\ \ \ \ \ s.controls.set\_image\_width(1200);}
+\DoxyCodeLine{00009\ \ \ \ \ s.controls.set\_vertical\_fov(20);}
+\DoxyCodeLine{00010\ \ \ \ \ s.controls.set\_camera\_pos(point(13,2,3),\ point(0,0,0),\ \doxymbox{\hyperlink{classvec3}{vec3}}(0,1,0));}
+\DoxyCodeLine{00011\ \ \ \ \ s.controls.set\_defocus\_angle(0.6);}
+\DoxyCodeLine{00012\ \ \ \ \ s.controls.set\_focus\_distance(10.0);}
+\DoxyCodeLine{00013\ \ \ \ \ s.controls.max\_depth\ =\ 50;}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{auto}\ ground\_material\ =\ std::make\_shared<Lambertian>(color(0.5,\ 0.5,\ 0.5));}
+\DoxyCodeLine{00016\ \ \ \ \ s.objects.add(std::make\_shared<Sphere>(point(0,-\/1000,0),\ 1000,\ ground\_material));}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ a\ =\ -\/11;\ a\ <\ 11;\ a++)\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ b\ =\ -\/11;\ b\ <\ 11;\ b++)\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ choose\_mat\ =\ random\_double();}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ point\ center(a\ +\ 0.9*random\_double(),\ 0.2,\ b\ +\ 0.9*random\_double());}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((center\ -\/\ point(4,\ 0.2,\ 0)).length()\ >\ 0.9)\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::shared\_ptr<Material>\ sphere\_material;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (choose\_mat\ <\ 0.8)\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ diffuse}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ albedo\ =\ color::random()\ *\ color::random();}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sphere\_material\ =\ std::make\_shared<Lambertian>(albedo);}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ s.objects.add(std::make\_shared<Sphere>(center,\ 0.2,\ sphere\_material));}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (choose\_mat\ <\ 0.95)\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ metal}}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ albedo\ =\ color::random(0.5,\ 1);}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ fuzz\ =\ random\_double(0,\ 0.5);}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sphere\_material\ =\ std::make\_shared<Metal>(albedo,\ fuzz);}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ s.objects.add(std::make\_shared<Sphere>(center,\ 0.2,\ sphere\_material));}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ glass}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sphere\_material\ =\ std::make\_shared<Dielectric>(1.5);}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ s.objects.add(std::make\_shared<Sphere>(center,\ 0.2,\ sphere\_material));}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00044\ \ \ \ \ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{auto}\ material1\ =\ std::make\_shared<Dielectric>(1.5);}
+\DoxyCodeLine{00047\ \ \ \ \ s.objects.add(std::make\_shared<Sphere>(point(0,\ 1,\ 0),\ 1.0,\ material1));}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordflow}{return}\ s;}
+\DoxyCodeLine{00049\ \}}
+
+\end{DoxyCode}

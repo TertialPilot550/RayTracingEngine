@@ -1,0 +1,100 @@
+\doxysection{triangle.\+hpp}
+\hypertarget{triangle_8hpp_source}{}\label{triangle_8hpp_source}\index{src/objects/primitives/triangle.hpp@{src/objects/primitives/triangle.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}../../main.hpp"{}}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{class\ }Vertex\ \{}
+\DoxyCodeLine{00005\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \ \ \ \ Vertex()\ \{\}}
+\DoxyCodeLine{00008\ \ \ \ \ Vertex(point\ p,\ \doxymbox{\hyperlink{classvec2}{vec2}}\ t\_coords)\ :\ p(p),\ t\_coords(t\_coords)\ \{\}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \ \ \ \ point\ p;}
+\DoxyCodeLine{00011\ \ \ \ \ \doxymbox{\hyperlink{classvec2}{vec2}}\ t\_coords;}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(Vertex\&\ v)\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ p\ =\ v.p;}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ t\_coords\ =\ v.t\_coords;}
+\DoxyCodeLine{00016\ \ \ \ \ \}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{class\ }Triangle\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_collision_object}{CollisionObject}}\ \{}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \ \ \doxymbox{\hyperlink{class_vertex}{Vertex}}\ v[3];}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ Triangle(point\ p1,\ point\ p2,\ point\ p3,\ std::shared\_ptr<Material>\ mat,\ \doxymbox{\hyperlink{classvec2}{vec2}}\ t1\ =\ vec2::vertex\_0(),\ \doxymbox{\hyperlink{classvec2}{vec2}}\ t2\ =\ vec2::vertex\_1(),\ \doxymbox{\hyperlink{classvec2}{vec2}}\ t3\ =\ vec2::vertex\_2())\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ v[0].p\ =\ p1;}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ v[1].p\ =\ p2;}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ v[2].p\ =\ p3;}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ v[0].t\_coords\ =\ t1;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ v[1].t\_coords\ =\ t2;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ v[2].t\_coords\ =\ t3;}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ this-\/>mat\ =\ mat;}
+\DoxyCodeLine{00034\ \ \ \ \ \}\ }
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{bool}\ hit(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_ray}{Ray}}\&\ r,\ \doxymbox{\hyperlink{class_interval}{Interval}}\ ray\_t,\ \doxymbox{\hyperlink{class_collision_record}{CollisionRecord}}\&\ rec)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00037\ \ \ \ \ \ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ epsilon\ =\ 1e-\/8;\ \textcolor{comment}{//\ Handle\ near\ parralel\ intersections\ to\ make\ up\ for\ doubles\ nonsense}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Find\ the\ edges\ of\ the\ triangle\ as\ vectors}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ e1\ =\ v[2].p\ -\/\ v[1].p;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ e2\ =\ v[3].p\ -\/\ v[1].p;}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vector\ representation\ of\ intersection\ candidate}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ pvec\ =\ cross(r.direction(),\ e2);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Determine\ whether\ the\ ray\ is\ sufficiently\ near\ parralel}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ det\ =\ dot(e1,\ pvec);}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::fabs(det)\ <\ epsilon)\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ inv\_det\ =\ 1.0\ /\ det;\ \textcolor{comment}{//\ for\ fractions}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ray\ is\ not\ parrelel.\ Does\ it\ intersect?}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ A\ point\ inside\ the\ triangle\ can\ be\ represented\ as\ P\ =\ A\ +\ u*e1\ +\ v*e2\ :\ u\ >=\ 0,\ v\ >=\ 0,\ u\ +\ v\ <=\ 1}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ tvec\ =\ r.origin()\ -\/\ v[1].p;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ u\ =\ dot(tvec,\ pvec)\ *\ inv\_det;}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ qvec\ =\ cross(tvec,\ e1);}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ v\ =\ dot(r.direction(),\ qvec)\ *\ inv\_det;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ intersection\ =\ u\ >=\ 0\ \&\&\ v\ >=\ 0\ \&\&\ u\ +\ v\ <=\ 1;}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!intersection)\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Now\ we\ need\ to\ determine\ if\ the\ intersection\ is\ within\ the\ interval\ of\ the\ ray\ }}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ t\ =\ dot(e2,\ qvec)\ *\ inv\_det;}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ intersects\_in\_range\ =\ ray\_t.contains(t);}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!intersects\_in\_range)\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ There\ is\ an\ intersection!\ Populate\ rec.}}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ normal\ =\ cross(e1,\ e2);}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ normal\ /=\ normal.length();}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ rec.record(r,\ t,\ normal,\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \doxymbox{\hyperlink{classvec2}{vec2}}\ get\_tcoords(\textcolor{keyword}{const}\ point\&\ p)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ d\ =\ (v[1].p[1]-\/v[2].p[1])*(v[0].p[0]-\/v[2].p[0])\ +\ (v[2].p[1]-\/v[1].p[1])*(v[0].p[1]-\/v[2].p[1]);}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ d\ =\ 1\ /\ d;}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ l0\ =\ d\ *\ ((v[1].p[1]-\/v[2].p[1])*(p[0]\ -\/\ v[2].p[0])+(v[2].p[0]-\/v[1].p[0])*(p[1]-\/v[2].p[1]));}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ l1\ =\ d\ *\ ((v[2].p[1]-\/v[0].p[1])*(p[0]\ -\/\ v[2].p[0])+(v[0].p[0]-\/v[2].p[0])*(p[1]-\/v[2].p[1]));}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ l2\ =\ 1-\/l1-\/l2;}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ l0*v[0].t\_coords+l1*v[1].t\_coords+l2*v[2].t\_coords;}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \};}
+
+\end{DoxyCode}

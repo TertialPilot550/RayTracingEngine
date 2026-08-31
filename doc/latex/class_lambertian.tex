@@ -1,0 +1,46 @@
+\doxysection{Lambertian Class Reference}
+\hypertarget{class_lambertian}{}\label{class_lambertian}\index{Lambertian@{Lambertian}}
+
+
+Inheritance diagram for Lambertian:
+% FIG 0
+
+
+Collaboration diagram for Lambertian:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_lambertian_a41664367f71b08f6e4c3d0db3f62d94f}\label{class_lambertian_a41664367f71b08f6e4c3d0db3f62d94f} 
+{\bfseries Lambertian} (const color \&albedo)
+\item 
+\Hypertarget{class_lambertian_ad35e252b0e1f1a304b3cfd58a157b7a0}\label{class_lambertian_ad35e252b0e1f1a304b3cfd58a157b7a0} 
+{\bfseries Lambertian} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_texture}{Texture}} $>$ tex)
+\item 
+bool \doxymbox{\hyperlink{class_lambertian_a8ffcb83cb82b6cc594969c37f48cbb91}{scatter}} (const \doxymbox{\hyperlink{class_ray}{Ray}} \&r\+\_\+in, const \doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&rec, color \&attenuation, \doxymbox{\hyperlink{class_ray}{Ray}} \&scattered) const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_material}{Material}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual color {\bfseries emitted} (double u, double v, const point \&p) const
+\end{DoxyCompactItemize}
+
+
+\label{class_lambertian_doc-func-members}
+\Hypertarget{class_lambertian_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_lambertian_a8ffcb83cb82b6cc594969c37f48cbb91}\index{Lambertian@{Lambertian}!scatter@{scatter}}
+\index{scatter@{scatter}!Lambertian@{Lambertian}}
+\doxysubsubsection{\texorpdfstring{scatter()}{scatter()}}
+{\footnotesize\ttfamily \label{class_lambertian_a8ffcb83cb82b6cc594969c37f48cbb91} 
+bool Lambertian::\+scatter (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{class_ray}{Ray}} \&}]{r\+\_\+in}{, }\item[{const \doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&}]{rec}{, }\item[{color \&}]{attenuation}{, }\item[{\doxymbox{\hyperlink{class_ray}{Ray}} \&}]{scattered}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \doxymbox{\hyperlink{class_material}{Material}}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+src/\+objects/\+surfaces/\+materials/lambertian.\+hpp\end{DoxyCompactItemize}

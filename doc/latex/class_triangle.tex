@@ -1,0 +1,61 @@
+\doxysection{Triangle Class Reference}
+\hypertarget{class_triangle}{}\label{class_triangle}\index{Triangle@{Triangle}}
+
+
+Inheritance diagram for Triangle:
+% FIG 0
+
+
+Collaboration diagram for Triangle:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_triangle_ae98d446a9df043b3ebd4775821ee8c53}\label{class_triangle_ae98d446a9df043b3ebd4775821ee8c53} 
+{\bfseries Triangle} (point p1, point p2, point p3, std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_material}{Material}} $>$ mat, \doxymbox{\hyperlink{classvec2}{vec2}} t1=vec2::\+vertex\+\_\+0(), \doxymbox{\hyperlink{classvec2}{vec2}} t2=vec2::\+vertex\+\_\+1(), \doxymbox{\hyperlink{classvec2}{vec2}} t3=vec2::\+vertex\+\_\+2())
+\item 
+bool \doxymbox{\hyperlink{class_triangle_a6145e51f0463effb1ab0e34aa9634cfd}{hit}} (const \doxymbox{\hyperlink{class_ray}{Ray}} \&r, \doxymbox{\hyperlink{class_interval}{Interval}} ray\+\_\+t, \doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&rec) const
+\item 
+\doxymbox{\hyperlink{classvec2}{vec2}} \doxymbox{\hyperlink{class_triangle_a59af8937c976c2d569f486bef9689002}{get\+\_\+tcoords}} (const point \&p) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_triangle_a07c880e4a109e62b262279be199eb920}\label{class_triangle_a07c880e4a109e62b262279be199eb920} 
+\doxymbox{\hyperlink{class_vertex}{Vertex}} {\bfseries v} \+[3]
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_material}{Material}} $>$ {\bfseries mat}
+\end{DoxyCompactItemize}
+
+
+\label{class_triangle_doc-func-members}
+\Hypertarget{class_triangle_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_triangle_a59af8937c976c2d569f486bef9689002}\index{Triangle@{Triangle}!get\_tcoords@{get\_tcoords}}
+\index{get\_tcoords@{get\_tcoords}!Triangle@{Triangle}}
+\doxysubsubsection{\texorpdfstring{get\_tcoords()}{get\_tcoords()}}
+{\footnotesize\ttfamily \label{class_triangle_a59af8937c976c2d569f486bef9689002} 
+\doxymbox{\hyperlink{classvec2}{vec2}} Triangle::\+get\+\_\+tcoords (\begin{DoxyParamCaption}\item[{const point \&}]{p}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}.
+
+\Hypertarget{class_triangle_a6145e51f0463effb1ab0e34aa9634cfd}\index{Triangle@{Triangle}!hit@{hit}}
+\index{hit@{hit}!Triangle@{Triangle}}
+\doxysubsubsection{\texorpdfstring{hit()}{hit()}}
+{\footnotesize\ttfamily \label{class_triangle_a6145e51f0463effb1ab0e34aa9634cfd} 
+bool Triangle::\+hit (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{class_ray}{Ray}} \&}]{r}{, }\item[{\doxymbox{\hyperlink{class_interval}{Interval}}}]{ray\+\_\+t}{, }\item[{\doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&}]{rec}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+src/\+objects/\+primitives/triangle.\+hpp\end{DoxyCompactItemize}

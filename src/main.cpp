@@ -1,15 +1,9 @@
-#include "lead.hpp"
-#include "scenes/triangle_demo.hpp"
-#include "scenes/sphere_demo.hpp"
-#include "scenes/light_demo.hpp"
-
 #define TINYOBJLOADER_IMPLEMENTATION
-#include "./tiny_obj_loader/tiny_obj_loader.h"
+
+#include "main.hpp"
 
 const std::string output_directory = "./out";
-
 using Job = std::pair<std::string, Scene>;
-
 
 /**
  * @brief Called by main(), and defines which scenes should be rendered when the program is run.
@@ -26,15 +20,12 @@ std::vector<Job> build_jobs() {
     return job_list;
 }
 
-
-
 /**
  * @brief main() 
  * @details Entry point for the program. Executes all jobs definied in
  * the build_jobs() function also located in main.cpp.
  */
 int main() {
-
     auto job_list = build_jobs();
     std::cout << "RayTracingEngine :: Initialized with " << job_list.size() << " jobs" << std::endl;
     CameraRig cam;
@@ -45,7 +36,5 @@ int main() {
         image.write(lbl);
         std::cout << "\tCompleted Job ("  << ++jobs_fin << "): [" << job.first << "]\n";
     }
-
     return 0;
-
 }

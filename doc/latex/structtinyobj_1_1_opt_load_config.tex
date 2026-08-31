@@ -1,0 +1,60 @@
+\doxysection{tinyobj::Opt\+Load\+Config Struct Reference}
+\hypertarget{structtinyobj_1_1_opt_load_config}{}\label{structtinyobj_1_1_opt_load_config}\index{tinyobj::OptLoadConfig@{tinyobj::OptLoadConfig}}
+
+
+{\ttfamily \+\#include $<$tiny\+\_\+obj\+\_\+loader.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \doxymbox{\hyperlink{structtinyobj_1_1_opt_load_config_a2b01c0e8cfceb2f90094ad3bb0b1d24d}{num\+\_\+threads}}
+\item 
+\Hypertarget{structtinyobj_1_1_opt_load_config_a2e0e05fb318be86d55b8565bf8d86df6}\label{structtinyobj_1_1_opt_load_config_a2e0e05fb318be86d55b8565bf8d86df6} 
+bool {\bfseries triangulate}
+\begin{DoxyCompactList}\small\item\em Triangulate polygons (fan triangulation). \end{DoxyCompactList}\item 
+\Hypertarget{structtinyobj_1_1_opt_load_config_a507ce27451bab7f68bed8515991a0527}\label{structtinyobj_1_1_opt_load_config_a507ce27451bab7f68bed8515991a0527} 
+bool {\bfseries verbose}
+\begin{DoxyCompactList}\small\item\em Reserved for future use (currently has no effect). \end{DoxyCompactList}\item 
+bool \doxymbox{\hyperlink{structtinyobj_1_1_opt_load_config_a4f773d2b35f13a8e82a8932b9aa6114a}{float\+\_\+cache}}
+\item 
+int \doxymbox{\hyperlink{structtinyobj_1_1_opt_load_config_ab4f799a34177db2b1533fce9ff998b68}{float\+\_\+cache\+\_\+max\+\_\+nodes}}
+\item 
+bool \doxymbox{\hyperlink{structtinyobj_1_1_opt_load_config_ac1f900310b62967bc53d6e49e01995de}{fp32\+\_\+cache}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Configuration for the optimized loader. 
+
+\label{structtinyobj_1_1_opt_load_config_doc-variable-members}
+\Hypertarget{structtinyobj_1_1_opt_load_config_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structtinyobj_1_1_opt_load_config_a4f773d2b35f13a8e82a8932b9aa6114a}\index{tinyobj::OptLoadConfig@{tinyobj::OptLoadConfig}!float\_cache@{float\_cache}}
+\index{float\_cache@{float\_cache}!tinyobj::OptLoadConfig@{tinyobj::OptLoadConfig}}
+\doxysubsubsection{\texorpdfstring{float\_cache}{float\_cache}}
+{\footnotesize\ttfamily \label{structtinyobj_1_1_opt_load_config_a4f773d2b35f13a8e82a8932b9aa6114a} 
+bool tinyobj::\+\+Opt\+Load\+Config::\+float\+\_\+cache}
+
+Enable trie-\/based float string → value cache. Speeds up files with many repeated coordinate values (e.\+g. "{}0.\+0"{}, "{}1.\+0"{}). \Hypertarget{structtinyobj_1_1_opt_load_config_ab4f799a34177db2b1533fce9ff998b68}\index{tinyobj::OptLoadConfig@{tinyobj::OptLoadConfig}!float\_cache\_max\_nodes@{float\_cache\_max\_nodes}}
+\index{float\_cache\_max\_nodes@{float\_cache\_max\_nodes}!tinyobj::OptLoadConfig@{tinyobj::OptLoadConfig}}
+\doxysubsubsection{\texorpdfstring{float\_cache\_max\_nodes}{float\_cache\_max\_nodes}}
+{\footnotesize\ttfamily \label{structtinyobj_1_1_opt_load_config_ab4f799a34177db2b1533fce9ff998b68} 
+int tinyobj::\+\+Opt\+Load\+Config::\+float\+\_\+cache\+\_\+max\+\_\+nodes}
+
+Maximum trie nodes per thread (controls cache memory). Each node is \texorpdfstring{$\sim$}{\string~}36 bytes, so 1024 nodes ≈ 36 KB (fits in L1 cache). \Hypertarget{structtinyobj_1_1_opt_load_config_ac1f900310b62967bc53d6e49e01995de}\index{tinyobj::OptLoadConfig@{tinyobj::OptLoadConfig}!fp32\_cache@{fp32\_cache}}
+\index{fp32\_cache@{fp32\_cache}!tinyobj::OptLoadConfig@{tinyobj::OptLoadConfig}}
+\doxysubsubsection{\texorpdfstring{fp32\_cache}{fp32\_cache}}
+{\footnotesize\ttfamily \label{structtinyobj_1_1_opt_load_config_ac1f900310b62967bc53d6e49e01995de} 
+bool tinyobj::\+\+Opt\+Load\+Config::\+fp32\+\_\+cache}
+
+Use fp32-\/length keys for the float cache (max 8 chars). When true, only tokens up to {\ttfamily float::\+digits10 + 2} characters are cached. When false, uses {\ttfamily real\+\_\+t::\+digits10 + 2} (longer keys, fewer hits). Has no effect when float\+\_\+cache is false. \Hypertarget{structtinyobj_1_1_opt_load_config_a2b01c0e8cfceb2f90094ad3bb0b1d24d}\index{tinyobj::OptLoadConfig@{tinyobj::OptLoadConfig}!num\_threads@{num\_threads}}
+\index{num\_threads@{num\_threads}!tinyobj::OptLoadConfig@{tinyobj::OptLoadConfig}}
+\doxysubsubsection{\texorpdfstring{num\_threads}{num\_threads}}
+{\footnotesize\ttfamily \label{structtinyobj_1_1_opt_load_config_a2b01c0e8cfceb2f90094ad3bb0b1d24d} 
+int tinyobj::\+\+Opt\+Load\+Config::\+num\+\_\+threads}
+
+Number of threads. -\/1 = hardware\+\_\+concurrency, 0 or 1 = single-\/threaded. Effective only when TINYOBJLOADER\+\_\+\+USE\+\_\+\+MULTITHREADING is defined. 
+
+The documentation for this struct was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+src/\+objects/\+composites/\+tiny\+\_\+obj\+\_\+loader/tiny\+\_\+obj\+\_\+loader.\+h\end{DoxyCompactItemize}

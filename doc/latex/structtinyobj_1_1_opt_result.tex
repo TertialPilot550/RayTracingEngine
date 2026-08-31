@@ -1,0 +1,51 @@
+\doxysection{tinyobj::Opt\+Result Struct Reference}
+\hypertarget{structtinyobj_1_1_opt_result}{}\label{structtinyobj_1_1_opt_result}\index{tinyobj::OptResult@{tinyobj::OptResult}}
+
+
+{\ttfamily \+\#include $<$tiny\+\_\+obj\+\_\+loader.\+h$>$}
+
+
+
+Collaboration diagram for tinyobj::Opt\+Result:
+% FIG 0
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structtinyobj_1_1_opt_result_ae4e69e4f8f0955b7d3ba151c5d42c2d1}\label{structtinyobj_1_1_opt_result_ae4e69e4f8f0955b7d3ba151c5d42c2d1} 
+{\bfseries Opt\+Result} (Opt\+Result \&\&o) noexcept
+\item 
+\Hypertarget{structtinyobj_1_1_opt_result_a35835680d71d5839ccf66bf4d66a6114}\label{structtinyobj_1_1_opt_result_a35835680d71d5839ccf66bf4d66a6114} 
+Opt\+Result \& {\bfseries operator=} (Opt\+Result \&\&o) noexcept
+\item 
+\Hypertarget{structtinyobj_1_1_opt_result_a93d9304397a963b4ca71f1a66fff27fb}\label{structtinyobj_1_1_opt_result_a93d9304397a963b4ca71f1a66fff27fb} 
+{\bfseries Opt\+Result} (const Opt\+Result \&)=delete
+\item 
+\Hypertarget{structtinyobj_1_1_opt_result_a83e65f2c92c3aa5a6c6f96e27275438d}\label{structtinyobj_1_1_opt_result_a83e65f2c92c3aa5a6c6f96e27275438d} 
+Opt\+Result \& {\bfseries operator=} (const Opt\+Result \&)=delete
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structtinyobj_1_1_opt_result_a5e031f32c24bcd8995d2e9910776a1d6}\label{structtinyobj_1_1_opt_result_a5e031f32c24bcd8995d2e9910776a1d6} 
+\doxymbox{\hyperlink{classtinyobj_1_1_arena_allocator}{Arena\+Allocator}} {\bfseries arena}
+\item 
+\Hypertarget{structtinyobj_1_1_opt_result_a364a601f18028abb65940e5635e08738}\label{structtinyobj_1_1_opt_result_a364a601f18028abb65940e5635e08738} 
+\doxymbox{\hyperlink{structtinyobj_1_1_opt_attrib}{Opt\+Attrib}} {\bfseries attrib}
+\item 
+\Hypertarget{structtinyobj_1_1_opt_result_a4623b35782b99aee6a3f939ed85230c4}\label{structtinyobj_1_1_opt_result_a4623b35782b99aee6a3f939ed85230c4} 
+std::\+vector$<$ \doxymbox{\hyperlink{structtinyobj_1_1_opt_shape_range}{Opt\+Shape\+Range}} $>$ {\bfseries shapes}
+\begin{DoxyCompactList}\small\item\em views into attrib arrays \end{DoxyCompactList}\item 
+\Hypertarget{structtinyobj_1_1_opt_result_a3e112ffcf9cd443c7ae5aed5661586b7}\label{structtinyobj_1_1_opt_result_a3e112ffcf9cd443c7ae5aed5661586b7} 
+std::\+vector$<$ \doxymbox{\hyperlink{structtinyobj_1_1material__t}{material\+\_\+t}} $>$ {\bfseries materials}
+\item 
+\Hypertarget{structtinyobj_1_1_opt_result_a94d0c6d4d9ce7e66951097a7f438d181}\label{structtinyobj_1_1_opt_result_a94d0c6d4d9ce7e66951097a7f438d181} 
+bool {\bfseries valid}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Complete result from the Typed\+Array-\/based optimized loader. Owns the \doxylink{classtinyobj_1_1_arena_allocator}{Arena\+Allocator} — all \doxylink{classtinyobj_1_1_typed_array}{Typed\+Array} pointers are valid as long as this object is alive. Move-\/only. 
+
+The documentation for this struct was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+src/\+objects/\+composites/\+tiny\+\_\+obj\+\_\+loader/tiny\+\_\+obj\+\_\+loader.\+h\end{DoxyCompactItemize}

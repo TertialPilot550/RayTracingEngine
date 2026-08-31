@@ -1,0 +1,39 @@
+\doxysection{image\+\_\+texture.\+hpp}
+\hypertarget{image__texture_8hpp_source}{}\label{image__texture_8hpp_source}\index{src/objects/surfaces/textures/image\_texture.hpp@{src/objects/surfaces/textures/image\_texture.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}../../../main.hpp"{}}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{using\ }rgb\_png\ =\ png::rgb\_pixel;}
+\DoxyCodeLine{00005\ \textcolor{keyword}{using\ }Image\ =\ png::image<rgb\_png>;}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }ImageTexture\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_texture}{Texture}}\ \{}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \ \ \ \ ImageTexture(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ filename)\ :\ img(filename)\ \{\}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \ \ \ \ color\ value(\textcolor{keywordtype}{double}\ u,\ \textcolor{keywordtype}{double}\ v,\ \textcolor{keyword}{const}\ point\&\ p)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (img.get\_height()\ <=\ 0)\ \textcolor{keywordflow}{return}\ color(0,1,1);}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ u\ =\ \doxymbox{\hyperlink{class_interval}{Interval}}(0,\ 1).clamp(u);}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ v\ =\ 1.0\ -\/\ \doxymbox{\hyperlink{class_interval}{Interval}}(0,\ 1).clamp(v);}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ i\ =\ int(u\ *\ img.get\_width());}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ j\ =\ int(v\ *\ img.get\_height());}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ pixel\ =\ img[i][j];}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ color\_scale\ =\ 1.0\ /\ 255.0;}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ color(color\_scale*pixel.red,\ color\_scale*pixel.green,\ color\_scale*pixel.blue);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ Image\ img;}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \};}
+
+\end{DoxyCode}

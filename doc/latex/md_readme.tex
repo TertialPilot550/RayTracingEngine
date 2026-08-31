@@ -1,0 +1,162 @@
+\chapter{\begin{center} Ray Tracing Engine \end{center}  }
+\hypertarget{md_readme}{}\label{md_readme}\index{$<$center$>$ Ray Tracing Engine $<$/center$>$@{$<$center$>$ Ray Tracing Engine $<$/center$>$}}
+\label{md_readme_autotoc_md0}%
+\Hypertarget{md_readme_autotoc_md0}%
+
+
+\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} I want to make sure to try and describe the whole feature list. This document is for my understanding as well as for presenting to audiences about the project. Documentation: Organize the project and get it under control. Complete design.\+md and create doxygen comments covering all of the code. Refactor. \{Potentially: add cpp files to clean up the headers\} \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\hypertarget{md_readme_autotoc_md1}{}\doxysubsection{\texorpdfstring{\begin{center}Table of Contents\end{center} }{\begin{center}Table of Contents\end{center} }}\label{md_readme_autotoc_md1}
+
+\begin{DoxyEnumerate}
+\item src/\+camera
+\begin{DoxyItemize}
+\item camera controls
+\item camera object
+\end{DoxyItemize}
+\end{DoxyEnumerate}
+\begin{DoxyItemize}
+\item objects
+\begin{DoxyItemize}
+\item collidables
+\item primitives ~\newline
+
+\begin{DoxyItemize}
+\item Sphere
+\item Triangles
+\item Quads
+\end{DoxyItemize}
+\item composites
+\begin{DoxyItemize}
+\item tiny\+\_\+obj\+\_\+loader
+\end{DoxyItemize}
+\item surfaces
+\end{DoxyItemize}
+\item scenes
+\begin{DoxyItemize}
+\item scene object
+\item demos
+\end{DoxyItemize}
+\item accel
+\begin{DoxyItemize}
+\item Task\+Master
+\end{DoxyItemize}
+\item util
+\begin{DoxyItemize}
+\item ray
+\item vector
+\item rgb/\+image
+\item noise
+\end{DoxyItemize}
+\end{DoxyItemize}
+
+For each section, there should be a description of
+\begin{DoxyItemize}
+\item A: What the object is
+\item B: How the object works and it\textquotesingle{}s code
+\end{DoxyItemize}
+
+\textbackslash{}\hypertarget{md_readme_autotoc_md2}{}\doxysection{\texorpdfstring{Camera}{Camera}}\label{md_readme_autotoc_md2}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ TODO\ ADD\ CAMERA\ CONTROLS:\ UPDATE\ THE\ CLASS\ TO\ BE\ MORE\ EXPLICIT\ IN\ ALLOWING\ FEATURE\ CONFIGURATION:\ TURNING\ STUFF\ ON\ AND\ OFF}}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }CameraRig\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ Image*\ img\_buffer;}
+\DoxyCodeLine{\ \ \ \ CameraRig();}
+\DoxyCodeLine{\ \ \ \ Image\&\ capture(Scene\&\ s);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Impure}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ render(Scene\&\ s);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Pure\ }}
+\DoxyCodeLine{\ \ \ \ color\ process\_ray(\textcolor{keyword}{const}\ Ray\&\ r,\ \textcolor{keywordtype}{int}\ depth,\ Scene\&\ s);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Write\ to\ the\ image\ buffer\ (impure)}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ write\_color(\textcolor{keyword}{const}\ rgb\&\ rgb,\ \textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Pure\ }}
+\DoxyCodeLine{\ \ \ \ vec3\ sample\_square()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Pure}}
+\DoxyCodeLine{\ \ \ \ point\ defocus\_disk\_sample(CamControls\&\ controls)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Pure}}
+\DoxyCodeLine{\ \ \ \ Ray\ get\_ray\_for\_pixel(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j,\ CamControls\&\ controls)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Pure}}
+\DoxyCodeLine{\ \ \ \ rgb\ sample\_for\_pixel\_color(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ Scene\&\ s);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Pure}}
+\DoxyCodeLine{\ \ \ \ rgb\ color\_correction\_to\_rgb(\textcolor{keyword}{const}\ color\&\ pixel\_color);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+
+
+
+\begin{DoxyItemize}
+\item Configurable Position, Orientation, and FOV
+\item Anti-\/\+Aliasing
+\item Defocus Blur / Depth of Field
+\item \{Motion Blur\}
+\end{DoxyItemize}
+
+Performance:
+\begin{DoxyItemize}
+\item Spatial Subdivision (Pixel Chunking based on image width)
+\item Parrallel Rendering
+\end{DoxyItemize}\hypertarget{md_readme_autotoc_md3}{}\doxysection{\texorpdfstring{Objects}{Objects}}\label{md_readme_autotoc_md3}
+\hypertarget{md_readme_autotoc_md4}{}\doxysubsection{\texorpdfstring{Geometric Primitives}{Geometric Primitives}}\label{md_readme_autotoc_md4}
+\begin{quote}
+Collidables \end{quote}
+
+
+
+\begin{DoxyEnumerate}
+\item Spheres
+\item Triangles
+\item Quads
+\end{DoxyEnumerate}\hypertarget{md_readme_autotoc_md5}{}\doxysubsubsection{\texorpdfstring{Predefined Triangle Meshes (.obj)}{Predefined Triangle Meshes (.obj)}}\label{md_readme_autotoc_md5}
+\hypertarget{md_readme_autotoc_md6}{}\doxysubsection{\texorpdfstring{Surfaces}{Surfaces}}\label{md_readme_autotoc_md6}
+\hypertarget{md_readme_autotoc_md7}{}\doxysubsubsection{\texorpdfstring{Materials}{Materials}}\label{md_readme_autotoc_md7}
+
+\begin{DoxyItemize}
+\item Dielectric
+\item Diffuse Light
+\item Lambertian
+\item Metal 
+\end{DoxyItemize}\hypertarget{md_readme_autotoc_md8}{}\doxysubsubsection{\texorpdfstring{Textures}{Textures}}\label{md_readme_autotoc_md8}
+
+\begin{DoxyItemize}
+\item Checker
+\item Image
+\item Noise
+\item Solid Color
+\end{DoxyItemize}\hypertarget{md_readme_autotoc_md9}{}\doxysection{\texorpdfstring{Scenes}{Scenes}}\label{md_readme_autotoc_md9}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }Scene\ \{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ \ \ CamControls\ controls;}
+\DoxyCodeLine{\ \ \ \ CollisionList\ objects;}
+\DoxyCodeLine{\ \ \ \ color\ background;}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Default\ to\ a\ kind\ of\ sky\ blue}}
+\DoxyCodeLine{\ \ \ \ Scene()\ :\ controls(CamControls()),\ background(176,\ 252,\ 255)\ \{\}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ }
+\DoxyCodeLine{\};}
+
+\end{DoxyCode}
+\hypertarget{md_readme_autotoc_md10}{}\doxysection{\texorpdfstring{Acceleration}{Acceleration}}\label{md_readme_autotoc_md10}
+\hypertarget{md_readme_autotoc_md11}{}\doxysection{\texorpdfstring{Utilities}{Utilities}}\label{md_readme_autotoc_md11}

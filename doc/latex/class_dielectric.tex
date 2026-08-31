@@ -1,0 +1,43 @@
+\doxysection{Dielectric Class Reference}
+\hypertarget{class_dielectric}{}\label{class_dielectric}\index{Dielectric@{Dielectric}}
+
+
+Inheritance diagram for Dielectric:
+% FIG 0
+
+
+Collaboration diagram for Dielectric:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_dielectric_a4d9158c54cb64effb9b88afc31e7b447}\label{class_dielectric_a4d9158c54cb64effb9b88afc31e7b447} 
+{\bfseries Dielectric} (double refraction\+\_\+index)
+\item 
+bool \doxymbox{\hyperlink{class_dielectric_a247e76d4d745107253e15b5cf8ba3726}{scatter}} (const \doxymbox{\hyperlink{class_ray}{Ray}} \&r\+\_\+in, const \doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&rec, color \&attenuation, \doxymbox{\hyperlink{class_ray}{Ray}} \&scattered) const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_material}{Material}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual color {\bfseries emitted} (double u, double v, const point \&p) const
+\end{DoxyCompactItemize}
+
+
+\label{class_dielectric_doc-func-members}
+\Hypertarget{class_dielectric_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_dielectric_a247e76d4d745107253e15b5cf8ba3726}\index{Dielectric@{Dielectric}!scatter@{scatter}}
+\index{scatter@{scatter}!Dielectric@{Dielectric}}
+\doxysubsubsection{\texorpdfstring{scatter()}{scatter()}}
+{\footnotesize\ttfamily \label{class_dielectric_a247e76d4d745107253e15b5cf8ba3726} 
+bool Dielectric::\+scatter (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{class_ray}{Ray}} \&}]{r\+\_\+in}{, }\item[{const \doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&}]{rec}{, }\item[{color \&}]{attenuation}{, }\item[{\doxymbox{\hyperlink{class_ray}{Ray}} \&}]{scattered}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \doxymbox{\hyperlink{class_material}{Material}}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+src/\+objects/\+surfaces/\+materials/dielectric.\+hpp\end{DoxyCompactItemize}

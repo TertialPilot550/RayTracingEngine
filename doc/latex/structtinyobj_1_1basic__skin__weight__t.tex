@@ -1,0 +1,58 @@
+\doxysection{tinyobj::basic\+\_\+skin\+\_\+weight\+\_\+t\texorpdfstring{$<$}{<} Alloc \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structtinyobj_1_1basic__skin__weight__t}{}\label{structtinyobj_1_1basic__skin__weight__t}\index{tinyobj::basic\_skin\_weight\_t$<$ Alloc $>$@{tinyobj::basic\_skin\_weight\_t$<$ Alloc $>$}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structtinyobj_1_1basic__skin__weight__t_a416b954feeaa390b32a5ced043610b17}\label{structtinyobj_1_1basic__skin__weight__t_a416b954feeaa390b32a5ced043610b17} 
+using {\bfseries allocator\+\_\+type} = Alloc
+\item 
+using \doxymbox{\hyperlink{structtinyobj_1_1basic__skin__weight__t_abf1f9c745f105dd7ecc4ee6ade29228f}{joint\+\_\+weight\+\_\+alloc}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structtinyobj_1_1basic__skin__weight__t_ac89205b9327d253719524323c5094667}\label{structtinyobj_1_1basic__skin__weight__t_ac89205b9327d253719524323c5094667} 
+{\bfseries basic\+\_\+skin\+\_\+weight\+\_\+t} (const allocator\+\_\+type \&alloc)
+\item 
+\Hypertarget{structtinyobj_1_1basic__skin__weight__t_a59204ff1efd547807d259cb0bee0eecb}\label{structtinyobj_1_1basic__skin__weight__t_a59204ff1efd547807d259cb0bee0eecb} 
+{\footnotesize template$<$typename Other\+Alloc$>$ }\\{\bfseries basic\+\_\+skin\+\_\+weight\+\_\+t} (const basic\+\_\+skin\+\_\+weight\+\_\+t$<$ Other\+Alloc $>$ \&rhs)
+\item 
+\Hypertarget{structtinyobj_1_1basic__skin__weight__t_ac183604dc8e60b1e55e3a33b10a259bc}\label{structtinyobj_1_1basic__skin__weight__t_ac183604dc8e60b1e55e3a33b10a259bc} 
+{\footnotesize template$<$typename Other\+Alloc$>$ }\\{\bfseries basic\+\_\+skin\+\_\+weight\+\_\+t} (const basic\+\_\+skin\+\_\+weight\+\_\+t$<$ Other\+Alloc $>$ \&rhs, const allocator\+\_\+type \&alloc)
+\item 
+\Hypertarget{structtinyobj_1_1basic__skin__weight__t_afb63217abf68ff0cdfc65006cc7c3a91}\label{structtinyobj_1_1basic__skin__weight__t_afb63217abf68ff0cdfc65006cc7c3a91} 
+{\footnotesize template$<$typename Other\+Alloc$>$ }\\basic\+\_\+skin\+\_\+weight\+\_\+t \& {\bfseries operator=} (const basic\+\_\+skin\+\_\+weight\+\_\+t$<$ Other\+Alloc $>$ \&rhs)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structtinyobj_1_1basic__skin__weight__t_a020c13a6703057b8accfcbd8e77c0161}\label{structtinyobj_1_1basic__skin__weight__t_a020c13a6703057b8accfcbd8e77c0161} 
+int {\bfseries vertex\+\_\+id}
+\item 
+\Hypertarget{structtinyobj_1_1basic__skin__weight__t_aa6943b1b864c15fd718bd8369ad9bb3e}\label{structtinyobj_1_1basic__skin__weight__t_aa6943b1b864c15fd718bd8369ad9bb3e} 
+std::\+vector$<$ \doxymbox{\hyperlink{structtinyobj_1_1joint__and__weight__t}{joint\+\_\+and\+\_\+weight\+\_\+t}}, joint\+\_\+weight\+\_\+alloc $>$ {\bfseries weight\+Values}
+\end{DoxyCompactItemize}
+
+
+\label{structtinyobj_1_1basic__skin__weight__t_doc-typedef-members}
+\Hypertarget{structtinyobj_1_1basic__skin__weight__t_doc-typedef-members}
+\doxysubsection{Member Typedef Documentation}
+\Hypertarget{structtinyobj_1_1basic__skin__weight__t_abf1f9c745f105dd7ecc4ee6ade29228f}\index{tinyobj::basic\_skin\_weight\_t$<$ Alloc $>$@{tinyobj::basic\_skin\_weight\_t$<$ Alloc $>$}!joint\_weight\_alloc@{joint\_weight\_alloc}}
+\index{joint\_weight\_alloc@{joint\_weight\_alloc}!tinyobj::basic\_skin\_weight\_t$<$ Alloc $>$@{tinyobj::basic\_skin\_weight\_t$<$ Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{joint\_weight\_alloc}{joint\_weight\_alloc}}
+{\footnotesize\ttfamily \label{structtinyobj_1_1basic__skin__weight__t_abf1f9c745f105dd7ecc4ee6ade29228f} 
+template$<$typename Alloc = std::\+allocator$<$char$>$$>$ \\
+using \doxymbox{\hyperlink{structtinyobj_1_1basic__skin__weight__t}{tinyobj::\+basic\+\_\+skin\+\_\+weight\+\_\+t}}$<$ Alloc $>$::\+joint\+\_\+weight\+\_\+alloc}
+
+{\bfseries Initial value:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{typename}\ std::allocator\_traits<Alloc>::template\ rebind\_alloc<}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{structtinyobj_1_1joint__and__weight__t}{joint\_and\_weight\_t}}>}
+
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+src/\+objects/\+composites/\+tiny\+\_\+obj\+\_\+loader/tiny\+\_\+obj\+\_\+loader.\+h\end{DoxyCompactItemize}

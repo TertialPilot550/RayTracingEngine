@@ -1,0 +1,56 @@
+\doxysection{Quad Class Reference}
+\hypertarget{class_quad}{}\label{class_quad}\index{Quad@{Quad}}
+
+
+Inheritance diagram for Quad:
+% FIG 0
+
+
+Collaboration diagram for Quad:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_quad_a492fbca68047327e61e2a2f7e24e114f}\label{class_quad_a492fbca68047327e61e2a2f7e24e114f} 
+{\bfseries Quad} (const point \&p, const \doxymbox{\hyperlink{classvec3}{vec3}} \&u, const \doxymbox{\hyperlink{classvec3}{vec3}} \&v, std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_material}{Material}} $>$ mat)
+\item 
+bool \doxymbox{\hyperlink{class_quad_a57d5acdd46ba12aa81e468617adb4b11}{hit}} (const \doxymbox{\hyperlink{class_ray}{Ray}} \&r, \doxymbox{\hyperlink{class_interval}{Interval}} ray\+\_\+t, \doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&rec) const override
+\item 
+\doxymbox{\hyperlink{classvec2}{vec2}} \doxymbox{\hyperlink{class_quad_a3cdda30a5ed76e12030689b7c48a7ba9}{get\+\_\+tcoords}} (const point \&p) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Attributes inherited from \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_material}{Material}} $>$ {\bfseries mat}
+\end{DoxyCompactItemize}
+
+
+\label{class_quad_doc-func-members}
+\Hypertarget{class_quad_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_quad_a3cdda30a5ed76e12030689b7c48a7ba9}\index{Quad@{Quad}!get\_tcoords@{get\_tcoords}}
+\index{get\_tcoords@{get\_tcoords}!Quad@{Quad}}
+\doxysubsubsection{\texorpdfstring{get\_tcoords()}{get\_tcoords()}}
+{\footnotesize\ttfamily \label{class_quad_a3cdda30a5ed76e12030689b7c48a7ba9} 
+\doxymbox{\hyperlink{classvec2}{vec2}} Quad::\+get\+\_\+tcoords (\begin{DoxyParamCaption}\item[{const point \&}]{p}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}.
+
+\Hypertarget{class_quad_a57d5acdd46ba12aa81e468617adb4b11}\index{Quad@{Quad}!hit@{hit}}
+\index{hit@{hit}!Quad@{Quad}}
+\doxysubsubsection{\texorpdfstring{hit()}{hit()}}
+{\footnotesize\ttfamily \label{class_quad_a57d5acdd46ba12aa81e468617adb4b11} 
+bool Quad::\+hit (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{class_ray}{Ray}} \&}]{r}{, }\item[{\doxymbox{\hyperlink{class_interval}{Interval}}}]{ray\+\_\+t}{, }\item[{\doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&}]{rec}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+src/\+objects/\+primitives/quad.\+hpp\end{DoxyCompactItemize}

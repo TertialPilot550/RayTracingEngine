@@ -1,0 +1,49 @@
+\doxysection{tinyobj::Arena\+Allocator Class Reference}
+\hypertarget{classtinyobj_1_1_arena_allocator}{}\label{classtinyobj_1_1_arena_allocator}\index{tinyobj::ArenaAllocator@{tinyobj::ArenaAllocator}}
+
+
+=\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}========== Legacy v1 API =============================================  
+
+
+
+
+{\ttfamily \+\#include $<$tiny\+\_\+obj\+\_\+loader.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classtinyobj_1_1_arena_allocator_a313159715e9c8067f71ef8435737266e}\label{classtinyobj_1_1_arena_allocator_a313159715e9c8067f71ef8435737266e} 
+{\bfseries Arena\+Allocator} (size\+\_\+t block\+\_\+size=1024 \texorpdfstring{$\ast$}{*}1024)
+\item 
+\Hypertarget{classtinyobj_1_1_arena_allocator_a0ba33feafebdbaa877a9631b81897e8a}\label{classtinyobj_1_1_arena_allocator_a0ba33feafebdbaa877a9631b81897e8a} 
+{\bfseries Arena\+Allocator} (const Arena\+Allocator \&)=delete
+\item 
+\Hypertarget{classtinyobj_1_1_arena_allocator_a5fef8863c2beee557812ab0197efaca6}\label{classtinyobj_1_1_arena_allocator_a5fef8863c2beee557812ab0197efaca6} 
+Arena\+Allocator \& {\bfseries operator=} (const Arena\+Allocator \&)=delete
+\item 
+\Hypertarget{classtinyobj_1_1_arena_allocator_a689f2c2fa3378fa5c9ac3fa0c1ab45df}\label{classtinyobj_1_1_arena_allocator_a689f2c2fa3378fa5c9ac3fa0c1ab45df} 
+{\bfseries Arena\+Allocator} (Arena\+Allocator \&\&o) noexcept
+\item 
+\Hypertarget{classtinyobj_1_1_arena_allocator_aad648e5b232ec9429698a9cd6bfe1051}\label{classtinyobj_1_1_arena_allocator_aad648e5b232ec9429698a9cd6bfe1051} 
+Arena\+Allocator \& {\bfseries operator=} (Arena\+Allocator \&\&o) noexcept
+\item 
+\Hypertarget{classtinyobj_1_1_arena_allocator_add7520d36145665302de358fed4e8629}\label{classtinyobj_1_1_arena_allocator_add7520d36145665302de358fed4e8629} 
+void \texorpdfstring{$\ast$}{*} {\bfseries allocate} (size\+\_\+t bytes, size\+\_\+t alignment=sizeof(void \texorpdfstring{$\ast$}{*}))
+\item 
+\Hypertarget{classtinyobj_1_1_arena_allocator_ab18af8dabaf88c93f73d47740ce1b995}\label{classtinyobj_1_1_arena_allocator_ab18af8dabaf88c93f73d47740ce1b995} 
+void {\bfseries reset} ()
+\begin{DoxyCompactList}\small\item\em Free all memory at once. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+=\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}========== Legacy v1 API ============================================= 
+
+==\texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}========= Optimized API (C++11 required) ============================
+
+Optional compile options (all DISABLED by default — define the macro to opt in): TINYOBJLOADER\+\_\+\+USE\+\_\+\+MULTITHREADING -\/ multi-\/threaded parsing TINYOBJLOADER\+\_\+\+USE\+\_\+\+SIMD -\/ SIMD-\/accelerated line scanning (SSE2/\+\+AVX2 on x86, NEON on ARM) TINYOBJLOADER\+\_\+\+ENABLE\+\_\+\+EXCEPTION -\/ throw std::\+bad\+\_\+alloc on allocation failure instead of returning nullptr
+
+With none of these defined, the parser runs single-\/threaded, scalar, and exception-\/free. These features require C++11 or later. Arena-\/based memory allocator for reduced allocation overhead when loading huge meshes. Memory is freed in bulk when the arena is destroyed or \doxylink{classtinyobj_1_1_arena_allocator_ab18af8dabaf88c93f73d47740ce1b995}{reset()}. Individual deallocate() calls are no-\/ops. 
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+src/\+objects/\+composites/\+tiny\+\_\+obj\+\_\+loader/tiny\+\_\+obj\+\_\+loader.\+h\end{DoxyCompactItemize}

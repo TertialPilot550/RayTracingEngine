@@ -1,0 +1,54 @@
+\doxysection{tinyobj::basic\+\_\+lines\+\_\+t\texorpdfstring{$<$}{<} Alloc \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structtinyobj_1_1basic__lines__t}{}\label{structtinyobj_1_1basic__lines__t}\index{tinyobj::basic\_lines\_t$<$ Alloc $>$@{tinyobj::basic\_lines\_t$<$ Alloc $>$}}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \doxymbox{\hyperlink{structtinyobj_1_1basic__lines__t_af9eb4ba13f938c2a9034b734ffd42afd}{index\+\_\+alloc}}
+\item 
+using \doxymbox{\hyperlink{structtinyobj_1_1basic__lines__t_a6e97ce86ae7846f228dfc13d0b86f206}{int\+\_\+alloc}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structtinyobj_1_1basic__lines__t_a5e649c8f7ee0feac7876695739460fb5}\label{structtinyobj_1_1basic__lines__t_a5e649c8f7ee0feac7876695739460fb5} 
+std::\+vector$<$ \doxymbox{\hyperlink{structtinyobj_1_1index__t}{index\+\_\+t}}, index\+\_\+alloc $>$ {\bfseries indices}
+\item 
+\Hypertarget{structtinyobj_1_1basic__lines__t_a7eefb932370297088919d5d747092008}\label{structtinyobj_1_1basic__lines__t_a7eefb932370297088919d5d747092008} 
+std::\+vector$<$ int, int\+\_\+alloc $>$ {\bfseries num\+\_\+line\+\_\+vertices}
+\end{DoxyCompactItemize}
+
+
+\label{structtinyobj_1_1basic__lines__t_doc-typedef-members}
+\Hypertarget{structtinyobj_1_1basic__lines__t_doc-typedef-members}
+\doxysubsection{Member Typedef Documentation}
+\Hypertarget{structtinyobj_1_1basic__lines__t_af9eb4ba13f938c2a9034b734ffd42afd}\index{tinyobj::basic\_lines\_t$<$ Alloc $>$@{tinyobj::basic\_lines\_t$<$ Alloc $>$}!index\_alloc@{index\_alloc}}
+\index{index\_alloc@{index\_alloc}!tinyobj::basic\_lines\_t$<$ Alloc $>$@{tinyobj::basic\_lines\_t$<$ Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{index\_alloc}{index\_alloc}}
+{\footnotesize\ttfamily \label{structtinyobj_1_1basic__lines__t_af9eb4ba13f938c2a9034b734ffd42afd} 
+template$<$typename Alloc = std::\+allocator$<$char$>$$>$ \\
+using \doxymbox{\hyperlink{structtinyobj_1_1basic__lines__t}{tinyobj::\+basic\+\_\+lines\+\_\+t}}$<$ Alloc $>$::\+index\+\_\+alloc}
+
+{\bfseries Initial value:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{typename}\ std::allocator\_traits<Alloc>::template\ rebind\_alloc<index\_t>}
+
+\end{DoxyCode}
+\Hypertarget{structtinyobj_1_1basic__lines__t_a6e97ce86ae7846f228dfc13d0b86f206}\index{tinyobj::basic\_lines\_t$<$ Alloc $>$@{tinyobj::basic\_lines\_t$<$ Alloc $>$}!int\_alloc@{int\_alloc}}
+\index{int\_alloc@{int\_alloc}!tinyobj::basic\_lines\_t$<$ Alloc $>$@{tinyobj::basic\_lines\_t$<$ Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{int\_alloc}{int\_alloc}}
+{\footnotesize\ttfamily \label{structtinyobj_1_1basic__lines__t_a6e97ce86ae7846f228dfc13d0b86f206} 
+template$<$typename Alloc = std::\+allocator$<$char$>$$>$ \\
+using \doxymbox{\hyperlink{structtinyobj_1_1basic__lines__t}{tinyobj::\+basic\+\_\+lines\+\_\+t}}$<$ Alloc $>$::\+int\+\_\+alloc}
+
+{\bfseries Initial value:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{typename}\ std::allocator\_traits<Alloc>::template\ rebind\_alloc<int>}
+
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+src/\+objects/\+composites/\+tiny\+\_\+obj\+\_\+loader/tiny\+\_\+obj\+\_\+loader.\+h\end{DoxyCompactItemize}

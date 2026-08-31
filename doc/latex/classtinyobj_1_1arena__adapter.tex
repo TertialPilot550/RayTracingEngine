@@ -1,0 +1,72 @@
+\doxysection{tinyobj::arena\+\_\+adapter\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classtinyobj_1_1arena__adapter}{}\label{classtinyobj_1_1arena__adapter}\index{tinyobj::arena\_adapter$<$ T $>$@{tinyobj::arena\_adapter$<$ T $>$}}
+
+
+{\ttfamily \+\#include $<$tiny\+\_\+obj\+\_\+loader.\+h$>$}
+
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{structtinyobj_1_1arena__adapter_1_1rebind}{rebind}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classtinyobj_1_1arena__adapter_a833dcf3117239c8106deb7d59a9afe6d}\label{classtinyobj_1_1arena__adapter_a833dcf3117239c8106deb7d59a9afe6d} 
+using {\bfseries value\+\_\+type} = T
+\item 
+\Hypertarget{classtinyobj_1_1arena__adapter_a0b21e7545f222f73df970be7b734f464}\label{classtinyobj_1_1arena__adapter_a0b21e7545f222f73df970be7b734f464} 
+using {\bfseries pointer} = T \texorpdfstring{$\ast$}{*}
+\item 
+\Hypertarget{classtinyobj_1_1arena__adapter_acb26d86e9c22bbe4a68d2f8d9e480a5c}\label{classtinyobj_1_1arena__adapter_acb26d86e9c22bbe4a68d2f8d9e480a5c} 
+using {\bfseries const\+\_\+pointer} = const T \texorpdfstring{$\ast$}{*}
+\item 
+\Hypertarget{classtinyobj_1_1arena__adapter_ac6044ae0945ce0f80457d097c47e1d5c}\label{classtinyobj_1_1arena__adapter_ac6044ae0945ce0f80457d097c47e1d5c} 
+using {\bfseries size\+\_\+type} = std::\+size\+\_\+t
+\item 
+\Hypertarget{classtinyobj_1_1arena__adapter_a42d5ee4ed1167578f8dc78cc77449460}\label{classtinyobj_1_1arena__adapter_a42d5ee4ed1167578f8dc78cc77449460} 
+using {\bfseries difference\+\_\+type} = std::\+ptrdiff\+\_\+t
+\item 
+\Hypertarget{classtinyobj_1_1arena__adapter_a6038141c05903cf24654bd89d783943e}\label{classtinyobj_1_1arena__adapter_a6038141c05903cf24654bd89d783943e} 
+using {\bfseries propagate\+\_\+on\+\_\+container\+\_\+copy\+\_\+assignment} = std::\+true\+\_\+type
+\item 
+\Hypertarget{classtinyobj_1_1arena__adapter_a6dab57fa933952cc175935e6876fdbef}\label{classtinyobj_1_1arena__adapter_a6dab57fa933952cc175935e6876fdbef} 
+using {\bfseries propagate\+\_\+on\+\_\+container\+\_\+move\+\_\+assignment} = std::\+true\+\_\+type
+\item 
+\Hypertarget{classtinyobj_1_1arena__adapter_af661a4b9b07b54264f50354308fd226d}\label{classtinyobj_1_1arena__adapter_af661a4b9b07b54264f50354308fd226d} 
+using {\bfseries propagate\+\_\+on\+\_\+container\+\_\+swap} = std::\+true\+\_\+type
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classtinyobj_1_1arena__adapter_ae69224622077245256f7308280c83161}\label{classtinyobj_1_1arena__adapter_ae69224622077245256f7308280c83161} 
+{\bfseries arena\+\_\+adapter} (\doxymbox{\hyperlink{classtinyobj_1_1_arena_allocator}{Arena\+Allocator}} \texorpdfstring{$\ast$}{*}arena=nullptr) noexcept
+\item 
+\Hypertarget{classtinyobj_1_1arena__adapter_a59b9ea91afd71a61d25fe8030905f0d5}\label{classtinyobj_1_1arena__adapter_a59b9ea91afd71a61d25fe8030905f0d5} 
+{\footnotesize template$<$typename U$>$ }\\{\bfseries arena\+\_\+adapter} (const arena\+\_\+adapter$<$ U $>$ \&other) noexcept
+\item 
+\Hypertarget{classtinyobj_1_1arena__adapter_ad8286b49943c7f0999c5e149d29649d9}\label{classtinyobj_1_1arena__adapter_ad8286b49943c7f0999c5e149d29649d9} 
+T \texorpdfstring{$\ast$}{*} {\bfseries allocate} (size\+\_\+t n)
+\item 
+\Hypertarget{classtinyobj_1_1arena__adapter_a3bc662fe770d2e555a02db4918759572}\label{classtinyobj_1_1arena__adapter_a3bc662fe770d2e555a02db4918759572} 
+void {\bfseries deallocate} (T \texorpdfstring{$\ast$}{*}p, size\+\_\+t) noexcept
+\item 
+\Hypertarget{classtinyobj_1_1arena__adapter_aef8577c2b69ce5a25d54f3985ef88010}\label{classtinyobj_1_1arena__adapter_aef8577c2b69ce5a25d54f3985ef88010} 
+\doxymbox{\hyperlink{classtinyobj_1_1_arena_allocator}{Arena\+Allocator}} \texorpdfstring{$\ast$}{*} {\bfseries arena} () const noexcept
+\item 
+\Hypertarget{classtinyobj_1_1arena__adapter_ac55e57fe7f28abc1e18b65f839178960}\label{classtinyobj_1_1arena__adapter_ac55e57fe7f28abc1e18b65f839178960} 
+{\footnotesize template$<$typename U$>$ }\\bool {\bfseries operator==} (const arena\+\_\+adapter$<$ U $>$ \&o) const noexcept
+\item 
+\Hypertarget{classtinyobj_1_1arena__adapter_a1cae613c664b04bdfeb69d97821e1151}\label{classtinyobj_1_1arena__adapter_a1cae613c664b04bdfeb69d97821e1151} 
+{\footnotesize template$<$typename U$>$ }\\bool {\bfseries operator!=} (const arena\+\_\+adapter$<$ U $>$ \&o) const noexcept
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class tinyobj::\+arena\+\_\+adapter$<$ T $>$}
+STL-\/compatible allocator adapter backed by an \doxylink{classtinyobj_1_1_arena_allocator}{Arena\+Allocator}. deallocate() is a no-\/op — memory is released when the arena is reset. 
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+src/\+objects/\+composites/\+tiny\+\_\+obj\+\_\+loader/tiny\+\_\+obj\+\_\+loader.\+h\end{DoxyCompactItemize}

@@ -1,44 +1,110 @@
-\chapter{todo}
+\chapter{todo }
 \hypertarget{md_todo}{}\label{md_todo}\index{todo@{todo}}
-COMS 3360 PROJECT TODO LIST\hypertarget{md_todo_autotoc_md0}{}\doxysubsubsection{\texorpdfstring{Finished}{Finished}}\label{md_todo_autotoc_md0}
-Ray Tracing in One Weekend
+\hypertarget{md_todo_autotoc_md12}{}\doxysubsection{\texorpdfstring{autotoc\+\_\+md12}{autotoc\+\_\+md12}}\label{md_todo_autotoc_md12}
+\hypertarget{md_todo_autotoc_md13}{}\doxysection{\texorpdfstring{COMS 3360 PROJECT TODO LIST}{COMS 3360 PROJECT TODO LIST}}\label{md_todo_autotoc_md13}
+\DoxyHorRuler{0}
+ \hypertarget{md_todo_autotoc_md15}{}\doxysubsubsection{\texorpdfstring{Finished}{Finished}}\label{md_todo_autotoc_md15}
+Ray Tracing in One Weekend: Volume One
 \begin{DoxyItemize}
-\item \mbox{[}X\mbox{]} A camera with configurable position, orientation, and field of view\+: Required
-\item \mbox{[}X\mbox{]} Anti-\/aliasing\+: Required
-\item \mbox{[}X\mbox{]} Ray/sphere intersections\+: Required
-\item \mbox{[}X\mbox{]} Defocus blur/depth of field\+: 10
-\item \mbox{[}X\mbox{]} Specular, diffuse, and dielectric materials
+\item[\DoxyChecked] A camera with configurable position, orientation, and field of view: Required
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] Anti-\/aliasing: Required
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] Ray/\+sphere intersections: Required
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] Defocus blur/\+depth of field: 10
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] Specular, diffuse, and dielectric materials
 \end{DoxyItemize}
 
 Independently Written
 \begin{DoxyItemize}
-\item \mbox{[}X\mbox{]} A spatial subdivision acceleration structure of your choice
-\item \mbox{[}X\mbox{]} Parallelization\+: 10
-\end{DoxyItemize}\hypertarget{md_todo_autotoc_md1}{}\doxysubsubsection{\texorpdfstring{IN PROGRESS}{IN PROGRESS}}\label{md_todo_autotoc_md1}
+\item[\DoxyChecked] A spatial subdivision acceleration structure of your choice
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] Parallelization: 10
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] Ray/\+triangle intersections: Required
+\end{DoxyItemize}
+
+Ray Tracing in One Weekend: Volume Two
+\begin{DoxyItemize}
+\item[\DoxyChecked] Perlin noise: 10 ~\newline
+
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] The ability to load textures: Required ~\newline
+
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] Textured spheres: Required ~\newline
+
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] Textured quads: 10 ~\newline
+
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] Emissive materials (lights): Required ~\newline
+
+\end{DoxyItemize}
+
+ALL REQUIRED FEATURES COMPLETE (except triangle textures and meshes) POINTS SO FAR: 40 (50 if motion blur works)
+
+\DoxyHorRuler{0}
+ \hypertarget{md_todo_autotoc_md17}{}\doxysubsubsection{\texorpdfstring{IN PROGRESS}{IN PROGRESS}}\label{md_todo_autotoc_md17}
 
 \begin{DoxyItemize}
-\item \mbox{[} \mbox{]} Ray/triangle intersections\+: Required \texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} kinda works but is broken
-\end{DoxyItemize}\hypertarget{md_todo_autotoc_md2}{}\doxysubsubsection{\texorpdfstring{Objects\+: Triangles, Textures, and Meshes}{Objects: Triangles, Textures, and Meshes}}\label{md_todo_autotoc_md2}
+\item[\DoxyUnchecked] Documentation: Organize the project and get it under control. Complete design.\+md and create doxygen comments covering all of the code. Refactor.
+\end{DoxyItemize}\hypertarget{md_todo_autotoc_md18}{}\doxysubsubsection{\texorpdfstring{NEXT}{NEXT}}\label{md_todo_autotoc_md18}
 
 \begin{DoxyItemize}
-\item \mbox{[} \mbox{]} The ability to load textures (file format(s) of your choice; may use third-\/party libraries)\+: Required
-\item \mbox{[} \mbox{]} Textured spheres and triangles\+: Required
-\item \mbox{[} \mbox{]} The ability to load and render triangle meshes (file format(s) of your choice; may use third-\/party libraries for loading)\+: Required
-\end{DoxyItemize}\hypertarget{md_todo_autotoc_md3}{}\doxysubsubsection{\texorpdfstring{Light and Motion}{Light and Motion}}\label{md_todo_autotoc_md3}
+\item[\DoxyUnchecked] Textured triangles: Required
+\end{DoxyItemize}
+
+note: it stopped rendering, I just get an all black screen for all of the test. most likely because of A: texture issues (material not being assigned to the objects, from segfault issue that was happening earlier), B: lighting changes means the old scenes aren\textquotesingle{}t visible anymore.
+
 
 \begin{DoxyItemize}
-\item \mbox{[} \mbox{]} Emissive materials (lights)\+: Required
-\item \mbox{[} \mbox{]} Perlin noise\+: 10
-\item \mbox{[} \mbox{]} Motion blur\+: 10
-\end{DoxyItemize}\hypertarget{md_todo_autotoc_md4}{}\doxysubsubsection{\texorpdfstring{Acceleration}{Acceleration}}\label{md_todo_autotoc_md4}
+\item[\DoxyUnchecked] The ability to load and render triangle meshes (file format(s) of your choice; may use third-\/party libraries for loading): Required
+\end{DoxyItemize}\hypertarget{md_todo_autotoc_md19}{}\doxysubsubsection{\texorpdfstring{BACKBURNER}{BACKBURNER}}\label{md_todo_autotoc_md19}
 
 \begin{DoxyItemize}
-\item \mbox{[} \mbox{]} Hybrid rendering with a GPU (depth buffer + ray tracing)\+: 20
-\item \mbox{[} \mbox{]} GPU acceleration (GPU computing w/ e.\+g., CUDA)\+: 20
-\item \mbox{[} \mbox{]} Importance Sampling
-\end{DoxyItemize}\hypertarget{md_todo_autotoc_md5}{}\doxysubsubsection{\texorpdfstring{Stretch Goals\+: GUI}{Stretch Goals: GUI}}\label{md_todo_autotoc_md5}
+\item[\DoxyUnchecked] Motion blur: 10 \texorpdfstring{$<$}{<}-\/ Need to add motion in order to test this, and I also need to make sure that the ray intersection code for each shape properly handles motion and whatnot
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyUnchecked] Transformations on objects/\+\+Object Instancing: 10
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+ Theoretical Point Total before acceleration and animation wrapper: All Required + 60 points (40 points remaining)\hypertarget{md_todo_autotoc_md21}{}\doxysubsubsection{\texorpdfstring{Acceleration}{Acceleration}}\label{md_todo_autotoc_md21}
 
 \begin{DoxyItemize}
-\item \mbox{[} \mbox{]} STRETCH\+: Skeleton system?
-\item \mbox{[} \mbox{]} STRETCH\+: Animation wrapper (monochrome cross hatching texture??) 
+\item[\DoxyUnchecked] Hybrid rendering with a GPU (depth buffer + ray tracing): 20
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyUnchecked] GPU acceleration (GPU computing w/ e.\+g., CUDA): 20
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyUnchecked] Importance Sampling: 15
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+ Theoretical Point Total: 115
+
+
+\begin{DoxyItemize}
+\item[\DoxyUnchecked] Real good documentation / report
+\end{DoxyItemize}\hypertarget{md_todo_autotoc_md23}{}\doxysubsubsection{\texorpdfstring{Stretch Goals: GUI}{Stretch Goals: GUI}}\label{md_todo_autotoc_md23}
+
+\begin{DoxyItemize}
+\item[\DoxyUnchecked] STRETCH: Skeleton system?
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyUnchecked] STRETCH: Animation wrapper (monochrome cross hatching texture??) 
 \end{DoxyItemize}

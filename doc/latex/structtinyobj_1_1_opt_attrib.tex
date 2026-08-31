@@ -1,0 +1,53 @@
+\doxysection{tinyobj::Opt\+Attrib Struct Reference}
+\hypertarget{structtinyobj_1_1_opt_attrib}{}\label{structtinyobj_1_1_opt_attrib}\index{tinyobj::OptAttrib@{tinyobj::OptAttrib}}
+
+
+{\ttfamily \+\#include $<$tiny\+\_\+obj\+\_\+loader.\+h$>$}
+
+
+
+Collaboration diagram for tinyobj::Opt\+Attrib:
+% FIG 0
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structtinyobj_1_1_opt_attrib_a7bd63b495c270cf87e92988879fee453}\label{structtinyobj_1_1_opt_attrib_a7bd63b495c270cf87e92988879fee453} 
+\doxymbox{\hyperlink{classtinyobj_1_1_typed_array}{Typed\+Array}}$<$ real\+\_\+t $>$ {\bfseries vertices}
+\begin{DoxyCompactList}\small\item\em xyz, length = num\+\_\+vertices \texorpdfstring{$\ast$}{*} 3 \end{DoxyCompactList}\item 
+\Hypertarget{structtinyobj_1_1_opt_attrib_a7bfdf53c5c878c52262909b7bde65140}\label{structtinyobj_1_1_opt_attrib_a7bfdf53c5c878c52262909b7bde65140} 
+\doxymbox{\hyperlink{classtinyobj_1_1_typed_array}{Typed\+Array}}$<$ real\+\_\+t $>$ {\bfseries vertex\+\_\+weights}
+\begin{DoxyCompactList}\small\item\em w per vertex (empty if no {\ttfamily v} line has w) \end{DoxyCompactList}\item 
+\Hypertarget{structtinyobj_1_1_opt_attrib_a12cdcfe7d4125a40d195e26fe89b8aeb}\label{structtinyobj_1_1_opt_attrib_a12cdcfe7d4125a40d195e26fe89b8aeb} 
+\doxymbox{\hyperlink{classtinyobj_1_1_typed_array}{Typed\+Array}}$<$ real\+\_\+t $>$ {\bfseries normals}
+\begin{DoxyCompactList}\small\item\em xyz, length = num\+\_\+normals \texorpdfstring{$\ast$}{*} 3 \end{DoxyCompactList}\item 
+\Hypertarget{structtinyobj_1_1_opt_attrib_ac80b3f218a57692005284c3fbaca42d6}\label{structtinyobj_1_1_opt_attrib_ac80b3f218a57692005284c3fbaca42d6} 
+\doxymbox{\hyperlink{classtinyobj_1_1_typed_array}{Typed\+Array}}$<$ real\+\_\+t $>$ {\bfseries texcoords}
+\begin{DoxyCompactList}\small\item\em uv, length = num\+\_\+texcoords \texorpdfstring{$\ast$}{*} 2 \end{DoxyCompactList}\item 
+\Hypertarget{structtinyobj_1_1_opt_attrib_a8f983f4b6260a0c7180df6311456f765}\label{structtinyobj_1_1_opt_attrib_a8f983f4b6260a0c7180df6311456f765} 
+\doxymbox{\hyperlink{classtinyobj_1_1_typed_array}{Typed\+Array}}$<$ real\+\_\+t $>$ {\bfseries texcoord\+\_\+ws}
+\begin{DoxyCompactList}\small\item\em w per texcoord (empty if no {\ttfamily vt} has w) \end{DoxyCompactList}\item 
+\Hypertarget{structtinyobj_1_1_opt_attrib_a57827cab9ef85de07b31ceb51ea0e5fa}\label{structtinyobj_1_1_opt_attrib_a57827cab9ef85de07b31ceb51ea0e5fa} 
+\doxymbox{\hyperlink{classtinyobj_1_1_typed_array}{Typed\+Array}}$<$ real\+\_\+t $>$ {\bfseries colors}
+\begin{DoxyCompactList}\small\item\em rgb per vertex (empty if not all verts have color) \end{DoxyCompactList}\item 
+\Hypertarget{structtinyobj_1_1_opt_attrib_af326a11e14d60f3a7fbbda078b184d3e}\label{structtinyobj_1_1_opt_attrib_af326a11e14d60f3a7fbbda078b184d3e} 
+\doxymbox{\hyperlink{classtinyobj_1_1_typed_array}{Typed\+Array}}$<$ \doxymbox{\hyperlink{structtinyobj_1_1index__t}{index\+\_\+t}} $>$ {\bfseries indices}
+\begin{DoxyCompactList}\small\item\em flattened face indices \end{DoxyCompactList}\item 
+\Hypertarget{structtinyobj_1_1_opt_attrib_ac9a8432a5b5ff410aee545401955bfac}\label{structtinyobj_1_1_opt_attrib_ac9a8432a5b5ff410aee545401955bfac} 
+\doxymbox{\hyperlink{classtinyobj_1_1_typed_array}{Typed\+Array}}$<$ int $>$ {\bfseries face\+\_\+num\+\_\+verts}
+\begin{DoxyCompactList}\small\item\em vertices per face \end{DoxyCompactList}\item 
+\Hypertarget{structtinyobj_1_1_opt_attrib_af6f8a54d8dec5801dab8862087f9fe64}\label{structtinyobj_1_1_opt_attrib_af6f8a54d8dec5801dab8862087f9fe64} 
+\doxymbox{\hyperlink{classtinyobj_1_1_typed_array}{Typed\+Array}}$<$ int $>$ {\bfseries material\+\_\+ids}
+\begin{DoxyCompactList}\small\item\em per-\/face material id \end{DoxyCompactList}\item 
+\Hypertarget{structtinyobj_1_1_opt_attrib_a0942224dcff76d3107ab960a29b08644}\label{structtinyobj_1_1_opt_attrib_a0942224dcff76d3107ab960a29b08644} 
+\doxymbox{\hyperlink{classtinyobj_1_1_typed_array}{Typed\+Array}}$<$ unsigned int $>$ {\bfseries smoothing\+\_\+group\+\_\+ids}
+\begin{DoxyCompactList}\small\item\em per-\/face smoothing group \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Flat attribute storage using \doxylink{classtinyobj_1_1_typed_array}{Typed\+Array} (arena-\/backed). All arrays are allocated from the \doxylink{structtinyobj_1_1_opt_result}{Opt\+Result}\textquotesingle{}s arena.
+
+Unlike \doxylink{structtinyobj_1_1basic__attrib__t}{basic\+\_\+attrib\+\_\+t} (used by Load\+Obj\+Opt), optional arrays like vertex\+\_\+weights, texcoord\+\_\+ws, colors, and smoothing\+\_\+group\+\_\+ids are only allocated when the input actually contains the corresponding data. Check .empty() before accessing. 
+
+The documentation for this struct was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+src/\+objects/\+composites/\+tiny\+\_\+obj\+\_\+loader/tiny\+\_\+obj\+\_\+loader.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,61 @@
+\doxysection{sphere.\+hpp}
+\hypertarget{sphere_8hpp_source}{}\label{sphere_8hpp_source}\index{src/objects/primitives/sphere.hpp@{src/objects/primitives/sphere.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}../../main.hpp"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{class\ }Sphere\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_collision_object}{CollisionObject}}\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ Sphere(\textcolor{keyword}{const}\ point\&\ center,\ \textcolor{keywordtype}{double}\ radius,\ std::shared\_ptr<Material>\ material)\ :\ center(center),\ radius(std::fmax(0,radius))\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>mat\ =\ mat;}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ hit(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_ray}{Ray}}\&\ r,\ \doxymbox{\hyperlink{class_interval}{Interval}}\ ray\_t,\ \doxymbox{\hyperlink{class_collision_record}{CollisionRecord}}\&\ rec)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ oc\ =\ center\ -\/\ r.origin();}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ a\ =\ r.direction().length\_squared();}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ h\ =\ dot(r.direction(),\ oc);}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ c\ =\ oc.length\_squared()\ -\/\ radius*radius;}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ discriminant\ =\ h*h\ -\/\ a*c;}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (discriminant\ <\ 0)}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ sqrtd\ =\ std::sqrt(discriminant);}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Find\ the\ nearest\ root\ that\ lies\ in\ the\ acceptable\ range.}}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ root\ =\ (h\ -\/\ sqrtd)\ /\ a;}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (root\ <=\ ray\_t.min\ ||\ ray\_t.max\ <=\ root)\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ root\ =\ (h\ +\ sqrtd)\ /\ a;}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (root\ <=\ ray\_t.min\ ||\ ray\_t.max\ <=\ root)}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ HIT!\ Fill\ out\ the\ record}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ outward\_normal\ =\ (r.at(root)-\/\ center)\ /\ radius;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ rec.record(r,\ root,\ outward\_normal,\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classvec2}{vec2}}\ get\_tcoords(\textcolor{keyword}{const}\ point\&\ p)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ p:\ a\ given\ point\ on\ the\ sphere\ of\ radius\ one,\ centered\ at\ the\ origin.}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ u:\ returned\ value\ [0,1]\ of\ angle\ around\ the\ Y\ axis\ from\ X=-\/1.}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ v:\ returned\ value\ [0,1]\ of\ angle\ from\ Y=-\/1\ to\ Y=+1.}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ <1\ 0\ 0>\ yields\ <0.50\ 0.50>\ \ \ \ \ \ \ <-\/1\ \ 0\ \ 0>\ yields\ <0.00\ 0.50>}}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ <0\ 1\ 0>\ yields\ <0.50\ 1.00>\ \ \ \ \ \ \ <\ 0\ -\/1\ \ 0>\ yields\ <0.50\ 0.00>}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ <0\ 0\ 1>\ yields\ <0.25\ 0.50>\ \ \ \ \ \ \ <\ 0\ \ 0\ -\/1>\ yields\ <0.75\ 0.50>}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ theta\ =\ std::acos(-\/p.y());}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ phi\ =\ std::atan2(-\/p.z(),\ p.x())\ +\ pi;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classvec2}{vec2}}(phi\ /\ (2*pi),\ theta\ /\ pi);}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ point\ center;}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{double}\ radius;}
+\DoxyCodeLine{00055\ \};}
+
+\end{DoxyCode}

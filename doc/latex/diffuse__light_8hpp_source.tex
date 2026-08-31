@@ -1,0 +1,21 @@
+\doxysection{diffuse\+\_\+light.\+hpp}
+\hypertarget{diffuse__light_8hpp_source}{}\label{diffuse__light_8hpp_source}\index{src/objects/surfaces/materials/diffuse\_light.hpp@{src/objects/surfaces/materials/diffuse\_light.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}../../../main.hpp"{}}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{class\ }DiffuseLight\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_material}{Material}}\ \{}
+\DoxyCodeLine{00005\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00006\ \ \ \ \ DiffuseLight(std::shared\_ptr<Texture>\ tex)\ :\ tex(tex)\ \{\}}
+\DoxyCodeLine{00007\ \ \ \ \ DiffuseLight(\textcolor{keyword}{const}\ color\&\ emit)\ :\ tex(std::make\_shared<SolidColor>(emit))\ \{\}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \ \ \ \ color\ emitted(\textcolor{keywordtype}{double}\ u,\ \textcolor{keywordtype}{double}\ v,\ \textcolor{keyword}{const}\ point\&\ p)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tex-\/>value(u,\ v,\ p);}
+\DoxyCodeLine{00011\ \ \ \ \ \}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00014\ \ \ \ \ std::shared\_ptr<Texture>\ tex;}
+\DoxyCodeLine{00015\ \};}
+
+\end{DoxyCode}

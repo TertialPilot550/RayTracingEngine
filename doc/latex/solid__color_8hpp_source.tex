@@ -1,0 +1,26 @@
+\doxysection{solid\+\_\+color.\+hpp}
+\hypertarget{solid__color_8hpp_source}{}\label{solid__color_8hpp_source}\index{src/objects/surfaces/textures/solid\_color.hpp@{src/objects/surfaces/textures/solid\_color.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}../../../main.hpp"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{class\ }SolidColor\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_texture}{Texture}}\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \ \ \ \ SolidColor(\textcolor{keyword}{const}\ color\&\ albedo)\ :\ albedo(albedo)\ \{\}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \ \ \ \ SolidColor(\textcolor{keywordtype}{double}\ r,\ \textcolor{keywordtype}{double}\ g,\ \textcolor{keywordtype}{double}\ b)\ :\ SolidColor(color(r,\ g,\ b))\ \{\}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ color\ value(\textcolor{keywordtype}{double}\ u,\ \textcolor{keywordtype}{double}\ v,\ \textcolor{keyword}{const}\ point\&\ p)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ albedo;}
+\DoxyCodeLine{00014\ \ \ \ \ \}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ color\ albedo;}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \};}
+
+\end{DoxyCode}

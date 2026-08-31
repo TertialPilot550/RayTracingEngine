@@ -1,0 +1,118 @@
+\doxysection{tinyobj::basic\+\_\+attrib\+\_\+t\texorpdfstring{$<$}{<} Alloc \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structtinyobj_1_1basic__attrib__t}{}\label{structtinyobj_1_1basic__attrib__t}\index{tinyobj::basic\_attrib\_t$<$ Alloc $>$@{tinyobj::basic\_attrib\_t$<$ Alloc $>$}}
+
+
+{\ttfamily \+\#include $<$tiny\+\_\+obj\+\_\+loader.\+h$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \doxymbox{\hyperlink{structtinyobj_1_1basic__attrib__t_a58d9c5136b7496100922adbf542c74a5}{real\+\_\+alloc}}
+\item 
+using \doxymbox{\hyperlink{structtinyobj_1_1basic__attrib__t_a19f17a101f9811896c349dc92d98b5cd}{int\+\_\+alloc}}
+\item 
+using \doxymbox{\hyperlink{structtinyobj_1_1basic__attrib__t_a2e1129233f35ef8193b60727f0d3e5c4}{index\+\_\+alloc}}
+\item 
+using \doxymbox{\hyperlink{structtinyobj_1_1basic__attrib__t_a4f06a49a3abdfed4b513f3ef1fd0213c}{skin\+\_\+weight\+\_\+alloc}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structtinyobj_1_1basic__attrib__t_a9582303c08e54a83b934bc72ef7986c4}\label{structtinyobj_1_1basic__attrib__t_a9582303c08e54a83b934bc72ef7986c4} 
+std::\+vector$<$ real\+\_\+t, real\+\_\+alloc $>$ {\bfseries vertices}
+\item 
+\Hypertarget{structtinyobj_1_1basic__attrib__t_a87689b9b612213c486277142ec679409}\label{structtinyobj_1_1basic__attrib__t_a87689b9b612213c486277142ec679409} 
+std::\+vector$<$ real\+\_\+t, real\+\_\+alloc $>$ {\bfseries vertex\+\_\+weights}
+\item 
+\Hypertarget{structtinyobj_1_1basic__attrib__t_a26ac7f142033c7aac459d80e3bee31c0}\label{structtinyobj_1_1basic__attrib__t_a26ac7f142033c7aac459d80e3bee31c0} 
+std::\+vector$<$ real\+\_\+t, real\+\_\+alloc $>$ {\bfseries normals}
+\item 
+\Hypertarget{structtinyobj_1_1basic__attrib__t_a4e79051487bcdcd88cef495f66bb7770}\label{structtinyobj_1_1basic__attrib__t_a4e79051487bcdcd88cef495f66bb7770} 
+std::\+vector$<$ real\+\_\+t, real\+\_\+alloc $>$ {\bfseries texcoords}
+\item 
+\Hypertarget{structtinyobj_1_1basic__attrib__t_a8fb3749a9573c5cf17fb4bee75ecae74}\label{structtinyobj_1_1basic__attrib__t_a8fb3749a9573c5cf17fb4bee75ecae74} 
+std::\+vector$<$ real\+\_\+t, real\+\_\+alloc $>$ {\bfseries texcoord\+\_\+ws}
+\item 
+\Hypertarget{structtinyobj_1_1basic__attrib__t_a09ca22bab1087e9e8585f4ab12b3505d}\label{structtinyobj_1_1basic__attrib__t_a09ca22bab1087e9e8585f4ab12b3505d} 
+std::\+vector$<$ real\+\_\+t, real\+\_\+alloc $>$ {\bfseries colors}
+\item 
+\Hypertarget{structtinyobj_1_1basic__attrib__t_ac02a8001b2d19d3744740e409b44807e}\label{structtinyobj_1_1basic__attrib__t_ac02a8001b2d19d3744740e409b44807e} 
+std::\+vector$<$ \doxymbox{\hyperlink{structtinyobj_1_1basic__skin__weight__t}{basic\+\_\+skin\+\_\+weight\+\_\+t}}$<$ Alloc $>$, skin\+\_\+weight\+\_\+alloc $>$ {\bfseries skin\+\_\+weights}
+\item 
+\Hypertarget{structtinyobj_1_1basic__attrib__t_a99ee6b6203eb24fb501150302fd4f0d3}\label{structtinyobj_1_1basic__attrib__t_a99ee6b6203eb24fb501150302fd4f0d3} 
+std::\+vector$<$ \doxymbox{\hyperlink{structtinyobj_1_1index__t}{index\+\_\+t}}, index\+\_\+alloc $>$ {\bfseries indices}
+\item 
+\Hypertarget{structtinyobj_1_1basic__attrib__t_a60bdc5b13af9ebc4bbc59d6372daf1e9}\label{structtinyobj_1_1basic__attrib__t_a60bdc5b13af9ebc4bbc59d6372daf1e9} 
+std::\+vector$<$ int, int\+\_\+alloc $>$ {\bfseries face\+\_\+num\+\_\+verts}
+\item 
+\Hypertarget{structtinyobj_1_1basic__attrib__t_ac480833a0a7a1a447b7865bc1c837ad6}\label{structtinyobj_1_1basic__attrib__t_ac480833a0a7a1a447b7865bc1c837ad6} 
+std::\+vector$<$ int, int\+\_\+alloc $>$ {\bfseries material\+\_\+ids}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Alloc = std::\+allocator$<$char$>$$>$\newline
+struct tinyobj::\+basic\+\_\+attrib\+\_\+t$<$ Alloc $>$}
+Template attrib type supporting custom allocators. Flat arrays: vertices(xyz), normals(xyz), texcoords(uv). Note: Alloc must be default-\/constructible (stateless). For stateful allocators like \doxylink{classtinyobj_1_1arena__adapter}{arena\+\_\+adapter}, construct vectors individually with an allocator instance. 
+
+\label{structtinyobj_1_1basic__attrib__t_doc-typedef-members}
+\Hypertarget{structtinyobj_1_1basic__attrib__t_doc-typedef-members}
+\doxysubsection{Member Typedef Documentation}
+\Hypertarget{structtinyobj_1_1basic__attrib__t_a2e1129233f35ef8193b60727f0d3e5c4}\index{tinyobj::basic\_attrib\_t$<$ Alloc $>$@{tinyobj::basic\_attrib\_t$<$ Alloc $>$}!index\_alloc@{index\_alloc}}
+\index{index\_alloc@{index\_alloc}!tinyobj::basic\_attrib\_t$<$ Alloc $>$@{tinyobj::basic\_attrib\_t$<$ Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{index\_alloc}{index\_alloc}}
+{\footnotesize\ttfamily \label{structtinyobj_1_1basic__attrib__t_a2e1129233f35ef8193b60727f0d3e5c4} 
+template$<$typename Alloc = std::\+allocator$<$char$>$$>$ \\
+using \doxymbox{\hyperlink{structtinyobj_1_1basic__attrib__t}{tinyobj::\+basic\+\_\+attrib\+\_\+t}}$<$ Alloc $>$::\+index\+\_\+alloc}
+
+{\bfseries Initial value:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{typename}\ std::allocator\_traits<Alloc>::template\ rebind\_alloc<index\_t>}
+
+\end{DoxyCode}
+\Hypertarget{structtinyobj_1_1basic__attrib__t_a19f17a101f9811896c349dc92d98b5cd}\index{tinyobj::basic\_attrib\_t$<$ Alloc $>$@{tinyobj::basic\_attrib\_t$<$ Alloc $>$}!int\_alloc@{int\_alloc}}
+\index{int\_alloc@{int\_alloc}!tinyobj::basic\_attrib\_t$<$ Alloc $>$@{tinyobj::basic\_attrib\_t$<$ Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{int\_alloc}{int\_alloc}}
+{\footnotesize\ttfamily \label{structtinyobj_1_1basic__attrib__t_a19f17a101f9811896c349dc92d98b5cd} 
+template$<$typename Alloc = std::\+allocator$<$char$>$$>$ \\
+using \doxymbox{\hyperlink{structtinyobj_1_1basic__attrib__t}{tinyobj::\+basic\+\_\+attrib\+\_\+t}}$<$ Alloc $>$::\+int\+\_\+alloc}
+
+{\bfseries Initial value:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{typename}\ std::allocator\_traits<Alloc>::template\ rebind\_alloc<int>}
+
+\end{DoxyCode}
+\Hypertarget{structtinyobj_1_1basic__attrib__t_a58d9c5136b7496100922adbf542c74a5}\index{tinyobj::basic\_attrib\_t$<$ Alloc $>$@{tinyobj::basic\_attrib\_t$<$ Alloc $>$}!real\_alloc@{real\_alloc}}
+\index{real\_alloc@{real\_alloc}!tinyobj::basic\_attrib\_t$<$ Alloc $>$@{tinyobj::basic\_attrib\_t$<$ Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{real\_alloc}{real\_alloc}}
+{\footnotesize\ttfamily \label{structtinyobj_1_1basic__attrib__t_a58d9c5136b7496100922adbf542c74a5} 
+template$<$typename Alloc = std::\+allocator$<$char$>$$>$ \\
+using \doxymbox{\hyperlink{structtinyobj_1_1basic__attrib__t}{tinyobj::\+basic\+\_\+attrib\+\_\+t}}$<$ Alloc $>$::\+real\+\_\+alloc}
+
+{\bfseries Initial value:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{typename}\ std::allocator\_traits<Alloc>::template\ rebind\_alloc<real\_t>}
+
+\end{DoxyCode}
+\Hypertarget{structtinyobj_1_1basic__attrib__t_a4f06a49a3abdfed4b513f3ef1fd0213c}\index{tinyobj::basic\_attrib\_t$<$ Alloc $>$@{tinyobj::basic\_attrib\_t$<$ Alloc $>$}!skin\_weight\_alloc@{skin\_weight\_alloc}}
+\index{skin\_weight\_alloc@{skin\_weight\_alloc}!tinyobj::basic\_attrib\_t$<$ Alloc $>$@{tinyobj::basic\_attrib\_t$<$ Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{skin\_weight\_alloc}{skin\_weight\_alloc}}
+{\footnotesize\ttfamily \label{structtinyobj_1_1basic__attrib__t_a4f06a49a3abdfed4b513f3ef1fd0213c} 
+template$<$typename Alloc = std::\+allocator$<$char$>$$>$ \\
+using \doxymbox{\hyperlink{structtinyobj_1_1basic__attrib__t}{tinyobj::\+basic\+\_\+attrib\+\_\+t}}$<$ Alloc $>$::\+skin\+\_\+weight\+\_\+alloc}
+
+{\bfseries Initial value:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{typename}\ std::allocator\_traits<Alloc>::template\ rebind\_alloc<}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{structtinyobj_1_1basic__skin__weight__t}{basic\_skin\_weight\_t<Alloc>}}\ >}
+
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+src/\+objects/\+composites/\+tiny\+\_\+obj\+\_\+loader/tiny\+\_\+obj\+\_\+loader.\+h\end{DoxyCompactItemize}

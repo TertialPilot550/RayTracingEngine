@@ -1,0 +1,54 @@
+\doxysection{Task\+Master Class Reference}
+\hypertarget{class_task_master}{}\label{class_task_master}\index{TaskMaster@{TaskMaster}}
+
+
+Generic Thread Pool Implementation.  
+
+
+
+
+{\ttfamily \+\#include $<$task\+\_\+master.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_task_master_ad6dae646199094290e9b8656460e9318}\label{class_task_master_ad6dae646199094290e9b8656460e9318} 
+{\bfseries Task\+Master} (int thread\+\_\+count=1)
+\begin{DoxyCompactList}\small\item\em The default construction uses a thread count of 1. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_task_master_ab13a598c5c2ae1ff5d52bfb666c6fdf9}{dispatch}} (std::\+vector$<$ std::\+function$<$ void()$>$ $>$ \&task\+\_\+list)
+\begin{DoxyCompactList}\small\item\em Builds a thread pool, and executed the task list based on object parameters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Generic Thread Pool Implementation. 
+
+A generic thread pool implementation that take tasks in the form of functions with no arguments and void return type 
+
+\label{class_task_master_doc-func-members}
+\Hypertarget{class_task_master_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_task_master_ab13a598c5c2ae1ff5d52bfb666c6fdf9}\index{TaskMaster@{TaskMaster}!dispatch@{dispatch}}
+\index{dispatch@{dispatch}!TaskMaster@{TaskMaster}}
+\doxysubsubsection{\texorpdfstring{dispatch()}{dispatch()}}
+{\footnotesize\ttfamily \label{class_task_master_ab13a598c5c2ae1ff5d52bfb666c6fdf9} 
+void Task\+Master::\+dispatch (\begin{DoxyParamCaption}\item[{std::\+vector$<$ std::\+function$<$ void()$>$ $>$ \&}]{task\+\_\+list}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Builds a thread pool, and executed the task list based on object parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em task\+\_\+list} & a list of impure functions to be run on worker threads\\
+\hline
+\end{DoxyParams}
+Uses a thread pool structure to parralelize an arbitrary list of impure functions
+
+\begin{DoxyNote}{Note}
+Since the functions are not required or assumed to be pure, remember to make sure they are thread safe, i.\+e. that they do not modify any shared state. 
+\end{DoxyNote}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+src/\+acceleration/task\+\_\+master.\+hpp\end{DoxyCompactItemize}

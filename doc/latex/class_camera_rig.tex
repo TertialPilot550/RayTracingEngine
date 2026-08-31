@@ -1,0 +1,65 @@
+\doxysection{Camera\+Rig Class Reference}
+\hypertarget{class_camera_rig}{}\label{class_camera_rig}\index{CameraRig@{CameraRig}}
+
+
+Object which can rendering object to a 2D image using ray tracing algorithm.  
+
+
+
+
+{\ttfamily \+\#include $<$camera\+\_\+rig.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_camera_rig_ad36e9daa7322b0f48b466df372bdb710}\label{class_camera_rig_ad36e9daa7322b0f48b466df372bdb710} 
+{\bfseries Camera\+Rig} ()
+\begin{DoxyCompactList}\small\item\em Default Constructor. \end{DoxyCompactList}\item 
+Image \& \doxymbox{\hyperlink{class_camera_rig_a6933249f866dacd24775f5f770cbc90b}{capture}} (\doxymbox{\hyperlink{class_scene}{Scene}} \&s)
+\begin{DoxyCompactList}\small\item\em The only visible member function for a camera. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Image \texorpdfstring{$\ast$}{*} \doxymbox{\hyperlink{class_camera_rig_a0a2261b49c5a5c003af8e5f64dea0d3d}{img\+\_\+buffer}} = NULL
+\begin{DoxyCompactList}\small\item\em Pointer to internal image buffer used by the camera. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Object which can rendering object to a 2D image using ray tracing algorithm. 
+
+An abstraction for seperating rendering related code into it\textquotesingle{}s own class, allowing users of the object to capture scenes using a simple interface. 
+
+\label{class_camera_rig_doc-func-members}
+\Hypertarget{class_camera_rig_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_camera_rig_a6933249f866dacd24775f5f770cbc90b}\index{CameraRig@{CameraRig}!capture@{capture}}
+\index{capture@{capture}!CameraRig@{CameraRig}}
+\doxysubsubsection{\texorpdfstring{capture()}{capture()}}
+{\footnotesize\ttfamily \label{class_camera_rig_a6933249f866dacd24775f5f770cbc90b} 
+Image \& Camera\+Rig::\+capture (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_scene}{Scene}} \&}]{s}{}\end{DoxyParamCaption})}
+
+
+
+The only visible member function for a camera. 
+
+Captures the objects in a given scene object to the image buffer. Handles making sure a valid image buffer exists. 
+
+\label{class_camera_rig_doc-variable-members}
+\Hypertarget{class_camera_rig_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_camera_rig_a0a2261b49c5a5c003af8e5f64dea0d3d}\index{CameraRig@{CameraRig}!img\_buffer@{img\_buffer}}
+\index{img\_buffer@{img\_buffer}!CameraRig@{CameraRig}}
+\doxysubsubsection{\texorpdfstring{img\_buffer}{img\_buffer}}
+{\footnotesize\ttfamily \label{class_camera_rig_a0a2261b49c5a5c003af8e5f64dea0d3d} 
+Image\texorpdfstring{$\ast$}{*} Camera\+Rig::\+img\+\_\+buffer = NULL}
+
+
+
+Pointer to internal image buffer used by the camera. 
+
+Pointer to image buffer which the camera uses to produce it\textquotesingle{}s output images. Initialized to NULL. 
+
+The documentation for this class was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+src/\+camera/camera\+\_\+rig.\+hpp\item 
+src/\+camera/camera\+\_\+rig.\+cpp\end{DoxyCompactItemize}

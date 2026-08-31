@@ -1,0 +1,78 @@
+\doxysection{tinyobj::Typed\+Array\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classtinyobj_1_1_typed_array}{}\label{classtinyobj_1_1_typed_array}\index{tinyobj::TypedArray$<$ T $>$@{tinyobj::TypedArray$<$ T $>$}}
+
+
+{\ttfamily \+\#include $<$tiny\+\_\+obj\+\_\+loader.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classtinyobj_1_1_typed_array_ad2590efdbfcc14b6fb76e84372796bf2}\label{classtinyobj_1_1_typed_array_ad2590efdbfcc14b6fb76e84372796bf2} 
+T \texorpdfstring{$\ast$}{*} {\bfseries data} ()
+\item 
+\Hypertarget{classtinyobj_1_1_typed_array_a0da72a1bce7c066d235cfbb39fff5508}\label{classtinyobj_1_1_typed_array_a0da72a1bce7c066d235cfbb39fff5508} 
+const T \texorpdfstring{$\ast$}{*} {\bfseries data} () const
+\item 
+\Hypertarget{classtinyobj_1_1_typed_array_ae75c5f0b0a7bdf302edc0cff42393204}\label{classtinyobj_1_1_typed_array_ae75c5f0b0a7bdf302edc0cff42393204} 
+size\+\_\+t {\bfseries size} () const
+\item 
+\Hypertarget{classtinyobj_1_1_typed_array_a39d2a45ede8e5e6925f0376b29797af7}\label{classtinyobj_1_1_typed_array_a39d2a45ede8e5e6925f0376b29797af7} 
+bool {\bfseries empty} () const
+\item 
+\Hypertarget{classtinyobj_1_1_typed_array_a76af5b3a804618fe5841dba2e1d1a3c3}\label{classtinyobj_1_1_typed_array_a76af5b3a804618fe5841dba2e1d1a3c3} 
+T \& {\bfseries operator\+[$\,$]} (size\+\_\+t i)
+\item 
+\Hypertarget{classtinyobj_1_1_typed_array_a2f0db41007740f13c9ba4e5cf9a18b14}\label{classtinyobj_1_1_typed_array_a2f0db41007740f13c9ba4e5cf9a18b14} 
+const T \& {\bfseries operator\+[$\,$]} (size\+\_\+t i) const
+\item 
+\Hypertarget{classtinyobj_1_1_typed_array_acdc9555a9319d560ac08a0f85025d21b}\label{classtinyobj_1_1_typed_array_acdc9555a9319d560ac08a0f85025d21b} 
+T \texorpdfstring{$\ast$}{*} {\bfseries begin} ()
+\item 
+\Hypertarget{classtinyobj_1_1_typed_array_aff8b7394e4ee53ea2af6c5ad8fb5ecd3}\label{classtinyobj_1_1_typed_array_aff8b7394e4ee53ea2af6c5ad8fb5ecd3} 
+T \texorpdfstring{$\ast$}{*} {\bfseries end} ()
+\item 
+\Hypertarget{classtinyobj_1_1_typed_array_a8f8366b91dd755f6e1040e2556f3f03f}\label{classtinyobj_1_1_typed_array_a8f8366b91dd755f6e1040e2556f3f03f} 
+const T \texorpdfstring{$\ast$}{*} {\bfseries begin} () const
+\item 
+\Hypertarget{classtinyobj_1_1_typed_array_aabde7b0dba5fbafa52b4189abe4704e0}\label{classtinyobj_1_1_typed_array_aabde7b0dba5fbafa52b4189abe4704e0} 
+const T \texorpdfstring{$\ast$}{*} {\bfseries end} () const
+\item 
+bool \doxymbox{\hyperlink{classtinyobj_1_1_typed_array_a277707f055a732b6610a27d549047327}{allocate}} (\doxymbox{\hyperlink{classtinyobj_1_1_arena_allocator}{Arena\+Allocator}} \&arena, size\+\_\+t count)
+\item 
+void \doxymbox{\hyperlink{classtinyobj_1_1_typed_array_ac6cec342f1410b8079b49165298f28a4}{set}} (T \texorpdfstring{$\ast$}{*}ptr, size\+\_\+t count)
+\item 
+\Hypertarget{classtinyobj_1_1_typed_array_a867f616df6748719409f04a5e3b14fac}\label{classtinyobj_1_1_typed_array_a867f616df6748719409f04a5e3b14fac} 
+void {\bfseries truncate} (size\+\_\+t new\+\_\+size)
+\begin{DoxyCompactList}\small\item\em Shrink the logical size (no memory freed — arena owns it). \end{DoxyCompactList}\item 
+\Hypertarget{classtinyobj_1_1_typed_array_a5153e0d61fe32bb6c7e393e264696a94}\label{classtinyobj_1_1_typed_array_a5153e0d61fe32bb6c7e393e264696a94} 
+void {\bfseries clear} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T$>$\newline
+class tinyobj::\+\+Typed\+Array$<$ T $>$}
+Non-\/owning, contiguous array view allocated from an \doxylink{classtinyobj_1_1_arena_allocator}{Arena\+Allocator}. No capacity tracking, no realloc. Lifetime is tied to the arena. 
+
+\label{classtinyobj_1_1_typed_array_doc-func-members}
+\Hypertarget{classtinyobj_1_1_typed_array_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classtinyobj_1_1_typed_array_a277707f055a732b6610a27d549047327}\index{tinyobj::TypedArray$<$ T $>$@{tinyobj::TypedArray$<$ T $>$}!allocate@{allocate}}
+\index{allocate@{allocate}!tinyobj::TypedArray$<$ T $>$@{tinyobj::TypedArray$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{allocate()}{allocate()}}
+{\footnotesize\ttfamily \label{classtinyobj_1_1_typed_array_a277707f055a732b6610a27d549047327} 
+template$<$typename T$>$ \\
+bool \doxymbox{\hyperlink{classtinyobj_1_1_typed_array}{tinyobj::\+\+Typed\+Array}}$<$ T $>$::\+allocate (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{classtinyobj_1_1_arena_allocator}{Arena\+Allocator}} \&}]{arena}{, }\item[{size\+\_\+t}]{count}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Allocate {\ttfamily count} elements from {\ttfamily arena}. Previous contents are abandoned. Elements are zero-\/initialized via memset (T must be trivially copyable). Returns false if allocation fails (only possible when exceptions are disabled via TINYOBJLOADER\+\_\+\+ENABLE\+\_\+\+EXCEPTION not being defined). \Hypertarget{classtinyobj_1_1_typed_array_ac6cec342f1410b8079b49165298f28a4}\index{tinyobj::TypedArray$<$ T $>$@{tinyobj::TypedArray$<$ T $>$}!set@{set}}
+\index{set@{set}!tinyobj::TypedArray$<$ T $>$@{tinyobj::TypedArray$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{set()}{set()}}
+{\footnotesize\ttfamily \label{classtinyobj_1_1_typed_array_ac6cec342f1410b8079b49165298f28a4} 
+template$<$typename T$>$ \\
+void \doxymbox{\hyperlink{classtinyobj_1_1_typed_array}{tinyobj::\+\+Typed\+Array}}$<$ T $>$::\+set (\begin{DoxyParamCaption}\item[{T \texorpdfstring{$\ast$}{*}}]{ptr}{, }\item[{size\+\_\+t}]{count}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Wrap an existing arena-\/allocated pointer. Caller must ensure ptr points into a live arena and count is within bounds. 
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+src/\+objects/\+composites/\+tiny\+\_\+obj\+\_\+loader/tiny\+\_\+obj\+\_\+loader.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,46 @@
+\doxysection{Diffuse\+Light Class Reference}
+\hypertarget{class_diffuse_light}{}\label{class_diffuse_light}\index{DiffuseLight@{DiffuseLight}}
+
+
+Inheritance diagram for Diffuse\+Light:
+% FIG 0
+
+
+Collaboration diagram for Diffuse\+Light:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_diffuse_light_aed938d79504d5b657b5985f01c5e0ebf}\label{class_diffuse_light_aed938d79504d5b657b5985f01c5e0ebf} 
+{\bfseries Diffuse\+Light} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_texture}{Texture}} $>$ tex)
+\item 
+\Hypertarget{class_diffuse_light_ab8f13f24ae3e1ae4f5b4d8f067d35567}\label{class_diffuse_light_ab8f13f24ae3e1ae4f5b4d8f067d35567} 
+{\bfseries Diffuse\+Light} (const color \&emit)
+\item 
+color \doxymbox{\hyperlink{class_diffuse_light_abc881fdd804729422e8455c15b7f6862}{emitted}} (double u, double v, const point \&p) const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_material}{Material}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual bool {\bfseries scatter} (const \doxymbox{\hyperlink{class_ray}{Ray}} \&r\+\_\+in, const \doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&rec, color \&attenuation, \doxymbox{\hyperlink{class_ray}{Ray}} \&scattered) const
+\end{DoxyCompactItemize}
+
+
+\label{class_diffuse_light_doc-func-members}
+\Hypertarget{class_diffuse_light_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_diffuse_light_abc881fdd804729422e8455c15b7f6862}\index{DiffuseLight@{DiffuseLight}!emitted@{emitted}}
+\index{emitted@{emitted}!DiffuseLight@{DiffuseLight}}
+\doxysubsubsection{\texorpdfstring{emitted()}{emitted()}}
+{\footnotesize\ttfamily \label{class_diffuse_light_abc881fdd804729422e8455c15b7f6862} 
+color Diffuse\+Light::\+emitted (\begin{DoxyParamCaption}\item[{double}]{u}{, }\item[{double}]{v}{, }\item[{const point \&}]{p}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \doxymbox{\hyperlink{class_material}{Material}}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+src/\+objects/\+surfaces/\+materials/diffuse\+\_\+light.\+hpp\end{DoxyCompactItemize}

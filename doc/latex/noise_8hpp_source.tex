@@ -1,0 +1,21 @@
+\doxysection{noise.\+hpp}
+\hypertarget{noise_8hpp_source}{}\label{noise_8hpp_source}\index{src/objects/surfaces/textures/noise.hpp@{src/objects/surfaces/textures/noise.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}../../../main.hpp"{}}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{class\ }NoiseTexture\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_texture}{Texture}}\ \{}
+\DoxyCodeLine{00005\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00006\ \ \ \ \ NoiseTexture(\textcolor{keywordtype}{double}\ scale)\ :\ scale(scale)\ \{\}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \ \ \ \ color\ value(\textcolor{keywordtype}{double}\ u,\ \textcolor{keywordtype}{double}\ v,\ \textcolor{keyword}{const}\ point\&\ p)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ color(.5,\ .5,\ .5)\ *\ (1\ +\ std::sin(scale\ *\ p.z()\ +\ 10\ *\ noise.turb(p,\ 7)));}
+\DoxyCodeLine{00010\ \ \ \ \ \}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00013\ \ \ \ \ \doxymbox{\hyperlink{class_perlin}{Perlin}}\ noise;}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{double}\ scale;}
+\DoxyCodeLine{00015\ \};}
+
+\end{DoxyCode}

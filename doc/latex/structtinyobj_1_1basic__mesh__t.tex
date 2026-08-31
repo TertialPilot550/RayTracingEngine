@@ -1,0 +1,103 @@
+\doxysection{tinyobj::basic\+\_\+mesh\+\_\+t\texorpdfstring{$<$}{<} Alloc \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structtinyobj_1_1basic__mesh__t}{}\label{structtinyobj_1_1basic__mesh__t}\index{tinyobj::basic\_mesh\_t$<$ Alloc $>$@{tinyobj::basic\_mesh\_t$<$ Alloc $>$}}
+
+
+{\ttfamily \+\#include $<$tiny\+\_\+obj\+\_\+loader.\+h$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \doxymbox{\hyperlink{structtinyobj_1_1basic__mesh__t_a6810b6935537e6522ff0c5062760ec7c}{index\+\_\+alloc}}
+\item 
+using \doxymbox{\hyperlink{structtinyobj_1_1basic__mesh__t_abef150af61998b46a3fb507340d3fd7f}{uint\+\_\+alloc}}
+\item 
+using \doxymbox{\hyperlink{structtinyobj_1_1basic__mesh__t_a5038907e3427855b86fa9dde57bdfab8}{int\+\_\+alloc}}
+\item 
+using \doxymbox{\hyperlink{structtinyobj_1_1basic__mesh__t_a8ef671a12243bc47a991f4e89e93ec9a}{tag\+\_\+alloc}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structtinyobj_1_1basic__mesh__t_ad612aa23c981bfa5cc17bdf12c8d9943}\label{structtinyobj_1_1basic__mesh__t_ad612aa23c981bfa5cc17bdf12c8d9943} 
+std::\+vector$<$ \doxymbox{\hyperlink{structtinyobj_1_1index__t}{index\+\_\+t}}, index\+\_\+alloc $>$ {\bfseries indices}
+\item 
+\Hypertarget{structtinyobj_1_1basic__mesh__t_aa9733da5e10b3d4e00a6b27c0f1556b2}\label{structtinyobj_1_1basic__mesh__t_aa9733da5e10b3d4e00a6b27c0f1556b2} 
+std::\+vector$<$ unsigned int, uint\+\_\+alloc $>$ {\bfseries num\+\_\+face\+\_\+vertices}
+\item 
+\Hypertarget{structtinyobj_1_1basic__mesh__t_a5b122b42843a9aaa3d8b43a7a5a40abb}\label{structtinyobj_1_1basic__mesh__t_a5b122b42843a9aaa3d8b43a7a5a40abb} 
+std::\+vector$<$ int, int\+\_\+alloc $>$ {\bfseries material\+\_\+ids}
+\item 
+\Hypertarget{structtinyobj_1_1basic__mesh__t_a842c13e731b8f4db3eed697fe66d73b2}\label{structtinyobj_1_1basic__mesh__t_a842c13e731b8f4db3eed697fe66d73b2} 
+std::\+vector$<$ unsigned int, uint\+\_\+alloc $>$ {\bfseries smoothing\+\_\+group\+\_\+ids}
+\item 
+\Hypertarget{structtinyobj_1_1basic__mesh__t_a930f1aab5688e77e5205dcec7f88ab81}\label{structtinyobj_1_1basic__mesh__t_a930f1aab5688e77e5205dcec7f88ab81} 
+std::\+vector$<$ \doxymbox{\hyperlink{structtinyobj_1_1basic__tag__t}{basic\+\_\+tag\+\_\+t}}$<$ Alloc $>$, tag\+\_\+alloc $>$ {\bfseries tags}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Alloc = std::\+allocator$<$char$>$$>$\newline
+struct tinyobj::\+basic\+\_\+mesh\+\_\+t$<$ Alloc $>$}
+Template mesh type supporting custom allocators. Note: Alloc must be default-\/constructible (stateless). For stateful allocators like \doxylink{classtinyobj_1_1arena__adapter}{arena\+\_\+adapter}, construct vectors individually with an allocator instance. 
+
+\label{structtinyobj_1_1basic__mesh__t_doc-typedef-members}
+\Hypertarget{structtinyobj_1_1basic__mesh__t_doc-typedef-members}
+\doxysubsection{Member Typedef Documentation}
+\Hypertarget{structtinyobj_1_1basic__mesh__t_a6810b6935537e6522ff0c5062760ec7c}\index{tinyobj::basic\_mesh\_t$<$ Alloc $>$@{tinyobj::basic\_mesh\_t$<$ Alloc $>$}!index\_alloc@{index\_alloc}}
+\index{index\_alloc@{index\_alloc}!tinyobj::basic\_mesh\_t$<$ Alloc $>$@{tinyobj::basic\_mesh\_t$<$ Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{index\_alloc}{index\_alloc}}
+{\footnotesize\ttfamily \label{structtinyobj_1_1basic__mesh__t_a6810b6935537e6522ff0c5062760ec7c} 
+template$<$typename Alloc = std::\+allocator$<$char$>$$>$ \\
+using \doxymbox{\hyperlink{structtinyobj_1_1basic__mesh__t}{tinyobj::\+basic\+\_\+mesh\+\_\+t}}$<$ Alloc $>$::\+index\+\_\+alloc}
+
+{\bfseries Initial value:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{typename}\ std::allocator\_traits<Alloc>::template\ rebind\_alloc<index\_t>}
+
+\end{DoxyCode}
+\Hypertarget{structtinyobj_1_1basic__mesh__t_a5038907e3427855b86fa9dde57bdfab8}\index{tinyobj::basic\_mesh\_t$<$ Alloc $>$@{tinyobj::basic\_mesh\_t$<$ Alloc $>$}!int\_alloc@{int\_alloc}}
+\index{int\_alloc@{int\_alloc}!tinyobj::basic\_mesh\_t$<$ Alloc $>$@{tinyobj::basic\_mesh\_t$<$ Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{int\_alloc}{int\_alloc}}
+{\footnotesize\ttfamily \label{structtinyobj_1_1basic__mesh__t_a5038907e3427855b86fa9dde57bdfab8} 
+template$<$typename Alloc = std::\+allocator$<$char$>$$>$ \\
+using \doxymbox{\hyperlink{structtinyobj_1_1basic__mesh__t}{tinyobj::\+basic\+\_\+mesh\+\_\+t}}$<$ Alloc $>$::\+int\+\_\+alloc}
+
+{\bfseries Initial value:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{typename}\ std::allocator\_traits<Alloc>::template\ rebind\_alloc<int>}
+
+\end{DoxyCode}
+\Hypertarget{structtinyobj_1_1basic__mesh__t_a8ef671a12243bc47a991f4e89e93ec9a}\index{tinyobj::basic\_mesh\_t$<$ Alloc $>$@{tinyobj::basic\_mesh\_t$<$ Alloc $>$}!tag\_alloc@{tag\_alloc}}
+\index{tag\_alloc@{tag\_alloc}!tinyobj::basic\_mesh\_t$<$ Alloc $>$@{tinyobj::basic\_mesh\_t$<$ Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{tag\_alloc}{tag\_alloc}}
+{\footnotesize\ttfamily \label{structtinyobj_1_1basic__mesh__t_a8ef671a12243bc47a991f4e89e93ec9a} 
+template$<$typename Alloc = std::\+allocator$<$char$>$$>$ \\
+using \doxymbox{\hyperlink{structtinyobj_1_1basic__mesh__t}{tinyobj::\+basic\+\_\+mesh\+\_\+t}}$<$ Alloc $>$::\+tag\+\_\+alloc}
+
+{\bfseries Initial value:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{typename}\ std::allocator\_traits<Alloc>::template\ rebind\_alloc<}
+\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{structtinyobj_1_1basic__tag__t}{basic\_tag\_t<Alloc>}}\ >}
+
+\end{DoxyCode}
+\Hypertarget{structtinyobj_1_1basic__mesh__t_abef150af61998b46a3fb507340d3fd7f}\index{tinyobj::basic\_mesh\_t$<$ Alloc $>$@{tinyobj::basic\_mesh\_t$<$ Alloc $>$}!uint\_alloc@{uint\_alloc}}
+\index{uint\_alloc@{uint\_alloc}!tinyobj::basic\_mesh\_t$<$ Alloc $>$@{tinyobj::basic\_mesh\_t$<$ Alloc $>$}}
+\doxysubsubsection{\texorpdfstring{uint\_alloc}{uint\_alloc}}
+{\footnotesize\ttfamily \label{structtinyobj_1_1basic__mesh__t_abef150af61998b46a3fb507340d3fd7f} 
+template$<$typename Alloc = std::\+allocator$<$char$>$$>$ \\
+using \doxymbox{\hyperlink{structtinyobj_1_1basic__mesh__t}{tinyobj::\+basic\+\_\+mesh\+\_\+t}}$<$ Alloc $>$::\+uint\+\_\+alloc}
+
+{\bfseries Initial value:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{}
+\DoxyCodeLine{\textcolor{keyword}{typename}\ std::allocator\_traits<Alloc>::template\ rebind\_alloc<unsigned\ int>}
+
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+src/\+objects/\+composites/\+tiny\+\_\+obj\+\_\+loader/tiny\+\_\+obj\+\_\+loader.\+h\end{DoxyCompactItemize}

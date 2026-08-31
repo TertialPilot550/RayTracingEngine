@@ -1,0 +1,48 @@
+\doxysection{camera\+\_\+rig.\+hpp}
+\hypertarget{camera__rig_8hpp_source}{}\label{camera__rig_8hpp_source}\index{src/camera/camera\_rig.hpp@{src/camera/camera\_rig.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}../main.hpp"{}}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ image\ types\ courtesy\ of\ png++}}
+\DoxyCodeLine{00005\ \textcolor{keyword}{using\ }rgb\_png\ =\ png::rgb\_pixel;}
+\DoxyCodeLine{00006\ \textcolor{keyword}{using\ }Image\ =\ png::image<rgb\_png>;}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00014\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_camera_rig_ad36e9daa7322b0f48b466df372bdb710}{CameraRig}}\ \{}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00023\ \ \ \ \ Image*\ \doxymbox{\hyperlink{class_camera_rig_a0a2261b49c5a5c003af8e5f64dea0d3d}{img\_buffer}}\ =\ NULL;}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00028\ \ \ \ \ \doxymbox{\hyperlink{class_camera_rig_ad36e9daa7322b0f48b466df372bdb710}{CameraRig}}()\ \ \{\}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00037\ \ \ \ \ Image\&\ \doxymbox{\hyperlink{class_camera_rig_a6933249f866dacd24775f5f770cbc90b}{capture}}(\doxymbox{\hyperlink{class_scene}{Scene}}\&\ s);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{private}:\ }
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ render(\doxymbox{\hyperlink{class_scene}{Scene}}\&\ s);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{void}\ write\_color(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classrgb}{rgb}}\&\ \doxymbox{\hyperlink{classrgb}{rgb}},\ \textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00083\ \ \ \ \ color\ process\_ray(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_ray}{Ray}}\&\ r,\ \textcolor{keywordtype}{int}\ depth,\ \doxymbox{\hyperlink{class_scene}{Scene}}\&\ s);}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00092\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ sample\_square()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00103\ \ \ \ \ point\ defocus\_disk\_sample(\doxymbox{\hyperlink{class_cam_controls}{CamControls}}\&\ controls)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00112\ \ \ \ \ \doxymbox{\hyperlink{class_ray}{Ray}}\ get\_ray\_for\_pixel(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j,\ \doxymbox{\hyperlink{class_cam_controls}{CamControls}}\&\ controls)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00120\ \ \ \ \ \doxymbox{\hyperlink{classrgb}{rgb}}\ sample\_for\_pixel\_color(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ \doxymbox{\hyperlink{class_scene}{Scene}}\&\ s);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \};}
+
+\end{DoxyCode}

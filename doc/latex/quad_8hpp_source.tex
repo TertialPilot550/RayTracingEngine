@@ -1,0 +1,59 @@
+\doxysection{quad.\+hpp}
+\hypertarget{quad_8hpp_source}{}\label{quad_8hpp_source}\index{src/objects/primitives/quad.hpp@{src/objects/primitives/quad.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}../../main.hpp"{}}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{class\ }Quad\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_collision_object}{CollisionObject}}\ \{}
+\DoxyCodeLine{00005\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00006\ \ \ \ \ Quad(\textcolor{keyword}{const}\ point\&\ p,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec3}{vec3}}\&\ u,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec3}{vec3}}\&\ v,\ std::shared\_ptr<Material>\ mat):\ p(p),\ u(u),\ v(v)\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ n\ =\ cross(u,\ v);}
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ normal\ =\ unit\_vector(n);}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ D\ =\ dot(normal,\ p);}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ w\ =\ n\ /\ dot(n,n);}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ this-\/>mat\ =\ mat;}
+\DoxyCodeLine{00012\ \ \ \ \ \}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{bool}\ hit(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_ray}{Ray}}\&\ r,\ \doxymbox{\hyperlink{class_interval}{Interval}}\ ray\_t,\ \doxymbox{\hyperlink{class_collision_record}{CollisionRecord}}\&\ rec)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ denom\ =\ dot(normal,\ r.direction());}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ hit\ if\ the\ ray\ is\ parallel\ to\ the\ plane.}}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::fabs(denom)\ <\ 1e-\/8)}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Return\ false\ if\ the\ hit\ point\ parameter\ t\ is\ outside\ the\ ray\ interval.}}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ t\ =\ (D\ -\/\ dot(normal,\ r.origin()))\ /\ denom;}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!ray\_t.contains(t))}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Determine\ if\ the\ hit\ point\ lies\ within\ the\ planar\ shape\ using\ its\ plane\ coordinates.}}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ intersection\ =\ r.at(t);}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classvec2}{vec2}}\ t\_coords\ =\ get\_tcoords(r.at(t));}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{class_interval}{Interval}}(0,\ 1).contains(t\_coords.f1)\ ||\ \doxymbox{\hyperlink{class_interval}{Interval}}(0,\ 1).contains(t\_coords.f2))\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ray\ hits\ the\ 2D\ shape;\ set\ the\ rest\ of\ the\ hit\ record\ and\ return\ true.}}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ rec.record(r,\ t,\ normal,\ \textcolor{keyword}{this});}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00038\ \ \ \ \ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \doxymbox{\hyperlink{classvec2}{vec2}}\ get\_tcoords(\textcolor{keyword}{const}\ point\&\ p)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ p\_vector\ =\ p\ -\/\ this-\/>p;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ a\ =\ dot(w,\ cross(p\_vector,\ v));}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ b\ =\ dot(w,\ cross(u,\ p\_vector));}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classvec2}{vec2}}(a,\ b);}
+\DoxyCodeLine{00045\ \ \ \ \ \}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00048\ \ \ \ \ point\ p;}
+\DoxyCodeLine{00049\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ u,\ v;}
+\DoxyCodeLine{00050\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ w;}
+\DoxyCodeLine{00051\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ normal;}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{double}\ D;}
+\DoxyCodeLine{00053\ \};}
+
+\end{DoxyCode}

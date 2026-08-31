@@ -1,0 +1,31 @@
+\doxysection{lambertian.\+hpp}
+\hypertarget{lambertian_8hpp_source}{}\label{lambertian_8hpp_source}\index{src/objects/surfaces/materials/lambertian.hpp@{src/objects/surfaces/materials/lambertian.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}../../../main.hpp"{}}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{class\ }Lambertian\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_material}{Material}}\ \{}
+\DoxyCodeLine{00006\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00007\ \ \ \ \ Lambertian(\textcolor{keyword}{const}\ color\&\ albedo)\ :\ tex(std::make\_shared<SolidColor>(albedo))\ \{\}}
+\DoxyCodeLine{00008\ \ \ \ \ Lambertian(std::shared\_ptr<Texture>\ tex)\ :\ tex(tex)\ \{\}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{bool}\ scatter(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_ray}{Ray}}\&\ r\_in,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_collision_record}{CollisionRecord}}\&\ rec,\ color\&\ attenuation,\ \doxymbox{\hyperlink{class_ray}{Ray}}\&\ scattered)\textcolor{keyword}{}}
+\DoxyCodeLine{00011\ \textcolor{keyword}{\ \ \ \ const\ override\ }\{}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ scatter\_direction\ =\ rec.normal\ +\ random\_unit\_vector();}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Catch\ degenerate\ scatter\ direction}}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (scatter\_direction.near\_zero())}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ scatter\_direction\ =\ rec.normal;}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ scattered\ =\ \doxymbox{\hyperlink{class_ray}{Ray}}(rec.p,\ scatter\_direction,\ r\_in.time());}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ attenuation\ =\ tex-\/>value(rec.t\_coords.f1,\ rec.t\_coords.f2,\ rec.p);}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00021\ \ \ \ \ \}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00024\ \ \ \ \ std::shared\_ptr<Texture>\ tex;}
+\DoxyCodeLine{00025\ \};}
+
+\end{DoxyCode}

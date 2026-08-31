@@ -1,0 +1,67 @@
+\doxysection{Collision\+List Class Reference}
+\hypertarget{class_collision_list}{}\label{class_collision_list}\index{CollisionList@{CollisionList}}
+
+
+Inheritance diagram for Collision\+List:
+% FIG 0
+
+
+Collaboration diagram for Collision\+List:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_collision_list_ab09fa66e8a5ce56f7bcbff661b158a6f}\label{class_collision_list_ab09fa66e8a5ce56f7bcbff661b158a6f} 
+{\bfseries Collision\+List} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}} $>$ object)
+\item 
+\Hypertarget{class_collision_list_a32d2d7414920e7921dcb023c5d30d63e}\label{class_collision_list_a32d2d7414920e7921dcb023c5d30d63e} 
+void {\bfseries clear} ()
+\item 
+\Hypertarget{class_collision_list_a59f61468b831dea28497b0396779e1fa}\label{class_collision_list_a59f61468b831dea28497b0396779e1fa} 
+void {\bfseries add} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}} $>$ object)
+\item 
+\doxymbox{\hyperlink{classvec2}{vec2}} \doxymbox{\hyperlink{class_collision_list_abee140dce62fd4668cf31fb27553b896}{get\+\_\+tcoords}} (const point \&p) const
+\item 
+bool \doxymbox{\hyperlink{class_collision_list_aca17aa67b81b4923f832d547239a7875}{hit}} (const \doxymbox{\hyperlink{class_ray}{Ray}} \&r, \doxymbox{\hyperlink{class_interval}{Interval}} ray\+\_\+t, \doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&rec) const override
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_collision_list_a4fe9b69d7198dbe159f571bdb6b84913}\label{class_collision_list_a4fe9b69d7198dbe159f571bdb6b84913} 
+std::\+vector$<$ std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}} $>$ $>$ {\bfseries objects}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_material}{Material}} $>$ {\bfseries mat}
+\end{DoxyCompactItemize}
+
+
+\label{class_collision_list_doc-func-members}
+\Hypertarget{class_collision_list_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_collision_list_abee140dce62fd4668cf31fb27553b896}\index{CollisionList@{CollisionList}!get\_tcoords@{get\_tcoords}}
+\index{get\_tcoords@{get\_tcoords}!CollisionList@{CollisionList}}
+\doxysubsubsection{\texorpdfstring{get\_tcoords()}{get\_tcoords()}}
+{\footnotesize\ttfamily \label{class_collision_list_abee140dce62fd4668cf31fb27553b896} 
+\doxymbox{\hyperlink{classvec2}{vec2}} Collision\+List::\+get\+\_\+tcoords (\begin{DoxyParamCaption}\item[{const point \&}]{p}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}.
+
+\Hypertarget{class_collision_list_aca17aa67b81b4923f832d547239a7875}\index{CollisionList@{CollisionList}!hit@{hit}}
+\index{hit@{hit}!CollisionList@{CollisionList}}
+\doxysubsubsection{\texorpdfstring{hit()}{hit()}}
+{\footnotesize\ttfamily \label{class_collision_list_aca17aa67b81b4923f832d547239a7875} 
+bool Collision\+List::\+hit (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{class_ray}{Ray}} \&}]{r}{, }\item[{\doxymbox{\hyperlink{class_interval}{Interval}}}]{ray\+\_\+t}{, }\item[{\doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&}]{rec}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+src/\+objects/collidable.\+hpp\end{DoxyCompactItemize}
