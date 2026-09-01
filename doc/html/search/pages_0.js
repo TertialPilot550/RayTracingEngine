@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['acceleration_0',['Acceleration',['../index.html#autotoc_md10',1,'']]]
+  ['40_2050_0',['CUMULATIVE POINT TOTAL: 40 {50}',['../index.html#autotoc_md16',1,'']]]
 ];

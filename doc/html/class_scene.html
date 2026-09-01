@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.18.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Ray Tracing Engine: Scene Class Reference</title>
+<title>Ray-Tracing Engine: Scene Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -22,7 +22,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Ray Tracing Engine<span id="projectnumber">&#160;0.1</span>
+   <div id="projectname">Ray-Tracing Engine<span id="projectnumber">&#160;0.2</span>
    </div>
    <div id="projectbrief">Class Project for CPRE 3360. Rendering engine implemented using ray tracing.</div>
   </td>
@@ -99,6 +99,11 @@ document.addEventListener('DOMContentLoaded', codefold.init);
   <div class="headertitle"><div class="title">Scene Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Object which represents all of the context for a particular instance of the ray tracing algorithm, including objects, background, and camera details.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="scene_8hpp_source.html">scene.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for Scene:</div>
 <div class="dyncontent">
@@ -115,7 +120,11 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ab75ff048912f9863671959cce900ee63" id="r_ab75ff048912f9863671959cce900ee63"><td class="memItemLeft"><a id="ab75ff048912f9863671959cce900ee63" name="ab75ff048912f9863671959cce900ee63"></a>
 color&#160;</td><td class="memItemRight"><b>background</b></td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Object which represents all of the context for a particular instance of the ray tracing algorithm, including objects, background, and camera details. </p>
+<p>Contains a list of objects, a background, and camera controls. Background color defaults to sky blue</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_cam_controls.html" title="Camera control class which details how rendering should be performed for a given scene....">CamControls</a>, <a class="el" href="class_collision_list.html">CollisionList</a>, color </dd></dl>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/scenes/<a class="el" href="scene_8hpp_source.html">scene.hpp</a></li>
 </ul>
 </div><!-- contents -->

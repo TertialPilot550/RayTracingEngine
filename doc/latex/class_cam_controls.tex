@@ -1,5 +1,14 @@
 \doxysection{Cam\+Controls Class Reference}
 \hypertarget{class_cam_controls}{}\label{class_cam_controls}\index{CamControls@{CamControls}}
+
+
+Camera control class which details how rendering should be performed for a given scene. This is held as a member of scene objects.  
+
+
+
+
+{\ttfamily \+\#include $<$cam\+\_\+controls.\+hpp$>$}
+
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -102,6 +111,16 @@ int {\bfseries chunk\+\_\+size} = image\+\_\+width
 \Hypertarget{class_cam_controls_ae105927410acc697127c52e26de66751}\label{class_cam_controls_ae105927410acc697127c52e26de66751} 
 int {\bfseries thread\+\_\+count} = 50
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Camera control class which details how rendering should be performed for a given scene. This is held as a member of scene objects. 
+
+Autocalculates values based on a small set of settable values in order to determine all calculated values such as viewport size, image height, e.\+t.\+c.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{class_camera_rig}{Camera\+Rig}, \doxylink{class_scene}{Scene} 
+\end{DoxySeeAlso}
 
 
 The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}

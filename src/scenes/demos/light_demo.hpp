@@ -18,6 +18,7 @@ inline Scene light_demo() {
     s.controls.set_camera_pos(point(26, 3, 6), point(0, 2, 0), point(0, 1, 0));
     s.controls.set_defocus_angle(0);
     s.controls.max_depth = 50;
+    s.background = color(0,0,0);
     
     return s;
 }

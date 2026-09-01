@@ -6,143 +6,143 @@
 \DoxyCodeLine{00002\ }
 \DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}../main.hpp"{}}}
 \DoxyCodeLine{00004\ }
-\DoxyCodeLine{00005\ \textcolor{keyword}{class\ }CamControls\ \{}
-\DoxyCodeLine{00006\ }
-\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keyword}{private}:\ }
-\DoxyCodeLine{00008\ }
-\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{double}\ aspect\_ratio\ =\ 16.0/9;}
-\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{int}\ image\_width\ =\ 400;}
-\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{int}\ samples\_per\_pixel\ =\ 10;}
-\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{double}\ vertical\_fov\ =\ 90;}
-\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{double}\ defocus\_angle\ =\ 0;}
-\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{double}\ focus\_dist\ =\ 10;}
-\DoxyCodeLine{00015\ }
-\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{int}\ image\_height\ =\ 0;}
-\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{double}\ pixels\_samples\_scale\ =\ 1.0\ /\ samples\_per\_pixel;}
+\DoxyCodeLine{00017\ \textcolor{keyword}{class\ }CamControls\ \{}
 \DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ pixel\_delta\_u;}
-\DoxyCodeLine{00020\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ pixel\_delta\_v;}
-\DoxyCodeLine{00021\ }
-\DoxyCodeLine{00022\ \ \ \ \ point\ camera\_center;}
-\DoxyCodeLine{00023\ \ \ \ \ point\ facing\ =\ point(0,\ 0,\ -\/1);}
-\DoxyCodeLine{00024\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ camera\_up\ =\ \doxymbox{\hyperlink{classvec3}{vec3}}(0,\ 1,\ 0);}
-\DoxyCodeLine{00025\ \ \ \ \ point\ pixel00\_loc;}
-\DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ b\_u\ =\ \doxymbox{\hyperlink{classvec3}{vec3}}(0,\ 0,\ 0);\ \textcolor{comment}{//\ camera\ frame\ basis\ vectors}}
-\DoxyCodeLine{00028\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ b\_v\ =\ \doxymbox{\hyperlink{classvec3}{vec3}}(0,\ 0,\ 0);\ \textcolor{comment}{//\ camera\ frame\ basis\ vectors}}
-\DoxyCodeLine{00029\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ b\_w\ =\ \doxymbox{\hyperlink{classvec3}{vec3}}(0,\ 0,\ 0);\ \textcolor{comment}{//\ camera\ frame\ basis\ vectors}}
-\DoxyCodeLine{00030\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ \ \ defocus\_disk\_u;\ \ \ \ \ \ \ \textcolor{comment}{//\ Defocus\ disk\ horizontal\ radius}}
-\DoxyCodeLine{00031\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ \ \ defocus\_disk\_v;\ \ \ \ \ \ \ \textcolor{comment}{//\ Defocus\ disk\ vertical\ radius}}
-\DoxyCodeLine{00032\ }
-\DoxyCodeLine{00033\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ viewport\_u;}
-\DoxyCodeLine{00034\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ viewport\_v;}
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{int}\ max\_depth\ =\ 50;}
-\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{double}\ gamma\ =\ 0.6;}
-\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{int}\ chunk\_size\ =\ image\_width;}
-\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{int}\ thread\_count\ =\ 50;}
-\DoxyCodeLine{00042\ }
-\DoxyCodeLine{00043\ \ \ \ \ CamControls()\ \{}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ update();}
-\DoxyCodeLine{00045\ \ \ \ \ \}}
-\DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_camera\_pos(point\ p,\ point\ f,\ point\ u)\ \{}
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ camera\_center\ =\ p;}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ facing\ =\ f;}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ camera\_up\ =\ u;}
-\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ update();}
-\DoxyCodeLine{00052\ \ \ \ \ \}}
-\DoxyCodeLine{00053\ }
-\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_aspect\_ratio(\textcolor{keywordtype}{double}\ r)\ \{}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ aspect\_ratio\ =\ r;}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{private}:\ }
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{double}\ aspect\_ratio\ =\ 16.0/9;}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{int}\ image\_width\ =\ 400;}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{int}\ samples\_per\_pixel\ =\ 10;}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{double}\ vertical\_fov\ =\ 90;}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{double}\ defocus\_angle\ =\ 0;}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{double}\ focus\_dist\ =\ 10;}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{int}\ image\_height\ =\ 0;}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{double}\ pixels\_samples\_scale\ =\ 1.0\ /\ samples\_per\_pixel;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ pixel\_delta\_u;}
+\DoxyCodeLine{00032\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ pixel\_delta\_v;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ point\ camera\_center;}
+\DoxyCodeLine{00035\ \ \ \ \ point\ facing\ =\ point(0,\ 0,\ -\/1);}
+\DoxyCodeLine{00036\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ camera\_up\ =\ \doxymbox{\hyperlink{classvec3}{vec3}}(0,\ 1,\ 0);}
+\DoxyCodeLine{00037\ \ \ \ \ point\ pixel00\_loc;}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ b\_u\ =\ \doxymbox{\hyperlink{classvec3}{vec3}}(0,\ 0,\ 0);\ \textcolor{comment}{//\ camera\ frame\ basis\ vectors}}
+\DoxyCodeLine{00040\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ b\_v\ =\ \doxymbox{\hyperlink{classvec3}{vec3}}(0,\ 0,\ 0);\ \textcolor{comment}{//\ camera\ frame\ basis\ vectors}}
+\DoxyCodeLine{00041\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ b\_w\ =\ \doxymbox{\hyperlink{classvec3}{vec3}}(0,\ 0,\ 0);\ \textcolor{comment}{//\ camera\ frame\ basis\ vectors}}
+\DoxyCodeLine{00042\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ \ \ defocus\_disk\_u;\ \ \ \ \ \ \ \textcolor{comment}{//\ Defocus\ disk\ horizontal\ radius}}
+\DoxyCodeLine{00043\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ \ \ defocus\_disk\_v;\ \ \ \ \ \ \ \textcolor{comment}{//\ Defocus\ disk\ vertical\ radius}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ viewport\_u;}
+\DoxyCodeLine{00046\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ viewport\_v;}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{int}\ max\_depth\ =\ 50;}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{double}\ gamma\ =\ 0.6;}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{int}\ chunk\_size\ =\ image\_width;}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{int}\ thread\_count\ =\ 50;}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ CamControls()\ \{}
 \DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ update();}
 \DoxyCodeLine{00057\ \ \ \ \ \}}
 \DoxyCodeLine{00058\ }
-\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_image\_width(\textcolor{keywordtype}{int}\ w)\ \{}
-\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ image\_width\ =\ w;}
-\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ update();}
-\DoxyCodeLine{00062\ \ \ \ \ \}}
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_vertical\_fov(\textcolor{keywordtype}{double}\ f)\ \{}
-\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ vertical\_fov\ =\ f;}
-\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ update();}
-\DoxyCodeLine{00067\ \ \ \ \ \}}
-\DoxyCodeLine{00068\ }
-\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_samples\_per\_pixel(\textcolor{keywordtype}{int}\ s)\ \{}
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ samples\_per\_pixel\ =\ s;}
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ pixels\_samples\_scale\ =\ 1.0\ /\ samples\_per\_pixel;}
-\DoxyCodeLine{00072\ \ \ \ \ \}}
-\DoxyCodeLine{00073\ }
-\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_focus\_distance(\textcolor{keywordtype}{double}\ f)\ \{}
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ focus\_dist\ =\ f;}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ update();}
-\DoxyCodeLine{00077\ \ \ \ \ \}}
-\DoxyCodeLine{00078\ }
-\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_defocus\_angle(\textcolor{keywordtype}{double}\ f)\ \{}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ defocus\_angle\ =\ f;}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ update();}
-\DoxyCodeLine{00082\ \ \ \ \ \}}
-\DoxyCodeLine{00083\ }
-\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{double}\ asp\_ratio()\ \{\textcolor{keywordflow}{return}\ aspect\_ratio;\}}
-\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{int}\ img\_w()\ \{\textcolor{keywordflow}{return}\ image\_width;\}}
-\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{int}\ img\_h()\ \{\textcolor{keywordflow}{return}\ image\_height;\}}
-\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{double}\ pscale()\ \{\textcolor{keywordflow}{return}\ pixels\_samples\_scale;\}}
-\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{double}\ samples\_per\_pix()\ \{\textcolor{keywordflow}{return}\ samples\_per\_pixel;\}}
-\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{double}\ vfov()\ \{\textcolor{keywordflow}{return}\ vertical\_fov;\}}
-\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{double}\ defcs\_angle()\ \{\textcolor{keywordflow}{return}\ defocus\_angle;\}}
-\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{double}\ focus\_d()\ \{\textcolor{keywordflow}{return}\ focus\_dist;\}}
-\DoxyCodeLine{00092\ }
-\DoxyCodeLine{00093\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ du()\ \{\textcolor{keywordflow}{return}\ pixel\_delta\_u;\}}
-\DoxyCodeLine{00094\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ dv()\ \{\textcolor{keywordflow}{return}\ pixel\_delta\_v;\}}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_camera\_pos(point\ p,\ point\ f,\ point\ u)\ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ camera\_center\ =\ p;}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ facing\ =\ f;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ camera\_up\ =\ u;}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ update();}
+\DoxyCodeLine{00064\ \ \ \ \ \}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_aspect\_ratio(\textcolor{keywordtype}{double}\ r)\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ aspect\_ratio\ =\ r;}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ update();}
+\DoxyCodeLine{00069\ \ \ \ \ \}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_image\_width(\textcolor{keywordtype}{int}\ w)\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ image\_width\ =\ w;}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ update();}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_vertical\_fov(\textcolor{keywordtype}{double}\ f)\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ vertical\_fov\ =\ f;}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ update();}
+\DoxyCodeLine{00079\ \ \ \ \ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_samples\_per\_pixel(\textcolor{keywordtype}{int}\ s)\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ samples\_per\_pixel\ =\ s;}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ pixels\_samples\_scale\ =\ 1.0\ /\ samples\_per\_pixel;}
+\DoxyCodeLine{00084\ \ \ \ \ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_focus\_distance(\textcolor{keywordtype}{double}\ f)\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ focus\_dist\ =\ f;}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ update();}
+\DoxyCodeLine{00089\ \ \ \ \ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_defocus\_angle(\textcolor{keywordtype}{double}\ f)\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ defocus\_angle\ =\ f;}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ update();}
+\DoxyCodeLine{00094\ \ \ \ \ \}}
 \DoxyCodeLine{00095\ }
-\DoxyCodeLine{00096\ \ \ \ \ point\ center()\ \{\textcolor{keywordflow}{return}\ camera\_center;\}}
-\DoxyCodeLine{00097\ \ \ \ \ point\ face()\ \{\textcolor{keywordflow}{return}\ facing;\}}
-\DoxyCodeLine{00098\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ up()\ \{\textcolor{keywordflow}{return}\ camera\_up;\}}
-\DoxyCodeLine{00099\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ viewport\_origin()\ \{\textcolor{keywordflow}{return}\ pixel00\_loc;\}}
-\DoxyCodeLine{00100\ }
-\DoxyCodeLine{00101\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ u()\ \{\textcolor{keywordflow}{return}\ b\_u;\}}
-\DoxyCodeLine{00102\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ v()\ \{\textcolor{keywordflow}{return}\ b\_v;\}}
-\DoxyCodeLine{00103\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ w()\ \{\textcolor{keywordflow}{return}\ b\_w;\}}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{double}\ asp\_ratio()\ \{\textcolor{keywordflow}{return}\ aspect\_ratio;\}}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{int}\ img\_w()\ \{\textcolor{keywordflow}{return}\ image\_width;\}}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{int}\ img\_h()\ \{\textcolor{keywordflow}{return}\ image\_height;\}}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{double}\ pscale()\ \{\textcolor{keywordflow}{return}\ pixels\_samples\_scale;\}}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{double}\ samples\_per\_pix()\ \{\textcolor{keywordflow}{return}\ samples\_per\_pixel;\}}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{double}\ vfov()\ \{\textcolor{keywordflow}{return}\ vertical\_fov;\}}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{double}\ defcs\_angle()\ \{\textcolor{keywordflow}{return}\ defocus\_angle;\}}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{double}\ focus\_d()\ \{\textcolor{keywordflow}{return}\ focus\_dist;\}}
 \DoxyCodeLine{00104\ }
-\DoxyCodeLine{00105\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ defocus\_radius\_u()\ \{\textcolor{keywordflow}{return}\ defocus\_disk\_u;\}}
-\DoxyCodeLine{00106\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ defocus\_radius\_v()\ \{\textcolor{keywordflow}{return}\ defocus\_disk\_v;\}}
+\DoxyCodeLine{00105\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ du()\ \{\textcolor{keywordflow}{return}\ pixel\_delta\_u;\}}
+\DoxyCodeLine{00106\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ dv()\ \{\textcolor{keywordflow}{return}\ pixel\_delta\_v;\}}
 \DoxyCodeLine{00107\ }
-\DoxyCodeLine{00108\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ viewp\_u()\ \{\textcolor{keywordflow}{return}\ viewport\_u;\};}
-\DoxyCodeLine{00109\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ viewp\_v()\ \{\textcolor{keywordflow}{return}\ viewport\_v;\};}
-\DoxyCodeLine{00110\ }
-\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00108\ \ \ \ \ point\ center()\ \{\textcolor{keywordflow}{return}\ camera\_center;\}}
+\DoxyCodeLine{00109\ \ \ \ \ point\ face()\ \{\textcolor{keywordflow}{return}\ facing;\}}
+\DoxyCodeLine{00110\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ up()\ \{\textcolor{keywordflow}{return}\ camera\_up;\}}
+\DoxyCodeLine{00111\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ viewport\_origin()\ \{\textcolor{keywordflow}{return}\ pixel00\_loc;\}}
 \DoxyCodeLine{00112\ }
-\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{void}\ update()\ \{}
-\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ chunk\_size\ =\ image\_width;}
-\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ image\_height\ =\ int(image\_width\ /\ aspect\_ratio);}
-\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ image\_height\ =\ (image\_height\ <\ 1)\ ?\ 1\ :\ image\_height;}
-\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ theta\ =\ degrees\_to\_radians(vertical\_fov);}
-\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ h\ =\ std::tan(theta/2);}
-\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ viewport\_height\ =\ 2\ *\ h\ *\ focus\_dist;}
-\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ viewport\_width\ =\ viewport\_height\ *\ (double(image\_width)/image\_height);}
+\DoxyCodeLine{00113\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ u()\ \{\textcolor{keywordflow}{return}\ b\_u;\}}
+\DoxyCodeLine{00114\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ v()\ \{\textcolor{keywordflow}{return}\ b\_v;\}}
+\DoxyCodeLine{00115\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ w()\ \{\textcolor{keywordflow}{return}\ b\_w;\}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ defocus\_radius\_u()\ \{\textcolor{keywordflow}{return}\ defocus\_disk\_u;\}}
+\DoxyCodeLine{00118\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ defocus\_radius\_v()\ \{\textcolor{keywordflow}{return}\ defocus\_disk\_v;\}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ viewp\_u()\ \{\textcolor{keywordflow}{return}\ viewport\_u;\};}
+\DoxyCodeLine{00121\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ viewp\_v()\ \{\textcolor{keywordflow}{return}\ viewport\_v;\};}
 \DoxyCodeLine{00122\ }
-\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ b\_w\ =\ unit\_vector(camera\_center\ -\/\ facing);}
-\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ b\_u\ =\ unit\_vector(cross(camera\_up,\ b\_w));}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ b\_v\ =\ cross(b\_w,\ b\_u);}
-\DoxyCodeLine{00126\ }
-\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ viewport\_u\ =\ viewport\_width\ *\ b\_u;\ \ \ \ \textcolor{comment}{//\ Vector\ across\ viewport\ horizontal\ edge}}
-\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ viewport\_v\ =\ viewport\_height\ *\ -\/b\_v;\ \ \textcolor{comment}{//\ Vector\ down\ viewport\ vertical\ edge}}
-\DoxyCodeLine{00129\ }
-\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Calculate\ the\ horizontal\ and\ vertical\ delta\ vectors\ from\ pixel\ to\ pixel.}}
-\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ pixel\_delta\_u\ =\ viewport\_u\ /\ image\_width;}
-\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ pixel\_delta\_v\ =\ viewport\_v\ /\ image\_height;}
-\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ viewport\_upper\_left\ =\ camera\_center\ -\/\ (focus\_dist\ *\ b\_w)\ -\/\ viewport\_u/2\ -\/\ viewport\_v/2;}
-\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ pixel00\_loc\ =\ viewport\_upper\_left\ +\ 0.5\ *\ (pixel\_delta\_u\ +\ pixel\_delta\_v);}
-\DoxyCodeLine{00136\ }
-\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ defocus\_radius\ =\ focus\_dist\ *\ std::tan(degrees\_to\_radians(defocus\_angle\ /\ 2));}
-\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ defocus\_disk\_u\ =\ b\_u\ *\ defocus\_radius;}
-\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ defocus\_disk\_v\ =\ b\_v\ *\ defocus\_radius;}
-\DoxyCodeLine{00140\ \ \ \ \ \}}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordtype}{void}\ update()\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ chunk\_size\ =\ image\_width;}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ image\_height\ =\ int(image\_width\ /\ aspect\_ratio);}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ image\_height\ =\ (image\_height\ <\ 1)\ ?\ 1\ :\ image\_height;}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ theta\ =\ degrees\_to\_radians(vertical\_fov);}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ h\ =\ std::tan(theta/2);}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ viewport\_height\ =\ 2\ *\ h\ *\ focus\_dist;}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ viewport\_width\ =\ viewport\_height\ *\ (double(image\_width)/image\_height);}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ b\_w\ =\ unit\_vector(camera\_center\ -\/\ facing);}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ b\_u\ =\ unit\_vector(cross(camera\_up,\ b\_w));}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ b\_v\ =\ cross(b\_w,\ b\_u);}
 \DoxyCodeLine{00141\ }
-\DoxyCodeLine{00142\ \};}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ viewport\_u\ =\ viewport\_width\ *\ b\_u;\ \ \ \ \textcolor{comment}{//\ Vector\ across\ viewport\ horizontal\ edge}}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ viewport\_v\ =\ viewport\_height\ *\ -\/b\_v;\ \ \textcolor{comment}{//\ Vector\ down\ viewport\ vertical\ edge}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Calculate\ the\ horizontal\ and\ vertical\ delta\ vectors\ from\ pixel\ to\ pixel.}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ pixel\_delta\_u\ =\ viewport\_u\ /\ image\_width;}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ pixel\_delta\_v\ =\ viewport\_v\ /\ image\_height;}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ viewport\_upper\_left\ =\ camera\_center\ -\/\ (focus\_dist\ *\ b\_w)\ -\/\ viewport\_u/2\ -\/\ viewport\_v/2;}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ pixel00\_loc\ =\ viewport\_upper\_left\ +\ 0.5\ *\ (pixel\_delta\_u\ +\ pixel\_delta\_v);}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ defocus\_radius\ =\ focus\_dist\ *\ std::tan(degrees\_to\_radians(defocus\_angle\ /\ 2));}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ defocus\_disk\_u\ =\ b\_u\ *\ defocus\_radius;}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ defocus\_disk\_v\ =\ b\_v\ *\ defocus\_radius;}
+\DoxyCodeLine{00155\ \ \ \ \ \}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \};}
 
 \end{DoxyCode}

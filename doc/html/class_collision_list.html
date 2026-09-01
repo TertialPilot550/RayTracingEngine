@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.18.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Ray Tracing Engine: CollisionList Class Reference</title>
+<title>Ray-Tracing Engine: CollisionList Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -22,7 +22,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Ray Tracing Engine<span id="projectnumber">&#160;0.1</span>
+   <div id="projectname">Ray-Tracing Engine<span id="projectnumber">&#160;0.2</span>
    </div>
    <div id="projectbrief">Class Project for CPRE 3360. Rendering engine implemented using ray tracing.</div>
   </td>
@@ -121,8 +121,11 @@ Public Member Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight"><b>clear</b> ()</td></tr>
 <tr class="memitem:a59f61468b831dea28497b0396779e1fa" id="r_a59f61468b831dea28497b0396779e1fa"><td class="memItemLeft"><a id="a59f61468b831dea28497b0396779e1fa" name="a59f61468b831dea28497b0396779e1fa"></a>
 void&#160;</td><td class="memItemRight"><b>add</b> (std::shared_ptr&lt; <a class="el" href="class_collision_object.html">CollisionObject</a> &gt; object)</td></tr>
-<tr class="memitem:abee140dce62fd4668cf31fb27553b896" id="r_abee140dce62fd4668cf31fb27553b896"><td class="memItemLeft"><a class="el" href="classvec2.html">vec2</a>&#160;</td><td class="memItemRight"><a class="el" href="#abee140dce62fd4668cf31fb27553b896">get_tcoords</a> (const point &amp;p) const</td></tr>
+<tr class="memitem:a08aa4e290ab1a64a8232dca1401b3748" id="r_a08aa4e290ab1a64a8232dca1401b3748"><td class="memItemLeft"><a class="el" href="classvec2.html">vec2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a08aa4e290ab1a64a8232dca1401b3748">get_tcoords</a> (const point &amp;p) const override</td></tr>
 <tr class="memitem:aca17aa67b81b4923f832d547239a7875" id="r_aca17aa67b81b4923f832d547239a7875"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aca17aa67b81b4923f832d547239a7875">hit</a> (const <a class="el" href="class_ray.html">Ray</a> &amp;r, <a class="el" href="class_interval.html">Interval</a> ray_t, <a class="el" href="class_collision_record.html">CollisionRecord</a> &amp;rec) const override</td></tr>
+<tr class="inherit_header pub_methods_class_collision_object"><td colspan="2">Public Member Functions inherited from <a class="el" href="class_collision_object.html">CollisionObject</a></td></tr>
+<tr class="memitem:a41b23864c3d328dedd6a24960b1db175 pub_methods_class_collision_object" id="r_a41b23864c3d328dedd6a24960b1db175"><td class="memItemLeft">
+&#160;</td><td class="memItemRight"><b>CollisionObject</b> (std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt; m)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -133,8 +136,8 @@ std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_collision_object.h
 std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt;&#160;</td><td class="memItemRight"><b>mat</b></td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="abee140dce62fd4668cf31fb27553b896" name="abee140dce62fd4668cf31fb27553b896"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abee140dce62fd4668cf31fb27553b896">&#9670;&#160;</a></span>get_tcoords()</h2>
+<a id="a08aa4e290ab1a64a8232dca1401b3748" name="a08aa4e290ab1a64a8232dca1401b3748"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08aa4e290ab1a64a8232dca1401b3748">&#9670;&#160;</a></span>get_tcoords()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -151,7 +154,7 @@ std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt;&#
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel virtual">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

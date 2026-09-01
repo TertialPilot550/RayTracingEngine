@@ -2,6 +2,9 @@
 
 #include "../../main.hpp"
 
+/**
+ * @brief Abstract texture class meant to describe the appearance of an object
+ */
 class Texture {
     public:
 

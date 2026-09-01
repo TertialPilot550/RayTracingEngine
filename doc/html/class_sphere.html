@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.18.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Ray Tracing Engine: Sphere Class Reference</title>
+<title>Ray-Tracing Engine: Sphere Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -22,7 +22,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Ray Tracing Engine<span id="projectnumber">&#160;0.1</span>
+   <div id="projectname">Ray-Tracing Engine<span id="projectnumber">&#160;0.2</span>
    </div>
    <div id="projectbrief">Class Project for CPRE 3360. Rendering engine implemented using ray tracing.</div>
   </td>
@@ -118,7 +118,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aebf0d851ac00890b5f8ba1d27dbeebab" id="r_aebf0d851ac00890b5f8ba1d27dbeebab"><td class="memItemLeft"><a id="aebf0d851ac00890b5f8ba1d27dbeebab" name="aebf0d851ac00890b5f8ba1d27dbeebab"></a>
 &#160;</td><td class="memItemRight"><b>Sphere</b> (const point &amp;center, double radius, std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt; material)</td></tr>
 <tr class="memitem:a9b170d963bcecb3ffddc802fbddfe356" id="r_a9b170d963bcecb3ffddc802fbddfe356"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9b170d963bcecb3ffddc802fbddfe356">hit</a> (const <a class="el" href="class_ray.html">Ray</a> &amp;r, <a class="el" href="class_interval.html">Interval</a> ray_t, <a class="el" href="class_collision_record.html">CollisionRecord</a> &amp;rec) const override</td></tr>
-<tr class="memitem:a526a3da817e905c6ea6cdb6479fd414b" id="r_a526a3da817e905c6ea6cdb6479fd414b"><td class="memItemLeft"><a class="el" href="classvec2.html">vec2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a526a3da817e905c6ea6cdb6479fd414b">get_tcoords</a> (const point &amp;p) const</td></tr>
+<tr class="memitem:aa4a745a1038350f2eefe0384b312fa9f" id="r_aa4a745a1038350f2eefe0384b312fa9f"><td class="memItemLeft"><a class="el" href="classvec2.html">vec2</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa4a745a1038350f2eefe0384b312fa9f">get_tcoords</a> (const point &amp;p) const override</td></tr>
+<tr class="inherit_header pub_methods_class_collision_object"><td colspan="2">Public Member Functions inherited from <a class="el" href="class_collision_object.html">CollisionObject</a></td></tr>
+<tr class="memitem:a41b23864c3d328dedd6a24960b1db175 pub_methods_class_collision_object" id="r_a41b23864c3d328dedd6a24960b1db175"><td class="memItemLeft">
+&#160;</td><td class="memItemRight"><b>CollisionObject</b> (std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt; m)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -131,8 +134,8 @@ double&#160;</td><td class="memItemRight"><b>radius</b></td></tr>
 std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt;&#160;</td><td class="memItemRight"><b>mat</b></td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="a526a3da817e905c6ea6cdb6479fd414b" name="a526a3da817e905c6ea6cdb6479fd414b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a526a3da817e905c6ea6cdb6479fd414b">&#9670;&#160;</a></span>get_tcoords()</h2>
+<a id="aa4a745a1038350f2eefe0384b312fa9f" name="aa4a745a1038350f2eefe0384b312fa9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4a745a1038350f2eefe0384b312fa9f">&#9670;&#160;</a></span>get_tcoords()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -149,7 +152,7 @@ std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt;&#
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel virtual">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

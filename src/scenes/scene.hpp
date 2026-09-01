@@ -18,8 +18,8 @@ class Scene {
     CollisionList objects;
     color background;
 
-    // Default to a kind of sky blue
-    Scene() : controls(CamControls()), background(176, 252, 255) {}
+    // Default to a black background
+    Scene() : controls(CamControls()), background(0, 0, 0) {}
     
 };
 

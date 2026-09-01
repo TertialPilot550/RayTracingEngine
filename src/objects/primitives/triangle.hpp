@@ -1,6 +1,9 @@
 #pragma once
 #include "../../main.hpp"
 
+/**
+ * @brief Vertex class used by the triangle primives
+ */
 class Vertex {
     public:
 
@@ -17,6 +20,9 @@ class Vertex {
 
 };
 
+/**
+ * @brief Triangle Primitive
+ */
 class Triangle : public CollisionObject {
 
     public:
@@ -37,8 +43,8 @@ class Triangle : public CollisionObject {
         const double epsilon = 1e-8; // Handle near parralel intersections to make up for doubles nonsense
 
         // Find the edges of the triangle as vectors
-        vec3 e1 = v[2].p - v[1].p;
-        vec3 e2 = v[3].p - v[1].p;
+        vec3 e1 = v[1].p - v[0].p;
+        vec3 e2 = v[2].p - v[0].p;
 
         // Vector representation of intersection candidate
         vec3 pvec = cross(r.direction(), e2);
@@ -52,7 +58,7 @@ class Triangle : public CollisionObject {
 
         // A point inside the triangle can be represented as P = A + u*e1 + v*e2 : u >= 0, v >= 0, u + v <= 1
 
-        vec3 tvec = r.origin() - v[1].p;
+        vec3 tvec = r.origin() - v[0].p;
         double u = dot(tvec, pvec) * inv_det;
         vec3 qvec = cross(tvec, e1);
         double v = dot(r.direction(), qvec) * inv_det;
@@ -84,7 +90,7 @@ class Triangle : public CollisionObject {
 
         float l0 = d * ((v[1].p[1]-v[2].p[1])*(p[0] - v[2].p[0])+(v[2].p[0]-v[1].p[0])*(p[1]-v[2].p[1]));
         float l1 = d * ((v[2].p[1]-v[0].p[1])*(p[0] - v[2].p[0])+(v[0].p[0]-v[2].p[0])*(p[1]-v[2].p[1]));
-        float l2 = 1-l1-l2;
+        float l2 = 1-l0-l1;
 
         return l0*v[0].t_coords+l1*v[1].t_coords+l2*v[2].t_coords;
 

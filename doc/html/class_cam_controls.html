@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.18.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Ray Tracing Engine: CamControls Class Reference</title>
+<title>Ray-Tracing Engine: CamControls Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -22,7 +22,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Ray Tracing Engine<span id="projectnumber">&#160;0.1</span>
+   <div id="projectname">Ray-Tracing Engine<span id="projectnumber">&#160;0.2</span>
    </div>
    <div id="projectbrief">Class Project for CPRE 3360. Rendering engine implemented using ray tracing.</div>
   </td>
@@ -100,6 +100,11 @@ document.addEventListener('DOMContentLoaded', codefold.init);
   <div class="headertitle"><div class="title">CamControls Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Camera control class which details how rendering should be performed for a given scene. This is held as a member of scene objects.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="cam__controls_8hpp_source.html">cam_controls.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -171,7 +176,11 @@ int&#160;</td><td class="memItemRight"><b>chunk_size</b> = image_width</td></tr>
 <tr class="memitem:ae105927410acc697127c52e26de66751" id="r_ae105927410acc697127c52e26de66751"><td class="memItemLeft"><a id="ae105927410acc697127c52e26de66751" name="ae105927410acc697127c52e26de66751"></a>
 int&#160;</td><td class="memItemRight"><b>thread_count</b> = 50</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Camera control class which details how rendering should be performed for a given scene. This is held as a member of scene objects. </p>
+<p>Autocalculates values based on a small set of settable values in order to determine all calculated values such as viewport size, image height, e.t.c.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_camera_rig.html" title="Object which can rendering object to a 2D image using ray tracing algorithm.">CameraRig</a>, <a class="el" href="class_scene.html" title="Object which represents all of the context for a particular instance of the ray tracing algorithm,...">Scene</a> </dd></dl>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/camera/<a class="el" href="cam__controls_8hpp_source.html">cam_controls.hpp</a></li>
 </ul>
 </div><!-- contents -->

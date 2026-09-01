@@ -1,6 +1,9 @@
 #pragma once
 #include "../../main.hpp"
 
+/**
+ * @brief Abstract Material class that describes how light bounces off of / interacts with the object
+ */
 class Material {
   public:
     virtual ~Material() = default;

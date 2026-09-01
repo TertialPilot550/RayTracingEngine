@@ -2,9 +2,9 @@
 \hypertarget{triangle__demo_8hpp_source}{}\label{triangle__demo_8hpp_source}\index{src/scenes/demos/triangle\_demo.hpp@{src/scenes/demos/triangle\_demo.hpp}}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ "{}../scene.hpp"{}}}
-\DoxyCodeLine{00002\ }
-\DoxyCodeLine{00003\ \doxymbox{\hyperlink{class_scene}{Scene}}\ triangle\_demo()\ \{}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}../../main.hpp"{}}}
+\DoxyCodeLine{00003\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{class_scene}{Scene}}\ triangle\_demo()\ \{}
 \DoxyCodeLine{00004\ \ \ \ \ \doxymbox{\hyperlink{class_scene}{Scene}}\ s;}
 \DoxyCodeLine{00005\ }
 \DoxyCodeLine{00006\ \ \ \ \ s.controls.set\_image\_width(1200);}
@@ -16,16 +16,16 @@
 \DoxyCodeLine{00012\ \ \ \ \ s.controls.set\_focus\_distance(50.0);}
 \DoxyCodeLine{00013\ \ \ \ \ s.controls.max\_depth\ =\ 50;}
 \DoxyCodeLine{00014\ }
-\DoxyCodeLine{00015\ \ \ \ \ \ \textcolor{keyword}{auto}\ difflight\ =\ std::make\_shared<DiffuseLight>(color(4,4,4));}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{auto}\ difflight\ =\ std::make\_shared<DiffuseLight>(color(4,4,4));}
 \DoxyCodeLine{00016\ \ \ \ \ s.objects.add(std::make\_shared<Sphere>(point(0,0,20),\ 2,\ difflight));}
 \DoxyCodeLine{00017\ }
 \DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{auto}\ ground\_material\ =\ std::make\_shared<Lambertian>(color(0.5,\ 0.5,\ 0.5));}
 \DoxyCodeLine{00019\ \ \ \ \ s.objects.add(std::make\_shared<Sphere>(point(0,0,-\/1000),\ 1000,\ ground\_material));}
-\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{auto}\ albedo\ =\ color(255.0/256,\ 0.0,\ 0.0);}
-\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{auto}\ mat\ =\ std::make\_shared<Metal>(albedo,\ 0.5);}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{auto}\ pertext\ =\ std::make\_shared<NoiseTexture>(4);}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{auto}\ l\ =\ std::make\_shared<Lambertian>(pertext);}
 \DoxyCodeLine{00022\ }
 \DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 10;\ i++)\ \{}
-\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ s.objects.add(std::make\_shared<Triangle>(point((i-\/5)*5,\ (i-\/5)*5,\ 0),\ point((i-\/5)*5+2,\ (i-\/5)*5+2,\ 0),\ point((i-\/5)*5+1,\ (i-\/5)*5+1,\ 5),\ mat));}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ s.objects.add(std::make\_shared<Triangle>(point((i-\/5)*5,\ (i-\/5)*5,\ 0),\ point((i-\/5)*5+2,\ (i-\/5)*5+2,\ 0),\ point((i-\/5)*5+1,\ (i-\/5)*5+1,\ 5),\ l));}
 \DoxyCodeLine{00025\ \ \ \ \ \}}
 \DoxyCodeLine{00026\ }
 \DoxyCodeLine{00027\ }

@@ -2,6 +2,9 @@
 
 #include "../../main.hpp"
 
+/**
+ * @brief Sphere Primitive
+ */
 class Sphere : public CollisionObject {
     public:
 

@@ -1,162 +1,114 @@
-\chapter{\begin{center} Ray Tracing Engine \end{center}  }
-\hypertarget{index}{}\label{index}\index{$<$center$>$ Ray Tracing Engine $<$/center$>$@{$<$center$>$ Ray Tracing Engine $<$/center$>$}}
+\chapter{\begin{center} Ray-\/\+Tracing Engine \end{center}  }
+\hypertarget{index}{}\label{index}\index{$<$center$>$ Ray-\/Tracing Engine $<$/center$>$@{$<$center$>$ Ray-\/Tracing Engine $<$/center$>$}}
 \label{index_md__r_e_a_d_m_e}%
 \Hypertarget{index_md__r_e_a_d_m_e}%
 
 
-\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<} I want to make sure to try and describe the whole feature list. This document is for my understanding as well as for presenting to audiences about the project. Documentation: Organize the project and get it under control. Complete design.\+md and create doxygen comments covering all of the code. Refactor. \{Potentially: add cpp files to clean up the headers\} \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>}\hypertarget{index_autotoc_md1}{}\doxysubsection{\texorpdfstring{\begin{center}Table of Contents\end{center} }{\begin{center}Table of Contents\end{center} }}\label{index_autotoc_md1}
+Class Project for CPRE 3360. Rendering engine implemented using ray tracing. See the feature list below.\hypertarget{index_autotoc_md1}{}\doxysubsection{\texorpdfstring{\begin{center}Table of Contents\end{center} }{\begin{center}Table of Contents\end{center} }}\label{index_autotoc_md1}
 
 \begin{DoxyEnumerate}
 \item src/\+camera
 \begin{DoxyItemize}
-\item camera controls
-\item camera object
+\item \doxylink{class_cam_controls}{Cam\+Controls}
+\item \doxylink{class_camera_rig}{Camera\+Rig}
 \end{DoxyItemize}
-\end{DoxyEnumerate}
-\begin{DoxyItemize}
-\item objects
+\item src/\+objects
 \begin{DoxyItemize}
 \item collidables
+\begin{DoxyItemize}
+\item \doxylink{class_collision_object}{Collision\+Object}
+\item \doxylink{class_collision_record}{Collision\+Record}
+\item \doxylink{class_collision_list}{Collision\+List}
+\end{DoxyItemize}
 \item primitives ~\newline
 
 \begin{DoxyItemize}
 \item \doxylink{class_sphere}{Sphere}
-\item Triangles
-\item Quads
+\item \doxylink{class_triangle}{Triangle}
+\item \doxylink{class_quad}{Quad}
 \end{DoxyItemize}
 \item composites
 \begin{DoxyItemize}
-\item tiny\+\_\+obj\+\_\+loader
+\item \doxylink{class_o_b_j_model}{OBJModel}
 \end{DoxyItemize}
 \item surfaces
-\end{DoxyItemize}
-\item scenes
 \begin{DoxyItemize}
-\item scene object
-\item demos
+\item \doxylink{class_material}{Material}
+\item \doxylink{class_texture}{Texture}
 \end{DoxyItemize}
-\item accel
+\end{DoxyItemize}
+\item src/\+scenes
+\begin{DoxyItemize}
+\item \doxylink{class_scene}{Scene}
+\end{DoxyItemize}
+\item src/\+accel
 \begin{DoxyItemize}
 \item \doxylink{class_task_master}{Task\+Master}
 \end{DoxyItemize}
-\item util
+\item src/\+util
 \begin{DoxyItemize}
-\item ray
-\item vector
-\item rgb/\+image
-\item noise
+\item \doxylink{class_ray}{Ray}
+\item \doxylink{class_interval}{Interval}
+\item \doxylink{classvec2}{vec2}
+\item \doxylink{classvec3}{vec3}
+\item \doxylink{class_perlin}{Perlin}
 \end{DoxyItemize}
-\end{DoxyItemize}
-
-For each section, there should be a description of
-\begin{DoxyItemize}
-\item A: What the object is
-\item B: How the object works and it\textquotesingle{}s code
-\end{DoxyItemize}
-
-\textbackslash{}\hypertarget{index_autotoc_md2}{}\doxysection{\texorpdfstring{Camera}{Camera}}\label{index_autotoc_md2}
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{comment}{//\ TODO\ ADD\ CAMERA\ CONTROLS:\ UPDATE\ THE\ CLASS\ TO\ BE\ MORE\ EXPLICIT\ IN\ ALLOWING\ FEATURE\ CONFIGURATION:\ TURNING\ STUFF\ ON\ AND\ OFF}}
-
-\end{DoxyCode}
-
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_camera_rig}{CameraRig}}\ \{}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ Image*\ \doxymbox{\hyperlink{class_camera_rig_a0a2261b49c5a5c003af8e5f64dea0d3d}{img\_buffer}};}
-\DoxyCodeLine{\ \ \ \ \doxymbox{\hyperlink{class_camera_rig_ad36e9daa7322b0f48b466df372bdb710}{CameraRig}}();}
-\DoxyCodeLine{\ \ \ \ Image\&\ \doxymbox{\hyperlink{class_camera_rig_a6933249f866dacd24775f5f770cbc90b}{capture}}(Scene\&\ s);}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Impure}}
-\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ render(Scene\&\ s);}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Pure\ }}
-\DoxyCodeLine{\ \ \ \ color\ process\_ray(\textcolor{keyword}{const}\ Ray\&\ r,\ \textcolor{keywordtype}{int}\ depth,\ Scene\&\ s);}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Write\ to\ the\ image\ buffer\ (impure)}}
-\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ write\_color(\textcolor{keyword}{const}\ rgb\&\ rgb,\ \textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y);}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Pure\ }}
-\DoxyCodeLine{\ \ \ \ vec3\ sample\_square()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Pure}}
-\DoxyCodeLine{\ \ \ \ point\ defocus\_disk\_sample(CamControls\&\ controls)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Pure}}
-\DoxyCodeLine{\ \ \ \ Ray\ get\_ray\_for\_pixel(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j,\ CamControls\&\ controls)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Pure}}
-\DoxyCodeLine{\ \ \ \ rgb\ sample\_for\_pixel\_color(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ Scene\&\ s);}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Pure}}
-\DoxyCodeLine{\ \ \ \ rgb\ color\_correction\_to\_rgb(\textcolor{keyword}{const}\ color\&\ pixel\_color);}
-\DoxyCodeLine{}
-\DoxyCodeLine{\};}
-
-\end{DoxyCode}
-
-
+\end{DoxyEnumerate}\hypertarget{index_autotoc_md2}{}\doxysection{\texorpdfstring{Feature List}{Feature List}}\label{index_autotoc_md2}
+\hypertarget{index_autotoc_md3}{}\doxysubsection{\texorpdfstring{Camera}{Camera}}\label{index_autotoc_md3}
 
 \begin{DoxyItemize}
 \item Configurable Position, Orientation, and FOV
 \item Anti-\/\+Aliasing
-\item Defocus Blur / Depth of Field
-\item \{Motion Blur\}
+\item Defocus Blur / Depth of Field (10 points)
+\item \{Motion Blur\} (10 Points)
+\item Ray/\+\+Primitive Intersection
+\item Textured Primitives
 \end{DoxyItemize}
 
-Performance:
+Performance: See Acceleration
 \begin{DoxyItemize}
 \item Spatial Subdivision (Pixel Chunking based on image width)
-\item Parrallel Rendering
-\end{DoxyItemize}\hypertarget{index_autotoc_md3}{}\doxysection{\texorpdfstring{Objects}{Objects}}\label{index_autotoc_md3}
-\hypertarget{index_autotoc_md4}{}\doxysubsection{\texorpdfstring{Geometric Primitives}{Geometric Primitives}}\label{index_autotoc_md4}
-\begin{quote}
-Collidables \end{quote}
-
-
+\end{DoxyItemize}\hypertarget{index_autotoc_md4}{}\doxysubsection{\texorpdfstring{Objects}{Objects}}\label{index_autotoc_md4}
+\hypertarget{index_autotoc_md5}{}\doxysubsubsection{\texorpdfstring{Geometric Primitives}{Geometric Primitives}}\label{index_autotoc_md5}
 
 \begin{DoxyEnumerate}
 \item Spheres
 \item Triangles
-\item Quads
-\end{DoxyEnumerate}\hypertarget{index_autotoc_md5}{}\doxysubsubsection{\texorpdfstring{Predefined Triangle Meshes (.obj)}{Predefined Triangle Meshes (.obj)}}\label{index_autotoc_md5}
-\hypertarget{index_autotoc_md6}{}\doxysubsection{\texorpdfstring{Surfaces}{Surfaces}}\label{index_autotoc_md6}
-\hypertarget{index_autotoc_md7}{}\doxysubsubsection{\texorpdfstring{Materials}{Materials}}\label{index_autotoc_md7}
+\item Quads (10 Points)
+\end{DoxyEnumerate}\hypertarget{index_autotoc_md6}{}\doxysubsubsection{\texorpdfstring{Lists of Primitives}{Lists of Primitives}}\label{index_autotoc_md6}
+\hypertarget{index_autotoc_md7}{}\doxysubsubsubsection{\texorpdfstring{Predefined Triangle Meshes (.obj)}{Predefined Triangle Meshes (.obj)}}\label{index_autotoc_md7}
+
+\begin{DoxyItemize}
+\item TODO: NOT FUNCTIONAL
+\end{DoxyItemize}\hypertarget{index_autotoc_md8}{}\doxysubsubsection{\texorpdfstring{Surfaces}{Surfaces}}\label{index_autotoc_md8}
+\hypertarget{index_autotoc_md9}{}\doxysubsubsubsection{\texorpdfstring{Materials}{Materials}}\label{index_autotoc_md9}
 
 \begin{DoxyItemize}
 \item \doxylink{class_dielectric}{Dielectric}
-\item Diffuse Light
+\item \doxylink{class_diffuse_light}{Diffuse\+Light}
 \item \doxylink{class_lambertian}{Lambertian}
 \item \doxylink{class_metal}{Metal} 
-\end{DoxyItemize}\hypertarget{index_autotoc_md8}{}\doxysubsubsection{\texorpdfstring{Textures}{Textures}}\label{index_autotoc_md8}
+\end{DoxyItemize}\hypertarget{index_autotoc_md10}{}\doxysubsubsubsection{\texorpdfstring{Textures}{Textures}}\label{index_autotoc_md10}
 
 \begin{DoxyItemize}
-\item Checker
-\item Image
-\item Noise
-\item Solid Color
-\end{DoxyItemize}\hypertarget{index_autotoc_md9}{}\doxysection{\texorpdfstring{Scenes}{Scenes}}\label{index_autotoc_md9}
+\item \doxylink{class_checker_texture}{Checker\+Texture}
+\item \doxylink{class_image_texture}{Image\+Texture}
+\item \doxylink{class_noise_texture}{Noise\+Texture}
+\item \doxylink{class_solid_color}{Solid\+Color}
+\end{DoxyItemize}\hypertarget{index_autotoc_md11}{}\doxysubsection{\texorpdfstring{Acceleration}{Acceleration}}\label{index_autotoc_md11}
 
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_scene}{Scene}}\ \{}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{\ \ \ \ CamControls\ controls;}
-\DoxyCodeLine{\ \ \ \ CollisionList\ objects;}
-\DoxyCodeLine{\ \ \ \ color\ background;}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ Default\ to\ a\ kind\ of\ sky\ blue}}
-\DoxyCodeLine{\ \ \ \ Scene()\ :\ controls(CamControls()),\ background(176,\ 252,\ 255)\ \{\}}
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ }
-\DoxyCodeLine{\};}
+\begin{DoxyItemize}
+\item Parrallel Rendering (10 points)
+\end{DoxyItemize}\hypertarget{index_autotoc_md12}{}\doxysubsection{\texorpdfstring{Utilies}{Utilies}}\label{index_autotoc_md12}
 
-\end{DoxyCode}
-\hypertarget{index_autotoc_md10}{}\doxysection{\texorpdfstring{Acceleration}{Acceleration}}\label{index_autotoc_md10}
-\hypertarget{index_autotoc_md11}{}\doxysection{\texorpdfstring{Utilities}{Utilities}}\label{index_autotoc_md11}
+\begin{DoxyItemize}
+\item \doxylink{class_perlin}{Perlin} Noise (10 Points)
+\end{DoxyItemize}\hypertarget{index_autotoc_md13}{}\doxysubsection{\texorpdfstring{Scenes}{Scenes}}\label{index_autotoc_md13}
+\hypertarget{index_autotoc_md14}{}\doxysubsubsubsection{\texorpdfstring{Demo Scenes}{Demo Scenes}}\label{index_autotoc_md14}
+
+\begin{DoxyItemize}
+\item \doxylink{class_sphere}{Sphere} Demo
+\item \doxylink{class_triangle}{Triangle} Demo
+\item \doxylink{class_diffuse_light}{Diffuse\+Light} Demo
+\end{DoxyItemize}\hypertarget{index_autotoc_md15}{}\doxysection{\texorpdfstring{REQUIRED FEATURED REMAINING: Triangle Meshes, Bug Fixes}{REQUIRED FEATURED REMAINING: Triangle Meshes, Bug Fixes}}\label{index_autotoc_md15}
+\hypertarget{index_autotoc_md16}{}\doxysection{\texorpdfstring{CUMULATIVE POINT TOTAL: 40 \{50\}}{CUMULATIVE POINT TOTAL: 40 \{50\}}}\label{index_autotoc_md16}

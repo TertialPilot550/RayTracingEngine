@@ -1,6 +1,9 @@
 #pragma once
 #include "../../main.hpp"
 
+/**
+ * @brief Parallelogram Primitive
+ */
 class Quad : public CollisionObject {
     public:
     Quad(const point& p, const vec3& u, const vec3& v, std::shared_ptr<Material> mat): CollisionObject(mat), p(p), u(u), v(v) {
@@ -27,7 +30,7 @@ class Quad : public CollisionObject {
 
         vec2 t_coords = get_tcoords(r.at(t));
         
-        if (Interval(0, 1).contains(t_coords.f1) || Interval(0, 1).contains(t_coords.f2)) return false;
+        if (!Interval(0, 1).contains(t_coords.f1) || !Interval(0, 1).contains(t_coords.f2)) return false;
 
         
         // Ray hits the 2D shape; set the rest of the hit record and return true.

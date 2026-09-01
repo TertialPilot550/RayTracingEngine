@@ -3,51 +3,24 @@
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
-\DoxyCodeLine{00002\ }
-\DoxyCodeLine{00003\ \textcolor{comment}{//\ Constants}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <limits>}}
 \DoxyCodeLine{00004\ }
-\DoxyCodeLine{00008\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ infinity\ =\ std::numeric\_limits<double>::infinity();}
-\DoxyCodeLine{00012\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ pi\ =\ 3.1415926535897932385;}
-\DoxyCodeLine{00013\ }
-\DoxyCodeLine{00017\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ degrees\_to\_radians(\textcolor{keywordtype}{double}\ degrees)\ \{}
-\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordflow}{return}\ degrees\ *\ pi\ /\ 180.0;}
-\DoxyCodeLine{00019\ \}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ Constants}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ infinity\ =\ std::numeric\_limits<double>::infinity();}
+\DoxyCodeLine{00014\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ pi\ =\ 3.1415926535897932385;}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00019\ \textcolor{keywordtype}{double}\ degrees\_to\_radians(\textcolor{keywordtype}{double}\ degrees);}
 \DoxyCodeLine{00020\ }
-\DoxyCodeLine{00024\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ radians\_to\_degrees(\textcolor{keywordtype}{double}\ rad)\ \{}
-\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordflow}{return}\ (rad\ *\ 180.0)/pi;}
-\DoxyCodeLine{00026\ \}}
-\DoxyCodeLine{00027\ }
-\DoxyCodeLine{00032\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ linear\_to\_gamma(\textcolor{keywordtype}{double}\ linear\_component)}
-\DoxyCodeLine{00033\ \{}
-\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordflow}{if}\ (linear\_component\ >\ 0)}
-\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::sqrt(linear\_component);}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
-\DoxyCodeLine{00038\ \}}
-\DoxyCodeLine{00039\ }
-\DoxyCodeLine{00044\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ random\_double()\ \{}
-\DoxyCodeLine{00045\ }
-\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keyword}{thread\_local}\ std::mt19937\ generator(std::random\_device\{\}());}
-\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keyword}{thread\_local}\ std::uniform\_real\_distribution<double>\ distribution(0.0,\ 1.0);}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{return}\ distribution(generator);}
-\DoxyCodeLine{00050\ }
-\DoxyCodeLine{00051\ \}}
-\DoxyCodeLine{00052\ }
-\DoxyCodeLine{00056\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ random\_double(\textcolor{keywordtype}{double}\ min,\ \textcolor{keywordtype}{double}\ max)\ \{}
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordflow}{return}\ min\ +\ (max-\/min)*random\_double();}
-\DoxyCodeLine{00058\ \}}
-\DoxyCodeLine{00059\ }
-\DoxyCodeLine{00063\ \textcolor{keywordtype}{int}\ random\_int(\textcolor{keywordtype}{int}\ min,\ \textcolor{keywordtype}{int}\ max)\ \{}
-\DoxyCodeLine{00064\ \ \ \ \ \textcolor{comment}{//\ 1.\ Thread-\/local\ seed\ source\ and\ engine\ initialization\ (happens\ once\ per\ thread)}}
-\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keyword}{thread\_local}\ std::random\_device\ rd;}
-\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keyword}{thread\_local}\ std::mt19937\ generator(rd());}
-\DoxyCodeLine{00067\ \ \ \ \ }
-\DoxyCodeLine{00068\ \ \ \ \ \textcolor{comment}{//\ 2.\ Define\ the\ distribution\ range}}
-\DoxyCodeLine{00069\ \ \ \ \ std::uniform\_int\_distribution<int>\ distribution(min,\ max);}
-\DoxyCodeLine{00070\ \ \ \ \ }
-\DoxyCodeLine{00071\ \ \ \ \ \textcolor{comment}{//\ 3.\ Generate\ the\ number}}
-\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordflow}{return}\ distribution(generator);}
-\DoxyCodeLine{00073\ \}}
+\DoxyCodeLine{00024\ \textcolor{keywordtype}{double}\ radians\_to\_degrees(\textcolor{keywordtype}{double}\ rad);}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00030\ \textcolor{keywordtype}{double}\ linear\_to\_gamma(\textcolor{keywordtype}{double}\ linear\_component);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{double}\ random\_double();}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00041\ \textcolor{keywordtype}{double}\ random\_double(\textcolor{keywordtype}{double}\ min,\ \textcolor{keywordtype}{double}\ max);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{int}\ random\_int(\textcolor{keywordtype}{int}\ min,\ \textcolor{keywordtype}{int}\ max);}
 
 \end{DoxyCode}

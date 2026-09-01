@@ -16,6 +16,7 @@ std::vector<Job> build_jobs() {
     job_list.emplace_back(Job("TriangleDemo", triangle_demo()));
     // job_list.emplace_back(Job("SphereDemo", sphere_demo()));
     job_list.emplace_back(Job("LightDemo", light_demo()));
+    job_list.emplace_back(Job("ModelDemo", model_demo()));
 
     return job_list;
 }

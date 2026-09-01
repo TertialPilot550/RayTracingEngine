@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.18.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Ray Tracing Engine: Ray Tracing Engine</title>
+<title>Ray-Tracing Engine: Ray-Tracing Engine</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -22,7 +22,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Ray Tracing Engine<span id="projectnumber">&#160;0.1</span>
+   <div id="projectname">Ray-Tracing Engine<span id="projectnumber">&#160;0.2</span>
    </div>
    <div id="projectbrief">Class Project for CPRE 3360. Rendering engine implemented using ray tracing.</div>
   </td>
@@ -93,166 +93,133 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title"><center> <a class="el" href="class_ray.html">Ray</a> Tracing Engine </center> </div></div>
+  <div class="headertitle"><div class="title"><center> Ray-Tracing Engine </center> </div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md__r_e_a_d_m_e"></a></p>
-<p>&lt;&lt; I want to make sure to try and describe the whole feature list. This document is for my understanding as well as for presenting to audiences about the project. Documentation: Organize the project and get it under control. Complete design.md and create doxygen comments covering all of the code. Refactor. {Potentially: add cpp files to clean up the headers} &gt;&gt;</p>
+<p>Class Project for CPRE 3360. Rendering engine implemented using ray tracing. See the feature list below.</p>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md1"></a>
 <center>Table of Contents</center></h2>
 <ol type="1">
 <li>src/camera<ul>
-<li>camera controls</li>
-<li>camera object</li>
+<li><a class="el" href="class_cam_controls.html" title="Camera control class which details how rendering should be performed for a given scene....">CamControls</a></li>
+<li><a class="el" href="class_camera_rig.html" title="Object which can rendering object to a 2D image using ray tracing algorithm.">CameraRig</a></li>
 </ul>
 </li>
-</ol>
-<ul>
-<li>objects<ul>
-<li>collidables</li>
+<li>src/objects<ul>
+<li>collidables<ul>
+<li><a class="el" href="class_collision_object.html">CollisionObject</a></li>
+<li><a class="el" href="class_collision_record.html">CollisionRecord</a></li>
+<li><a class="el" href="class_collision_list.html">CollisionList</a></li>
+</ul>
+</li>
 <li>primitives <br  />
 <ul>
 <li><a class="el" href="class_sphere.html">Sphere</a></li>
-<li>Triangles</li>
-<li>Quads</li>
+<li><a class="el" href="class_triangle.html">Triangle</a></li>
+<li><a class="el" href="class_quad.html">Quad</a></li>
 </ul>
 </li>
 <li>composites<ul>
-<li>tiny_obj_loader</li>
+<li><a class="el" href="class_o_b_j_model.html">OBJModel</a></li>
 </ul>
 </li>
-<li>surfaces</li>
+<li>surfaces<ul>
+<li><a class="el" href="class_material.html">Material</a></li>
+<li><a class="el" href="class_texture.html">Texture</a></li>
 </ul>
 </li>
-<li>scenes<ul>
-<li>scene object</li>
-<li>demos</li>
 </ul>
 </li>
-<li>accel<ul>
+<li>src/scenes<ul>
+<li><a class="el" href="class_scene.html" title="Object which represents all of the context for a particular instance of the ray tracing algorithm,...">Scene</a></li>
+</ul>
+</li>
+<li>src/accel<ul>
 <li><a class="el" href="class_task_master.html" title="Generic Thread Pool Implementation.">TaskMaster</a></li>
 </ul>
 </li>
-<li>util<ul>
-<li>ray</li>
-<li>vector</li>
-<li>rgb/image</li>
-<li>noise</li>
+<li>src/util<ul>
+<li><a class="el" href="class_ray.html" title="Represents a ray used in the ray tracing algorithm.">Ray</a></li>
+<li><a class="el" href="class_interval.html" title="Represents an interval of real numbers, used through the ray tracing algorithm.">Interval</a></li>
+<li><a class="el" href="classvec2.html" title="Vector of 2 floats, used primarily for representing texture coordinates.">vec2</a></li>
+<li><a class="el" href="classvec3.html" title="Vector of 3 floats, used for a variety of purposes such as points, vectors, and colors.">vec3</a></li>
+<li><a class="el" href="class_perlin.html" title="Generate a Perlin noise map.">Perlin</a></li>
 </ul>
 </li>
-</ul>
-<p>For each section, there should be a description of</p><ul>
-<li>A: What the object is</li>
-<li>B: How the object works and it's code</li>
-</ul>
-<p>\</p>
+</ol>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
-Camera</h1>
-<div class="fragment"><div class="line"><span class="comment">// TODO ADD CAMERA CONTROLS: UPDATE THE CLASS TO BE MORE EXPLICIT IN ALLOWING FEATURE CONFIGURATION: TURNING STUFF ON AND OFF</span></div>
-</div><!-- fragment --><div class="fragment"><div class="line"><span class="keyword">class </span><a class="code hl_class" href="class_camera_rig.html">CameraRig</a> {</div>
-<div class="line"> </div>
-<div class="line">    <span class="keyword">public</span>:</div>
-<div class="line"> </div>
-<div class="line">    Image* <a class="code hl_variable" href="class_camera_rig.html#a0a2261b49c5a5c003af8e5f64dea0d3d">img_buffer</a>;</div>
-<div class="line">    <a class="code hl_function" href="class_camera_rig.html#ad36e9daa7322b0f48b466df372bdb710">CameraRig</a>();</div>
-<div class="line">    Image&amp; <a class="code hl_function" href="class_camera_rig.html#a6933249f866dacd24775f5f770cbc90b">capture</a>(<a class="code hl_class" href="class_scene.html">Scene</a>&amp; s);</div>
-<div class="line"> </div>
-<div class="line">    <span class="keyword">private</span>:</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">// Impure</span></div>
-<div class="line">    <span class="keywordtype">void</span> render(<a class="code hl_class" href="class_scene.html">Scene</a>&amp; s);</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">// Pure </span></div>
-<div class="line">    color process_ray(<span class="keyword">const</span> <a class="code hl_class" href="class_ray.html">Ray</a>&amp; r, <span class="keywordtype">int</span> depth, <a class="code hl_class" href="class_scene.html">Scene</a>&amp; s);</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">// Write to the image buffer (impure)</span></div>
-<div class="line">    <span class="keywordtype">void</span> write_color(<span class="keyword">const</span> <a class="code hl_class" href="classrgb.html">rgb</a>&amp; <a class="code hl_class" href="classrgb.html">rgb</a>, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">// Pure </span></div>
-<div class="line">    <a class="code hl_class" href="classvec3.html">vec3</a> sample_square() <span class="keyword">const</span>;</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">// Pure</span></div>
-<div class="line">    point defocus_disk_sample(<a class="code hl_class" href="class_cam_controls.html">CamControls</a>&amp; controls) <span class="keyword">const</span>;</div>
-<div class="line">    <span class="comment">// Pure</span></div>
-<div class="line">    <a class="code hl_class" href="class_ray.html">Ray</a> get_ray_for_pixel(<span class="keywordtype">int</span> i, <span class="keywordtype">int</span> j, <a class="code hl_class" href="class_cam_controls.html">CamControls</a>&amp; controls) <span class="keyword">const</span>;</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">// Pure</span></div>
-<div class="line">    <a class="code hl_class" href="classrgb.html">rgb</a> sample_for_pixel_color(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <a class="code hl_class" href="class_scene.html">Scene</a>&amp; s);</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">// Pure</span></div>
-<div class="line">    <a class="code hl_class" href="classrgb.html">rgb</a> color_correction_to_rgb(<span class="keyword">const</span> color&amp; pixel_color);</div>
-<div class="line"> </div>
-<div class="line">};</div>
-<div class="ttc" id="aclass_cam_controls_html"><div class="ttname"><a href="class_cam_controls.html">CamControls</a></div><div class="ttdef"><b>Definition</b> cam_controls.hpp:5</div></div>
-<div class="ttc" id="aclass_camera_rig_html"><div class="ttname"><a href="class_camera_rig.html">CameraRig</a></div><div class="ttdoc">Object which can rendering object to a 2D image using ray tracing algorithm.</div><div class="ttdef"><b>Definition</b> camera_rig.hpp:14</div></div>
-<div class="ttc" id="aclass_camera_rig_html_a0a2261b49c5a5c003af8e5f64dea0d3d"><div class="ttname"><a href="class_camera_rig.html#a0a2261b49c5a5c003af8e5f64dea0d3d">CameraRig::img_buffer</a></div><div class="ttdeci">Image * img_buffer</div><div class="ttdoc">Pointer to internal image buffer used by the camera.</div><div class="ttdef"><b>Definition</b> camera_rig.hpp:23</div></div>
-<div class="ttc" id="aclass_camera_rig_html_a6933249f866dacd24775f5f770cbc90b"><div class="ttname"><a href="class_camera_rig.html#a6933249f866dacd24775f5f770cbc90b">CameraRig::capture</a></div><div class="ttdeci">Image &amp; capture(Scene &amp;s)</div><div class="ttdoc">The only visible member function for a camera.</div></div>
-<div class="ttc" id="aclass_camera_rig_html_ad36e9daa7322b0f48b466df372bdb710"><div class="ttname"><a href="class_camera_rig.html#ad36e9daa7322b0f48b466df372bdb710">CameraRig::CameraRig</a></div><div class="ttdeci">CameraRig()</div><div class="ttdoc">Default Constructor.</div><div class="ttdef"><b>Definition</b> camera_rig.hpp:28</div></div>
-<div class="ttc" id="aclass_ray_html"><div class="ttname"><a href="class_ray.html">Ray</a></div><div class="ttdef"><b>Definition</b> ray.hpp:5</div></div>
-<div class="ttc" id="aclass_scene_html"><div class="ttname"><a href="class_scene.html">Scene</a></div><div class="ttdef"><b>Definition</b> scene.hpp:6</div></div>
-<div class="ttc" id="aclassrgb_html"><div class="ttname"><a href="classrgb.html">rgb</a></div><div class="ttdef"><b>Definition</b> rgb.hpp:5</div></div>
-<div class="ttc" id="aclassvec3_html"><div class="ttname"><a href="classvec3.html">vec3</a></div><div class="ttdef"><b>Definition</b> vector.hpp:56</div></div>
-</div><!-- fragment --><ul>
+Feature List</h1>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
+Camera</h2>
+<ul>
 <li>Configurable Position, Orientation, and FOV</li>
 <li>Anti-Aliasing</li>
-<li>Defocus Blur / Depth of Field</li>
-<li>{Motion Blur}</li>
+<li>Defocus Blur / Depth of Field (10 points)</li>
+<li>{Motion Blur} (10 Points)</li>
+<li>Ray/Primitive Intersection</li>
+<li>Textured Primitives</li>
 </ul>
-<p>Performance:</p><ul>
+<p>Performance: See Acceleration</p><ul>
 <li>Spatial Subdivision (Pixel Chunking based on image width)</li>
-<li>Parrallel Rendering</li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
-Objects</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Geometric Primitives</h2>
-<blockquote class="doxtable">
-<p>Collidables </p>
-</blockquote>
+Objects</h2>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
+Geometric Primitives</h3>
 <ol type="1">
 <li>Spheres</li>
 <li>Triangles</li>
-<li>Quads</li>
+<li>Quads (10 Points)</li>
 </ol>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
-Predefined Triangle Meshes (.obj)</h3>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md6"></a>
-Surfaces</h2>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md7"></a>
-Materials</h3>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md6"></a>
+Lists of Primitives</h3>
+<h4 class="doxsection"><a class="anchor" id="autotoc_md7"></a>
+Predefined Triangle Meshes (.obj)</h4>
+<ul>
+<li>TODO: NOT FUNCTIONAL</li>
+</ul>
+<h3 class="doxsection"><a class="anchor" id="autotoc_md8"></a>
+Surfaces</h3>
+<h4 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
+Materials</h4>
 <ul>
 <li><a class="el" href="class_dielectric.html">Dielectric</a></li>
-<li>Diffuse Light</li>
+<li><a class="el" href="class_diffuse_light.html">DiffuseLight</a></li>
 <li><a class="el" href="class_lambertian.html">Lambertian</a></li>
 <li><a class="el" href="class_metal.html">Metal</a> </li>
 </ul>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md8"></a>
-Textures</h3>
+<h4 class="doxsection"><a class="anchor" id="autotoc_md10"></a>
+Textures</h4>
 <ul>
-<li>Checker</li>
-<li>Image</li>
-<li>Noise</li>
-<li>Solid Color</li>
+<li><a class="el" href="class_checker_texture.html">CheckerTexture</a></li>
+<li><a class="el" href="class_image_texture.html">ImageTexture</a></li>
+<li><a class="el" href="class_noise_texture.html">NoiseTexture</a></li>
+<li><a class="el" href="class_solid_color.html">SolidColor</a></li>
 </ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
-Scenes</h1>
-<div class="fragment"><div class="line"><span class="keyword">class </span><a class="code hl_class" href="class_scene.html">Scene</a> {</div>
-<div class="line"> </div>
-<div class="line">    <span class="keyword">public</span>:</div>
-<div class="line">    <a class="code hl_class" href="class_cam_controls.html">CamControls</a> controls;</div>
-<div class="line">    <a class="code hl_class" href="class_collision_list.html">CollisionList</a> objects;</div>
-<div class="line">    color background;</div>
-<div class="line"> </div>
-<div class="line">    <span class="comment">// Default to a kind of sky blue</span></div>
-<div class="line">    <a class="code hl_class" href="class_scene.html">Scene</a>() : controls(<a class="code hl_class" href="class_cam_controls.html">CamControls</a>()), background(176, 252, 255) {}</div>
-<div class="line"> </div>
-<div class="line">    </div>
-<div class="line">};</div>
-<div class="ttc" id="aclass_collision_list_html"><div class="ttname"><a href="class_collision_list.html">CollisionList</a></div><div class="ttdef"><b>Definition</b> collidable.hpp:46</div></div>
-</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md10"></a>
-Acceleration</h1>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md11"></a>
-Utilities</h1>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md11"></a>
+Acceleration</h2>
+<ul>
+<li>Parrallel Rendering (10 points)</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md12"></a>
+Utilies</h2>
+<ul>
+<li><a class="el" href="class_perlin.html" title="Generate a Perlin noise map.">Perlin</a> Noise (10 Points)</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md13"></a>
+Scenes</h2>
+<h4 class="doxsection"><a class="anchor" id="autotoc_md14"></a>
+Demo Scenes</h4>
+<ul>
+<li><a class="el" href="class_sphere.html">Sphere</a> Demo</li>
+<li><a class="el" href="class_triangle.html">Triangle</a> Demo</li>
+<li><a class="el" href="class_diffuse_light.html">DiffuseLight</a> Demo</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md15"></a>
+REQUIRED FEATURED REMAINING: Triangle Meshes, Bug Fixes</h1>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md16"></a>
+CUMULATIVE POINT TOTAL: 40 {50}</h1>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->

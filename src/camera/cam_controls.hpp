@@ -51,6 +51,7 @@ class CamControls {
     double gamma = 0.6;
     int chunk_size = image_width;
     int thread_count = 50;
+    bool do_antialiasing = true;
 
     CamControls() {
         update();

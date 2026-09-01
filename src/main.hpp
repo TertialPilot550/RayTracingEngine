@@ -38,7 +38,6 @@
 #include "objects/primitives/sphere.hpp"
 #include "objects/primitives/triangle.hpp"
 #include "objects/primitives/quad.hpp"
-#include "objects/composites/tiny_obj_loader/obj_loader_wrapper.hpp"
 // Textures
 #include "objects/surfaces/texture.hpp"
 #include "objects/surfaces/textures/checker.hpp"
@@ -51,7 +50,8 @@
 #include "objects/surfaces/materials/diffuse_light.hpp"
 #include "objects/surfaces/materials/lambertian.hpp"
 #include "objects/surfaces/materials/metal.hpp"
-
+// Triangle Meshes
+#include "objects/composites/tiny_obj_loader/obj_loader_wrapper.hpp"
 
 // Camera Controls (Documented)
 #include "camera/cam_controls.hpp"
@@ -61,7 +61,12 @@
 #include "scenes/demos/triangle_demo.hpp"
 #include "scenes/demos/sphere_demo.hpp"
 #include "scenes/demos/light_demo.hpp"
+#include "scenes/demos/model_demo.hpp"
+
 
 // Camera (Documented)
 #include "camera/camera_rig.hpp"
 
+// Instancing and Motion
+#include "instance/instance.hpp"
+#include "instance/motion.hpp"

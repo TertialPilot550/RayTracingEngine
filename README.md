@@ -1,143 +1,156 @@
-# <center> Ray Tracing Engine </center>
-<< I want to make sure to try and describe the whole feature list. This document is for my understanding as well as for presenting to audiences about the project. Documentation: Organize the project and get it under control. Complete design.md and create doxygen comments covering all of the code. Refactor. {Potentially: add cpp files to clean up the headers} >>
+# <center> Ray-Tracing Engine </center>
+
+Class Project for CPRE 3360. Rendering engine implemented using ray tracing. 
+See the feature list below. 
 
 ### <center>Table of Contents</center>
 1. src/camera
-    - camera controls
-    - camera object
+    - CamControls
+    - CameraRig
 
-
-- objects
+2. src/objects
     - collidables
+        - CollisionObject
+        - CollisionRecord
+        - CollisionList
     - primitives    
         - Sphere
-        - Triangles
-        - Quads
+        - Triangle
+        - Quad
     - composites
-        - tiny_obj_loader
+        - OBJModel
     - surfaces
+        - Material
+        - Texture
 
-- scenes
-    - scene object
-    - demos
+3. src/scenes
+    - Scene
 
-
-- accel
+4. src/accel
     - TaskMaster
 
+5. src/util
+    - Ray
+    - Interval
+    - vec2
+    - vec3
+    - Perlin
 
+# Feature List
 
-- util
-    - ray
-    - vector
-    - rgb/image
-    - noise
-
-
-
-
-# Camera
-```c++
-// TODO ADD CAMERA CONTROLS: UPDATE THE CLASS TO BE MORE EXPLICIT IN ALLOWING FEATURE CONFIGURATION: TURNING STUFF ON AND OFF
-```
-
-```c++
-class CameraRig {
-
-    public:
-
-    Image* img_buffer;
-    CameraRig();
-    Image& capture(Scene& s);
-
-    private:
-
-    // Impure
-    void render(Scene& s);
-
-    // Pure 
-    color process_ray(const Ray& r, int depth, Scene& s);
-
-    // Write to the image buffer (impure)
-    void write_color(const rgb& rgb, int x, int y);
-
-    // Pure 
-    vec3 sample_square() const;
-
-    // Pure
-    point defocus_disk_sample(CamControls& controls) const;
-    // Pure
-    Ray get_ray_for_pixel(int i, int j, CamControls& controls) const;
-
-    // Pure
-    rgb sample_for_pixel_color(int x, int y, Scene& s);
-
-    // Pure
-    rgb color_correction_to_rgb(const color& pixel_color);
-
-};
-```
+## Camera
 
 - Configurable Position, Orientation, and FOV
 - Anti-Aliasing
-- Defocus Blur / Depth of Field
-- {Motion Blur}
+- Defocus Blur / Depth of Field (10 points)
+- {Motion Blur} (10 Points)
 
-Performance:
+- Ray/Primitive Intersection
+- Textured Primitives
+
+
+Performance: See Acceleration
 - Spatial Subdivision (Pixel Chunking based on image width)
-- Parrallel Rendering
 
 
 
-# Objects
-
-## Geometric Primitives
-
-> Collidables
 
 
+## Objects
 
+### Geometric Primitives
 1. Spheres
 2. Triangles
-3. Quads
+3. Quads (10 Points)
 
-### Predefined Triangle Meshes (.obj)
+### Lists of Primitives
+
+#### Predefined Triangle Meshes (.obj)
 
 
+### Surfaces
 
-
-## Surfaces
-
-### Materials
+#### Materials
 - Dielectric
-- Diffuse Light
+- DiffuseLight
 - Lambertian
 - Metal
-### Textures
-- Checker
-- Image
-- Noise
-- Solid Color
+#### Textures
+- CheckerTexture
+- ImageTexture
+- NoiseTexture
+- SolidColor
+
+## Acceleration
+- Parrallel Rendering (10 points)
+
+## Utilies
+- Perlin Noise (10 Points)
+
+## Scenes 
+#### Demo Scenes
+- Sphere Demo
+- Triangle Demo
+- DiffuseLight Demo
 
 
+# REQUIRED FEATURED REMAINING: Triangle Meshes, Bug Fixes
+# CUMULATIVE POINT TOTAL: 40 {50}
 
-# Scenes 
-```c++
-class Scene {
+--- 
 
-    public:
-    CamControls controls;
-    CollisionList objects;
-    color background;
+# COMS 3360 PROJECT TODO LIST
 
-    // Default to a kind of sky blue
-    Scene() : controls(CamControls()), background(176, 252, 255) {}
+---
+### Finished
+Ray Tracing in One Weekend: Volume One
+- [X] A camera with configurable position, orientation, and field of view: Required
+- [X] Anti-aliasing: Required
+- [X] Ray/sphere intersections: Required
+- [X] Defocus blur/depth of field: 10
+- [X] Specular, diffuse, and dielectric materials
 
-    
-};
-```
+Independently Written
+- [X] A spatial subdivision acceleration structure of your choice
+- [X] Parallelization: 10
+- [X] Ray/triangle intersections: Required 
+- [X] Textured triangles: Required
+- [X] The ability to load and render triangle meshes (file format(s) of your choice; may use third-party libraries for loading): Required
 
 
-# Acceleration
+Ray Tracing in One Weekend: Volume Two
+- [X] Perlin noise: 10                         
+- [X] The ability to load textures: Required    
+- [X] Textured spheres: Required                
+- [X] Textured quads: 10                        
+- [X] Emissive materials (lights): Required     
 
-# Utilities
+ALL REQUIRED FEATURES COMPLETE
+POINTS SO FAR: 40 (50 if motion blur works)
+
+---
+### IN PROGRESS
+- [ ] Transformations on objects/Object Instancing: 10
+
+### NEXT
+- [ ] Motion blur: 10                           <- Need to add motion in order to test this, and I also need to make sure that the ray intersection code for each shape properly handles motion and whatnot
+
+### BACKBURNER
+- [ ] Materials for Triangle Meshes
+
+---
+Theoretical Point Total before acceleration and animation wrapper: All Required + 60 points (40 points remaining)
+
+### Acceleration
+- [ ] Hybrid rendering with a GPU (depth buffer + ray tracing): 20
+- [ ] GPU acceleration (GPU computing w/ e.g., CUDA): 20
+- [ ] Importance Sampling: 15
+
+---
+Theoretical Point Total: 115
+
+- [ ] Real good documentation / report
+
+### Stretch Goals: GUI 
+- [ ] STRETCH: Skeleton articulation system?
+- [ ] STRETCH: Animation wrapper (monochrome cross hatching texture??)

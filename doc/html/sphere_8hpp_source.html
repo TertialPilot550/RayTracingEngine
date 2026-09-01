@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.18.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Ray Tracing Engine: src/objects/primitives/sphere.hpp Source File</title>
+<title>Ray-Tracing Engine: src/objects/primitives/sphere.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -22,7 +22,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Ray Tracing Engine<span id="projectnumber">&#160;0.1</span>
+   <div id="projectname">Ray-Tracing Engine<span id="projectnumber">&#160;0.2</span>
    </div>
    <div id="projectbrief">Class Project for CPRE 3360. Rendering engine implemented using ray tracing.</div>
   </td>
@@ -105,64 +105,61 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;../../main.hpp&quot;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="foldopen" id="foldopen00005" data-start="{" data-end="};">
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="class_sphere.html">    5</a></span><span class="keyword">class </span>Sphere : <span class="keyword">public</span> <a class="code hl_class" href="class_collision_object.html">CollisionObject</a> {</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno"><a class="line" href="class_sphere.html">    5</a></span><span class="keyword">class </span>Sphere : <span class="keyword">public</span> CollisionObject {</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>        Sphere(<span class="keyword">const</span> point&amp; center, <span class="keywordtype">double</span> radius, std::shared_ptr&lt;Material&gt; material) : center(center), radius(std::fmax(0,radius)) {</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>            this-&gt;mat = mat;</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        }</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        <span class="keywordtype">bool</span> hit(<span class="keyword">const</span> <a class="code hl_class" href="class_ray.html">Ray</a>&amp; r, <a class="code hl_class" href="class_interval.html">Interval</a> ray_t, <a class="code hl_class" href="class_collision_record.html">CollisionRecord</a>&amp; rec)<span class="keyword"> const override </span>{</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>            <a class="code hl_class" href="classvec3.html">vec3</a> oc = center - r.origin();</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>            <span class="keyword">auto</span> a = r.direction().length_squared();</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>            <span class="keyword">auto</span> h = dot(r.direction(), oc);</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>            <span class="keyword">auto</span> c = oc.length_squared() - radius*radius;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>            <span class="keyword">auto</span> discriminant = h*h - a*c;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>            <span class="keywordflow">if</span> (discriminant &lt; 0)</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>        Sphere(<span class="keyword">const</span> point&amp; center, <span class="keywordtype">double</span> radius, std::shared_ptr&lt;Material&gt; material) :  CollisionObject(material), center(center), radius(std::fmax(0,radius)) {}</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        <span class="keywordtype">bool</span> hit(<span class="keyword">const</span> <a class="code hl_class" href="class_ray.html">Ray</a>&amp; r, <a class="code hl_class" href="class_interval.html">Interval</a> ray_t, <a class="code hl_class" href="class_collision_record.html">CollisionRecord</a>&amp; rec)<span class="keyword"> const override </span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>            <a class="code hl_class" href="classvec3.html">vec3</a> oc = center - r.origin();</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>            <span class="keyword">auto</span> a = r.direction().length_squared();</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>            <span class="keyword">auto</span> h = dot(r.direction(), oc);</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>            <span class="keyword">auto</span> c = oc.length_squared() - radius*radius;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>            <span class="keyword">auto</span> discriminant = h*h - a*c;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>            <span class="keywordflow">if</span> (discriminant &lt; 0)</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>            <span class="keyword">auto</span> sqrtd = std::sqrt(discriminant);</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>            <span class="keyword">auto</span> sqrtd = std::sqrt(discriminant);</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            <span class="comment">// Find the nearest root that lies in the acceptable range.</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            <span class="keyword">auto</span> root = (h - sqrtd) / a;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            <span class="keywordflow">if</span> (root &lt;= ray_t.min || ray_t.max &lt;= root) {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                root = (h + sqrtd) / a;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                <span class="keywordflow">if</span> (root &lt;= ray_t.min || ray_t.max &lt;= root)</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>                    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            }</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>            <span class="comment">// Find the nearest root that lies in the acceptable range.</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            <span class="keyword">auto</span> root = (h - sqrtd) / a;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            <span class="keywordflow">if</span> (root &lt;= ray_t.min || ray_t.max &lt;= root) {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>                root = (h + sqrtd) / a;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                <span class="keywordflow">if</span> (root &lt;= ray_t.min || ray_t.max &lt;= root)</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            }</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            <span class="comment">// HIT! Fill out the record</span></div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            <span class="comment">// HIT! Fill out the record</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            <a class="code hl_class" href="classvec3.html">vec3</a> outward_normal = (r.at(root)- center) / radius;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            rec.record(r, root, outward_normal, <span class="keyword">this</span>);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        }</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <a class="code hl_class" href="classvec2.html">vec2</a> get_tcoords(<span class="keyword">const</span> point&amp; p)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            <span class="comment">// p: a given point on the sphere of radius one, centered at the origin.</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            <span class="comment">// u: returned value [0,1] of angle around the Y axis from X=-1.</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            <span class="comment">// v: returned value [0,1] of angle from Y=-1 to Y=+1.</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            <span class="comment">//     &lt;1 0 0&gt; yields &lt;0.50 0.50&gt;       &lt;-1  0  0&gt; yields &lt;0.00 0.50&gt;</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            <span class="comment">//     &lt;0 1 0&gt; yields &lt;0.50 1.00&gt;       &lt; 0 -1  0&gt; yields &lt;0.50 0.00&gt;</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            <span class="comment">//     &lt;0 0 1&gt; yields &lt;0.25 0.50&gt;       &lt; 0  0 -1&gt; yields &lt;0.75 0.50&gt;</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <span class="keyword">auto</span> theta = std::acos(-p.y());</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            <span class="keyword">auto</span> phi = std::atan2(-p.z(), p.x()) + pi;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            <span class="keywordflow">return</span> <a class="code hl_class" href="classvec2.html">vec2</a>(phi / (2*pi), theta / pi);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        }</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    point center;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordtype">double</span> radius;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>};</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            <a class="code hl_class" href="classvec3.html">vec3</a> outward_normal = (r.at(root)- center) / radius;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            rec.record(r, root, outward_normal, <span class="keyword">this</span>);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        }</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <a class="code hl_class" href="classvec2.html">vec2</a> get_tcoords(<span class="keyword">const</span> point&amp; p)<span class="keyword"> const override </span>{</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            <span class="comment">// p: a given point on the sphere of radius one, centered at the origin.</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            <span class="comment">// u: returned value [0,1] of angle around the Y axis from X=-1.</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            <span class="comment">// v: returned value [0,1] of angle from Y=-1 to Y=+1.</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            <span class="comment">//     &lt;1 0 0&gt; yields &lt;0.50 0.50&gt;       &lt;-1  0  0&gt; yields &lt;0.00 0.50&gt;</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            <span class="comment">//     &lt;0 1 0&gt; yields &lt;0.50 1.00&gt;       &lt; 0 -1  0&gt; yields &lt;0.50 0.00&gt;</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            <span class="comment">//     &lt;0 0 1&gt; yields &lt;0.25 0.50&gt;       &lt; 0  0 -1&gt; yields &lt;0.75 0.50&gt;</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            <span class="keyword">auto</span> theta = std::acos(-p.y());</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            <span class="keyword">auto</span> phi = std::atan2(-p.z(), p.x()) + pi;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <span class="keywordflow">return</span> <a class="code hl_class" href="classvec2.html">vec2</a>(phi / (2*pi), theta / pi);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        }</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    point center;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordtype">double</span> radius;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>};</div>
 </div>
-<div class="ttc" id="aclass_collision_object_html"><div class="ttname"><a href="class_collision_object.html">CollisionObject</a></div><div class="ttdef"><b>Definition</b> collidable.hpp:28</div></div>
 <div class="ttc" id="aclass_collision_record_html"><div class="ttname"><a href="class_collision_record.html">CollisionRecord</a></div><div class="ttdef"><b>Definition</b> collidable.hpp:8</div></div>
-<div class="ttc" id="aclass_interval_html"><div class="ttname"><a href="class_interval.html">Interval</a></div><div class="ttdef"><b>Definition</b> interval.hpp:5</div></div>
-<div class="ttc" id="aclass_ray_html"><div class="ttname"><a href="class_ray.html">Ray</a></div><div class="ttdef"><b>Definition</b> ray.hpp:5</div></div>
-<div class="ttc" id="aclassvec2_html"><div class="ttname"><a href="classvec2.html">vec2</a></div><div class="ttdef"><b>Definition</b> vector.hpp:7</div></div>
-<div class="ttc" id="aclassvec3_html"><div class="ttname"><a href="classvec3.html">vec3</a></div><div class="ttdef"><b>Definition</b> vector.hpp:56</div></div>
+<div class="ttc" id="aclass_interval_html"><div class="ttname"><a href="class_interval.html">Interval</a></div><div class="ttdoc">Represents an interval of real numbers, used through the ray tracing algorithm.</div><div class="ttdef"><b>Definition</b> interval.hpp:8</div></div>
+<div class="ttc" id="aclass_ray_html"><div class="ttname"><a href="class_ray.html">Ray</a></div><div class="ttdoc">Represents a ray used in the ray tracing algorithm.</div><div class="ttdef"><b>Definition</b> ray.hpp:8</div></div>
+<div class="ttc" id="aclassvec2_html"><div class="ttname"><a href="classvec2.html">vec2</a></div><div class="ttdoc">Vector of 2 floats, used primarily for representing texture coordinates.</div><div class="ttdef"><b>Definition</b> vector.hpp:12</div></div>
+<div class="ttc" id="aclassvec3_html"><div class="ttname"><a href="classvec3.html">vec3</a></div><div class="ttdoc">Vector of 3 floats, used for a variety of purposes such as points, vectors, and colors.</div><div class="ttdef"><b>Definition</b> vector.hpp:65</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

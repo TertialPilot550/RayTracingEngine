@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.18.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Ray Tracing Engine: Class Hierarchy</title>
+<title>Ray-Tracing Engine: Class Hierarchy</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -22,7 +22,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Ray Tracing Engine<span id="projectnumber">&#160;0.1</span>
+   <div id="projectname">Ray-Tracing Engine<span id="projectnumber">&#160;0.2</span>
    </div>
    <div id="projectbrief">Class Project for CPRE 3360. Rendering engine implemented using ray tracing.</div>
   </td>
@@ -111,7 +111,7 @@ This inheritance list is sorted roughly, but not completely, alphabetically:</di
 <tr id="row_8_" class="even"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structtinyobj_1_1basic__skin__weight__t.html" target="_self">tinyobj::basic_skin_weight_t&lt; Alloc &gt;</a></td><td class="desc"></td></tr>
 <tr id="row_9_" class="odd"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structtinyobj_1_1basic__tag__t.html" target="_self">tinyobj::basic_tag_t&lt; Alloc &gt;</a></td><td class="desc"></td></tr>
 <tr id="row_10_" class="even"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structtinyobj_1_1callback__t.html" target="_self">tinyobj::callback_t</a></td><td class="desc"></td></tr>
-<tr id="row_11_" class="odd"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="class_cam_controls.html" target="_self">CamControls</a></td><td class="desc"></td></tr>
+<tr id="row_11_" class="odd"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="class_cam_controls.html" target="_self">CamControls</a></td><td class="desc">Camera control class which details how rendering should be performed for a given scene. This is held as a member of scene objects </td></tr>
 <tr id="row_12_" class="even"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="class_camera_rig.html" target="_self">CameraRig</a></td><td class="desc">Object which can rendering object to a 2D image using ray tracing algorithm </td></tr>
 <tr id="row_13_" class="odd"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="class_collision_object.html" target="_self">CollisionObject</a></td><td class="desc"></td></tr>
 <tr id="row_13_0_" class="even"><td class="entry"><span class="spacer">&#160;</span><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="class_collision_list.html" target="_self">CollisionList</a></td><td class="desc"></td></tr>
@@ -120,7 +120,7 @@ This inheritance list is sorted roughly, but not completely, alphabetically:</di
 <tr id="row_13_3_" class="odd"><td class="entry"><span class="spacer">&#160;</span><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="class_triangle.html" target="_self">Triangle</a></td><td class="desc"></td></tr>
 <tr id="row_14_" class="even"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="class_collision_record.html" target="_self">CollisionRecord</a></td><td class="desc"></td></tr>
 <tr id="row_15_" class="odd"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structtinyobj_1_1index__t.html" target="_self">tinyobj::index_t</a></td><td class="desc"></td></tr>
-<tr id="row_16_" class="even"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="class_interval.html" target="_self">Interval</a></td><td class="desc"></td></tr>
+<tr id="row_16_" class="even"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="class_interval.html" target="_self">Interval</a></td><td class="desc">Represents an interval of real numbers, used through the ray tracing algorithm </td></tr>
 <tr id="row_17_" class="odd"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structtinyobj_1_1joint__and__weight__t.html" target="_self">tinyobj::joint_and_weight_t</a></td><td class="desc"></td></tr>
 <tr id="row_18_" class="even"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structtinyobj_1_1lines__t.html" target="_self">tinyobj::lines_t</a></td><td class="desc"></td></tr>
 <tr id="row_19_" class="odd"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="class_material.html" target="_self">Material</a></td><td class="desc"></td></tr>
@@ -140,12 +140,12 @@ This inheritance list is sorted roughly, but not completely, alphabetically:</di
 <tr id="row_27_" class="odd"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structtinyobj_1_1_opt_load_config.html" target="_self">tinyobj::OptLoadConfig</a></td><td class="desc"></td></tr>
 <tr id="row_28_" class="even"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structtinyobj_1_1_opt_result.html" target="_self">tinyobj::OptResult</a></td><td class="desc"></td></tr>
 <tr id="row_29_" class="odd"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structtinyobj_1_1_opt_shape_range.html" target="_self">tinyobj::OptShapeRange</a></td><td class="desc"></td></tr>
-<tr id="row_30_" class="even"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="class_perlin.html" target="_self">Perlin</a></td><td class="desc"></td></tr>
+<tr id="row_30_" class="even"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="class_perlin.html" target="_self">Perlin</a></td><td class="desc">Generate a <a class="el" href="class_perlin.html" title="Generate a Perlin noise map.">Perlin</a> noise map </td></tr>
 <tr id="row_31_" class="odd"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structtinyobj_1_1points__t.html" target="_self">tinyobj::points_t</a></td><td class="desc"></td></tr>
-<tr id="row_32_" class="even"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="class_ray.html" target="_self">Ray</a></td><td class="desc"></td></tr>
+<tr id="row_32_" class="even"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="class_ray.html" target="_self">Ray</a></td><td class="desc">Represents a ray used in the ray tracing algorithm </td></tr>
 <tr id="row_33_" class="odd"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structtinyobj_1_1arena__adapter_1_1rebind.html" target="_self">tinyobj::arena_adapter&lt; T &gt;::rebind&lt; U &gt;</a></td><td class="desc"></td></tr>
-<tr id="row_34_" class="even"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrgb.html" target="_self">rgb</a></td><td class="desc"></td></tr>
-<tr id="row_35_" class="odd"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="class_scene.html" target="_self">Scene</a></td><td class="desc"></td></tr>
+<tr id="row_34_" class="even"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrgb.html" target="_self">rgb</a></td><td class="desc">Simple RGB color object </td></tr>
+<tr id="row_35_" class="odd"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="class_scene.html" target="_self">Scene</a></td><td class="desc">Object which represents all of the context for a particular instance of the ray tracing algorithm, including objects, background, and camera details </td></tr>
 <tr id="row_36_" class="even"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structtinyobj_1_1shape__t.html" target="_self">tinyobj::shape_t</a></td><td class="desc"></td></tr>
 <tr id="row_37_" class="odd"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="class_task_master.html" target="_self">TaskMaster</a></td><td class="desc">Generic Thread Pool Implementation </td></tr>
 <tr id="row_38_" class="even"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="class_texture.html" target="_self">Texture</a></td><td class="desc"></td></tr>
@@ -155,8 +155,8 @@ This inheritance list is sorted roughly, but not completely, alphabetically:</di
 <tr id="row_38_3_" class="even"><td class="entry"><span class="spacer">&#160;</span><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="class_solid_color.html" target="_self">SolidColor</a></td><td class="desc"></td></tr>
 <tr id="row_39_" class="odd"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structtinyobj_1_1texture__option__t.html" target="_self">tinyobj::texture_option_t</a></td><td class="desc"></td></tr>
 <tr id="row_40_" class="even"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classtinyobj_1_1_typed_array.html" target="_self">tinyobj::TypedArray&lt; T &gt;</a></td><td class="desc"></td></tr>
-<tr id="row_41_" class="odd"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classvec2.html" target="_self">vec2</a></td><td class="desc"></td></tr>
-<tr id="row_42_" class="even"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classvec3.html" target="_self">vec3</a></td><td class="desc"></td></tr>
+<tr id="row_41_" class="odd"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classvec2.html" target="_self">vec2</a></td><td class="desc">Vector of 2 floats, used primarily for representing texture coordinates </td></tr>
+<tr id="row_42_" class="even"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classvec3.html" target="_self">vec3</a></td><td class="desc">Vector of 3 floats, used for a variety of purposes such as points, vectors, and colors </td></tr>
 <tr id="row_43_" class="odd"><td class="entry"><span class="spacer">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="class_vertex.html" target="_self">Vertex</a></td><td class="desc"></td></tr>
 </table>
 </div><!-- directory -->

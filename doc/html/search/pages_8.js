@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['scenes_0',['Scenes',['../index.html#autotoc_md9',1,'']]],
-  ['surfaces_1',['Surfaces',['../index.html#autotoc_md6',1,'']]]
+  ['geometric_20primitives_0',['Geometric Primitives',['../index.html#autotoc_md5',1,'']]]
 ];

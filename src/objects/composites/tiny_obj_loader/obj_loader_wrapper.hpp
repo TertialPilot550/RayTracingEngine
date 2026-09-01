@@ -3,6 +3,11 @@
 #include "../../../main.hpp"
 #include "tiny_obj_loader.h"
 
+/**
+ * @brief Object that represents a .obj model loaded from a file
+ * @details Contains code converting this loaded model into a
+ * collection of primitives.
+ */
 class OBJModel {
     public:
     tinyobj::attrib_t attrib;
@@ -10,19 +15,105 @@ class OBJModel {
     std::vector<tinyobj::material_t> materials;
     std::string warn, err;
 
-    void convert_to_native_object() {
+    /*
+     *  struct mesh_t {
+     *      std::vector<index_t> indices;
+     *      std::vector<unsigned char> num_face_vertices;
+     *      std::vector<int> material_ids;
+     *      std::vector<unsigned int> smoothing_group_ids;
+     *  }; 
+     */
 
-        
+    /**
+     * @brief Convert a single shape object to a triangle mesh
+     */
+    void convert_shape_to_native_object(const tinyobj::shape_t& shape, CollisionList& collision_list) {
+        const tinyobj::mesh_t& mesh = shape.mesh;
 
-        // TODO
+        size_t index_offset = 0;
 
+        for (size_t face = 0;
+            face < mesh.num_face_vertices.size();
+            ++face) {
 
+            const size_t fv = mesh.num_face_vertices[face];
 
+            if (fv < 3) {
+                index_offset += fv;
+                continue;
+            }
 
+            for (size_t i = 1; i + 1 < fv; ++i) {
 
+                const tinyobj::index_t& ia =
+                    mesh.indices[index_offset];
 
+                const tinyobj::index_t& ib =
+                    mesh.indices[index_offset + i];
+
+                const tinyobj::index_t& ic =
+                    mesh.indices[index_offset + i + 1];
+
+                point a(
+                    attrib.vertices[3 * ia.vertex_index],
+                    attrib.vertices[3 * ia.vertex_index + 1],
+                    attrib.vertices[3 * ia.vertex_index + 2]
+                );
+
+                point b(
+                    attrib.vertices[3 * ib.vertex_index],
+                    attrib.vertices[3 * ib.vertex_index + 1],
+                    attrib.vertices[3 * ib.vertex_index + 2]
+                );
+
+                point c(
+                    attrib.vertices[3 * ic.vertex_index],
+                    attrib.vertices[3 * ic.vertex_index + 1],
+                    attrib.vertices[3 * ic.vertex_index + 2]
+                );
+
+                // std::cout
+                //     << "Triangle "
+                //     << ia.vertex_index << ", "
+                //     << ib.vertex_index << ", "
+                //     << ic.vertex_index
+                //     << "   "
+                //     << a << " | "
+                //     << b << " | "
+                //     << c
+                //     << std::endl;
+
+                auto triangle = std::make_shared<Triangle>(
+                    a,
+                    b,
+                    c,
+                    nullptr
+                );
+
+                collision_list.add(triangle);
+            }
+
+            index_offset += fv;
+        }
     }
 
+    /**
+     * @brief Convert all objects to native objects
+     */
+    CollisionList convert_to_native_object() {
+        CollisionList collision_list;
+
+        // Add each shape to the list
+        for (const tinyobj::shape_t& shape : shapes) {
+            convert_shape_to_native_object(shape, collision_list);
+        }
+
+        return collision_list;
+    }
+
+    /**
+     * @brief Helper to ensure model is properly loaded into the program.
+     */
     void display() {
 
         // 1. Print overall summary

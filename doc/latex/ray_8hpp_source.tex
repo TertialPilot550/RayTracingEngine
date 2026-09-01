@@ -4,26 +4,26 @@
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00002\ }
-\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}vector.hpp"{}}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}../main.hpp"{}}}
 \DoxyCodeLine{00004\ }
-\DoxyCodeLine{00005\ \textcolor{keyword}{class\ }Ray\ \{}
-\DoxyCodeLine{00006\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00007\ \ \ \ \ \ \ \ \ Ray()\ \{\}}
-\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ Ray(\textcolor{keyword}{const}\ point\&\ origin,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec3}{vec3}}\&\ direction,\ \textcolor{keywordtype}{double}\ time\ =\ 0)\ :\ orig(origin),\ dir(direction),\ tm(time)\ \{\}}
-\DoxyCodeLine{00009\ }
-\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ point\&\ origin()\textcolor{keyword}{\ const\ \ }\{\ \textcolor{keywordflow}{return}\ orig;\ \}}
-\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec3}{vec3}}\&\ direction()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ dir;\ \}}
+\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }Ray\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ Ray()\ \{\}}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ Ray(\textcolor{keyword}{const}\ point\&\ origin,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec3}{vec3}}\&\ direction,\ \textcolor{keywordtype}{double}\ time\ =\ 0)\ :\ orig(origin),\ dir(direction),\ tm(time)\ \{\}}
 \DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ time()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ tm;\ \}}
-\DoxyCodeLine{00014\ }
-\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ point\ at(\textcolor{keywordtype}{double}\ t)\textcolor{keyword}{\ const\ }\{}
-\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ orig\ +\ t\ *\ dir;}
-\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ point\ orig;}
-\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ dir;}
-\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ tm;}
-\DoxyCodeLine{00023\ \};}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ point\&\ origin()\textcolor{keyword}{\ const\ \ }\{\ \textcolor{keywordflow}{return}\ orig;\ \}}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec3}{vec3}}\&\ direction()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ dir;\ \}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ time()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ tm;\ \}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ point\ at(\textcolor{keywordtype}{double}\ t)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ orig\ +\ t\ *\ dir;}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ point\ orig;}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ dir;}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ tm;}
+\DoxyCodeLine{00026\ \};}
 
 \end{DoxyCode}

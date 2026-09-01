@@ -26,6 +26,7 @@ class vec2 {
         f1 = t.f1;
         f2 = t.f2;
     }
+
     
 
     static vec2 vertex_0() {

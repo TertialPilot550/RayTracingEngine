@@ -5,6 +5,11 @@
 class Material;
 class CollisionObject;
 
+/**
+ * @brief Track collisions
+ * 
+ * @details Used to handle collisions seperately from intersections. 
+ */
 class CollisionRecord {
     public:
         point p;        // point of intersection
@@ -34,7 +39,10 @@ class CollisionRecord {
         }
 };
 
-class CollisionObject {
+/**
+ * @brief Abstract class representing a collidable object.
+ */
+ class CollisionObject {
     public:
     std::shared_ptr<Material> mat;
     CollisionObject(std::shared_ptr<Material> m): mat(m) {}
@@ -44,6 +52,9 @@ class CollisionObject {
 
 };
 
+/**
+ * @brief Automatically record collision details given the collision intersection time, normal, and colliding object
+ */
 inline void CollisionRecord::record(const Ray&r, float t, const vec3& outward_normal, const CollisionObject* obj) {
     this->t = t;
     this->p = r.at(t);
@@ -53,7 +64,10 @@ inline void CollisionRecord::record(const Ray&r, float t, const vec3& outward_no
     this->mat = obj->mat;
 }
 
-
+/**
+ * @brief A list of collidable objects
+ * @details Used to create collections of primitives that function as a single object
+ */
 class CollisionList : public CollisionObject {
   public:
     std::vector<std::shared_ptr<CollisionObject>> objects;

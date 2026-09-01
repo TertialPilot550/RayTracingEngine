@@ -81,12 +81,12 @@ color CameraRig::process_ray(const Ray& r, int depth, Scene& s) {
         return color_from_emission + color_from_scatter;
     } else {
         if (s.objects.hit(r, Interval(0.001, infinity), rec)) {
-        Ray scattered;
-        color attenuation;
-        if (rec.mat && rec.mat->scatter(r, rec, attenuation, scattered))
-            return attenuation * process_ray(scattered, depth-1, s);
-        return color(0,0,0);
-    }
+            Ray scattered;
+            color attenuation;
+            if (rec.mat && rec.mat->scatter(r, rec, attenuation, scattered))
+                return attenuation * process_ray(scattered, depth-1, s);
+            return color(0,0,0);
+        }
         vec3 unit_direction = unit_vector(r.direction());
         auto a = 0.5*(unit_direction.y() + 1.0);
         // manually blend the background color with white to create a gradient effect
@@ -106,7 +106,7 @@ point CameraRig::defocus_disk_sample(CamControls& controls) const {
 }
 
 Ray CameraRig::get_ray_for_pixel(int i, int j, CamControls& controls) const {
-    auto offset = sample_square(); // this is the anti aliasing part. set to 0.5 to turn it off
+    auto offset = (controls.do_antialiasing) ? sample_square() : vec3(0,0,0);
     auto pixel_sample = controls.viewport_origin() + ((i + offset.x()) * controls.du()) + ((j + offset.y()) * controls.dv());
     auto ray_origin = (controls.defcs_angle() <= 0) ? controls.center() : defocus_disk_sample(controls);
     auto ray_direction = pixel_sample - ray_origin;
