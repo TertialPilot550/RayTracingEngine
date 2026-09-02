@@ -32,8 +32,8 @@ See the feature list below.
 5. src/util
     - Ray
     - Interval
-    - vec2
-    - vec3
+    - vec
+    - Matrix
     - Perlin
 
 # Feature List
@@ -117,6 +117,7 @@ Independently Written
 - [X] Ray/triangle intersections: Required 
 - [X] Textured triangles: Required
 - [X] The ability to load and render triangle meshes (file format(s) of your choice; may use third-party libraries for loading): Required
+- [X] Homogeneous coordinates
 
 Ray Tracing in One Weekend: Volume Two
 - [X] Perlin noise: 10                         
@@ -130,7 +131,6 @@ POINTS SO FAR: 40 (50 if motion blur works)
 
 ---
 ### IN PROGRESS
-- [ ] Conversion to homogeneous coordinates
 - [ ] Transformations on objects/Object Instancing: 10 (represented by 4d matrix)
 
 ### NEXT
@@ -151,7 +151,6 @@ Theoretical Point Total before acceleration and animation wrapper: All Required 
 
 ---
 Theoretical Point Total: 115
-
 - [ ] Real good documentation / report
 
 ### Stretch Goals: GUI 

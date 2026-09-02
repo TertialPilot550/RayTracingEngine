@@ -15,8 +15,8 @@ class Sphere : public CollisionObject {
             point hcenter = homogenize(center);
 
             point oc = hcenter - r.origin();
-            auto a = norm_squared(r.direction());
-            auto h = dot(r.direction(), oc);
+            auto a = norm_squared(as_vector(r.direction()));
+            auto h = dot(as_vector(r.direction()), oc);
             auto c = norm_squared(oc) - radius*radius;
 
             auto discriminant = h*h - a*c;

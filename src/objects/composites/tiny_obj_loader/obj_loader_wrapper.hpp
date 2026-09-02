@@ -29,6 +29,7 @@ class OBJModel {
      */
     void convert_shape_to_native_object(const tinyobj::shape_t& shape, CollisionList& collision_list) {
         const tinyobj::mesh_t& mesh = shape.mesh;
+        auto default_material = std::make_shared<Lambertian>(color(0.8, 0.8, 0.8));
 
         size_t index_offset = 0;
 
@@ -87,7 +88,7 @@ class OBJModel {
                     a,
                     b,
                     c,
-                    nullptr
+                    default_material
                 );
 
                 collision_list.add(triangle);

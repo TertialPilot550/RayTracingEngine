@@ -278,7 +278,8 @@ vec<N> operator/(const vec<N>& v, const double d) {
 template <int N>
 double dot(const vec<N>& v1, const vec<N>& v2) {
     double res = 0;
-    for (int i = 0; i < N; i++) {
+    int start = (N >= 4) ? 1 : 0;
+    for (int i = start; i < N; i++) {
         res += v1[i] * v2[i];
     }
     return res;
@@ -316,10 +317,13 @@ inline vec<4> cross(const vec<4>& v1, const vec<4>& v2) {
     vec<4> a1 = homogenize(v1);
     vec<4> a2 = homogenize(v2);
 
-    res[P] = 1;
-    res[X] = a1[1] * a2[2] - a1[2] * a2[1];
-    res[Y] = a1[2] * a2[0] - a1[0] * a2[2];
-    res[Z] = a1[0] * a2[1] - a1[1] * a2[0];
+    // Spatial coordinates live in X/Y/Z; the homogeneous coordinate is always w.
+    // For a 4D point/vector layout [w, x, y, z], the 3D cross product is:
+    // (x,y,z) x (x2,y2,z2) = (y*z2 - z*y2, z*x2 - x*z2, x*y2 - y*x2)
+    res[P] = 0;
+    res[X] = a1[Y] * a2[Z] - a1[Z] * a2[Y];
+    res[Y] = a1[Z] * a2[X] - a1[X] * a2[Z];
+    res[Z] = a1[X] * a2[Y] - a1[Y] * a2[X];
 
     return res;
 }
@@ -389,6 +393,7 @@ template <int N>
 vec<N> random_unit_vector() {
     while (true) {
         vec<N> p = random_vec<N>(-1, 1);
+        if (N >= 4) p[P] = 0;
         auto lensq = norm_squared(p);
         if (1e-160 < lensq && lensq <= 1)
             return p / norm(p);
@@ -414,6 +419,38 @@ vec<N> random_in_unit_disk() {
         if (norm_squared(p) < 1)
             return p;
     }
+}
+
+template <int N>
+vec<N> as_vector(const vec<N>& v) {
+    vec<N> res = v;
+    if (N >= 4) res[P] = 0;
+    return res;
+}
+
+template <int N>
+vec<N> as_point(const vec<N>& v) {
+    vec<N> res = v;
+    if (N >= 4) res[P] = 1;
+    return res;
+}
+
+inline point make_point(double x, double y, double z) {
+    point p;
+    p[P] = 1;
+    p[X] = x;
+    p[Y] = y;
+    p[Z] = z;
+    return p;
+}
+
+inline point make_vector(double x, double y, double z) {
+    point v;
+    v[P] = 0;
+    v[X] = x;
+    v[Y] = y;
+    v[Z] = z;
+    return v;
 }
 
 template <int N>

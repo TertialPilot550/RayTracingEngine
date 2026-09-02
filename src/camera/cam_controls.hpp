@@ -2,6 +2,8 @@
 
 #include "../main.hpp"
 
+#define CHUNK_SIZE 64
+
 /**
  * @brief Camera control class which details how rendering
  * should be performed for a given scene. This is held as
@@ -31,14 +33,14 @@ class CamControls {
     point pixel_delta_u;
     point pixel_delta_v;
 
-    point camera_center;
-    point facing = point(1, 0, 0, -1);
-    point camera_up = point(1, 0, 1, 0);
+    point camera_center = make_point(0, 0, 0);
+    point facing = make_point(0, 0, -1);
+    point camera_up = make_vector(0, 1, 0);
     point pixel00_loc;
 
-    point b_u = point(1, 0, 0, 0); // camera frame basis vectors
-    point b_v = point(1, 0, 0, 0); // camera frame basis vectors
-    point b_w = point(1, 0, 0, 0); // camera frame basis vectors
+    point b_u = make_vector(1, 0, 0); // camera frame basis vectors
+    point b_v = make_vector(1, 0, 0); // camera frame basis vectors
+    point b_w = make_vector(1, 0, 0); // camera frame basis vectors
     point   defocus_disk_u;       // Defocus disk horizontal radius
     point   defocus_disk_v;       // Defocus disk vertical radius
 
@@ -49,7 +51,7 @@ class CamControls {
 
     int max_depth = 50;
     double gamma = 0.6;
-    int chunk_size = 16;
+    int chunk_size = CHUNK_SIZE;
     int thread_count = 50;
     bool do_antialiasing = true;
 
@@ -60,7 +62,8 @@ class CamControls {
     void set_camera_pos(point p, point f, point u) {
         camera_center = p;
         facing = f;
-        camera_up = u;
+        camera_up = as_vector(u);
+        if (camera_up[P] == 1) camera_up[P] = 0;
         update();
     }
 
@@ -128,7 +131,7 @@ class CamControls {
      * @brief Calculate all internal values based on input values
      */
     void update() {
-        chunk_size = (image_width < 16) ? image_width : 16;
+        chunk_size = (image_width < CHUNK_SIZE) ? image_width : CHUNK_SIZE;
         chunk_size = (chunk_size < 1) ? 1 : chunk_size;
         image_height = int(image_width / aspect_ratio);
         image_height = (image_height < 1) ? 1 : image_height;

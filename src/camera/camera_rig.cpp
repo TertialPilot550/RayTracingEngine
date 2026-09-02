@@ -69,28 +69,23 @@ color CameraRig::process_ray(const Ray& r, int depth, Scene& s) {
             rec.mat = m;
         }
 
-        
         color color_from_emission = rec.mat->emitted(rec.t_coords[0], rec.t_coords[1], rec.p);
 
         if (!rec.mat->scatter(r, rec, attenuation, scattered))
             return color_from_emission;
 
-        color res = process_ray(scattered, depth-1, s);
-        color color_from_scatter = color(attenuation[0]*res[0], attenuation[1]*res[1], attenuation[2]*res[2]);
-
+        color color_from_scatter = attenuation * process_ray(scattered, depth-1, s);
         return color_from_emission + color_from_scatter;
     } else {
         if (s.objects.hit(r, Interval(0.001, infinity), rec)) {
+            color emitted = rec.mat ? rec.mat->emitted(rec.t_coords[0], rec.t_coords[1], rec.p) : color(0,0,0);
             Ray scattered;
             color attenuation;
-            if (rec.mat && rec.mat->scatter(r, rec, attenuation, scattered)) {
-                color res = process_ray(scattered, depth-1, s);
-                color color_from_scatter = color(attenuation[0]*res[0], attenuation[1]*res[1], attenuation[2]*res[2]);
-            }
-            
-            return color();
+            if (rec.mat && rec.mat->scatter(r, rec, attenuation, scattered))
+                return emitted + attenuation * process_ray(scattered, depth-1, s);
+            return emitted;
         }
-        point unit_direction = unit_vector(r.direction());
+        vec<4> unit_direction = unit_vector(as_vector(r.direction()));
         auto a = 0.5*(unit_direction[Y] + 1.0);
         // manually blend the background color with white to create a gradient effect
         return (1.0-a)*color(1.0, 1.0, 1.0) + a*color(0.5, 0.7, 1.0);

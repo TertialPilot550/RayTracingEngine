@@ -63,7 +63,6 @@ class Perlin {
   private:
     static const int point_count = 256;
     point randvec[point_count];
-    double randfloat[point_count];
     int perm_x[point_count];
     int perm_y[point_count];
     int perm_z[point_count];

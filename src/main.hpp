@@ -24,6 +24,9 @@
  */
 // Utilites (Documented)
 #include "utilities/util.hpp"
+// All spatial math in this project uses the homogeneous convention defined here:
+// - point = [1, x, y, z]
+// - vector = [0, x, y, z]
 #include "utilities/linear_algebra/linear_algebra.hpp"
 #include "utilities/interval.hpp"
 #include "utilities/perlin_noise.hpp"
