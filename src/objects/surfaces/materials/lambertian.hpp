@@ -4,19 +4,19 @@
 
 class Lambertian : public Material {
   public:
-    Lambertian(const color& albedo) : tex(std::make_shared<SolidColor>(albedo)) {}
-    Lambertian(std::shared_ptr<Texture> tex) : tex(tex) {}
+    explicit Lambertian(const color& albedo) : tex(std::make_shared<SolidColor>(albedo)) {}
+    explicit Lambertian(std::shared_ptr<Texture> tex) : tex(tex) {}
 
     bool scatter(const Ray& r_in, const CollisionRecord& rec, color& attenuation, Ray& scattered)
     const override {
-        auto scatter_direction = rec.normal + random_unit_vector();
+        auto scatter_direction = rec.normal + random_unit_vector<4>();
 
         // Catch degenerate scatter direction
-        if (scatter_direction.near_zero())
+        if (near_zero(scatter_direction))
             scatter_direction = rec.normal;
 
         scattered = Ray(rec.p, scatter_direction, r_in.time());
-        attenuation = tex->value(rec.t_coords.f1, rec.t_coords.f2, rec.p);
+        attenuation = tex->value(rec.t_coords[0], rec.t_coords[1], rec.p);
         return true;
     }
 

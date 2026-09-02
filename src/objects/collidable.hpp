@@ -13,19 +13,19 @@ class CollisionObject;
 class CollisionRecord {
     public:
         point p;        // point of intersection
-        vec3 normal;    // normal vector at the intersection
+        point normal;    // normal vector at the intersection
         std::shared_ptr<Material> mat; // pointer to the material of the object hit
         double t;       // time of collision
-        vec2 t_coords;
+        point2D t_coords;
         bool front_face;
 
-        void record(const Ray&r, float t, const vec3& outward_normal, const CollisionObject* obj);
+        void record(const Ray&r, float t, const point& outward_normal, const CollisionObject* obj);
 
-        void set_face_normal(const Ray& r, const vec3& outward_normal) {
+        void set_face_normal(const Ray& r, const point& outward_normal) {
             // Sets the hit record normal vector.
             // NOTE: the parameter `outward_normal` is assumed to have unit length.
 
-            front_face = dot(r.direction(), outward_normal) < 0;
+            front_face = dot<4>(r.direction(), outward_normal) < 0;
             normal = front_face ? outward_normal : -outward_normal;
         }
 
@@ -48,19 +48,19 @@ class CollisionRecord {
     CollisionObject(std::shared_ptr<Material> m): mat(m) {}
 
     virtual bool hit(const Ray& r, Interval ray_t, CollisionRecord& rec) const = 0;
-    virtual vec2 get_tcoords(const point& p) const = 0;
+    virtual point2D get_tcoords(const point& p) const = 0;
 
 };
 
 /**
  * @brief Automatically record collision details given the collision intersection time, normal, and colliding object
  */
-inline void CollisionRecord::record(const Ray&r, float t, const vec3& outward_normal, const CollisionObject* obj) {
+inline void CollisionRecord::record(const Ray&r, float t, const point& outward_normal, const CollisionObject* obj) {
     this->t = t;
     this->p = r.at(t);
     set_face_normal(r, outward_normal);
-    vec2 t_coords = obj->get_tcoords(p);
-    this->t_coords = t_coords;
+    point2D t_c = obj->get_tcoords(p);
+    this->t_coords = t_c;
     this->mat = obj->mat;
 }
 
@@ -81,8 +81,11 @@ class CollisionList : public CollisionObject {
         objects.push_back(object);
     }
 
-    vec2 get_tcoords(const point& p) const override {
-        return vec2(0,0);
+    point2D get_tcoords(const point& p) const override {
+        point2D res;
+        res[0] = 0;
+        res[1] = 0;
+        return res;
     }
 
     bool hit(const Ray& r, Interval ray_t, CollisionRecord& rec) const override {

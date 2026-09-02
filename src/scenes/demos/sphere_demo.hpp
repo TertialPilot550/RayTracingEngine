@@ -8,20 +8,20 @@ inline Scene sphere_demo() {
     s.controls.set_samples_per_pixel(10);
     s.controls.set_image_width(1200);
     s.controls.set_vertical_fov(20);
-    s.controls.set_camera_pos(point(13,2,3), point(0,0,0), vec3(0,1,0));
+    s.controls.set_camera_pos(point(1,13,2,3), point(1,0,0,0), point(1,0,1,0));
     s.controls.set_defocus_angle(0.6);
     s.controls.set_focus_distance(10.0);
     s.controls.max_depth = 50;
 
     auto ground_material = std::make_shared<Lambertian>(color(0.5, 0.5, 0.5));
-    s.objects.add(std::make_shared<Sphere>(point(0,-1000,0), 1000, ground_material));
+    s.objects.add(std::make_shared<Sphere>(point(1,0,-1000,0), 1000, ground_material));
 
     for (int a = -11; a < 11; a++) {
         for (int b = -11; b < 11; b++) {
             auto choose_mat = random_double();
-            point center(a + 0.9*random_double(), 0.2, b + 0.9*random_double());
+            point center(1, a + 0.9*random_double(), 0.2, b + 0.9*random_double());
 
-            if ((center - point(4, 0.2, 0)).length() > 0.9) {
+            if (norm(center - point(1, 4, 0.2, 0)) > 0.9) {
                 std::shared_ptr<Material> sphere_material;
 
                 if (choose_mat < 0.8) {
@@ -45,6 +45,6 @@ inline Scene sphere_demo() {
     }
 
     auto material1 = std::make_shared<Dielectric>(1.5);
-    s.objects.add(std::make_shared<Sphere>(point(0, 1, 0), 1.0, material1));
+    s.objects.add(std::make_shared<Sphere>(point(1, 0, 1, 0), 1.0, material1));
     return s;
 }

@@ -89,7 +89,7 @@ class CameraRig {
      * @details Used to perform anti-aliasing. Returns a random
      * vec3 with zero z component, where x and y are between -0.5 and 0.5.
      */
-    vec3 sample_square() const;
+    point sample_square() const;
 
 
     /**

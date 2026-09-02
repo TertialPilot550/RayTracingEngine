@@ -10,9 +10,11 @@ class CheckerTexture : public Texture {
 
 
     color value(double u, double v, const point& p) const override {
-        auto xInteger = int(std::floor(inv_scale * p.x()));
-        auto yInteger = int(std::floor(inv_scale * p.y()));
-        auto zInteger = int(std::floor(inv_scale * p.z()));
+        point hp = homogenize(p);
+
+        auto xInteger = int(std::floor(inv_scale * hp[X]));
+        auto yInteger = int(std::floor(inv_scale * hp[Y]));
+        auto zInteger = int(std::floor(inv_scale * hp[Z]));
 
         bool isEven = (xInteger + yInteger + zInteger) % 2 == 0;
         return isEven ? even->value(u, v, p) : odd->value(u, v, p);

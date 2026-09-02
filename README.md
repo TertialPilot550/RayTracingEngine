@@ -103,6 +103,7 @@ Performance: See Acceleration
 
 ---
 ### Finished
+
 Ray Tracing in One Weekend: Volume One
 - [X] A camera with configurable position, orientation, and field of view: Required
 - [X] Anti-aliasing: Required
@@ -117,7 +118,6 @@ Independently Written
 - [X] Textured triangles: Required
 - [X] The ability to load and render triangle meshes (file format(s) of your choice; may use third-party libraries for loading): Required
 
-
 Ray Tracing in One Weekend: Volume Two
 - [X] Perlin noise: 10                         
 - [X] The ability to load textures: Required    
@@ -130,7 +130,8 @@ POINTS SO FAR: 40 (50 if motion blur works)
 
 ---
 ### IN PROGRESS
-- [ ] Transformations on objects/Object Instancing: 10
+- [ ] Conversion to homogeneous coordinates
+- [ ] Transformations on objects/Object Instancing: 10 (represented by 4d matrix)
 
 ### NEXT
 - [ ] Motion blur: 10                           <- Need to add motion in order to test this, and I also need to make sure that the ray intersection code for each shape properly handles motion and whatnot
@@ -138,8 +139,10 @@ POINTS SO FAR: 40 (50 if motion blur works)
 ### BACKBURNER
 - [ ] Materials for Triangle Meshes
 
----
 Theoretical Point Total before acceleration and animation wrapper: All Required + 60 points (40 points remaining)
+
+---
+
 
 ### Acceleration
 - [ ] Hybrid rendering with a GPU (depth buffer + ray tracing): 20

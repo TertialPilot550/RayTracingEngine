@@ -24,7 +24,7 @@
  */
 // Utilites (Documented)
 #include "utilities/util.hpp"
-#include "utilities/vector.hpp"
+#include "utilities/linear_algebra/linear_algebra.hpp"
 #include "utilities/interval.hpp"
 #include "utilities/perlin_noise.hpp"
 #include "utilities/ray.hpp"
@@ -68,5 +68,4 @@
 #include "camera/camera_rig.hpp"
 
 // Instancing and Motion
-#include "instance/instance.hpp"
 #include "instance/motion.hpp"

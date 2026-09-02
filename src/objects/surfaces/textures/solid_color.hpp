@@ -7,7 +7,13 @@ class SolidColor : public Texture {
 
     SolidColor(const color& albedo) : albedo(albedo) {}
 
-    SolidColor(double r, double g, double b) : SolidColor(color(r, g, b)) {}
+    SolidColor(double r, double g, double b) {
+        color solid;
+        solid[RED] = r;
+        solid[GREEN] = g;
+        solid[BLUE] = b;
+        albedo = solid;
+    }
 
     color value(double u, double v, const point& p) const override {
         return albedo;

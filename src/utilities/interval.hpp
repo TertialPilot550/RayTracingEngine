@@ -11,9 +11,9 @@ class Interval {
     
     double max, min;
 
-    Interval(): min(+infinity), max(-infinity) {}
+    Interval(): max(-infinity), min(+infinity)  {}
 
-    Interval(double min, double max) :min(min), max(max) {}
+    Interval(double min, double max) : max(max), min(min) {}
     
     double size() {
         return max - min;

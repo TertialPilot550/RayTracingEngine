@@ -1,10 +1,11 @@
 #pragma once
 #include "../main.hpp"
 
+
 class Motion {
 
     public:
-    Instance start, end;
+    Matrix<4,4> start, end;
     double time_seconds;
 
 };

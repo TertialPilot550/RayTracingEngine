@@ -2,6 +2,7 @@
 
 #include "../main.hpp"
 
+
 /**
  * @brief Simple RGB color object.
  * @details 3 integer fields and an = assignment operator
@@ -25,12 +26,12 @@ class rgb {
 };
 
 /**
- * @brief Conversion from color (vec3) to rgb color object
+ * @brief Conversion from color to rgb color object
  */
 inline rgb color_correction_to_rgb(const color& pixel_color) {
-        auto r = pixel_color.x();
-        auto g = pixel_color.y();
-        auto b = pixel_color.z();
+        auto r = pixel_color[RED];
+        auto g = pixel_color[GREEN];
+        auto b = pixel_color[BLUE];
 
         // std::cout << r << g << b;
 

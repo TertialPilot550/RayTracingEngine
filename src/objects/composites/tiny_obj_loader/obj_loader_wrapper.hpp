@@ -54,23 +54,23 @@ class OBJModel {
                 const tinyobj::index_t& ic =
                     mesh.indices[index_offset + i + 1];
 
-                point a(
-                    attrib.vertices[3 * ia.vertex_index],
-                    attrib.vertices[3 * ia.vertex_index + 1],
-                    attrib.vertices[3 * ia.vertex_index + 2]
-                );
+                point a;
+                a[P] = 1;
+                a[X] = attrib.vertices[3 * ia.vertex_index];
+                a[Y] = attrib.vertices[3 * ia.vertex_index + 1];
+                a[Z] = attrib.vertices[3 * ia.vertex_index + 2];
 
-                point b(
-                    attrib.vertices[3 * ib.vertex_index],
-                    attrib.vertices[3 * ib.vertex_index + 1],
-                    attrib.vertices[3 * ib.vertex_index + 2]
-                );
+                point b;
+                b[P] = 1;
+                b[X] = attrib.vertices[3 * ib.vertex_index];
+                b[Y] = attrib.vertices[3 * ib.vertex_index + 1];
+                b[Z] = attrib.vertices[3 * ib.vertex_index + 2];
 
-                point c(
-                    attrib.vertices[3 * ic.vertex_index],
-                    attrib.vertices[3 * ic.vertex_index + 1],
-                    attrib.vertices[3 * ic.vertex_index + 2]
-                );
+                point c;
+                c[P] = 1;
+                c[X] = attrib.vertices[3 * ic.vertex_index];
+                c[Y] = attrib.vertices[3 * ic.vertex_index + 1];
+                c[Z] = attrib.vertices[3 * ic.vertex_index + 2];
 
                 // std::cout
                 //     << "Triangle "

@@ -12,3 +12,7 @@ test: build
 
 dbg: build
 	dbg ./out/app
+
+build_test:
+	clear
+	g++ src/utilities/util.cpp test/test_linear_algebra.cpp $(FLAGS) -o test/test_linear_algebra 

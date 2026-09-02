@@ -19,7 +19,11 @@ class Scene {
     color background;
 
     // Default to a black background
-    Scene() : controls(CamControls()), background(0, 0, 0) {}
+    Scene() : controls(CamControls()) {
+        background[RED] = 0;
+        background[GREEN] = 0;
+        background[BLUE] = 0;
+    }
     
 };
 

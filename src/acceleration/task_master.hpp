@@ -53,6 +53,10 @@ class TaskMaster {
             tasks_completed = 0;
             total_tasks = tasks.size();
         }
+        if (total_tasks == 0) {
+            std::cout << "\rTask Progress: 100% (0/0)\n";
+            return;
+        }
         workers.clear();
 
 
@@ -98,16 +102,16 @@ class TaskMaster {
         if (total_tasks == 0) total_tasks = 1;
         double percent_complete = (tasks_completed * 1.0) / (total_tasks * 1.0);
         while (percent_complete < 1) {
-            // Print with carriage return
-            std::cout << "\rTask Progress: " << percent_complete << " " << "(" << tasks_completed << ")";
-
-            int boxes = percent_complete * 10;
+            // Print with carriage return and flush so the progress bar is visible live.
+            std::cout << "\rTask Progress: " << percent_complete << " (" << tasks_completed << ")";
+            int boxes = static_cast<int>(percent_complete * 10.0);
             for (int i = 0; i < boxes; i++) {
                 std::cout << "■";
             }
             for (int i = 0; i < 10-boxes; i++) {
                 std::cout << "☐";
             }
+            std::cout << std::flush;
 
             // wait for a sec
             std::this_thread::sleep_for(std::chrono::milliseconds(500));
@@ -115,6 +119,7 @@ class TaskMaster {
             // update
             percent_complete = (tasks_completed * 1.0) / (total_tasks * 1.0);
         }
+        std::cout << "\n" << std::flush;
 
 
         // join the workers

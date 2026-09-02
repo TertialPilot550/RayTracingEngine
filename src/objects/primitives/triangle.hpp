@@ -8,14 +8,26 @@ class Vertex {
     public:
 
     Vertex() {}
-    Vertex(point p, vec2 t_coords) : p(p), t_coords(t_coords) {}
+    Vertex(point p, point2D t_coords) : p(p), t_coords(t_coords) {}
 
     point p;
-    vec2 t_coords;
+    point2D t_coords;
 
     void operator=(Vertex& v) {
         p = v.p;
         t_coords = v.t_coords;
+    }
+
+    static point2D vertex_0() {
+        return point2D(0, 0);
+    }
+
+    static point2D vertex_1() {
+        return point2D(0, 1);
+    }
+
+    static point2D vertex_2() {
+        return point2D(1, 0.5);
     }
 
 };
@@ -28,7 +40,7 @@ class Triangle : public CollisionObject {
     public:
     Vertex v[3];
 
-    Triangle(point p1, point p2, point p3, std::shared_ptr<Material> mat, vec2 t1 = vec2::vertex_0(), vec2 t2 = vec2::vertex_1(), vec2 t3 = vec2::vertex_2()) : CollisionObject(mat) {
+    Triangle(point p1, point p2, point p3, std::shared_ptr<Material> mat, point2D t1 = Vertex::vertex_0(), point2D t2 = Vertex::vertex_1(), point2D t3 = Vertex::vertex_2()) : CollisionObject(mat) {
         v[0].p = p1;
         v[1].p = p2;
         v[2].p = p3;
@@ -39,15 +51,21 @@ class Triangle : public CollisionObject {
     } 
 
     bool hit(const Ray& r, Interval ray_t, CollisionRecord& rec) const override {
-     
+
+        // If any vertex is at infinity, there is not intersection
+        if (is_at_infinity(v[0].p) || is_at_infinity(v[1].p) || is_at_infinity(v[2].p)) return false;
+        point p0 = homogenize(v[0].p);
+        point p1 = homogenize(v[1].p);
+        point p2 = homogenize(v[2].p);
+
         const double epsilon = 1e-8; // Handle near parralel intersections to make up for doubles nonsense
 
         // Find the edges of the triangle as vectors
-        vec3 e1 = v[1].p - v[0].p;
-        vec3 e2 = v[2].p - v[0].p;
+        point e1 = p1 - p0;
+        point e2 = p2 - p0;
 
         // Vector representation of intersection candidate
-        vec3 pvec = cross(r.direction(), e2);
+        point pvec = cross(r.direction(), e2);
 
         // Determine whether the ray is sufficiently near parralel
         double det = dot(e1, pvec);
@@ -58,9 +76,9 @@ class Triangle : public CollisionObject {
 
         // A point inside the triangle can be represented as P = A + u*e1 + v*e2 : u >= 0, v >= 0, u + v <= 1
 
-        vec3 tvec = r.origin() - v[0].p;
+        point tvec = r.origin() - p0;
         double u = dot(tvec, pvec) * inv_det;
-        vec3 qvec = cross(tvec, e1);
+        point qvec = cross(tvec, e1);
         double v = dot(r.direction(), qvec) * inv_det;
         bool intersection = u >= 0 && v >= 0 && u + v <= 1;
         if (!intersection) return false;
@@ -74,19 +92,18 @@ class Triangle : public CollisionObject {
 
         // There is an intersection! Populate rec.
 
-        vec3 normal = cross(e1, e2);
-        normal /= normal.length();
+        point normal = cross(e1, e2);
+        normal /= norm(normal);
 
         rec.record(r, t, normal, this);
         return true;
 
     }
 
-    vec2 get_tcoords(const point& p) const override {
+    point2D get_tcoords(const point& p) const override {
 
         float d = (v[1].p[1]-v[2].p[1])*(v[0].p[0]-v[2].p[0]) + (v[2].p[1]-v[1].p[1])*(v[0].p[1]-v[2].p[1]);
         d = 1 / d;
-
 
         float l0 = d * ((v[1].p[1]-v[2].p[1])*(p[0] - v[2].p[0])+(v[2].p[0]-v[1].p[0])*(p[1]-v[2].p[1]));
         float l1 = d * ((v[2].p[1]-v[0].p[1])*(p[0] - v[2].p[0])+(v[0].p[0]-v[2].p[0])*(p[1]-v[2].p[1]));

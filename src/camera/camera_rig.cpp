@@ -48,7 +48,7 @@ void CameraRig::write_color(const rgb& rgb, int x, int y) {
 color CameraRig::process_ray(const Ray& r, int depth, Scene& s) {
     CollisionRecord rec;
     if (depth <= 0) {
-        return color(0, 0, 0);
+        return color();
     }
 
     static bool only_lights = false;
@@ -65,49 +65,60 @@ color CameraRig::process_ray(const Ray& r, int depth, Scene& s) {
             auto b = std::make_shared<SolidColor>(0,0,0);
             auto p = std::make_shared<SolidColor>(235, 116, 237);
 
-            auto check = std::make_shared<CheckerTexture>(2.0, b, p);
-            std::shared_ptr<Material> m = std::make_shared<Lambertian>(check);
+            std::shared_ptr<Material> m = std::make_shared<Lambertian>(std::make_shared<CheckerTexture>(2.0, b, p));
             rec.mat = m;
         }
 
         
-        color color_from_emission = rec.mat->emitted(rec.t_coords.f1, rec.t_coords.f2, rec.p);
+        color color_from_emission = rec.mat->emitted(rec.t_coords[0], rec.t_coords[1], rec.p);
 
         if (!rec.mat->scatter(r, rec, attenuation, scattered))
             return color_from_emission;
 
-        color color_from_scatter = attenuation * process_ray(scattered, depth-1, s);
+        color res = process_ray(scattered, depth-1, s);
+        color color_from_scatter = color(attenuation[0]*res[0], attenuation[1]*res[1], attenuation[2]*res[2]);
 
         return color_from_emission + color_from_scatter;
     } else {
         if (s.objects.hit(r, Interval(0.001, infinity), rec)) {
             Ray scattered;
             color attenuation;
-            if (rec.mat && rec.mat->scatter(r, rec, attenuation, scattered))
-                return attenuation * process_ray(scattered, depth-1, s);
-            return color(0,0,0);
+            if (rec.mat && rec.mat->scatter(r, rec, attenuation, scattered)) {
+                color res = process_ray(scattered, depth-1, s);
+                color color_from_scatter = color(attenuation[0]*res[0], attenuation[1]*res[1], attenuation[2]*res[2]);
+            }
+            
+            return color();
         }
-        vec3 unit_direction = unit_vector(r.direction());
-        auto a = 0.5*(unit_direction.y() + 1.0);
+        point unit_direction = unit_vector(r.direction());
+        auto a = 0.5*(unit_direction[Y] + 1.0);
         // manually blend the background color with white to create a gradient effect
         return (1.0-a)*color(1.0, 1.0, 1.0) + a*color(0.5, 0.7, 1.0);
     }
     
 }
 
-vec3 CameraRig::sample_square() const {
-    return vec3(random_double() - 0.5, random_double() - 0.5, 0);
+point CameraRig::sample_square() const {
+    vec<4> res;
+
+    res[P] = 0;
+    res[X] = random_double() - 0.5;
+    res[Y] = random_double() - 0.5;
+    res[Z] = 0;
+
+    return res;
 }
 
 point CameraRig::defocus_disk_sample(CamControls& controls) const {
     // Returns a random point in the camera defocus disk.
-    auto p = random_in_unit_disk();
-    return controls.center() + (p[0] * controls.defocus_radius_u()) + (p[1] * controls.defocus_radius_v());
+    auto p = random_in_unit_disk<4>();
+    return controls.center() + (p[X] * controls.defocus_radius_u()) + (p[Y] * controls.defocus_radius_v());
 }
 
 Ray CameraRig::get_ray_for_pixel(int i, int j, CamControls& controls) const {
-    auto offset = (controls.do_antialiasing) ? sample_square() : vec3(0,0,0);
-    auto pixel_sample = controls.viewport_origin() + ((i + offset.x()) * controls.du()) + ((j + offset.y()) * controls.dv());
+    vec<4> os;
+    auto offset = (controls.do_antialiasing) ? sample_square() : os;
+    auto pixel_sample = controls.viewport_origin() + ((i + offset[X]) * controls.du()) + ((j + offset[Y]) * controls.dv());
     auto ray_origin = (controls.defcs_angle() <= 0) ? controls.center() : defocus_disk_sample(controls);
     auto ray_direction = pixel_sample - ray_origin;
     auto ray_time = random_double();
@@ -115,7 +126,7 @@ Ray CameraRig::get_ray_for_pixel(int i, int j, CamControls& controls) const {
 }
 
 rgb CameraRig::sample_for_pixel_color(int x, int y, Scene& s) {
-    color pixel_color(0, 0, 0);
+    color pixel_color = color();
     for (int i = 0; i < s.controls.samples_per_pix(); i++) {
         pixel_color += process_ray(get_ray_for_pixel(x, y, s.controls), s.controls.max_depth, s);
     }

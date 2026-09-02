@@ -11,8 +11,14 @@ class ImageTexture : public Texture {
     ImageTexture(const char* filename) : img(filename) {}
 
     color value(double u, double v, const point& p) const override {
-        if (img.get_height() <= 0) return color(0,1,1);
-
+        if (img.get_height() <= 0) {
+            color res;
+            res[RED] = 0;
+            res[GREEN] = 1;
+            res[BLUE] = 1;
+            return res;
+        }
+        
         u = Interval(0, 1).clamp(u);
         v = 1.0 - Interval(0, 1).clamp(v);
 
@@ -22,7 +28,12 @@ class ImageTexture : public Texture {
 
         auto color_scale = 1.0 / 255.0;
 
-        return color(color_scale*pixel.red, color_scale*pixel.green, color_scale*pixel.blue);
+        color res;
+        res[RED] = color_scale*pixel.red;
+        res[GREEN] = color_scale*pixel.green;
+        res[BLUE] = color_scale*pixel.blue;
+
+        return res;
 
     }
 

@@ -28,28 +28,28 @@ class CamControls {
     int image_height = 0;
     double pixels_samples_scale = 1.0 / samples_per_pixel;
 
-    vec3 pixel_delta_u;
-    vec3 pixel_delta_v;
+    point pixel_delta_u;
+    point pixel_delta_v;
 
     point camera_center;
-    point facing = point(0, 0, -1);
-    vec3 camera_up = vec3(0, 1, 0);
+    point facing = point(1, 0, 0, -1);
+    point camera_up = point(1, 0, 1, 0);
     point pixel00_loc;
 
-    vec3 b_u = vec3(0, 0, 0); // camera frame basis vectors
-    vec3 b_v = vec3(0, 0, 0); // camera frame basis vectors
-    vec3 b_w = vec3(0, 0, 0); // camera frame basis vectors
-    vec3   defocus_disk_u;       // Defocus disk horizontal radius
-    vec3   defocus_disk_v;       // Defocus disk vertical radius
+    point b_u = point(1, 0, 0, 0); // camera frame basis vectors
+    point b_v = point(1, 0, 0, 0); // camera frame basis vectors
+    point b_w = point(1, 0, 0, 0); // camera frame basis vectors
+    point   defocus_disk_u;       // Defocus disk horizontal radius
+    point   defocus_disk_v;       // Defocus disk vertical radius
 
-    vec3 viewport_u;
-    vec3 viewport_v;
+    point viewport_u;
+    point viewport_v;
 
     public:
 
     int max_depth = 50;
     double gamma = 0.6;
-    int chunk_size = image_width;
+    int chunk_size = 16;
     int thread_count = 50;
     bool do_antialiasing = true;
 
@@ -82,6 +82,7 @@ class CamControls {
     void set_samples_per_pixel(int s) {
         samples_per_pixel = s;
         pixels_samples_scale = 1.0 / samples_per_pixel;
+        update();
     }
 
     void set_focus_distance(double f) {
@@ -103,23 +104,23 @@ class CamControls {
     double defcs_angle() {return defocus_angle;}
     double focus_d() {return focus_dist;}
 
-    vec3 du() {return pixel_delta_u;}
-    vec3 dv() {return pixel_delta_v;}
+    point du() {return pixel_delta_u;}
+    point dv() {return pixel_delta_v;}
 
     point center() {return camera_center;}
     point face() {return facing;}
-    vec3 up() {return camera_up;}
-    vec3 viewport_origin() {return pixel00_loc;}
+    point up() {return camera_up;}
+    point viewport_origin() {return pixel00_loc;}
 
-    vec3 u() {return b_u;}
-    vec3 v() {return b_v;}
-    vec3 w() {return b_w;}
+    point u() {return b_u;}
+    point v() {return b_v;}
+    point w() {return b_w;}
 
-    vec3 defocus_radius_u() {return defocus_disk_u;}
-    vec3 defocus_radius_v() {return defocus_disk_v;}
+    point defocus_radius_u() {return defocus_disk_u;}
+    point defocus_radius_v() {return defocus_disk_v;}
 
-    vec3 viewp_u() {return viewport_u;};
-    vec3 viewp_v() {return viewport_v;};
+    point viewp_u() {return viewport_u;};
+    point viewp_v() {return viewport_v;};
 
     private:
 
@@ -127,7 +128,8 @@ class CamControls {
      * @brief Calculate all internal values based on input values
      */
     void update() {
-        chunk_size = image_width;
+        chunk_size = (image_width < 16) ? image_width : 16;
+        chunk_size = (chunk_size < 1) ? 1 : chunk_size;
         image_height = int(image_width / aspect_ratio);
         image_height = (image_height < 1) ? 1 : image_height;
         
