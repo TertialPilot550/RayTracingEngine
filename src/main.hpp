@@ -6,6 +6,8 @@
 
 // PNG Wrapper Library
 #include <png++/png.hpp>
+#include "../lib/metal-cpp/Metal/Metal.hpp"
+
 
 /**
  * Standard Library
@@ -27,7 +29,7 @@
 // All spatial math in this project uses the homogeneous convention defined here:
 // - point = [1, x, y, z]
 // - vector = [0, x, y, z]
-#include "utilities/linear_algebra/linear_algebra.hpp"
+#include "utilities/linear_algebra.hpp"
 #include "utilities/interval.hpp"
 #include "utilities/perlin_noise.hpp"
 #include "utilities/ray.hpp"
@@ -35,12 +37,14 @@
 
 // Acceration (Documented)
 #include "acceleration/task_master.hpp"
+#include "acceleration/gpu.hpp"
 
 // Objects
 #include "objects/collidable.hpp"
 #include "objects/primitives/sphere.hpp"
 #include "objects/primitives/triangle.hpp"
 #include "objects/primitives/quad.hpp"
+#include "objects/instance.hpp"
 // Textures
 #include "objects/surfaces/texture.hpp"
 #include "objects/surfaces/textures/checker.hpp"
@@ -53,6 +57,8 @@
 #include "objects/surfaces/materials/diffuse_light.hpp"
 #include "objects/surfaces/materials/lambertian.hpp"
 #include "objects/surfaces/materials/metal.hpp"
+// Surface
+#include "objects/surfaces/surface.hpp"
 // Triangle Meshes
 #include "objects/composites/tiny_obj_loader/obj_loader_wrapper.hpp"
 
@@ -71,4 +77,3 @@
 #include "camera/camera_rig.hpp"
 
 // Instancing and Motion
-#include "instance/motion.hpp"

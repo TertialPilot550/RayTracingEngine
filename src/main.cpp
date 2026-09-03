@@ -1,4 +1,8 @@
+// TinyObjLoader
 #define TINYOBJLOADER_IMPLEMENTATION
+// Metal C++ 
+#define NS_PRIVATE_IMPLEMENTATION
+#define MTL_PRIVATE_IMPLEMENTATION
 
 #include "main.hpp"
 
@@ -27,15 +31,16 @@ std::vector<Job> build_jobs() {
  * the build_jobs() function also located in main.cpp.
  */
 int main() {
-    auto job_list = build_jobs();
-    std::cout << "RayTracingEngine :: Initialized with " << job_list.size() << " jobs" << std::endl;
-    CameraRig cam;
-    int jobs_fin = 0;
-    for (auto& job : job_list) {
-        png::image<png::rgb_pixel>& image = cam.capture(job.second);
-        std::string lbl = output_directory + "/" + job.first + ".png";
-        image.write(lbl);
-        std::cout << "\tCompleted Job ("  << ++jobs_fin << "): [" << job.first << "]\n";
-    }
+    r();
+    // auto job_list = build_jobs();
+    // std::cout << "RayTracingEngine :: Initialized with " << job_list.size() << " jobs" << std::endl;
+    // CameraRig cam;
+    // int jobs_fin = 0;
+    // for (auto& job : job_list) {
+    //     png::image<png::rgb_pixel>& image = cam.capture(job.second);
+    //     std::string lbl = output_directory + "/" + job.first + ".png";
+    //     image.write(lbl);
+    //     std::cout << "\tCompleted Job ("  << ++jobs_fin << "): [" << job.first << "]\n";
+    // }
     return 0;
 }

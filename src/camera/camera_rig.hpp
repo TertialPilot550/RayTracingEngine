@@ -82,6 +82,12 @@ class CameraRig {
      */
     color process_ray(const Ray& r, int depth, Scene& s);
 
+    /**
+     * @brief 
+     * @details 
+     */
+    void depth_buffer(Scene& s);
+
 
     /**
      * @brief Utility function used by get_ray_for_pixel()
@@ -122,3 +128,6 @@ class CameraRig {
     ///@}
 
 };
+
+
+

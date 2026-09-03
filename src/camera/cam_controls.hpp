@@ -4,6 +4,12 @@
 
 #define CHUNK_SIZE 64
 
+enum class CameraMode : int {
+    RAY_TRACING,
+    HYBRID,
+    DEPTH_BUFFER
+};
+
 /**
  * @brief Camera control class which details how rendering
  * should be performed for a given scene. This is held as
@@ -24,7 +30,7 @@ class CamControls {
     int image_width = 400;
     int samples_per_pixel = 10;
     double vertical_fov = 90;
-    double defocus_angle = 0;
+    double defocus_angle = 0; // setting defocus angle <= disables defocus blur / depth of field
     double focus_dist = 10;
 
     int image_height = 0;
@@ -39,8 +45,8 @@ class CamControls {
     point pixel00_loc;
 
     point b_u = make_vector(1, 0, 0); // camera frame basis vectors
-    point b_v = make_vector(1, 0, 0); // camera frame basis vectors
-    point b_w = make_vector(1, 0, 0); // camera frame basis vectors
+    point b_v = make_vector(0, 1, 0); // camera frame basis vectors
+    point b_w = make_vector(0, 0, 1); // camera frame basis vectors
     point   defocus_disk_u;       // Defocus disk horizontal radius
     point   defocus_disk_v;       // Defocus disk vertical radius
 
@@ -54,6 +60,8 @@ class CamControls {
     int chunk_size = CHUNK_SIZE;
     int thread_count = 50;
     bool do_antialiasing = true;
+    bool do_lighting = false;
+    CameraMode mode = CameraMode::RAY_TRACING;
 
     CamControls() {
         update();

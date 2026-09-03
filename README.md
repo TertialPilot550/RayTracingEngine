@@ -131,7 +131,17 @@ POINTS SO FAR: 40 (50 if motion blur works)
 
 ---
 ### IN PROGRESS
+- object/instance/skeleton/surface model
+    - an instance contains a std::shared_ptr<CollisionObject>, Matrix<4,4> t, and a std::shared_ptr<Surface>
+    - TODO: add rasterization code for all primitives
+    - check the depth buffer document for edge cases (triangle edge sharing??)
+
+
+
+
+- [ ] Hybrid rendering with a GPU (depth buffer + ray tracing): 20
 - [ ] Transformations on objects/Object Instancing: 10 (represented by 4d matrix)
+- [ ] GPU acceleration (GPU computing w/ e.g., CUDA): 20
 
 ### NEXT
 - [ ] Motion blur: 10                           <- Need to add motion in order to test this, and I also need to make sure that the ray intersection code for each shape properly handles motion and whatnot
@@ -145,8 +155,6 @@ Theoretical Point Total before acceleration and animation wrapper: All Required 
 
 
 ### Acceleration
-- [ ] Hybrid rendering with a GPU (depth buffer + ray tracing): 20
-- [ ] GPU acceleration (GPU computing w/ e.g., CUDA): 20
 - [ ] Importance Sampling: 15
 
 ---
