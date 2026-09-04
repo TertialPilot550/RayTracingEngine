@@ -1,5 +1,5 @@
 #pragma once
-#include "../../main.hpp"
+#include "../../../main.hpp"
 
 /**
  * @brief Abstract Material class that describes how light bounces off of / interacts with the object

@@ -1,5 +1,5 @@
 #pragma once
-#include "../../../main.hpp"
+#include "../../../../main.hpp"
 
 class DiffuseLight : public Material {
   public:

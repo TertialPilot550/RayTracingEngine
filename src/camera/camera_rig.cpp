@@ -11,22 +11,22 @@ color process_ray_with_lighting(const Ray& r, int depth, Scene& s) {
 
     // If the ray hits nothing, return the background color.
     if (!s.objects.hit(r, Interval(0.001, infinity), rec))
-        return s.background;
+        return s.background_color;
 
     Ray scattered;
     color attenuation;
 
-    if (!rec.mat) {
+    if (!rec.surf) {
         auto b = std::make_shared<SolidColor>(0,0,0);
         auto p = std::make_shared<SolidColor>(235, 116, 237);
 
         std::shared_ptr<Material> m = std::make_shared<Lambertian>(std::make_shared<CheckerTexture>(2.0, b, p));
-        rec.mat = m;
+        rec.surf = std::make_shared<Surface>(m, std::make_shared<CheckerTexture>(2.0, b, p));
     }
 
-    color color_from_emission = rec.mat->emitted(rec.t_coords[0], rec.t_coords[1], rec.p);
+    color color_from_emission = rec.surf->emitted(rec.t_coords[0], rec.t_coords[1], rec.p);
 
-    if (!rec.mat->scatter(r, rec, attenuation, scattered))
+    if (!rec.surf->scatter(r, rec, attenuation, scattered))
         return color_from_emission;
 
     color color_from_scatter = attenuation * process_ray_with_lighting(scattered, depth-1, s);
@@ -38,10 +38,10 @@ color process_ray_without_lighting(const Ray& r, int depth, Scene& s) {
     CollisionRecord rec;
 
     if (s.objects.hit(r, Interval(0.001, infinity), rec)) {
-        color emitted = rec.mat ? rec.mat->emitted(rec.t_coords[0], rec.t_coords[1], rec.p) : color(0,0,0);
+        color emitted = rec.surf ? rec.surf->emitted(rec.t_coords[0], rec.t_coords[1], rec.p) : color(0,0,0);
         Ray scattered;
         color attenuation;
-        if (rec.mat && rec.mat->scatter(r, rec, attenuation, scattered))
+        if (rec.surf && rec.surf->scatter(r, rec, attenuation, scattered))
             return emitted + attenuation * process_ray_without_lighting(scattered, depth-1, s);
         return emitted;
     }
@@ -59,13 +59,13 @@ void rasterize_scene(Scene& s, double* depth_buffer, rgb* color_buffer) {
     s_size[1] = s.controls.img_h();
 
     // Calculate transformation matricies
-    Matrix<4,4> view = viewport_matrix(s_size[0], s_size[1]);
-    Matrix<4,4> projection = projection_matrix(2, 10, 5, -5, -8, 8);
-    Matrix<4,4> world_to_cam = world_to_camera_matrix(s.controls.u(), s.controls.v(), s.controls.w(), s.controls.center());
-    Matrix<4,4> proj_to_cam = projection * world_to_cam;
+    mat<4,4> view = viewport_matrix(s_size[0], s_size[1]);
+    mat<4,4> projection = projection_matrix(2, 10, 5, -5, -8, 8);
+    mat<4,4> world_to_cam = world_to_camera_matrix(s.controls.u(), s.controls.v(), s.controls.w(), s.controls.center());
+    mat<4,4> proj_to_cam = projection * world_to_cam;
 
-    for (int i = 0; i < s.objects.objects.size(); i++) {
-        s.objects.objects[i]->rasterize(s_size, view, proj_to_cam, depth_buffer, color_buffer);
+    for (int i = 0; i < s.objects.instances.size(); i++) {
+        s.objects[i].rasterize(s_size, view, proj_to_cam, depth_buffer, color_buffer);
     }
 }
 

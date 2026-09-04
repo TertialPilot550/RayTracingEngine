@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../../../main.hpp"
-#include "../../../../lib/tiny_obj_loader/tiny_obj_loader.h"
+#include "../../../../main.hpp"
+#include "../../../../../lib/tiny_obj_loader/tiny_obj_loader.h"
 
 /**
  * @brief Object that represents a .obj model loaded from a file

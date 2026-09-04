@@ -1,5 +1,5 @@
 #pragma once
-#include "../../main.hpp"
+#include "../../../main.hpp"
 
 inline Scene light_demo() {
     Scene s;

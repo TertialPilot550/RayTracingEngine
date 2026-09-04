@@ -1,5 +1,5 @@
 #pragma once
-#include "../main.hpp"
+#include "../../main.hpp"
 
 /**
  * @brief Object which represents all of the context for a particular instance
@@ -11,15 +11,17 @@
  * 
  * @see CamControls, CollisionList, color
  */
-class Scene : public CollisionObject {
+class Scene {
 
     public:
     CamControls controls;
-    std::vector<Instance> obj;
-    std::shared_ptr<Texture> background;
+    InstanceList objects;
+    color background_color = color(0.5, 0.7, 1.0);
+    Scene() : controls(CamControls()), background_color(color(0.5, 0.7, 1.0)) {}
 
-    // Default to a black background
-    Scene(std::shared_ptr<Texture> tex) : controls(CamControls()), background(tex) {}
+    color background_color(double u, double v, const point& p) {
+        return background_color;
+    }
     
 };
 

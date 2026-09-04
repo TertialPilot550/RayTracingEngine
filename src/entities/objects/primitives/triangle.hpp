@@ -1,5 +1,5 @@
 #pragma once
-#include "../../main.hpp"
+#include "../../../main.hpp"
 
 vec<3> barycentric_coords(point v[3], int x, int y) {
     float d = (v[1][1]-v[2][1])*(v[0][0]-v[2][0]) + (v[2][1]-v[1][1])*(v[0][1]-v[2][1]);
@@ -12,62 +12,43 @@ vec<3> barycentric_coords(point v[3], int x, int y) {
     return vec<3>(l0, l1, l2);
 }
 
-/**
- * @brief Vertex class used by the triangle primives
- */
-class Vertex {
-    public:
-
-    Vertex() {}
-    Vertex(point p, point2D t_coords) : p(p), t_coords(t_coords) {}
-
-    point p;
-    point2D t_coords;
-
-    void operator=(Vertex& v) {
-        p = v.p;
-        t_coords = v.t_coords;
-    }
-
-    static point2D vertex_0() {
+static point2D vertex_0() {
         return point2D(0, 0);
     }
 
-    static point2D vertex_1() {
-        return point2D(0, 1);
-    }
+static point2D vertex_1() {
+    return point2D(0, 1);
+}
 
-    static point2D vertex_2() {
-        return point2D(1, 0.5);
-    }
-
-};
+static point2D vertex_2() {
+    return point2D(1, 0.5);
+}
 
 /**
  * @brief Triangle Primitive
  */
-class Triangle : public CollisionObject {
+class Triangle : public GeometricPrimitive<3> {
 
     public:
-    Vertex v[3];
+    point2D t_coords[3];
 
-    Triangle(point p1, point p2, point p3, std::shared_ptr<Material> mat, point2D t1 = Vertex::vertex_0(), point2D t2 = Vertex::vertex_1(), point2D t3 = Vertex::vertex_2()) : CollisionObject(mat) {
-        v[0].p = p1;
-        v[1].p = p2;
-        v[2].p = p3;
-        
-        v[0].t_coords = t1;
-        v[1].t_coords = t2;
-        v[2].t_coords = t3;
+    Triangle(point p1, point p2, point p3, std::shared_ptr<Material> mat, point2D t1 = vertex_0(), point2D t2 = vertex_1(), point2D t3 = vertex_2()) : GeometricPrimitive<3>(mat) {
+        skeleton[0] = p1;
+        skeleton[1] = p2;
+        skeleton[2] = p3;
+
+        t_coords[0] = t1;
+        t_coords[1] = t2;
+        t_coords[2] = t3;
     } 
 
     bool hit(const Ray& r, Interval ray_t, CollisionRecord& rec) const override {
 
         // If any vertex is at infinity, there is not intersection
-        if (is_at_infinity(v[0].p) || is_at_infinity(v[1].p) || is_at_infinity(v[2].p)) return false;
-        point p0 = homogenize(v[0].p);
-        point p1 = homogenize(v[1].p);
-        point p2 = homogenize(v[2].p);
+        if (is_at_infinity(skeleton[0]) || is_at_infinity(skeleton[1]) || is_at_infinity(skeleton[2])) return false;
+        point p0 = homogenize(skeleton[0]);
+        point p1 = homogenize(skeleton[1]);
+        point p2 = homogenize(skeleton[2]);
 
         const double epsilon = 1e-8; // Handle near parralel intersections to make up for doubles nonsense
 
@@ -112,18 +93,18 @@ class Triangle : public CollisionObject {
     }
 
     point2D get_tcoords(const point& p) const override {
-        point vpoints[] = {v[0].p, v[1].p, v[2].p, v[3].p};
+        point vpoints[] = {skeleton[0], skeleton[1], skeleton[2]};
         vec<3> b_coords = barycentric_coords(vpoints, p[1], p[2]);
-        return b_coords[0]*v[0].t_coords+b_coords[1]*v[1].t_coords+b_coords[2]*v[2].t_coords;
+        return b_coords[0]*t_coords[0]+b_coords[1]*t_coords[1]+b_coords[2]*t_coords[2];
     }
 
-    void rasterize(int screen_size[2], Matrix<4,4>& viewport_matrix, Matrix<4,4>& proj_matrix, double* depth_buff, color* color_buff) {
-        if (is_at_infinity(v[0].p) || is_at_infinity(v[1].p) || is_at_infinity(v[2].p)) return;
+    void rasterize(int screen_size[2], mat<4,4>& viewport_matrix, mat<4,4>& proj_matrix, double* depth_buff, color* color_buff) {
+        if (is_at_infinity(skeleton[0]) || is_at_infinity(skeleton[1]) || is_at_infinity(skeleton[2])) return;
 
         // Affine
-        point p0 = proj_matrix * v[0].p;
-        point p1 = proj_matrix * v[1].p;
-        point p2 = proj_matrix * v[2].p;
+        point p0 = proj_matrix * skeleton[0];
+        point p1 = proj_matrix * skeleton[1];
+        point p2 = proj_matrix * skeleton[2];
 
         // Projective Division
         p0 = homogenize(p0);
@@ -153,7 +134,7 @@ class Triangle : public CollisionObject {
                     // point is in the traingle
                     // Use barycentric coordinates to interpolate both depth and texture coordinates
                     int z = b_coords[0] * p0[3] + b_coords[1] * p1[3] + b_coords[2] * p2[3];
-                    point2D t = b_coords[0]*v[0].t_coords+b_coords[1]*v[1].t_coords+b_coords[2]*v[2].t_coords;
+                    point2D t = b_coords[0]*t_coords[0]+b_coords[1]*t_coords[1]+b_coords[2]*t_coords[2];
 
                     point pp = b_coords[0]*p0+b_coords[1]*p1+b_coords[2]*p2;
                     color c = surf->mat->at(t[0], t[1], pp); 

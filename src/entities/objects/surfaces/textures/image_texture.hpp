@@ -1,5 +1,5 @@
 #pragma once
-#include "../../../main.hpp"
+#include "../../../../main.hpp"
 
 using rgb_png = png::rgb_pixel;
 using Image = png::image<rgb_png>;

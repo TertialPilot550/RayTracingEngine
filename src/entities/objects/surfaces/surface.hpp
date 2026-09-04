@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../main.hpp"
+#include "../../../main.hpp"
 
 class Surface {
 
@@ -17,7 +17,7 @@ class Surface {
 
     color emitted(double u, double v, const point& p) const {
         if (!mat) return color();
-        return mat->emmited(u, v, p)
+        return mat->emitted(u, v, p);
     }
 
     bool scatter(const Ray& r_in, const CollisionRecord& rec, color& attenuation, Ray& scattered) const {

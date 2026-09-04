@@ -1,5 +1,5 @@
 #pragma once
-#include "../../main.hpp"
+#include "../../../main.hpp"
 inline Scene triangle_demo() {
     Scene s;
 

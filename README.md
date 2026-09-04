@@ -1,107 +1,5 @@
-# <center> Ray-Tracing Engine </center>
-
-Class Project for CPRE 3360. Rendering engine implemented using ray tracing. 
-See the feature list below. 
-
-### <center>Table of Contents</center>
-1. src/camera
-    - CamControls
-    - CameraRig
-
-2. src/objects
-    - collidables
-        - CollisionObject
-        - CollisionRecord
-        - CollisionList
-    - primitives    
-        - Sphere
-        - Triangle
-        - Quad
-    - composites
-        - OBJModel
-    - surfaces
-        - Material
-        - Texture
-
-3. src/scenes
-    - Scene
-
-4. src/accel
-    - TaskMaster
-
-5. src/util
-    - Ray
-    - Interval
-    - vec
-    - Matrix
-    - Perlin
-
-# Feature List
-
-## Camera
-
-- Configurable Position, Orientation, and FOV
-- Anti-Aliasing
-- Defocus Blur / Depth of Field (10 points)
-- {Motion Blur} (10 Points)
-
-- Ray/Primitive Intersection
-- Textured Primitives
-
-
-Performance: See Acceleration
-- Spatial Subdivision (Pixel Chunking based on image width)
-
-
-
-
-
-## Objects
-
-### Geometric Primitives
-1. Spheres
-2. Triangles
-3. Quads (10 Points)
-
-### Lists of Primitives
-
-#### Predefined Triangle Meshes (.obj)
-
-
-### Surfaces
-
-#### Materials
-- Dielectric
-- DiffuseLight
-- Lambertian
-- Metal
-#### Textures
-- CheckerTexture
-- ImageTexture
-- NoiseTexture
-- SolidColor
-
-## Acceleration
-- Parrallel Rendering (10 points)
-
-## Utilies
-- Perlin Noise (10 Points)
-
-## Scenes 
-#### Demo Scenes
-- Sphere Demo
-- Triangle Demo
-- DiffuseLight Demo
-
-
-# REQUIRED FEATURED REMAINING: Triangle Meshes, Bug Fixes
-# CUMULATIVE POINT TOTAL: 40 {50}
-
---- 
-
 # COMS 3360 PROJECT TODO LIST
 
----
 ### Finished
 
 Ray Tracing in One Weekend: Volume One
@@ -131,31 +29,24 @@ POINTS SO FAR: 40 (50 if motion blur works)
 
 ---
 ### IN PROGRESS
-- object/instance/skeleton/surface model
-    - an instance contains a std::shared_ptr<CollisionObject>, Matrix<4,4> t, and a std::shared_ptr<Surface>
-    - TODO: add rasterization code for all primitives
-    - check the depth buffer document for edge cases (triangle edge sharing??)
+- TODO: add rasterization code for all primitives
+- check the depth buffer document for edge cases (triangle edge sharing??)
+- double check that the engine still works
+- make sure rasterizing works
 
-
-
-
-- [ ] Hybrid rendering with a GPU (depth buffer + ray tracing): 20
-- [ ] Transformations on objects/Object Instancing: 10 (represented by 4d matrix)
-- [ ] GPU acceleration (GPU computing w/ e.g., CUDA): 20
-
-### NEXT
+- [ ] Time based ray tracing/rendering, and Transformations on objects/Object Instancing: 10 (represented by 4d matrix)
 - [ ] Motion blur: 10                           <- Need to add motion in order to test this, and I also need to make sure that the ray intersection code for each shape properly handles motion and whatnot
 
+### NEXT
+- [ ] Hybrid rendering with a GPU (depth buffer + ray tracing): 20
+- [ ] GPU acceleration (GPU computing w/ e.g., CUDA): 20
+
 ### BACKBURNER
-- [ ] Materials for Triangle Meshes
+- [ ] Materials for Triangle Meshes (More general materials?)
+- [ ] Importance Sampling: 15
+
 
 Theoretical Point Total before acceleration and animation wrapper: All Required + 60 points (40 points remaining)
-
----
-
-
-### Acceleration
-- [ ] Importance Sampling: 15
 
 ---
 Theoretical Point Total: 115

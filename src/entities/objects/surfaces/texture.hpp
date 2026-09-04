@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../main.hpp"
+#include "../../../main.hpp"
 
 /**
  * @brief Abstract texture class meant to describe the appearance of an object

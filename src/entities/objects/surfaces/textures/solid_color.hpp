@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../../main.hpp"
+#include "../../../../main.hpp"
 
 class SolidColor : public Texture {
     public:

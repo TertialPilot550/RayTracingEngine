@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../main.hpp"
+#include "../../main.hpp"
 
 class Material;
 class CollisionRecord;
@@ -14,7 +14,7 @@ class CollisionRecord;
     CollisionObject(std::shared_ptr<Surface> surf): surf(surf) {}
 
     virtual bool hit(const Ray& r, Interval ray_t, CollisionRecord& rec) const = 0;
-    virtual void rasterize(int screen_size[2], Matrix<4,4>& viewport_matrix, Matrix<4,4>& projection_to_camera_matrix, double* depth_buff, rgb* color_buff) const;
+    virtual void rasterize(int screen_size[2], mat<4,4>& viewport_matrix, mat<4,4>& projection_to_camera_matrix, double* depth_buff, rgb* color_buff) const;
     virtual point2D get_tcoords(const point& p) const = 0;
 
 };
@@ -104,7 +104,7 @@ class CollisionList : public CollisionObject {
         return hit_anything;
     }
 
-    void rasterize(int screen_size[2], Matrix<4,4>& viewport_matrix, Matrix<4,4>& projection_to_camera_matrix, double* depth_buff, rgb* color_buff) const override {
+    void rasterize(int screen_size[2], mat<4,4>& viewport_matrix, mat<4,4>& projection_to_camera_matrix, double* depth_buff, rgb* color_buff) const override {
         for (int i = 0; i < objects.size(); i++) {
             objects[i]->rasterize(screen_size, viewport_matrix, projection_to_camera_matrix, depth_buff, color_buff);
         }

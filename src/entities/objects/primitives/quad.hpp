@@ -1,13 +1,13 @@
 #pragma once
-#include "../../main.hpp"
+#include "../../../main.hpp"
 
 /**
  * @brief Parallelogram Primitive
  */
-class Quad : public CollisionObject {
+class Quad : public GeometricPrimitive<1> {
    public:
    Quad(const point& p, const point& u, const point& v, std::shared_ptr<Material> mat)
-       : CollisionObject(mat), p(p), u(as_vector(u)), v(as_vector(v)) {
+       : GeometricPrimitive<1>(mat, p), u(as_vector(u)), v(as_vector(v)) {
        auto n = cross(this->u, this->v);
        normal = unit_vector(n);
        D = dot(normal, as_point(p));
@@ -15,7 +15,7 @@ class Quad : public CollisionObject {
    }
 
    bool hit(const Ray& r, Interval ray_t, CollisionRecord& rec) const override {
-       if (is_at_infinity(p)) return false;
+       if (is_at_infinity(skeleton[0])) return false;
 
        auto denom = dot(normal, r.direction());
        if (std::fabs(denom) < 1e-8)
@@ -26,7 +26,7 @@ class Quad : public CollisionObject {
            return false;
 
        auto hit_point = r.at(t);
-       auto q = hit_point - p;
+       auto q = hit_point - skeleton[0];
 
        auto a = dot(q, u) / dot(u, u);
        auto b = dot(q, v) / dot(v, v);
@@ -38,15 +38,15 @@ class Quad : public CollisionObject {
    }
 
    point2D get_tcoords(const point& p) const override {
-       auto q = p - this->p;
+       auto q = p - skeleton[0];
        auto a = dot(q, u) / dot(u, u);
        auto b = dot(q, v) / dot(v, v);
        return point2D(a, b);
    }
 
-   void rasterize(Matrix<4,4>& viewport_matrix, Matrix<4,4>& projection_to_camera_matrix, double depth_buff[N][M], color color_buff[N][M]) {
+   void rasterize(mat<4,4>& viewport_matrix, mat<4,4>& projection_to_camera_matrix, double depth_buff[N][M], color color_buff[N][M]) {
 
-        Matrix<4,4> object_instance;
+        mat<4,4> object_instance;
 
         // Project the object
 
@@ -78,7 +78,6 @@ class Quad : public CollisionObject {
     }
 
   private:
-   point p;
    point u, v;
    point w;
    point normal;

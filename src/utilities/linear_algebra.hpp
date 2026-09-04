@@ -130,11 +130,11 @@ using point2D = vec<2>;
  * @brief Arbitrary NxM matrix of doubles
  */
 template <int N, int M>
-class Matrix {
+class mat {
     public:
 
-    Matrix() : elem{} {}
-    Matrix(const Matrix&) = default;
+    mat() : elem{} {}
+    mat(const mat&) = default;
 
     std::array<double, M>& operator[](int ind) {
         if (ind < 0 || ind >= N)
@@ -149,9 +149,9 @@ class Matrix {
     }
 
 
-    Matrix<N,M>& operator=(const Matrix<N,M>& m) = default;
+    mat<N,M>& operator=(const mat<N,M>& m) = default;
 
-    Matrix<N,M>& operator=(double d) {
+    mat<N,M>& operator=(double d) {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
                 elem[i][j] = d;
@@ -491,8 +491,8 @@ std::ostream& operator<<(std::ostream& out, const vec<N>& v) {
  * @brief Matrix Multiplication
  */
 template <int N, int M, int K>
-Matrix<N,K> operator*(Matrix<N,M>& m1, Matrix<M,K>& m2) {
-    Matrix<N,K> res;
+mat<N,K> operator*(mat<N,M>& m1, mat<M,K>& m2) {
+    mat<N,K> res;
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < K; j++) {
             for (int k = 0; k < M; k++) {
@@ -504,7 +504,7 @@ Matrix<N,K> operator*(Matrix<N,M>& m1, Matrix<M,K>& m2) {
 }
 
 template <int N, int M>
-vec<M> operator*(vec<N> vec, Matrix<N,M>) {
+vec<M> operator*(vec<N> vec, mat<N,M>) {
     vec<M> res;
     for (int i = 0; i < M; i++) {
         for (int k = 0; k < N; k++) {
@@ -515,7 +515,7 @@ vec<M> operator*(vec<N> vec, Matrix<N,M>) {
 }
 
 template <int N, int M>
-vec<N> operator*(Matrix<N,M>, vec<M> vec) {
+vec<N> operator*(mat<N,M>, vec<M> vec) {
     vec<N> res;
     for (int i = 0; i < N; i++) {
         for (int k = 0; k < M; k++) {
@@ -527,20 +527,20 @@ vec<N> operator*(Matrix<N,M>, vec<M> vec) {
 
 // Addition/Inversion
 template <int N, int M>
-Matrix<N,M> operator+(const Matrix<N,M>& m1, const Matrix<N,M>& m2) {
-    Matrix<N,M> res = m1;
+mat<N,M> operator+(const mat<N,M>& m1, const mat<N,M>& m2) {
+    mat<N,M> res = m1;
     res += m2;
     return res;
 }
 template <int N, int M>
-Matrix<N,M> operator-(const Matrix<N,M>& m1, const Matrix<N,M>& m2) {
-    Matrix<N,M> res = m1;
+mat<N,M> operator-(const mat<N,M>& m1, const mat<N,M>& m2) {
+    mat<N,M> res = m1;
     res -= m2;
     return res;
 }
 template <int N, int M>
-Matrix<N,M> operator-(const Matrix<N,M>& m1) {
-    Matrix<N,M> res;
+mat<N,M> operator-(const mat<N,M>& m1) {
+    mat<N,M> res;
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
             res[i][j] = -m1[i][j];
@@ -551,27 +551,27 @@ Matrix<N,M> operator-(const Matrix<N,M>& m1) {
 
 // Scalar multiplication
 template <int N, int M>
-Matrix<N,M> operator*(const Matrix<N,M>& m1, double d) {
-    Matrix<N,M> res = m1;
+mat<N,M> operator*(const mat<N,M>& m1, double d) {
+    mat<N,M> res = m1;
     res *= d;
     return res;
 }
 template <int N, int M>
-Matrix<N,M> operator*(double d, const Matrix<N,M>& m1) {
-    Matrix<N,M> res = m1;
+mat<N,M> operator*(double d, const mat<N,M>& m1) {
+    mat<N,M> res = m1;
     res *= d;
     return res;
 }
 template <int N, int M>
-Matrix<N,M> operator/(const Matrix<N,M>& m1, double d) {
-    Matrix<N,M> res = m1;
+mat<N,M> operator/(const mat<N,M>& m1, double d) {
+    mat<N,M> res = m1;
     res /= d;
     return res;
 }
 
 // Addition/Inversion
 template <int N, int M>
-Matrix<N,M>& operator+=(Matrix<N,M>& m1, const Matrix<N,M>& m2) {
+mat<N,M>& operator+=(mat<N,M>& m1, const mat<N,M>& m2) {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
             m1[i][j] += m2[i][j];
@@ -580,7 +580,7 @@ Matrix<N,M>& operator+=(Matrix<N,M>& m1, const Matrix<N,M>& m2) {
     return m1;
 }
 template <int N, int M>
-Matrix<N,M>& operator-=(Matrix<N,M>& m1, const Matrix<N,M>& m2) {
+mat<N,M>& operator-=(mat<N,M>& m1, const mat<N,M>& m2) {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
             m1[i][j] -= m2[i][j];
@@ -592,7 +592,7 @@ Matrix<N,M>& operator-=(Matrix<N,M>& m1, const Matrix<N,M>& m2) {
 
 // Scalar multiplication
 template <int N, int M>
-Matrix<N,M>& operator*=(Matrix<N,M>& m, double d) {
+mat<N,M>& operator*=(mat<N,M>& m, double d) {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
             m[i][j] *= d;
@@ -601,7 +601,7 @@ Matrix<N,M>& operator*=(Matrix<N,M>& m, double d) {
     return m;
 }
 template <int N, int M>
-Matrix<N,M>& operator*=(double d, Matrix<N,M>& m) {
+mat<N,M>& operator*=(double d, mat<N,M>& m) {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
             m[i][j] *= d;
@@ -610,7 +610,7 @@ Matrix<N,M>& operator*=(double d, Matrix<N,M>& m) {
     return m;
 }
 template <int N, int M>
-Matrix<N,M>& operator/=(Matrix<N,M>& m, double d) {
+mat<N,M>& operator/=(mat<N,M>& m, double d) {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < M; j++) {
             m[i][j] /= d;
@@ -619,12 +619,12 @@ Matrix<N,M>& operator/=(Matrix<N,M>& m, double d) {
     return m;
 }
 
-double determinant(Matrix<2,2> mat) {
+double determinant(mat<2,2> mat) {
     return mat[0][0]*mat[1][1]-mat[0][1]*mat[1][0];
 }
 
 template <int N, int M>
-std::ostream& operator<<(std::ostream& out, const Matrix<N,M>& m) {
+std::ostream& operator<<(std::ostream& out, const mat<N,M>& m) {
 
     return out;
 }
@@ -633,8 +633,8 @@ int m_ind(int w, int i, int j) {
     return i * w + j;
 }
 
-Matrix<4,4> world_to_camera_matrix(const point& u, const point& v, const point& w, point cam) {
-    Matrix<4,4> res;
+mat<4,4> world_to_camera_matrix(const point& u, const point& v, const point& w, point cam) {
+    mat<4,4> res;
     
     for (int i = 0; i < 3; i++) {
         res[0][i] = u[i]; // set the top row
@@ -657,8 +657,8 @@ Matrix<4,4> world_to_camera_matrix(const point& u, const point& v, const point& 
     return res;
 }
 
-Matrix<4,4> projection_matrix(float n, float f, float t, float b, float l, float r) {
-    Matrix<4,4> res;
+mat<4,4> projection_matrix(float n, float f, float t, float b, float l, float r) {
+    mat<4,4> res;
 
     res[0][0] = (2*n) / (r-l);
     res[1][1] = (2*n) / (t-b);
@@ -671,8 +671,8 @@ Matrix<4,4> projection_matrix(float n, float f, float t, float b, float l, float
     return res;
 }
 
-Matrix<4,4> viewport_matrix(int w, int h) {
-    Matrix<4,4> res;
+mat<4,4> viewport_matrix(int w, int h) {
+    mat<4,4> res;
 
     res[0][0] = w/2;
     res[0][3] = w/2;

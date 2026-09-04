@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../main.hpp"
-
+#if defined(__APPLE__)
 /**
  * I can use the gpu for
  * 
@@ -109,3 +109,4 @@ void r() {
     device->release();
     pool->release();
 }
+#endif

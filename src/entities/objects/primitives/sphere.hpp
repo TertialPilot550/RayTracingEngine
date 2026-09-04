@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../main.hpp"
+#include "../../../main.hpp"
 
 /**
  * @brief Sphere Primitive
@@ -55,9 +55,9 @@ class Sphere : public CollisionObject {
         return res;
     }
 
-    void rasterize(Matrix<4,4>& viewport_matrix, Matrix<4,4>& projection_to_camera_matrix, double depth_buff[N][M], color color_buff[N][M]) {
+    void rasterize(mat<4,4>& viewport_matrix, mat<4,4>& projection_to_camera_matrix, double depth_buff[N][M], color color_buff[N][M]) {
 
-        Matrix<4,4> object_instance;
+        mat<4,4> object_instance;
 
         // Project the object
 
