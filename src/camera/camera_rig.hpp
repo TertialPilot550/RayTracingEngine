@@ -54,7 +54,7 @@ class CameraRig {
      * 
      * @see TaskMaster, CamControls
      */
-    void render(Scene& s);
+    void render(Scene& s, Interval shutter_event);
 
     /**
      * @brief Writes the provided rgb color to the provided pixel on
@@ -63,6 +63,15 @@ class CameraRig {
      * @details Helper method for render(Scene& s)
      */
     void write_color(const rgb& rgb, int x, int y);
+
+
+    void render_locally(Scene& s, Interval shutter_event);
+    void render_parallel(Scene& s, Interval shutter_event);
+    void render_gpu(Scene& s, Interval shutter_event);
+
+    void ray_trace_worker(Scene& s, int s_x, int s_y, Interval shutter_event);
+    void hybrid_worker(Scene& s, int chunk_size, int s_x, int s_y, Interval shutter_event);
+    void depth_buffer_worker(Scene& s, int chunk_size, int s_x, int s_y, Interval shutter_event);
 
 
     /**
@@ -82,11 +91,10 @@ class CameraRig {
      */
     color process_ray(const Ray& r, int depth, Scene& s);
 
-    /**
-     * @brief 
-     * @details 
-     */
-    void depth_buffer(Scene& s);
+
+    void depth_buffer(Scene& s, Interval shutter_event);
+    void hybrid(Scene& s, Interval shutter_event);
+    void ray_trace(Scene& s, Interval shutter_event);
 
 
     /**
@@ -95,8 +103,7 @@ class CameraRig {
      * @details Used to perform anti-aliasing. Returns a random
      * vec3 with zero z component, where x and y are between -0.5 and 0.5.
      */
-    point sample_square() const;
-
+    point CameraRig::anti_aliasing_offset() const;
 
     /**
      * @brief Utility function used by get_ray_for_pixel()
@@ -106,7 +113,7 @@ class CameraRig {
      * but from a point on a circle representing the theoretical
      * 'lens'.
      */
-    point defocus_disk_sample(CamControls& controls) const;
+    point random_point_on_camera_lens(CamControls& controls) const;
 
     /**
      * @brief Utility function used by sample_for_pixel_color()
@@ -115,7 +122,7 @@ class CameraRig {
      * (x,y). This function implements both defocus blur/depth of field, as 
      * well as anti-aliasing
      */
-    Ray get_ray_for_pixel(int i, int j, CamControls& controls) const;
+    Ray get_ray_for_pixel(int i, int j, Interval shutter_event, CamControls& controls) const;
 
     /**
      * @brief Utility function used by render()
@@ -123,9 +130,11 @@ class CameraRig {
      * @details Takes a number of samples for the pixel color,
      * for a pixel (x,y)
      */
-    rgb sample_for_pixel_color(int x, int y, Scene& s);
+    rgb sample_for_pixel_color(int x, int y, Interval shutter_event, Scene& s);
 
     ///@}
+
+    
 
 };
 

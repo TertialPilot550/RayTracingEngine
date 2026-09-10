@@ -6,6 +6,8 @@
 
 #include "main.hpp"
 
+// #include <wx/wx.h>
+
 const std::string output_directory = "./out";
 using Job = std::pair<std::string, Scene>;
 
@@ -25,12 +27,11 @@ std::vector<Job> build_jobs() {
     return job_list;
 }
 
+
 /**
- * @brief main() 
- * @details Entry point for the program. Executes all jobs definied in
- * the build_jobs() function also located in main.cpp.
+ * @brief Render all demo scenes defined in build_jobs()
  */
-int main() {
+void execute_jobs() {
     auto job_list = build_jobs();
     std::cout << "RayTracingEngine :: Initialized with " << job_list.size() << " jobs" << std::endl;
     CameraRig cam;
@@ -41,5 +42,17 @@ int main() {
         image.write(lbl);
         std::cout << "\tCompleted Job ("  << ++jobs_fin << "): [" << job.first << "]\n";
     }
+}
+
+
+/**
+ * @brief main() 
+ * @details Entry point for the program. Executes all jobs definied in
+ * the build_jobs() function also located in main.cpp.
+ */
+int main() {
+
+    execute_jobs();
+    
     return 0;
 }

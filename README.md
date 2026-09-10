@@ -27,19 +27,32 @@ Ray Tracing in One Weekend: Volume Two
 ALL REQUIRED FEATURES COMPLETE
 POINTS SO FAR: 40 (50 if motion blur works)
 
----
+--- THIS WEEK ---
+
 ### IN PROGRESS
-- TODO: add rasterization code for all primitives
+
+TIME BASED RAY TRACING W/ MOTION ::
+- seperate out the time based stuff more; right now all the calculations on objects are dependent on the skeleton[N]. 
+- the motions have to somehow happen while ray tracing and keep everything consistent????
+- REDO THE geometric objects and shit to work with movements
+
+DEPTH BUFFER :: 
+- add rasterization code for all primitives
 - check the depth buffer document for edge cases (triangle edge sharing??)
-- double check that the engine still works
 - make sure rasterizing works
 
-- [ ] Time based ray tracing/rendering, and Transformations on objects/Object Instancing: 10 (represented by 4d matrix)
-- [ ] Motion blur: 10                           <- Need to add motion in order to test this, and I also need to make sure that the ray intersection code for each shape properly handles motion and whatnot
+ITEMS :: 
+
+- [ ] Time based ray rendering, and Transformations on objects/Object Instancing: 10 (represented by 4d matrix)
+- [ ] Motion blur: 10 
+
+
+
+---
 
 ### NEXT
-- [ ] Hybrid rendering with a GPU (depth buffer + ray tracing): 20
 - [ ] GPU acceleration (GPU computing w/ e.g., CUDA): 20
+- [ ] Hybrid rendering with a GPU (depth buffer + ray tracing): 20
 
 ### BACKBURNER
 - [ ] Materials for Triangle Meshes (More general materials?)
@@ -49,6 +62,7 @@ POINTS SO FAR: 40 (50 if motion blur works)
 Theoretical Point Total before acceleration and animation wrapper: All Required + 60 points (40 points remaining)
 
 ---
+
 Theoretical Point Total: 115
 - [ ] Real good documentation / report
 

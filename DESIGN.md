@@ -34,6 +34,18 @@ int main() {
 
 ## Scenes
 
+A *scene* is an abstract object that represents the state of the simulation
+at a given time. Contains a list of object instances, a background color, and 
+a camera controls object dictating the camera's behavior. 
+
+TODO ADD A LIST OF MOTIONS: motions are assigned to an object instance, and have a start and end time??
+
+then the scene should also have a way to set frames per second, as well as total number of frames??
+
+Or handle that stuff in some way I mean.
+
+then there needs to be an update loop? or somehow time trracked is passed in the render loop and impacts how objects are rendered and how they behave.
+
 ```c++
 /**
  * @brief Object which represents all of the context for a particular instance
@@ -50,6 +62,7 @@ class Scene {
     public:
     CamControls controls;
     InstanceList objects;
+    std::vector<Motion> motions;
     color background_color = color(0.5, 0.7, 1.0);
     Scene() : controls(CamControls()), background_color(color(0.5, 0.7, 1.0)) {}
 
@@ -58,6 +71,28 @@ class Scene {
     }
     
 };
+
+class Motion {
+
+    public:
+    mat<4,4> start, end;
+    double start_time, stop_time;
+
+    // rough, linear interpolation; might want to redo this
+    mat<4,4> at(double t) {
+        double len = stop_time-start_time;
+        if (len == 0) len = 1;
+        double p = t / (stop_time-start_time);
+        Interval(0, 1).clamp(p);
+
+        return (1-p)*start + end*p;
+    }
+
+    vec<4> transform(const vec<4> v, double t) {
+        return at(t) * v;
+    }
+};
+
 ```
 ## Objects
 

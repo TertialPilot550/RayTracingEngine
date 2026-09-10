@@ -16,6 +16,7 @@ class Scene {
     public:
     CamControls controls;
     InstanceList objects;
+    
     color background_color = color(0.5, 0.7, 1.0);
     Scene() : controls(CamControls()), background_color(color(0.5, 0.7, 1.0)) {}
 

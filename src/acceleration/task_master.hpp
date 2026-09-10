@@ -80,16 +80,6 @@ class TaskMaster {
 
                     task();
                     tasks_completed++;
-
-        //             std::cout << "START " << i
-        //           << " thread " << std::this_thread::get_id()
-        //           << '\n';
-
-        // std::this_thread::sleep_for(std::chrono::seconds(2));
-
-        // std::cout << "END " << i
-        //           << " thread " << std::this_thread::get_id()
-        //           << '\n';
                 }
                 
 

@@ -26,6 +26,7 @@
 /**
  * Internal Headers
  */
+
 // Utilites (Documented)
 #include "utilities/util.hpp"
 // All spatial math in this project uses the homogeneous convention defined here:
@@ -43,8 +44,9 @@
 
 // Objects
 #include "entities/objects/collidable.hpp"
+// Instancing and Motion
 #include "entities/objects/instance.hpp"
-
+// Primitives
 #include "entities/objects/primitives/geometric_primitive.hpp"
 #include "entities/objects/primitives/sphere.hpp"
 #include "entities/objects/primitives/triangle.hpp"
@@ -64,22 +66,17 @@
 #include "entities/objects/surfaces/materials/metal.hpp"
 // Surface
 #include "entities/objects/surfaces/surface.hpp"
-
 // Triangle Meshes
 #include "entities/objects/composites/tiny_obj_loader/obj_loader_wrapper.hpp"
 
 // Camera Controls (Documented)
 #include "camera/cam_controls.hpp"
-
 // Scenes (Documented)
 #include "entities/scenes/scene.hpp"
 #include "entities/scenes/demos/triangle_demo.hpp"
 #include "entities/scenes/demos/sphere_demo.hpp"
 #include "entities/scenes/demos/light_demo.hpp"
 #include "entities/scenes/demos/model_demo.hpp"
-
-
 // Camera (Documented)
 #include "camera/camera_rig.hpp"
 
-// Instancing and Motion

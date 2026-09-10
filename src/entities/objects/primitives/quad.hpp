@@ -44,7 +44,8 @@ class Quad : public GeometricPrimitive<1> {
        return point2D(a, b);
    }
 
-   void rasterize(mat<4,4>& viewport_matrix, mat<4,4>& projection_to_camera_matrix, double depth_buff[N][M], color color_buff[N][M]) {
+   template<int N, int M>
+   void rasterize(mat<4,4>& viewport_matrix, mat<4,4>& projection_to_camera_matrix, double* depth_buff, color* color_buff) {
 
         mat<4,4> object_instance;
 

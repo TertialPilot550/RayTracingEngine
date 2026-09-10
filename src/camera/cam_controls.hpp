@@ -10,6 +10,12 @@ enum class CameraMode : int {
     DEPTH_BUFFER
 };
 
+enum class AccelerationMode : int {
+    NONE,
+    PARALLEL,
+    GPU
+};
+
 /**
  * @brief Camera control class which details how rendering
  * should be performed for a given scene. This is held as
@@ -26,6 +32,8 @@ class CamControls {
 
     private: 
 
+    int shutter_event_count = 0;
+    Interval* shutter_events;
     double aspect_ratio = 16.0/9;
     int image_width = 400;
     int samples_per_pixel = 10;
@@ -47,11 +55,12 @@ class CamControls {
     point b_u = make_vector(1, 0, 0); // camera frame basis vectors
     point b_v = make_vector(0, 1, 0); // camera frame basis vectors
     point b_w = make_vector(0, 0, 1); // camera frame basis vectors
-    point   defocus_disk_u;       // Defocus disk horizontal radius
-    point   defocus_disk_v;       // Defocus disk vertical radius
+    point defocus_disk_u;             // Defocus disk horizontal radius
+    point defocus_disk_v;             // Defocus disk vertical radius
 
     point viewport_u;
     point viewport_v;
+
 
     public:
 
@@ -62,6 +71,8 @@ class CamControls {
     bool do_antialiasing = true;
     bool do_lighting = false;
     CameraMode mode = CameraMode::RAY_TRACING;
+    AccelerationMode accel_mode = AccelerationMode::NONE;
+
 
     CamControls() {
         update();
@@ -71,7 +82,6 @@ class CamControls {
         camera_center = p;
         facing = f;
         camera_up = as_vector(u);
-        if (camera_up[P] == 1) camera_up[P] = 0;
         update();
     }
 
@@ -117,6 +127,9 @@ class CamControls {
 
     point du() {return pixel_delta_u;}
     point dv() {return pixel_delta_v;}
+
+    int get_shutter_event_count() {return shutter_event_count;}
+    Interval* get_shutter_events() {return shutter_events;}
 
     point center() {return camera_center;}
     point face() {return facing;}

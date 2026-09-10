@@ -10,6 +10,7 @@ class CollisionRecord;
  */
  class CollisionObject {
     public:
+    
     std::shared_ptr<Surface> surf;
     CollisionObject(std::shared_ptr<Surface> surf): surf(surf) {}
 
@@ -26,41 +27,42 @@ class CollisionRecord;
  */
 class CollisionRecord {
     public:
-        point p;        // point of intersection
-        point normal;    // normal vector at the intersection
-        std::shared_ptr<Surface> surf; // pointer to the material of the object hit
-        double t;       // time of collision
-        point2D t_coords;
-        bool front_face;
 
-        /**
-         * @brief Automatically record collision details given the collision intersection time, normal, and colliding object
-         */
-        void CollisionRecord::record(const Ray&r, float t, const point& outward_normal, const CollisionObject* obj) {
-            this->t = t;
-            this->p = r.at(t);
-            set_face_normal(r, outward_normal);
-            point2D t_c = obj->get_tcoords(p);
-            this->t_coords = t_c;
-            this->surf = obj->surf;
-        }
+    point p;        // point of intersection
+    point normal;    // normal vector at the intersection
+    std::shared_ptr<Surface> surf; // pointer to the material of the object hit
+    double t;       // time of collision
+    point2D t_coords;
+    bool front_face;
 
-        void set_face_normal(const Ray& r, const point& outward_normal) {
-            // Sets the hit record normal vector.
-            // NOTE: the parameter `outward_normal` is assumed to have unit length.
+    /**
+     * @brief Automatically record collision details given the collision intersection time, normal, and colliding object
+     */
+    void CollisionRecord::record(const Ray&r, float t, const point& outward_normal, const CollisionObject* obj) {
+        this->t = t;
+        this->p = r.at(t);
+        set_face_normal(r, outward_normal);
+        point2D t_c = obj->get_tcoords(p);
+        this->t_coords = t_c;
+        this->surf = obj->surf;
+    }
 
-            front_face = dot<4>(r.direction(), outward_normal) < 0;
-            normal = front_face ? outward_normal : -outward_normal;
-        }
+    void set_face_normal(const Ray& r, const point& outward_normal) {
+        // Sets the hit record normal vector.
+        // NOTE: the parameter `outward_normal` is assumed to have unit length.
 
-        void operator=(CollisionRecord& r) {
-            p = r.p;
-            normal = r.normal;
-            surf = r.surf;
-            t = r.t;
-            t_coords = r.t_coords;
-            front_face = r.front_face;
-        }
+        front_face = dot<4>(r.direction(), outward_normal) < 0;
+        normal = front_face ? outward_normal : -outward_normal;
+    }
+
+    void operator=(CollisionRecord& r) {
+        p = r.p;
+        normal = r.normal;
+        surf = r.surf;
+        t = r.t;
+        t_coords = r.t_coords;
+        front_face = r.front_face;
+    }
 };
 
 
@@ -70,6 +72,7 @@ class CollisionRecord {
  */
 class CollisionList : public CollisionObject {
   public:
+
     std::vector<std::shared_ptr<CollisionObject>> objects;
 
     CollisionList() : CollisionObject(NULL) {}
