@@ -37,10 +37,6 @@ public:
         return point2D(phi / (2 * pi), theta / pi);
     }
 
-<<<<<<< HEAD
-    template <int N, int M>
-    void rasterize(mat<4,4>& viewport_matrix, mat<4,4>& projection_to_camera_matrix, double* depth_buff, color* color_buff) {
-=======
     void rasterize(int screen_size[2], mat<4,4>& viewport_matrix,
                    mat<4,4>& projection, double* depth_buffer,
                    rgb* color_buffer) const override {
@@ -53,7 +49,6 @@ public:
         const double rx = std::fabs(sx[X] - sc[X]);
         const double ry = std::fabs(sy[Y] - sc[Y]);
         if (rx < 0.5 || ry < 0.5 || !surf || !surf->mat) return;
->>>>>>> 7c439a1 (Agent Host changes for agents/time-based-ray-tracing-refactor)
 
         const int min_x = std::max(0, static_cast<int>(std::floor(sc[X] - rx)));
         const int max_x = std::min(screen_size[0] - 1, static_cast<int>(std::ceil(sc[X] + rx)));

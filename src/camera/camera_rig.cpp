@@ -295,8 +295,68 @@ void rasterize_scene(Scene& s, double* depth_buffer, rgb* color_buffer) {
 
 <<<<<<< HEAD
     for (int i = 0; i < s.objects.instances.size(); i++) {
+<<<<<<< HEAD
         s.objects[i].rasterize(s_size, view, proj_to_cam, depth_buffer, color_buffer);
 =======
+=======
+        s.objects[i]->rasterize(s_size, view, proj_to_cam, depth_buffer, color_buffer);
+    }
+}
+
+// Impure
+// TODO: Incorporate chunking
+void CameraRig::depth_buffer(Scene& s) {
+    // Setup
+    int w = s.controls.img_w();
+    int h = s.controls.img_h();
+
+    // Allocate and initialize the buffers
+    std::vector<double> depth_buffer(static_cast<size_t>(w) * h);
+    std::vector<rgb> color_buffer(static_cast<size_t>(w) * h);
+    
+    // Intialize the buffers to infinity/black
+    for (int i = 0; i < w; i++) {
+        for (int j = 0; j < h; j++) {
+            depth_buffer[i + j * w] = INFINITY;
+            color_buffer[i + j * w] = rgb(0,0,0);
+        }
+    }
+
+    // Depth Buffer and Rasterization Algorithms
+    rasterize_scene(s, depth_buffer.data(), color_buffer.data());
+
+    // Complete! Write to image.
+    for (int i = 0; i < w; i++) {
+        for (int j = 0; j < h; j++) {
+            write_color(color_buffer[i + j * w], i, j);
+        }
+    }
+
+    // Drop the buffers
+}
+
+/*
+ * Member Functions 
+ */
+
+Image& CameraRig::capture(Scene& s) {
+    if (img_buffer) delete img_buffer;
+    img_buffer = new Image(s.controls.img_w(), s.controls.img_h());
+    
+    render(s);
+
+    return (*img_buffer);
+}
+
+void CameraRig::render(Scene& s) {
+    TaskMaster tm(s.controls.thread_count);
+    std::vector<std::function<void()>> tasks;
+
+    // For each chunk...
+    for (int y = 0; y < s.controls.img_h(); y++) {
+        for (int x = 0; x < s.controls.img_w(); x+= s.controls.chunk_size) {
+
+>>>>>>> 7c439a1 (Agent Host changes for agents/time-based-ray-tracing-refactor)
             // Change the rendering method depending on the camera mode
             switch(s.controls.mode) {
                 case CameraMode::RAY_TRACING :
