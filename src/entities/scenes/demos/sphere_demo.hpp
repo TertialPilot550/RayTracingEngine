@@ -13,7 +13,7 @@ inline Scene sphere_demo() {
     s.controls.max_depth = 50;
 
     auto ground_material = std::make_shared<Lambertian>(color(0.5, 0.5, 0.5));
-    s.objects.add(std::make_shared<Sphere>(make_point(0,-1000,0), 1000, ground_material));
+    s.objects.add(std::make_shared<Sphere>(make_point(0,-1000,0), 1000, make_surface(ground_material)));
 
     for (int a = -11; a < 11; a++) {
         for (int b = -11; b < 11; b++) {
@@ -27,23 +27,23 @@ inline Scene sphere_demo() {
                     // diffuse
                     auto albedo = color::random() * color::random();
                     sphere_material = std::make_shared<Lambertian>(albedo);
-                    s.objects.add(std::make_shared<Sphere>(center, 0.2, sphere_material));
+                    s.objects.add(std::make_shared<Sphere>(center, 0.2, make_surface(sphere_material)));
                 } else if (choose_mat < 0.95) {
                     // metal
                     auto albedo = color::random(0.5, 1);
                     auto fuzz = random_double(0, 0.5);
                     sphere_material = std::make_shared<Metal>(albedo, fuzz);
-                    s.objects.add(std::make_shared<Sphere>(center, 0.2, sphere_material));
+                    s.objects.add(std::make_shared<Sphere>(center, 0.2, make_surface(sphere_material)));
                 } else {
                     // glass
                     sphere_material = std::make_shared<Dielectric>(1.5);
-                    s.objects.add(std::make_shared<Sphere>(center, 0.2, sphere_material));
+                    s.objects.add(std::make_shared<Sphere>(center, 0.2, make_surface(sphere_material)));
                 }
             }
         }
     }
 
     auto material1 = std::make_shared<Dielectric>(1.5);
-    s.objects.add(std::make_shared<Sphere>(make_point(1, 0, 1), 1.0, material1));
+    s.objects.add(std::make_shared<Sphere>(make_point(1, 0, 1), 1.0, make_surface(material1)));
     return s;
 }

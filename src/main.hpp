@@ -41,14 +41,8 @@
 #include "acceleration/task_master.hpp"
 #include "acceleration/gpu.hpp"
 
-// Objects
+// Collision records must be visible to materials and surfaces.
 #include "entities/objects/collidable.hpp"
-#include "entities/objects/instance.hpp"
-
-#include "entities/objects/primitives/geometric_primitive.hpp"
-#include "entities/objects/primitives/sphere.hpp"
-#include "entities/objects/primitives/triangle.hpp"
-#include "entities/objects/primitives/quad.hpp"
 
 // Textures
 #include "entities/objects/surfaces/texture.hpp"
@@ -64,6 +58,15 @@
 #include "entities/objects/surfaces/materials/metal.hpp"
 // Surface
 #include "entities/objects/surfaces/surface.hpp"
+
+// Objects
+#include "entities/objects/instance.hpp"
+#include "entities/objects/motion.hpp"
+
+#include "entities/objects/primitives/geometric_primitive.hpp"
+#include "entities/objects/primitives/sphere.hpp"
+#include "entities/objects/primitives/triangle.hpp"
+#include "entities/objects/primitives/quad.hpp"
 
 // Triangle Meshes
 #include "entities/objects/composites/tiny_obj_loader/obj_loader_wrapper.hpp"

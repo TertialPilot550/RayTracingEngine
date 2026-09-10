@@ -3,6 +3,7 @@
 #include "../../main.hpp"
 
 class Material;
+class Surface;
 class CollisionRecord;
 
 /**
@@ -14,7 +15,7 @@ class CollisionRecord;
     CollisionObject(std::shared_ptr<Surface> surf): surf(surf) {}
 
     virtual bool hit(const Ray& r, Interval ray_t, CollisionRecord& rec) const = 0;
-    virtual void rasterize(int screen_size[2], mat<4,4>& viewport_matrix, mat<4,4>& projection_to_camera_matrix, double* depth_buff, rgb* color_buff) const;
+    virtual void rasterize(int screen_size[2], mat<4,4>& viewport_matrix, mat<4,4>& projection_to_camera_matrix, double* depth_buff, rgb* color_buff) const {}
     virtual point2D get_tcoords(const point& p) const = 0;
 
 };
@@ -36,7 +37,7 @@ class CollisionRecord {
         /**
          * @brief Automatically record collision details given the collision intersection time, normal, and colliding object
          */
-        void CollisionRecord::record(const Ray&r, float t, const point& outward_normal, const CollisionObject* obj) {
+        void record(const Ray&r, float t, const point& outward_normal, const CollisionObject* obj) {
             this->t = t;
             this->p = r.at(t);
             set_face_normal(r, outward_normal);
@@ -111,6 +112,4 @@ class CollisionList : public CollisionObject {
     }
 
 };
-
-
 

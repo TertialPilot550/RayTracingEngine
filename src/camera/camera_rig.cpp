@@ -11,7 +11,7 @@ color process_ray_with_lighting(const Ray& r, int depth, Scene& s) {
 
     // If the ray hits nothing, return the background color.
     if (!s.objects.hit(r, Interval(0.001, infinity), rec))
-        return s.background_color;
+        return s.background;
 
     Ray scattered;
     color attenuation;
@@ -65,7 +65,7 @@ void rasterize_scene(Scene& s, double* depth_buffer, rgb* color_buffer) {
     mat<4,4> proj_to_cam = projection * world_to_cam;
 
     for (int i = 0; i < s.objects.instances.size(); i++) {
-        s.objects[i].rasterize(s_size, view, proj_to_cam, depth_buffer, color_buffer);
+        s.objects[i]->rasterize(s_size, view, proj_to_cam, depth_buffer, color_buffer);
     }
 }
 
@@ -77,31 +77,28 @@ void CameraRig::depth_buffer(Scene& s) {
     int h = s.controls.img_h();
 
     // Allocate and initialize the buffers
-    double depth_buffer[w][h];
-    rgb color_buffer[w][h];
+    std::vector<double> depth_buffer(static_cast<size_t>(w) * h);
+    std::vector<rgb> color_buffer(static_cast<size_t>(w) * h);
     
     // Intialize the buffers to infinity/black
     for (int i = 0; i < w; i++) {
         for (int j = 0; j < h; j++) {
-            depth_buffer[i][j] = INFINITY;
-            color_buffer[i][j] = rgb(0,0,0);
+            depth_buffer[i + j * w] = INFINITY;
+            color_buffer[i + j * w] = rgb(0,0,0);
         }
     }
 
     // Depth Buffer and Rasterization Algorithms
-    rasterize_scene(s, &depth_buffer[0][0], &color_buffer[0][0]);
+    rasterize_scene(s, depth_buffer.data(), color_buffer.data());
 
     // Complete! Write to image.
     for (int i = 0; i < w; i++) {
         for (int j = 0; j < h; j++) {
-            write_color(color_buffer[i][j], i, j);
+            write_color(color_buffer[i + j * w], i, j);
         }
     }
 
     // Drop the buffers
-    delete depth_buffer;
-    delete color_buffer;
-
 }
 
 /*
@@ -154,7 +151,6 @@ void CameraRig::render(Scene& s) {
                     break;
 
                 case CameraMode::DEPTH_BUFFER :
-                    depth_buffer(s);
                     break;
 
 
@@ -162,8 +158,11 @@ void CameraRig::render(Scene& s) {
         }
     }
 
-    // Perform rendering using threads
-    tm.dispatch(tasks);
+    if (s.controls.mode == CameraMode::DEPTH_BUFFER) {
+        depth_buffer(s);
+    } else {
+        tm.dispatch(tasks);
+    }
 }
 
 void CameraRig::write_color(const rgb& rgb, int x, int y) {

@@ -16,14 +16,13 @@ class Scene {
     public:
     CamControls controls;
     InstanceList objects;
-    color background_color = color(0.5, 0.7, 1.0);
-    Scene() : controls(CamControls()), background_color(color(0.5, 0.7, 1.0)) {}
+    color background = color(0.5, 0.7, 1.0);
+    Scene() : controls(CamControls()), background(color(0.5, 0.7, 1.0)) {}
 
-    color background_color(double u, double v, const point& p) {
-        return background_color;
+    color background_at(double u, double v, const point& p) {
+        return background;
     }
     
 };
-
 
 

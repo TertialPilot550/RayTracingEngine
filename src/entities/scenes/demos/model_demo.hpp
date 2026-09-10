@@ -15,8 +15,8 @@ inline Scene model_demo() {
 
     auto difflight = std::make_shared<DiffuseLight>(color(4,4,4));
     auto ground_material = std::make_shared<Lambertian>(color(0.1, 0.5, 0.1));
-    s.objects.add(std::make_shared<Sphere>(make_point(0,0,4), 2, difflight));
-    s.objects.add(std::make_shared<Sphere>(make_point(0,0,-1000), 1000, ground_material));
+    s.objects.add(std::make_shared<Sphere>(make_point(0,0,4), 2, make_surface(difflight)));
+    s.objects.add(std::make_shared<Sphere>(make_point(0,0,-1000), 1000, make_surface(ground_material)));
 
     OBJModel model;
     load_model(model, "res/cube.obj");
