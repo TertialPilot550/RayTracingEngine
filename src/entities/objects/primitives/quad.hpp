@@ -52,4 +52,3 @@ private:
     point u;
     point v;
 };
-

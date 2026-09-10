@@ -295,10 +295,6 @@ void rasterize_scene(Scene& s, double* depth_buffer, rgb* color_buffer) {
 
 <<<<<<< HEAD
     for (int i = 0; i < s.objects.instances.size(); i++) {
-<<<<<<< HEAD
-        s.objects[i].rasterize(s_size, view, proj_to_cam, depth_buffer, color_buffer);
-=======
-=======
         s.objects[i]->rasterize(s_size, view, proj_to_cam, depth_buffer, color_buffer);
     }
 }

@@ -16,19 +16,8 @@ class Scene {
     public:
     CamControls controls;
     InstanceList objects;
-<<<<<<< HEAD
-<<<<<<< HEAD
-    
-    color background_color = color(0.5, 0.7, 1.0);
-    Scene() : controls(CamControls()), background_color(color(0.5, 0.7, 1.0)) {}
-=======
     color background = color(0.5, 0.7, 1.0);
     Scene() : controls(CamControls()), background(color(0.5, 0.7, 1.0)) {}
->>>>>>> 7c439a1 (Agent Host changes for agents/time-based-ray-tracing-refactor)
-=======
-    color background = color(0.5, 0.7, 1.0);
-    Scene() : controls(CamControls()), background(color(0.5, 0.7, 1.0)) {}
->>>>>>> 7c439a1 (Agent Host changes for agents/time-based-ray-tracing-refactor)
 
     color background_at(double u, double v, const point& p) {
         return background;

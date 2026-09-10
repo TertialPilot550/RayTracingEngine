@@ -44,12 +44,6 @@
 
 // Collision records must be visible to materials and surfaces.
 #include "entities/objects/collidable.hpp"
-#include "entities/objects/instance.hpp"
-
-#include "entities/objects/primitives/geometric_primitive.hpp"
-#include "entities/objects/primitives/sphere.hpp"
-#include "entities/objects/primitives/triangle.hpp"
-#include "entities/objects/primitives/quad.hpp"
 
 // Textures
 #include "entities/objects/surfaces/texture.hpp"
