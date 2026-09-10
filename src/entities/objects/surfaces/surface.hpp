@@ -7,6 +7,9 @@ class Surface {
     public:
     Surface(std::shared_ptr<Material> mat, std::shared_ptr<Texture> tex) : mat(mat), tex(tex) {}
 
+    explicit Surface(std::shared_ptr<Material> mat)
+        : Surface(mat, nullptr) {}
+
     std::shared_ptr<Material> mat;
     std::shared_ptr<Texture> tex;
 
@@ -26,3 +29,8 @@ class Surface {
     }
 
 };
+
+inline std::shared_ptr<Surface> make_surface(std::shared_ptr<Material> mat,
+                                             std::shared_ptr<Texture> tex = nullptr) {
+    return std::make_shared<Surface>(std::move(mat), std::move(tex));
+}

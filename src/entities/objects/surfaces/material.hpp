@@ -16,5 +16,7 @@ class Material {
         return false;
     }
 
-    virtual color at(int u, int v, const point& p);
+    virtual color at(int u, int v, const point& p) const {
+        return color();
+    }
 };

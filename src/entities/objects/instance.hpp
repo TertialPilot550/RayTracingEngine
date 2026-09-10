@@ -51,13 +51,17 @@ class Instance : public CollisionObject {
 class InstanceList : public CollisionObject {
 
     public:
-    std::vector<Instance> instances;
+    std::vector<std::shared_ptr<CollisionObject>> instances;
 
     InstanceList() : CollisionObject(nullptr) {}
     InstanceList(std::shared_ptr<Surface> surf) : CollisionObject(surf) {}
 
     void add(const Instance& instance) {
-        instances.push_back(instance);
+        instances.push_back(std::make_shared<Instance>(instance));
+    }
+
+    void add(std::shared_ptr<CollisionObject> object) {
+        instances.push_back(std::move(object));
     }
 
     bool hit(const Ray& r, Interval ray_t, CollisionRecord& rec) const override {
@@ -65,7 +69,7 @@ class InstanceList : public CollisionObject {
         double closest_so_far = ray_t.max;
 
         for (const auto& instance : instances) {
-            if (instance.hit(r, Interval(ray_t.min, closest_so_far), rec)) {
+            if (instance->hit(r, Interval(ray_t.min, closest_so_far), rec)) {
                 hit_anything = true;
                 closest_so_far = rec.t;
             }
@@ -82,13 +86,16 @@ class InstanceList : public CollisionObject {
 
     void rasterize(int screen_size[2], mat<4,4>& viewport_matrix, mat<4,4>& projection_to_camera_matrix, double* depth_buff, rgb* color_buff) const override {
         for (const auto& instance : instances) {
-            instance.rasterize(screen_size, viewport_matrix, projection_to_camera_matrix, depth_buff, color_buff);
+            instance->rasterize(screen_size, viewport_matrix, projection_to_camera_matrix, depth_buff, color_buff);
         }
     }
 
-    Instance& operator[](size_t index) {
+    std::shared_ptr<CollisionObject>& operator[](size_t index) {
         return instances[index];
     }
 
 };
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7c439a1 (Agent Host changes for agents/time-based-ray-tracing-refactor)

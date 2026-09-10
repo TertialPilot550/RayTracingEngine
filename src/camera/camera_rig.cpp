@@ -182,7 +182,7 @@ color process_ray_with_lighting(const Ray& r, int depth, Scene& s) {
 
     // If the ray hits nothing, return the background color.
     if (!s.objects.hit(r, Interval(0.001, infinity), rec))
-        return s.background_color;
+        return s.background;
 
     Ray scattered;
     color attenuation;
@@ -228,6 +228,12 @@ color process_ray_without_lighting(const Ray& r, int depth, Scene& s) {
 
 void CameraRig::hybrid(Scene& s, Interval shutter_event) {
 
+<<<<<<< HEAD
+=======
+    for (int i = 0; i < s.objects.instances.size(); i++) {
+        s.objects[i]->rasterize(s_size, view, proj_to_cam, depth_buffer, color_buffer);
+    }
+>>>>>>> 7c439a1 (Agent Host changes for agents/time-based-ray-tracing-refactor)
 }
 
 void CameraRig::hybrid_worker(Scene& s, int chunk_size, int s_x, int s_y, Interval shutter_event) {
@@ -247,31 +253,28 @@ void CameraRig::depth_buffer(Scene& s, Interval shutter_event) {
     int h = s.controls.img_h();
 
     // Allocate and initialize the buffers
-    double depth_buffer[w][h];
-    rgb color_buffer[w][h];
+    std::vector<double> depth_buffer(static_cast<size_t>(w) * h);
+    std::vector<rgb> color_buffer(static_cast<size_t>(w) * h);
     
     // Intialize the buffers to infinity/black
     for (int i = 0; i < w; i++) {
         for (int j = 0; j < h; j++) {
-            depth_buffer[i][j] = INFINITY;
-            color_buffer[i][j] = rgb(0,0,0);
+            depth_buffer[i + j * w] = INFINITY;
+            color_buffer[i + j * w] = rgb(0,0,0);
         }
     }
 
     // Depth Buffer and Rasterization Algorithms
-    rasterize_scene(s, &depth_buffer[0][0], &color_buffer[0][0]);
+    rasterize_scene(s, depth_buffer.data(), color_buffer.data());
 
     // Complete! Write to image.
     for (int i = 0; i < w; i++) {
         for (int j = 0; j < h; j++) {
-            write_color(color_buffer[i][j], i, j);
+            write_color(color_buffer[i + j * w], i, j);
         }
     }
 
     // Drop the buffers
-    delete depth_buffer;
-    delete color_buffer;
-
 }
 
 void CameraRig::depth_buffer_worker(Scene& s, int chunk_size, int s_x, int s_y, Interval shutter_event) {
@@ -290,8 +293,63 @@ void rasterize_scene(Scene& s, double* depth_buffer, rgb* color_buffer) {
     mat<4,4> world_to_cam = world_to_camera_matrix(s.controls.u(), s.controls.v(), s.controls.w(), s.controls.center());
     mat<4,4> proj_to_cam = projection * world_to_cam;
 
+<<<<<<< HEAD
     for (int i = 0; i < s.objects.instances.size(); i++) {
         s.objects[i].rasterize(s_size, view, proj_to_cam, depth_buffer, color_buffer);
+=======
+            // Change the rendering method depending on the camera mode
+            switch(s.controls.mode) {
+                case CameraMode::RAY_TRACING :
+                    // Ray Tracing
+
+                    // Create a function object encapsulating the computation for that chunk
+                    tasks.emplace_back([this, x, y, &s]() {
+                        // Calculate chunk values locally before write back to avoid false cache sharing
+                        rgb res[s.controls.chunk_size];
+
+                        // Calculate pixel values for each pixel in the chunk
+                        for (int i = 0; i < s.controls.chunk_size && x+i < s.controls.img_w(); i++) {
+                            res[i] = sample_for_pixel_color(x+i, y, s);
+                        }
+
+                        // Write to buffer after to take advanatage of locality
+                        // !! Impure !! - BUT: does not effect any SHARED state
+                        for (int i = 0; i < s.controls.chunk_size && x+i < s.controls.img_w(); i++) {
+                            write_color(res[i], x+i, y);
+                        }
+
+                    });
+                    break;
+
+                case CameraMode::HYBRID :
+                    // TODO
+                    break;
+
+                case CameraMode::DEPTH_BUFFER :
+                    break;
+
+
+            }
+        }
+    }
+
+    if (s.controls.mode == CameraMode::DEPTH_BUFFER) {
+        depth_buffer(s);
+    } else {
+        tm.dispatch(tasks);
+    }
+}
+
+void CameraRig::write_color(const rgb& rgb, int x, int y) {
+    if (img_buffer) (*img_buffer)[y][x] = png::rgb_pixel(rgb.r, rgb.g, rgb.b);
+}
+
+color CameraRig::process_ray(const Ray& r, int depth, Scene& s) {
+    if (s.controls.do_lighting) {
+        return process_ray_with_lighting(r, depth, s);
+    } else {
+        return process_ray_without_lighting(r, depth, s);
+>>>>>>> 7c439a1 (Agent Host changes for agents/time-based-ray-tracing-refactor)
     }
 }
 

@@ -1,17 +1,6 @@
 #pragma once
 #include "../../../main.hpp"
 
-vec<3> barycentric_coords(point v[3], int x, int y) {
-    float d = (v[1][1]-v[2][1])*(v[0][0]-v[2][0]) + (v[2][1]-v[1][1])*(v[0][1]-v[2][1]);
-    d = 1 / d;
-
-    float l0 = d * ((v[1][1]-v[2][1])*(x - v[2][0])+(v[2][0]-v[1][0])*(y-v[2][1]));
-    float l1 = d * ((v[2][1]-v[0][1])*(x - v[2][0])+(v[0][0]-v[2][0])*(y-v[2][1]));
-    float l2 = 1-l0-l1;
-
-    return vec<3>(l0, l1, l2);
-}
-
 static point2D vertex_0() {
         return point2D(0, 0);
     }
@@ -32,10 +21,7 @@ class Triangle : public GeometricPrimitive<3> {
     public:
     point2D t_coords[3];
 
-    Triangle(point p1, point p2, point p3, std::shared_ptr<Material> mat, point2D t1 = vertex_0(), point2D t2 = vertex_1(), point2D t3 = vertex_2()) : GeometricPrimitive<3>(mat) {
-        skeleton[0] = p1;
-        skeleton[1] = p2;
-        skeleton[2] = p3;
+    Triangle(point p1, point p2, point p3, std::shared_ptr<Surface> surface, point2D t1 = vertex_0(), point2D t2 = vertex_1(), point2D t3 = vertex_2()) : GeometricPrimitive<3>(surface, p1, p2, p3) {
 
         t_coords[0] = t1;
         t_coords[1] = t2;
@@ -46,9 +32,9 @@ class Triangle : public GeometricPrimitive<3> {
 
         // If any vertex is at infinity, there is not intersection
         if (is_at_infinity(skeleton[0]) || is_at_infinity(skeleton[1]) || is_at_infinity(skeleton[2])) return false;
-        point p0 = homogenize(skeleton[0]);
-        point p1 = homogenize(skeleton[1]);
-        point p2 = homogenize(skeleton[2]);
+        point p0 = homogenize(moved_point(0, r.time()));
+        point p1 = homogenize(moved_point(1, r.time()));
+        point p2 = homogenize(moved_point(2, r.time()));
 
         const double epsilon = 1e-8; // Handle near parralel intersections to make up for doubles nonsense
 
@@ -93,60 +79,37 @@ class Triangle : public GeometricPrimitive<3> {
     }
 
     point2D get_tcoords(const point& p) const override {
-        point vpoints[] = {skeleton[0], skeleton[1], skeleton[2]};
-        vec<3> b_coords = barycentric_coords(vpoints, p[1], p[2]);
-        return b_coords[0]*t_coords[0]+b_coords[1]*t_coords[1]+b_coords[2]*t_coords[2];
+        const point v0 = skeleton[0];
+        const point v1 = skeleton[1];
+        const point v2 = skeleton[2];
+        const double area = (v1[X] - v0[X]) * (v2[Y] - v0[Y]) -
+                            (v1[Y] - v0[Y]) * (v2[X] - v0[X]);
+        if (std::fabs(area) < 1e-12) return point2D(0, 0);
+        const double b0 = ((v1[X] - p[X]) * (v2[Y] - p[Y]) -
+                           (v1[Y] - p[Y]) * (v2[X] - p[X])) / area;
+        const double b1 = ((v2[X] - p[X]) * (v0[Y] - p[Y]) -
+                           (v2[Y] - p[Y]) * (v0[X] - p[X])) / area;
+        return b0 * t_coords[0] + b1 * t_coords[1] +
+               (1.0 - b0 - b1) * t_coords[2];
     }
 
-    void rasterize(int screen_size[2], mat<4,4>& viewport_matrix, mat<4,4>& proj_matrix, double* depth_buff, color* color_buff) {
-        if (is_at_infinity(skeleton[0]) || is_at_infinity(skeleton[1]) || is_at_infinity(skeleton[2])) return;
-
-        // Affine
-        point p0 = proj_matrix * skeleton[0];
-        point p1 = proj_matrix * skeleton[1];
-        point p2 = proj_matrix * skeleton[2];
-
-        // Projective Division
-        p0 = homogenize(p0);
-        p1 = homogenize(p1);
-        p2 = homogenize(p2);
-
-        // Affine
-        p0 = viewport_matrix * p0;
-        p1 = viewport_matrix * p1;
-        p2 = viewport_matrix * p2;
-        point t_points[] = {p0, p1, p2};
-
-        // Find a bounding box
-        int min_x = std::min(std::min(p0[1], p1[1]), p2[1]);
-        int max_x = std::max(std::max(p0[1], p1[1]), p2[1]);
-        int min_y = std::min(std::min(p0[2], p1[2]), p2[2]);
-        int max_y = std::max(std::max(p0[2], p1[2]), p2[2]);
-
-        // For each pixel within the projection bounds...
-        for (int i = min_x; i <= max_x; i++) {
-            for (int j = min_y; j <= max_y; j++) {
-        
-                // Determine if the pixel is part of the triangle 
-                vec<3> b_coords = barycentric_coords(t_points, i, j);
-                Interval unit = Interval(0,1);
-                if (unit.contains(b_coords[0]) && !unit.contains(b_coords[1]) && unit.contains(b_coords[2])) {
-                    // point is in the traingle
-                    // Use barycentric coordinates to interpolate both depth and texture coordinates
-                    int z = b_coords[0] * p0[3] + b_coords[1] * p1[3] + b_coords[2] * p2[3];
-                    point2D t = b_coords[0]*t_coords[0]+b_coords[1]*t_coords[1]+b_coords[2]*t_coords[2];
-
-                    point pp = b_coords[0]*p0+b_coords[1]*p1+b_coords[2]*p2;
-                    color c = surf->mat->at(t[0], t[1], pp); 
-
-                    if (z < depth_buff[i + j * screen_size[0]]) {
-                        depth_buff[i + j * screen_size[0]] = z;
-                        color_buff[i + j * screen_size[0]] = c;
-                    }
-                }
-
-            }
+    void rasterize(int screen_size[2], mat<4,4>& viewport_matrix,
+                   mat<4,4>& proj_matrix, double* depth_buff,
+                   rgb* color_buff) const override {
+        point p[3];
+        for (int i = 0; i < 3; ++i) {
+            p[i] = homogenize(viewport_matrix * homogenize(
+                proj_matrix * moved_point(i, 0.5)));
         }
+        rasterize_triangle({p[0]}, {p[1]}, {p[2]}, screen_size[0],
+                           screen_size[1], depth_buff, color_buff,
+                           [this, &p](double w0, double w1, double w2,
+                                      double) {
+            const point2D uv = w0 * t_coords[0] + w1 * t_coords[1] +
+                               w2 * t_coords[2];
+            const point position = w0 * p[0] + w1 * p[1] + w2 * p[2];
+            return surf && surf->mat ? surf->mat->at(uv[0], uv[1], position)
+                                     : color();
+        });
     }
 };
-
