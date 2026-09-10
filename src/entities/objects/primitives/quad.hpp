@@ -31,21 +31,29 @@ public:
     }
 
     point2D get_tcoords(const point& p) const override {
-        const point q = p - skeleton[0];
-        return point2D(dot(q, u) / dot(u, u), dot(q, v) / dot(v, v));
+        return get_tcoords(p, 0.0);
+    }
+
+    point2D get_tcoords(const point& p, double time) const override {
+        const point origin = moved_point(0, time);
+        const point edge_u = as_vector(motion.transform(as_point(u), time));
+        const point edge_v = as_vector(motion.transform(as_point(v), time));
+        const point q = p - origin;
+        return point2D(dot(q, edge_u) / dot(edge_u, edge_u),
+                      dot(q, edge_v) / dot(edge_v, edge_v));
     }
 
     void rasterize(int screen_size[2], mat<4,4>& viewport,
                    mat<4,4>& projection, double* depth_buffer,
-                   rgb* color_buffer) const override {
-        const point p0 = moved_point(0, 0.5);
-        const point p1 = p0 + motion.transform(as_point(u), 0.5);
-        const point p3 = p0 + motion.transform(as_point(v), 0.5);
-        const point p2 = p1 + motion.transform(as_point(v), 0.5);
+                   rgb* color_buffer, double time) const override {
+        const point p0 = moved_point(0, time);
+        const point p1 = p0 + motion.transform(as_point(u), time);
+        const point p3 = p0 + motion.transform(as_point(v), time);
+        const point p2 = p1 + motion.transform(as_point(v), time);
         Triangle first(p0, p1, p2, surf);
         Triangle second(p0, p2, p3, surf);
-        first.rasterize(screen_size, viewport, projection, depth_buffer, color_buffer);
-        second.rasterize(screen_size, viewport, projection, depth_buffer, color_buffer);
+        first.rasterize(screen_size, viewport, projection, depth_buffer, color_buffer, time);
+        second.rasterize(screen_size, viewport, projection, depth_buffer, color_buffer, time);
     }
 
 private:

@@ -620,7 +620,7 @@ mat<N,M>& operator/=(mat<N,M>& m, double d) {
     return m;
 }
 
-double determinant(mat<2,2> mat) {
+inline double determinant(mat<2,2> mat) {
     return mat[0][0]*mat[1][1]-mat[0][1]*mat[1][0];
 }
 
@@ -630,63 +630,55 @@ std::ostream& operator<<(std::ostream& out, const mat<N,M>& m) {
     return out;
 }
 
-int m_ind(int w, int i, int j) {
+inline int m_ind(int w, int i, int j) {
     return i * w + j;
 }
 
-mat<4,4> world_to_camera_matrix(const point& u, const point& v, const point& w, point cam) {
+inline mat<4,4> world_to_camera_matrix(const point& u, const point& v, const point& w, point cam) {
     mat<4,4> res;
-    
-    for (int i = 0; i < 3; i++) {
-        res[0][i] = u[i]; // set the top row
-        res[2][i] = 0; // set bottom row at the same time
-    }
 
-    for (int i = 0; i < 3; i++) {
-        res[1][i] = v[i]; 
-    }
-
-    for (int i = 0; i < 3; i++) {
-        res[2][i] = w[i]; 
-    }
-
-    res[3][0] = dot<4>(-u, cam);
-    res[3][1] = dot<4>(-v, cam);
-    res[3][2] = dot<4>(-w, cam);
-    res[3][3] = 1;
+    res[0][0] = 1;
+    res[1][0] = dot<4>(-u, cam);
+    res[1][1] = u[X];
+    res[1][2] = u[Y];
+    res[1][3] = u[Z];
+    res[2][0] = dot<4>(-v, cam);
+    res[2][1] = v[X];
+    res[2][2] = v[Y];
+    res[2][3] = v[Z];
+    res[3][0] = dot<4>(-w, cam);
+    res[3][1] = w[X];
+    res[3][2] = w[Y];
+    res[3][3] = w[Z];
 
     return res;
 }
 
-mat<4,4> projection_matrix(float n, float f, float t, float b, float l, float r) {
+inline mat<4,4> projection_matrix(float n, float f, float t, float b, float l, float r) {
     mat<4,4> res;
 
-    res[0][0] = (2*n) / (r-l);
-    res[1][1] = (2*n) / (t-b);
-    res[2][2] = -((f+n)/(f-n));
-    res[2][3] = -((2*f*n)/(f-n));
-    res[2][3] = -1;
-    res[0][2] = (r+l) / (r-l);
-    res[1][2] = (t+b) / (t-b);
+    res[0][3] = -1;
+    res[1][1] = (2*n) / (r-l);
+    res[1][3] = (r+l) / (r-l);
+    res[2][2] = (2*n) / (t-b);
+    res[2][3] = (t+b) / (t-b);
+    res[3][0] = -(2*f*n) / (f-n);
+    res[3][3] = -((f+n)/(f-n));
 
     return res;
 }
 
-mat<4,4> viewport_matrix(int w, int h) {
+inline mat<4,4> viewport_matrix(int w, int h) {
     mat<4,4> res;
 
-    res[0][0] = w/2;
-    res[0][3] = w/2;
-    res[1][1] = -h/2;
-    res[1][3] = h/2;
-    res[2][2] = 0.5;
-    res[2][3] = 0.5;
-    res[3][3] = 1;
+    res[0][0] = 1;
+    res[1][0] = w/2;
+    res[1][1] = w/2;
+    res[2][0] = h/2;
+    res[2][2] = -h/2;
+    res[3][0] = 0.5;
+    res[3][3] = 0.5;
 
     return res;
 }
-
-
-
-
 

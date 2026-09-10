@@ -31,7 +31,11 @@ public:
     }
 
     point2D get_tcoords(const point& p) const override {
-        const point local = p - center;
+        return get_tcoords(p, 0.0);
+    }
+
+    point2D get_tcoords(const point& p, double time) const override {
+        const point local = p - homogenize(motion.transform(center, time));
         const double theta = std::acos(std::clamp(-local[Y] / radius, -1.0, 1.0));
         const double phi = std::atan2(-local[Z], local[X]) + pi;
         return point2D(phi / (2 * pi), theta / pi);
@@ -39,16 +43,23 @@ public:
 
     void rasterize(int screen_size[2], mat<4,4>& viewport_matrix,
                    mat<4,4>& projection, double* depth_buffer,
-                   rgb* color_buffer) const override {
-        const point c = homogenize(motion.transform(center, 0.5));
-        const point px = homogenize(motion.transform(center + make_vector(radius, 0, 0), 0.5));
-        const point py = homogenize(motion.transform(center + make_vector(0, radius, 0), 0.5));
+                   rgb* color_buffer, double time) const override {
+        const point c = homogenize(motion.transform(center, time));
+        const point px = homogenize(motion.transform(center + make_vector(radius, 0, 0), time));
+        const point py = homogenize(motion.transform(center + make_vector(0, radius, 0), time));
+        const point pz = homogenize(motion.transform(center + make_vector(0, 0, radius), time));
         const point sc = homogenize(viewport_matrix * homogenize(projection * c));
         const point sx = homogenize(viewport_matrix * homogenize(projection * px));
         const point sy = homogenize(viewport_matrix * homogenize(projection * py));
-        const double rx = std::fabs(sx[X] - sc[X]);
-        const double ry = std::fabs(sy[Y] - sc[Y]);
+        const point sz = homogenize(viewport_matrix * homogenize(projection * pz));
+        const double rx = std::max({std::fabs(sx[X] - sc[X]),
+                                    std::fabs(sy[X] - sc[X]),
+                                    std::fabs(sz[X] - sc[X])});
+        const double ry = std::max({std::fabs(sx[Y] - sc[Y]),
+                                    std::fabs(sy[Y] - sc[Y]),
+                                    std::fabs(sz[Y] - sc[Y])});
         if (rx < 0.5 || ry < 0.5 || !surf || !surf->mat) return;
+        if (rx > screen_size[0] || ry > screen_size[1]) return;
 
         const int min_x = std::max(0, static_cast<int>(std::floor(sc[X] - rx)));
         const int max_x = std::min(screen_size[0] - 1, static_cast<int>(std::ceil(sc[X] + rx)));

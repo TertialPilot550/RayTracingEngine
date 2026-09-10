@@ -19,10 +19,26 @@ using Job = std::pair<std::string, Scene>;
 std::vector<Job> build_jobs() {
     std::vector<Job> job_list; 
 
-    job_list.emplace_back(Job("SphereDemo", sphere_demo()));
-    job_list.emplace_back(Job("TriangleDemo", triangle_demo()));
-    job_list.emplace_back(Job("LightDemo", light_demo()));
-    job_list.emplace_back(Job("ModelDemo", model_demo()));
+    auto add_variants = [&job_list](const std::string& name, Scene scene) {
+        Scene ray_tracing_scene = scene;
+        ray_tracing_scene.controls.mode = CameraMode::RAY_TRACING;
+        ray_tracing_scene.controls.accel_mode = AccelerationMode::PARALLEL;
+        job_list.emplace_back(Job(name + "RayTracing", std::move(ray_tracing_scene)));
+
+        Scene hybrid_scene = scene;
+        hybrid_scene.controls.mode = CameraMode::HYBRID;
+        hybrid_scene.controls.accel_mode = AccelerationMode::PARALLEL;
+        job_list.emplace_back(Job(name + "Hybrid", std::move(hybrid_scene)));
+
+        scene.controls.mode = CameraMode::DEPTH_BUFFER;
+        scene.controls.accel_mode = AccelerationMode::PARALLEL;
+        job_list.emplace_back(Job(name + "DepthBuffer", std::move(scene)));
+    };
+
+    add_variants("TriangleDemo", triangle_demo());
+    add_variants("LightDemo", light_demo());
+    add_variants("ModelDemo", model_demo());
+    add_variants("MotionDemo", motion_demo());
 
     return job_list;
 }

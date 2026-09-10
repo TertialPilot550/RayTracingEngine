@@ -16,8 +16,19 @@ class CollisionRecord;
     CollisionObject(std::shared_ptr<Surface> surf): surf(surf) {}
 
     virtual bool hit(const Ray& r, Interval ray_t, CollisionRecord& rec) const = 0;
-    virtual void rasterize(int screen_size[2], mat<4,4>& viewport_matrix, mat<4,4>& projection_to_camera_matrix, double* depth_buff, rgb* color_buff) const {}
+    virtual void rasterize(int screen_size[2], mat<4,4>& viewport_matrix, mat<4,4>& projection_to_camera_matrix, double* depth_buff, rgb* color_buff, double time) const {
+        (void)screen_size;
+        (void)viewport_matrix;
+        (void)projection_to_camera_matrix;
+        (void)depth_buff;
+        (void)color_buff;
+        (void)time;
+    }
     virtual point2D get_tcoords(const point& p) const = 0;
+    virtual point2D get_tcoords(const point& p, double time) const {
+        (void)time;
+        return get_tcoords(p);
+    }
 
 };
 
@@ -29,35 +40,21 @@ class CollisionRecord;
 class CollisionRecord {
     public:
 
-<<<<<<< HEAD
     point p;        // point of intersection
     point normal;    // normal vector at the intersection
     std::shared_ptr<Surface> surf; // pointer to the material of the object hit
     double t;       // time of collision
     point2D t_coords;
     bool front_face;
-=======
-        /**
-         * @brief Automatically record collision details given the collision intersection time, normal, and colliding object
-         */
-        void record(const Ray&r, float t, const point& outward_normal, const CollisionObject* obj) {
-            this->t = t;
-            this->p = r.at(t);
-            set_face_normal(r, outward_normal);
-            point2D t_c = obj->get_tcoords(p);
-            this->t_coords = t_c;
-            this->surf = obj->surf;
-        }
->>>>>>> 7c439a1 (Agent Host changes for agents/time-based-ray-tracing-refactor)
 
     /**
      * @brief Automatically record collision details given the collision intersection time, normal, and colliding object
      */
-    void CollisionRecord::record(const Ray&r, float t, const point& outward_normal, const CollisionObject* obj) {
+    void record(const Ray&r, float t, const point& outward_normal, const CollisionObject* obj) {
         this->t = t;
         this->p = r.at(t);
         set_face_normal(r, outward_normal);
-        point2D t_c = obj->get_tcoords(p);
+        point2D t_c = obj->get_tcoords(p, r.time());
         this->t_coords = t_c;
         this->surf = obj->surf;
     }
@@ -122,11 +119,10 @@ class CollisionList : public CollisionObject {
         return hit_anything;
     }
 
-    void rasterize(int screen_size[2], mat<4,4>& viewport_matrix, mat<4,4>& projection_to_camera_matrix, double* depth_buff, rgb* color_buff) const override {
+    void rasterize(int screen_size[2], mat<4,4>& viewport_matrix, mat<4,4>& projection_to_camera_matrix, double* depth_buff, rgb* color_buff, double time) const override {
         for (int i = 0; i < objects.size(); i++) {
-            objects[i]->rasterize(screen_size, viewport_matrix, projection_to_camera_matrix, depth_buff, color_buff);
+            objects[i]->rasterize(screen_size, viewport_matrix, projection_to_camera_matrix, depth_buff, color_buff, time);
         }
     }
 
 };
-

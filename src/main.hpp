@@ -80,6 +80,6 @@
 #include "entities/scenes/demos/sphere_demo.hpp"
 #include "entities/scenes/demos/light_demo.hpp"
 #include "entities/scenes/demos/model_demo.hpp"
+#include "entities/scenes/demos/motion_demo.hpp"
 // Camera (Documented)
 #include "camera/camera_rig.hpp"
-

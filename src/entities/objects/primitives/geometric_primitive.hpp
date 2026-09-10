@@ -19,7 +19,7 @@ class GeometricPrimitive : public CollisionObject {
     virtual bool hit(const Ray& r, Interval ray_t, CollisionRecord& rec) const = 0;
     virtual void rasterize(int screen_size[2], mat<4,4>& viewport_matrix,
                            mat<4,4>& projection_to_camera_matrix,
-                           double* depth_buff, rgb* color_buff) const = 0;
+                           double* depth_buff, rgb* color_buff, double time) const = 0;
     virtual point2D get_tcoords(const point& p) const = 0;
 
     std::array<point, N> skeleton;

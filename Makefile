@@ -1,10 +1,9 @@
 MAIN = src/main.cpp
 OUTPUT_PATH = ./out/app 
 SRC = src/camera/camera_rig.cpp src/utilities/util.cpp
-FLAGS = -g -Wall -Wextra -std=c++17 -I/opt/homebrew/include -L/opt/homebrew/lib `libpng-config --cflags` -lpng
+FLAGS = -g -Wall -Wextra -std=c++17 -I/opt/homebrew/include -L/opt/homebrew/lib `libpng-config --cflags` -lpng -framework Metal -framework Foundation
 
 build: $(MAIN)
-	clear
 	g++ $(FLAGS) -o $(OUTPUT_PATH) $(MAIN) $(SRC)
 
 test: build
@@ -14,5 +13,4 @@ dbg: build
 	dbg ./out/app
 
 build_test:
-	clear
-	g++ src/utilities/util.cpp test/test_linear_algebra.cpp $(FLAGS) -o test/test_linear_algebra 
+	g++ src/utilities/util.cpp test/test_linear_algebra.cpp $(FLAGS) -o test/test_linear_algebra

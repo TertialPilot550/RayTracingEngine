@@ -79,9 +79,13 @@ class Triangle : public GeometricPrimitive<3> {
     }
 
     point2D get_tcoords(const point& p) const override {
-        const point v0 = skeleton[0];
-        const point v1 = skeleton[1];
-        const point v2 = skeleton[2];
+        return get_tcoords(p, 0.0);
+    }
+
+    point2D get_tcoords(const point& p, double time) const override {
+        const point v0 = moved_point(0, time);
+        const point v1 = moved_point(1, time);
+        const point v2 = moved_point(2, time);
         const double area = (v1[X] - v0[X]) * (v2[Y] - v0[Y]) -
                             (v1[Y] - v0[Y]) * (v2[X] - v0[X]);
         if (std::fabs(area) < 1e-12) return point2D(0, 0);
@@ -95,11 +99,11 @@ class Triangle : public GeometricPrimitive<3> {
 
     void rasterize(int screen_size[2], mat<4,4>& viewport_matrix,
                    mat<4,4>& proj_matrix, double* depth_buff,
-                   rgb* color_buff) const override {
+                   rgb* color_buff, double time) const override {
         point p[3];
         for (int i = 0; i < 3; ++i) {
             p[i] = homogenize(viewport_matrix * homogenize(
-                proj_matrix * moved_point(i, 0.5)));
+                proj_matrix * moved_point(i, time)));
         }
         rasterize_triangle({p[0]}, {p[1]}, {p[2]}, screen_size[0],
                            screen_size[1], depth_buff, color_buff,

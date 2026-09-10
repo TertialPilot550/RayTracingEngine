@@ -3,6 +3,7 @@
 
 inline Scene model_demo() {
     Scene s;
+    s.controls.mode = CameraMode::DEPTH_BUFFER;
 
     s.controls.set_image_width(1200);
     s.controls.set_samples_per_pixel(10);

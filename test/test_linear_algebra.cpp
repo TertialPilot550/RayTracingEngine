@@ -2,8 +2,10 @@
 #include <cmath>
 #include <iostream>
 
-// Change this to your actual header filename
-#include "../src/utilities/linear_algebra/linear_algebra.hpp"
+#include "../src/utilities/linear_algebra.hpp"
+
+template <int N, int M>
+using Matrix = mat<N, M>;
 
 
 // ============================================================

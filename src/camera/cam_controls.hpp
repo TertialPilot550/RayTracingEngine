@@ -33,7 +33,7 @@ class CamControls {
     private: 
 
     int shutter_event_count = 0;
-    Interval* shutter_events;
+    Interval* shutter_events = nullptr;
     double aspect_ratio = 16.0/9;
     int image_width = 400;
     int samples_per_pixel = 10;

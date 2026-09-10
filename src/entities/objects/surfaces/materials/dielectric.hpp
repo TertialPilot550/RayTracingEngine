@@ -28,7 +28,7 @@ class Dielectric : public Material {
         return true;
     }
 
-    virtual color at(int u, int v, const point& p) {
+    color at(int u, int v, const point& p) const override {
         return color();
     }
 

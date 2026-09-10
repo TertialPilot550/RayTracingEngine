@@ -3,6 +3,7 @@
 
 inline Scene light_demo() {
     Scene s;
+    s.controls.mode = CameraMode::DEPTH_BUFFER;
     auto pertext = std::make_shared<NoiseTexture>(4);
     s.objects.add(std::make_shared<Sphere>(make_point(0,-1000,0), 1000, make_surface(std::make_shared<Lambertian>(pertext))));
     s.objects.add(std::make_shared<Sphere>(make_point(0,2,0), 2, make_surface(std::make_shared<Lambertian>(pertext))));

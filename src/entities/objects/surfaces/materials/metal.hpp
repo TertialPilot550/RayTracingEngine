@@ -14,7 +14,7 @@ class Metal : public Material {
         return (dot<4>(scattered.direction(), rec.normal) > 0);
     }
 
-    virtual color at(int u, int v, const point& p) {
+    color at(int u, int v, const point& p) const override {
       return albedo;
     }
 

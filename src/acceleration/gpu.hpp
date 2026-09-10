@@ -14,7 +14,7 @@
 const uint32_t N = 4; 
 
 // Raw MSL code embedded into C++ string literal
-const char* shaderSource = R"(
+inline const char* shaderSource = R"(
 #include <metal_stdlib>
 using namespace metal;
 kernel void matrix_multiply(device const float* matrixA [[buffer(0)]],
@@ -32,7 +32,7 @@ kernel void matrix_multiply(device const float* matrixA [[buffer(0)]],
 )";
 
 
-void r() {
+inline void r() {
     NS::AutoreleasePool* pool = NS::AutoreleasePool::alloc()->init();
 
     // 1. Initialize Device and Command Queue

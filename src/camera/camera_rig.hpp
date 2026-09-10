@@ -93,6 +93,7 @@ class CameraRig {
 
 
     void depth_buffer(Scene& s, Interval shutter_event);
+    void depth_buffer_parallel(Scene& s, Interval shutter_event);
     void hybrid(Scene& s, Interval shutter_event);
     void ray_trace(Scene& s, Interval shutter_event);
 
@@ -103,7 +104,7 @@ class CameraRig {
      * @details Used to perform anti-aliasing. Returns a random
      * vec3 with zero z component, where x and y are between -0.5 and 0.5.
      */
-    point CameraRig::anti_aliasing_offset() const;
+    point anti_aliasing_offset() const;
 
     /**
      * @brief Utility function used by get_ray_for_pixel()
@@ -132,11 +133,14 @@ class CameraRig {
      */
     rgb sample_for_pixel_color(int x, int y, Interval shutter_event, Scene& s);
 
+    std::vector<double> depth_buffer_data;
+    std::vector<rgb> color_buffer_data;
+    int depth_buffer_width = 0;
+    int depth_buffer_height = 0;
+
     ///@}
 
     
 
 };
-
-
 

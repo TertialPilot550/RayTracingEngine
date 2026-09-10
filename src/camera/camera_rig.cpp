@@ -1,5 +1,9 @@
 #include "camera_rig.hpp"
 
+color process_ray_with_lighting(const Ray& r, int depth, Scene& s);
+color process_ray_without_lighting(const Ray& r, int depth, Scene& s);
+void rasterize_scene(Scene& s, double* depth_buffer, rgb* color_buffer, double time);
+
 
 
 // SHORT TODO:
@@ -33,8 +37,10 @@ Image& CameraRig::capture(Scene& s) {
     if (img_buffer) delete img_buffer;
     img_buffer = new Image(s.controls.img_w(), s.controls.img_h());
 
-    // For each shutter event, render that event
-    if (s.controls.get_shutter_events()) {
+    // Render the full normalized shutter interval when no explicit events exist.
+    if (!s.controls.get_shutter_events() || s.controls.get_shutter_event_count() == 0) {
+        render(s, Interval(0.0, 1.0));
+    } else {
         for (int i = 0; i < s.controls.get_shutter_event_count(); i++) {
             Interval shutter_event = s.controls.get_shutter_events()[i];
             render(s, shutter_event);
@@ -60,6 +66,15 @@ void CameraRig::render_locally(Scene& s, Interval shutter_event) {
 }
 
 void CameraRig::render_parallel(Scene& s, Interval shutter_event) {
+    if (s.controls.mode == CameraMode::DEPTH_BUFFER) {
+        depth_buffer_parallel(s, shutter_event);
+        return;
+    }
+    if (s.controls.mode == CameraMode::HYBRID) {
+        hybrid(s, shutter_event);
+        return;
+    }
+
     TaskMaster tm(s.controls.thread_count);
     std::vector<std::function<void()>> tasks;
 
@@ -71,28 +86,27 @@ void CameraRig::render_parallel(Scene& s, Interval shutter_event) {
             switch(s.controls.mode) {
                 case CameraMode::RAY_TRACING :
                     // Ray Tracing Rendering
-                    tasks.emplace_back(std::bind(ray_trace_worker, s, x, y, shutter_event));
+                    tasks.emplace_back([this, &s, x, y, shutter_event]() {
+                        ray_trace_worker(s, x, y, shutter_event);
+                    });
                     break;
 
                 case CameraMode::HYBRID :
-                    // Hybrid Rendering
-                    tasks.emplace_back(std::bind(hybrid_worker, s, x, y, shutter_event));
-                    break;
-
                 case CameraMode::DEPTH_BUFFER :
-                    // Depth Buffer Rendering
-                    tasks.emplace_back(std::bind(depth_buffer_worker, s, x, y, shutter_event));
                     break;
             }
 
         }
     }
 
-    // Perform rendering using threads
-    tm.dispatch(tasks);
+    if (s.controls.mode == CameraMode::DEPTH_BUFFER) {
+        depth_buffer_parallel(s, shutter_event);
+    } else {
+        tm.dispatch(tasks);
+    }
 }
 
-void render_gpu(Scene& s, Interval shutter_event) {
+void CameraRig::render_gpu(Scene& s, Interval shutter_event) {
     throw new std::runtime_error("GPU Acceleration not yet implemented.");
 }
 
@@ -207,6 +221,8 @@ color process_ray_with_lighting(const Ray& r, int depth, Scene& s) {
 
 // (Pure) Process ray using ambient lighting
 color process_ray_without_lighting(const Ray& r, int depth, Scene& s) {
+    if (depth <= 0) return color();
+
     CollisionRecord rec;
 
     if (s.objects.hit(r, Interval(0.001, infinity), rec)) {
@@ -227,17 +243,38 @@ color process_ray_without_lighting(const Ray& r, int depth, Scene& s) {
 // ---------------------------- Hybrid Rendering ---------------------------- //
 
 void CameraRig::hybrid(Scene& s, Interval shutter_event) {
+    depth_buffer_parallel(s, shutter_event);
 
-<<<<<<< HEAD
-=======
-    for (int i = 0; i < s.objects.instances.size(); i++) {
-        s.objects[i]->rasterize(s_size, view, proj_to_cam, depth_buffer, color_buffer);
+    TaskMaster tm(s.controls.thread_count);
+    std::vector<std::function<void()>> tasks;
+    for (int y = 0; y < s.controls.img_h(); ++y) {
+        for (int x = 0; x < s.controls.img_w(); x += s.controls.chunk_size) {
+            tasks.emplace_back([this, &s, x, y, shutter_event]() {
+                hybrid_worker(s, s.controls.chunk_size, x, y, shutter_event);
+            });
+        }
     }
->>>>>>> 7c439a1 (Agent Host changes for agents/time-based-ray-tracing-refactor)
+    tm.dispatch(tasks);
 }
 
 void CameraRig::hybrid_worker(Scene& s, int chunk_size, int s_x, int s_y, Interval shutter_event) {
-    // TODO
+    const int max_x = std::min(s_x + chunk_size, s.controls.img_w());
+    const int samples = std::max(1, static_cast<int>(s.controls.samples_per_pix()));
+    for (int x = s_x; x < max_x; ++x) {
+        if (!std::isfinite(depth_buffer_data[x + s_y * depth_buffer_width])) {
+            write_color(rgb(0, 0, 0), x, s_y);
+            continue;
+        }
+
+        color pixel_color;
+        for (int sample = 0; sample < samples; ++sample) {
+            pixel_color += process_ray(
+                get_ray_for_pixel(x, s_y, shutter_event, s.controls),
+                s.controls.max_depth, s);
+        }
+        write_color(color_correction_to_rgb(
+            s.controls.pscale() * pixel_color), x, s_y);
+    }
 }
 
 
@@ -264,8 +301,21 @@ void CameraRig::depth_buffer(Scene& s, Interval shutter_event) {
         }
     }
 
-    // Depth Buffer and Rasterization Algorithms
-    rasterize_scene(s, depth_buffer.data(), color_buffer.data());
+    // Populate the depth and color buffers from the camera rays. This keeps
+    // depth mode aligned with the scene's collision and material behavior.
+    const double time = 0.5 * (shutter_event.min + shutter_event.max);
+    for (int y = 0; y < h; ++y) {
+        for (int x = 0; x < w; ++x) {
+            const Ray ray = get_ray_for_pixel(x, y, Interval(time, time), s.controls);
+            CollisionRecord rec;
+            if (s.objects.hit(ray, Interval(0.001, infinity), rec) &&
+                rec.surf && rec.surf->mat && rec.t < depth_buffer[x + y * w]) {
+                depth_buffer[x + y * w] = rec.t;
+                color_buffer[x + y * w] = color_correction_to_rgb(
+                    rec.surf->mat->at(rec.t_coords[0], rec.t_coords[1], rec.p));
+            }
+        }
+    }
 
     // Complete! Write to image.
     for (int i = 0; i < w; i++) {
@@ -277,137 +327,88 @@ void CameraRig::depth_buffer(Scene& s, Interval shutter_event) {
     // Drop the buffers
 }
 
+void CameraRig::depth_buffer_parallel(Scene& s, Interval shutter_event) {
+    const int w = s.controls.img_w();
+    const int h = s.controls.img_h();
+    depth_buffer_width = w;
+    depth_buffer_height = h;
+    depth_buffer_data.assign(static_cast<size_t>(w) * h, infinity);
+    color_buffer_data.assign(static_cast<size_t>(w) * h, rgb(0, 0, 0));
+
+    TaskMaster tm(s.controls.thread_count);
+    std::vector<std::function<void()>> tasks;
+    for (int y = 0; y < h; y += s.controls.chunk_size) {
+        for (int x = 0; x < w; x += s.controls.chunk_size) {
+            tasks.emplace_back([this, &s, x, y, shutter_event]() {
+                depth_buffer_worker(s, s.controls.chunk_size, x, y, shutter_event);
+            });
+        }
+    }
+    tm.dispatch(tasks);
+
+    for (int y = 0; y < h; ++y) {
+        for (int x = 0; x < w; ++x) {
+            write_color(color_buffer_data[x + y * w], x, y);
+        }
+    }
+}
+
 void CameraRig::depth_buffer_worker(Scene& s, int chunk_size, int s_x, int s_y, Interval shutter_event) {
-    // TODO
+    const double time = 0.5 * (shutter_event.min + shutter_event.max);
+    const Interval sample_interval(time, time);
+    const int max_x = std::min(s_x + chunk_size, depth_buffer_width);
+    const int max_y = std::min(s_y + chunk_size, depth_buffer_height);
+
+    for (int y = s_y; y < max_y; ++y) {
+        for (int x = s_x; x < max_x; ++x) {
+            const int index = x + y * depth_buffer_width;
+            color sample_color;
+            double nearest = infinity;
+            const int samples = std::max(1, static_cast<int>(s.controls.samples_per_pix()));
+            for (int sample = 0; sample < samples; ++sample) {
+                const Ray ray = get_ray_for_pixel(x, y, sample_interval, s.controls);
+                CollisionRecord rec;
+                if (!s.objects.hit(ray, Interval(0.001, infinity), rec) ||
+                    !rec.surf || !rec.surf->mat) {
+                    continue;
+                }
+                sample_color += rec.surf->mat->at(
+                    rec.t_coords[0], rec.t_coords[1], rec.p);
+                nearest = std::min(nearest, rec.t);
+            }
+            if (std::isfinite(nearest)) {
+                depth_buffer_data[index] = nearest;
+                color_buffer_data[index] = color_correction_to_rgb(
+                    s.controls.pscale() * sample_color);
+            }
+        }
+    }
 }
 
 // Pure (can be split into chunks)
-void rasterize_scene(Scene& s, double* depth_buffer, rgb* color_buffer) {
+void rasterize_scene(Scene& s, double* depth_buffer, rgb* color_buffer, double time) {
     int s_size[2];
     s_size[0] = s.controls.img_w();
     s_size[1] = s.controls.img_h();
 
     // Calculate transformation matricies
     mat<4,4> view = viewport_matrix(s_size[0], s_size[1]);
-    mat<4,4> projection = projection_matrix(2, 10, 5, -5, -8, 8);
+    const double near_plane = 0.1;
+    const double far_plane = 10000.0;
+    const double half_height = near_plane *
+        std::tan(degrees_to_radians(s.controls.vfov()) / 2.0);
+    const double half_width = half_height * s.controls.asp_ratio();
+    mat<4,4> projection = projection_matrix(
+        near_plane, far_plane, half_height, -half_height,
+        -half_width, half_width);
     mat<4,4> world_to_cam = world_to_camera_matrix(s.controls.u(), s.controls.v(), s.controls.w(), s.controls.center());
     mat<4,4> proj_to_cam = projection * world_to_cam;
 
-<<<<<<< HEAD
     for (int i = 0; i < s.objects.instances.size(); i++) {
-        s.objects[i]->rasterize(s_size, view, proj_to_cam, depth_buffer, color_buffer);
+        s.objects[i]->rasterize(s_size, view, proj_to_cam, depth_buffer, color_buffer, time);
     }
 }
 
-// Impure
-// TODO: Incorporate chunking
-void CameraRig::depth_buffer(Scene& s) {
-    // Setup
-    int w = s.controls.img_w();
-    int h = s.controls.img_h();
-
-    // Allocate and initialize the buffers
-    std::vector<double> depth_buffer(static_cast<size_t>(w) * h);
-    std::vector<rgb> color_buffer(static_cast<size_t>(w) * h);
-    
-    // Intialize the buffers to infinity/black
-    for (int i = 0; i < w; i++) {
-        for (int j = 0; j < h; j++) {
-            depth_buffer[i + j * w] = INFINITY;
-            color_buffer[i + j * w] = rgb(0,0,0);
-        }
-    }
-
-    // Depth Buffer and Rasterization Algorithms
-    rasterize_scene(s, depth_buffer.data(), color_buffer.data());
-
-    // Complete! Write to image.
-    for (int i = 0; i < w; i++) {
-        for (int j = 0; j < h; j++) {
-            write_color(color_buffer[i + j * w], i, j);
-        }
-    }
-
-    // Drop the buffers
-}
-
-/*
- * Member Functions 
- */
-
-Image& CameraRig::capture(Scene& s) {
-    if (img_buffer) delete img_buffer;
-    img_buffer = new Image(s.controls.img_w(), s.controls.img_h());
-    
-    render(s);
-
-    return (*img_buffer);
-}
-
-void CameraRig::render(Scene& s) {
-    TaskMaster tm(s.controls.thread_count);
-    std::vector<std::function<void()>> tasks;
-
-    // For each chunk...
-    for (int y = 0; y < s.controls.img_h(); y++) {
-        for (int x = 0; x < s.controls.img_w(); x+= s.controls.chunk_size) {
-
->>>>>>> 7c439a1 (Agent Host changes for agents/time-based-ray-tracing-refactor)
-            // Change the rendering method depending on the camera mode
-            switch(s.controls.mode) {
-                case CameraMode::RAY_TRACING :
-                    // Ray Tracing
-
-                    // Create a function object encapsulating the computation for that chunk
-                    tasks.emplace_back([this, x, y, &s]() {
-                        // Calculate chunk values locally before write back to avoid false cache sharing
-                        rgb res[s.controls.chunk_size];
-
-                        // Calculate pixel values for each pixel in the chunk
-                        for (int i = 0; i < s.controls.chunk_size && x+i < s.controls.img_w(); i++) {
-                            res[i] = sample_for_pixel_color(x+i, y, s);
-                        }
-
-                        // Write to buffer after to take advanatage of locality
-                        // !! Impure !! - BUT: does not effect any SHARED state
-                        for (int i = 0; i < s.controls.chunk_size && x+i < s.controls.img_w(); i++) {
-                            write_color(res[i], x+i, y);
-                        }
-
-                    });
-                    break;
-
-                case CameraMode::HYBRID :
-                    // TODO
-                    break;
-
-                case CameraMode::DEPTH_BUFFER :
-                    break;
-
-
-            }
-        }
-    }
-
-    if (s.controls.mode == CameraMode::DEPTH_BUFFER) {
-        depth_buffer(s);
-    } else {
-        tm.dispatch(tasks);
-    }
-}
-
-void CameraRig::write_color(const rgb& rgb, int x, int y) {
-    if (img_buffer) (*img_buffer)[y][x] = png::rgb_pixel(rgb.r, rgb.g, rgb.b);
-}
-
-color CameraRig::process_ray(const Ray& r, int depth, Scene& s) {
-    if (s.controls.do_lighting) {
-        return process_ray_with_lighting(r, depth, s);
-    } else {
-        return process_ray_without_lighting(r, depth, s);
->>>>>>> 7c439a1 (Agent Host changes for agents/time-based-ray-tracing-refactor)
-    }
-}
 
 
 

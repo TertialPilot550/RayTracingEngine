@@ -3,6 +3,7 @@
 
 inline Scene sphere_demo() {
     Scene s;
+    s.controls.accel_mode = AccelerationMode::PARALLEL;
 
     s.controls.set_image_width(400);
     s.controls.set_samples_per_pixel(5);

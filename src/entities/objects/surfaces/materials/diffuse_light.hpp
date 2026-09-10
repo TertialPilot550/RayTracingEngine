@@ -10,7 +10,7 @@ class DiffuseLight : public Material {
         return tex->value(u, v, p);
     }
 
-    virtual color at(int u, int v, const point& p) {
+    color at(int u, int v, const point& p) const override {
       return tex->value(u, v, p);
     }
 

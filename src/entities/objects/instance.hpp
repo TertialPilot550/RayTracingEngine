@@ -2,26 +2,7 @@
 
 #include "../../main.hpp"
 
-class Motion {
-
-    public:
-    mat<4,4> start, end;
-    Interval time;
-
-    // rough, linear interpolation; might want to redo this
-    mat<4,4> at(double t) {
-        double len = time.max-time.min;
-        if (len == 0) len = 1;
-        double p = t / (time.max-time.min);
-        Interval(0, 1).clamp(p);
-        return (1-p)*start + end*p;
-    }
-
-    vec<4> transform(const vec<4> v, double t) {
-        return at(t) * v;
-    }
-
-};
+class Motion;
 
 class Instance : public CollisionObject {
 
@@ -42,8 +23,8 @@ class Instance : public CollisionObject {
         return obj->get_tcoords(p);
     }
 
-    void rasterize(int screen_size[2], mat<4,4>& viewport_matrix, mat<4,4>& projection_to_camera_matrix, double* depth_buff, rgb* color_buff) const {
-        obj->rasterize(screen_size, viewport_matrix, projection_to_camera_matrix, depth_buff, color_buff);
+    void rasterize(int screen_size[2], mat<4,4>& viewport_matrix, mat<4,4>& projection_to_camera_matrix, double* depth_buff, rgb* color_buff, double time) const override {
+        obj->rasterize(screen_size, viewport_matrix, projection_to_camera_matrix, depth_buff, color_buff, time);
     }
 
 };
@@ -84,9 +65,9 @@ class InstanceList : public CollisionObject {
         return point2D();
     }
 
-    void rasterize(int screen_size[2], mat<4,4>& viewport_matrix, mat<4,4>& projection_to_camera_matrix, double* depth_buff, rgb* color_buff) const override {
+    void rasterize(int screen_size[2], mat<4,4>& viewport_matrix, mat<4,4>& projection_to_camera_matrix, double* depth_buff, rgb* color_buff, double time) const override {
         for (const auto& instance : instances) {
-            instance->rasterize(screen_size, viewport_matrix, projection_to_camera_matrix, depth_buff, color_buff);
+            instance->rasterize(screen_size, viewport_matrix, projection_to_camera_matrix, depth_buff, color_buff, time);
         }
     }
 
