@@ -504,24 +504,25 @@ mat<N,K> operator*(mat<N,M>& m1, mat<M,K>& m2) {
 }
 
 template <int N, int M>
-vec<M> operator*(vec<N> vec, mat<N,M>) {
+vec<M> operator*(const vec<N>& v, const mat<N,M>& m) {
     vec<M> res;
     for (int i = 0; i < M; i++) {
         for (int k = 0; k < N; k++) {
-            res[i] += m1[k] * m2[k][i];
+            res[i] += v[k] * m[k][i];
         }
     }
     return res;
 }
 
 template <int N, int M>
-vec<N> operator*(mat<N,M>, vec<M> vec) {
+vec<N> operator*(const mat<N,M>& m, const vec<M>& v) {
     vec<N> res;
     for (int i = 0; i < N; i++) {
         for (int k = 0; k < M; k++) {
-            res[i] += m1[i][k] * m2[k];
+            res[i] += m[i][k] * v[k];
         }
     }
+    return res;
 }
 
 
@@ -684,8 +685,6 @@ mat<4,4> viewport_matrix(int w, int h) {
 
     return res;
 }
-
-
 
 
 

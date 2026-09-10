@@ -14,8 +14,8 @@ inline Scene triangle_demo() {
 
     auto difflight = std::make_shared<DiffuseLight>(color(4,4,4));
     auto ground_material = std::make_shared<Lambertian>(color(0.1, 0.5, 0.1));
-    s.objects.add(std::make_shared<Sphere>(make_point(0,0,3), 7, difflight));
-    s.objects.add(std::make_shared<Sphere>(make_point(0,0,-1000), 1000, ground_material));
+    s.objects.add(std::make_shared<Sphere>(make_point(0,0,3), 7, make_surface(difflight)));
+    s.objects.add(std::make_shared<Sphere>(make_point(0,0,-1000), 1000, make_surface(ground_material)));
     auto pertext = std::make_shared<NoiseTexture>(4);
     auto l = std::make_shared<Lambertian>(pertext);
 
@@ -24,10 +24,9 @@ inline Scene triangle_demo() {
             make_point((i-5)*5, (i-5)*5, 0),
             make_point(((i-5)*5)+2, ((i-5)*5)+2, 0),
             make_point(((i-5)*5)+1, ((i-5)*5)+1, 5),
-            l));
+            make_surface(l)));
     }
 
 
     return s;
 }
-

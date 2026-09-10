@@ -88,7 +88,7 @@ class OBJModel {
                     a,
                     b,
                     c,
-                    default_material
+                    make_surface(default_material)
                 );
 
                 collision_list.add(triangle);

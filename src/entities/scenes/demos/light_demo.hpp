@@ -4,12 +4,12 @@
 inline Scene light_demo() {
     Scene s;
     auto pertext = std::make_shared<NoiseTexture>(4);
-    s.objects.add(std::make_shared<Sphere>(make_point(0,-1000,0), 1000, std::make_shared<Lambertian>(pertext)));
-    s.objects.add(std::make_shared<Sphere>(make_point(0,2,0), 2, std::make_shared<Lambertian>(pertext)));
+    s.objects.add(std::make_shared<Sphere>(make_point(0,-1000,0), 1000, make_surface(std::make_shared<Lambertian>(pertext))));
+    s.objects.add(std::make_shared<Sphere>(make_point(0,2,0), 2, make_surface(std::make_shared<Lambertian>(pertext))));
 
     auto difflight = std::make_shared<DiffuseLight>(color(4,4,4));
-    s.objects.add(std::make_shared<Sphere>(make_point(0,7,0), 2, difflight));
-    s.objects.add(std::make_shared<Quad>(make_point(3,1,-2), make_vector(2,0,0), make_vector(0,2,0), difflight));
+    s.objects.add(std::make_shared<Sphere>(make_point(0,7,0), 2, make_surface(difflight)));
+    s.objects.add(std::make_shared<Quad>(make_point(3,1,-2), make_vector(2,0,0), make_vector(0,2,0), make_surface(difflight)));
 
     s.controls.set_aspect_ratio(16.0/9.0);
     s.controls.set_image_width(400);
