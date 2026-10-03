@@ -1,0 +1,62 @@
+\doxysection{Motion Class Reference}
+\hypertarget{class_motion}{}\label{class_motion}\index{Motion@{Motion}}
+
+
+A time-\/varying object transform.  
+
+
+
+
+{\ttfamily \+\#include $<$motion.\+hpp$>$}
+
+
+
+Collaboration diagram for Motion:
+% FIG 0
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_motion_a915a75a2b43d83aee56f89a3692f6429}\label{class_motion_a915a75a2b43d83aee56f89a3692f6429} 
+{\bfseries Motion} (const \doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&start\+\_\+transform, const \doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&end\+\_\+transform, double start\+\_\+time=0.\+0, double stop\+\_\+time=1.\+0)
+\item 
+\Hypertarget{class_motion_a480c86c06fb245ddecb749c87eee40b2}\label{class_motion_a480c86c06fb245ddecb749c87eee40b2} 
+\doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ {\bfseries at} (double time) const
+\begin{DoxyCompactList}\small\item\em Calculate the transform at a given point in time. \end{DoxyCompactList}\item 
+point \doxymbox{\hyperlink{class_motion_ac89b906d27b0137f57fac1fffdea8ec3}{transform}} (const point \&value, double time) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_motion_ac7d055bee6615a1dfed5220d7840f46c}\label{class_motion_ac7d055bee6615a1dfed5220d7840f46c} 
+\doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ {\bfseries start}
+\item 
+\Hypertarget{class_motion_a37319950401ffa4338f128d1e65da7dc}\label{class_motion_a37319950401ffa4338f128d1e65da7dc} 
+\doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ {\bfseries end}
+\item 
+\Hypertarget{class_motion_af2e043a6fa5f9e5406fd9aa0fa2d9329}\label{class_motion_af2e043a6fa5f9e5406fd9aa0fa2d9329} 
+double {\bfseries start\+\_\+time} = 0.\+0
+\item 
+\Hypertarget{class_motion_adde089b02e529ae1cc45354f5909af4f}\label{class_motion_adde089b02e529ae1cc45354f5909af4f} 
+double {\bfseries stop\+\_\+time} = 1.\+0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A time-\/varying object transform. 
+
+The current renderer uses affine transforms, so interpolation is performed component-\/wise and clamped to the configured shutter interval. 
+
+\label{class_motion_doc-func-members}
+\Hypertarget{class_motion_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_motion_ac89b906d27b0137f57fac1fffdea8ec3}\index{Motion@{Motion}!transform@{transform}}
+\index{transform@{transform}!Motion@{Motion}}
+\doxysubsubsection{\texorpdfstring{transform()}{transform()}}
+{\footnotesize\ttfamily \label{class_motion_ac89b906d27b0137f57fac1fffdea8ec3} 
+point Motion::\+transform (\begin{DoxyParamCaption}\item[{const point \&}]{value}{, }\item[{double}]{time}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Transform a point at a given time during the transform 
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+src/\+entities/\+objects/motion.\+hpp\end{DoxyCompactItemize}

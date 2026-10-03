@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.18.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Ray-Tracing Engine: src/scenes/scene.hpp Source File</title>
+<title>Ray-Tracing Engine: src/entities/scenes/scene.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>src</b></li><li class="navelem"><b>scenes</b></li>  </ul>
+<li class="navelem"><b>src</b></li><li class="navelem"><b>entities</b></li><li class="navelem"><b>scenes</b></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
@@ -101,26 +101,27 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;../main.hpp&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;../../main.hpp&quot;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span></div>
 <div class="foldopen" id="foldopen00014" data-start="{" data-end="};">
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="class_scene.html">   14</a></span><span class="keyword">class </span>Scene {</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <a class="code hl_class" href="class_cam_controls.html">CamControls</a> controls;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <a class="code hl_class" href="class_collision_list.html">CollisionList</a> objects;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    color background;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="comment">// Default to a kind of sky blue</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    Scene() : controls(<a class="code hl_class" href="class_cam_controls.html">CamControls</a>()), background(176, 252, 255) {}</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>};</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <a class="code hl_class" href="class_instance_list.html">InstanceList</a> objects;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    color background = color(0.5, 0.7, 1.0);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    Scene() : controls(<a class="code hl_class" href="class_cam_controls.html">CamControls</a>()), background(color(0.5, 0.7, 1.0)) {}</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    color background_at(<span class="keywordtype">double</span> u, <span class="keywordtype">double</span> v, <span class="keyword">const</span> point&amp; p) {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordflow">return</span> background;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    }</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>};</div>
 </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="ttc" id="aclass_cam_controls_html"><div class="ttname"><a href="class_cam_controls.html">CamControls</a></div><div class="ttdoc">Camera control class which details how rendering should be performed for a given scene....</div><div class="ttdef"><b>Definition</b> cam_controls.hpp:17</div></div>
-<div class="ttc" id="aclass_collision_list_html"><div class="ttname"><a href="class_collision_list.html">CollisionList</a></div><div class="ttdef"><b>Definition</b> collidable.hpp:57</div></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="ttc" id="aclass_cam_controls_html"><div class="ttname"><a href="class_cam_controls.html">CamControls</a></div><div class="ttdoc">Camera control class which details how rendering should be performed for a given scene....</div><div class="ttdef"><b>Definition</b> cam_controls.hpp:31</div></div>
+<div class="ttc" id="aclass_instance_list_html"><div class="ttname"><a href="class_instance_list.html">InstanceList</a></div><div class="ttdoc">A wrapper for a vector of instances, which is itself a collision object and so can be used to represe...</div><div class="ttdef"><b>Definition</b> instance.hpp:49</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

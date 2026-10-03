@@ -2,6 +2,15 @@
 \hypertarget{class_material}{}\label{class_material}\index{Material@{Material}}
 
 
+Abstract \doxylink{class_material}{Material} class that describes how light bounces off of / interacts with the object.  
+
+
+
+
+{\ttfamily \+\#include $<$material.\+hpp$>$}
+
+
+
 Inheritance diagram for Material:
 % FIG 0
 \doxysubsubsection*{Public Member Functions}
@@ -12,9 +21,15 @@ virtual color {\bfseries emitted} (double u, double v, const point \&p) const
 \item 
 \Hypertarget{class_material_af5ef0aa54c77a805d36686b117ee83dc}\label{class_material_af5ef0aa54c77a805d36686b117ee83dc} 
 virtual bool {\bfseries scatter} (const \doxymbox{\hyperlink{class_ray}{Ray}} \&r\+\_\+in, const \doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&rec, color \&attenuation, \doxymbox{\hyperlink{class_ray}{Ray}} \&scattered) const
+\item 
+\Hypertarget{class_material_a9fdb2c453c6fb4fd67edae952d7382ae}\label{class_material_a9fdb2c453c6fb4fd67edae952d7382ae} 
+virtual color {\bfseries at} (int u, int v, const point \&p) const
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+Abstract \doxylink{class_material}{Material} class that describes how light bounces off of / interacts with the object. 
+
 The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
 \item 
-src/\+objects/\+surfaces/material.\+hpp\end{DoxyCompactItemize}
+src/\+entities/\+objects/\+surfaces/material.\+hpp\end{DoxyCompactItemize}

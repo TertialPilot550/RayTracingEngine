@@ -2,9 +2,14 @@
 #define TINYOBJLOADER_IMPLEMENTATION
 // Metal C++ 
 #define NS_PRIVATE_IMPLEMENTATION
+#define CA_PRIVATE_IMPLEMENTATION
 #define MTL_PRIVATE_IMPLEMENTATION
 
 #include "main.hpp"
+
+#include "../lib/metal-cpp/Foundation/Foundation.hpp"
+#include "../lib/metal-cpp/Metal/Metal.hpp"
+#include "../lib/metal-cpp/QuartzCore/QuartzCore.hpp"
 
 // #include <wx/wx.h>
 
@@ -68,7 +73,8 @@ void execute_jobs() {
  */
 int main() {
 
-    execute_jobs();
+    gpu_test();
+    // execute_jobs();
     
     return 0;
 }

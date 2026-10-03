@@ -2,6 +2,37 @@
 
 #include "../../../main.hpp"
 
+
+class BSDFSample {
+    point  wi;
+    color f;                 // BSDF value (delta lobes include the 1/|cos| term)
+    float pdf = 0;           // solid-angle pdf (or discrete probability for delta lobes)
+    bool  isDelta = false;
+    bool  isTransmission = false;
+    float etap = 1.f;        // relative IOR along the sampled path (for Russian roulette etc.)
+};
+
+
+class BSDF {
+
+    bool sample(point wo, point wi) {
+        
+    }
+
+    color eval(point wo, point wi) {
+
+    }
+
+    // this might differ??? between bsfs???
+    float pdf(point wo, float u1, float u2, float u3, BSDFSample* s) {
+
+    }
+
+};
+
+
+
+
 class Surface {
 
     public:

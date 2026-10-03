@@ -1,0 +1,672 @@
+\doxysection{linear\+\_\+algebra.\+hpp}
+\hypertarget{linear__algebra_8hpp_source}{}\label{linear__algebra_8hpp_source}\index{src/utilities/linear\_algebra.hpp@{src/utilities/linear\_algebra.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <initializer\_list>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}util.hpp"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ Helper\ Indicies}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ Projective\ 3D\ Space}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ P\ 0}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ X\ 1}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ Y\ 2}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ Z\ 3}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ RGB}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ RED\ 0\ }}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ GREEN\ 1}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ BLUE\ 2}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00029\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Ts>}
+\DoxyCodeLine{00030\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structare__arithmetic}{are\_arithmetic}};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{template}\ <>}
+\DoxyCodeLine{00033\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structare__arithmetic}{are\_arithmetic}}<>\ :\ std::true\_type\ \{\};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}...\ Ts>}
+\DoxyCodeLine{00036\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{structare__arithmetic}{are\_arithmetic}}<T,\ Ts...>\ :\ std::integral\_constant<bool,\ std::is\_arithmetic<T>::value\ \&\&\ are\_arithmetic<Ts...>::value>\ \{\};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00039\ \textcolor{keyword}{class\ }vec\ \{}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ vec()\ :\ elem\{\}\ \{\}}
+\DoxyCodeLine{00044\ \ \ \ \ vec(\textcolor{keyword}{const}\ vec\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ template\ <typename\ T,\ typename\ U,\ typename\ V,\ typename\ std::enable\_if<N\ ==\ 4\ \&\&\ std::is\_arithmetic<T>::value\ \&\&\ std::is\_arithmetic<U>::value\ \&\&\ std::is\_arithmetic<V>::value,\ \textcolor{keywordtype}{int}>::type\ =\ 0>}
+\DoxyCodeLine{00047\ \ \ \ \ vec(T\ x,\ U\ y,\ V\ z)\ :\ elem\{\}\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ elem[0]\ =\ 1.0;}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ elem[1]\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(x);}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ elem[2]\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(y);}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ elem[3]\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(z);}
+\DoxyCodeLine{00052\ \ \ \ \ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{comment}{//\ Variadic\ constructor\ for\ initialization}}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}...\ Args,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{typename}\ std::enable\_if<\doxymbox{\hyperlink{structare__arithmetic}{are\_arithmetic}}<Args...>::value,\ \textcolor{keywordtype}{int}>::type\ =\ 0>}
+\DoxyCodeLine{00057\ \ \ \ \ vec(Args...\ args)\ :\ elem\{\}\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}...(args)\ ==\ N,\ \textcolor{stringliteral}{"{}Number\ of\ arguments\ must\ match\ vector\ dimension"{}});}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ init\_from\_args(0,\ args...);}
+\DoxyCodeLine{00060\ \ \ \ \ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{double}\&\ operator[](\textcolor{keywordtype}{int}\ ind)\ \{\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ind\ <\ 0\ ||\ ind\ >=\ N)}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}vec\ index\ out\ of\ range"{}});}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ elem[ind];\ }
+\DoxyCodeLine{00066\ \ \ \ \ \}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{double}\ operator[](\textcolor{keywordtype}{int}\ ind)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ind\ <\ 0\ ||\ ind\ >=\ N)}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}vec\ index\ out\ of\ range"{}});}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ elem[ind];}
+\DoxyCodeLine{00072\ \ \ \ \ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ vec<N>\&\ operator=(\textcolor{keyword}{const}\ vec<N>\&\ v)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ vec<N>\&\ operator=(\textcolor{keywordtype}{double}\ d)\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ elem[i]\ =\ d;}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00081\ \ \ \ \ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keyword}{static}\ vec<N>\ random()\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ vec<N>\ result;}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ ++i)\ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ result[i]\ =\ random\_double();}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00089\ \ \ \ \ \}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keyword}{static}\ vec<N>\ random(\textcolor{keywordtype}{double}\ min,\ \textcolor{keywordtype}{double}\ max)\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ vec<N>\ result;}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ ++i)\ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ result[i]\ =\ random\_double(min,\ max);}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00097\ \ \ \ \ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size()\ \{\textcolor{keywordflow}{return}\ elem.size();\}}
+\DoxyCodeLine{00100\ \ \ \ \ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00102\ \ \ \ \ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{comment}{//\ Base\ case:\ single\ argument}}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{void}\ init\_from\_args(\textcolor{keywordtype}{int}\ idx,\ T\ value)\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ elem[idx]\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(value);}
+\DoxyCodeLine{00107\ \ \ \ \ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{comment}{//\ Recursive\ case:\ multiple\ arguments}}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{void}\ init\_from\_args(\textcolor{keywordtype}{int}\ idx,\ T\ value,\ Args...\ args)\ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ elem[idx]\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(value);}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ init\_from\_args(idx\ +\ 1,\ args...);}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+\DoxyCodeLine{00115\ \ \ \ \ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00117\ \ \ \ \ }
+\DoxyCodeLine{00118\ \ \ \ \ std::array<double,\ N>\ elem;}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \};}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00123\ \doxymbox{\hyperlink{classvec}{vec<N>}}\ homogenize(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v);}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{keyword}{using\ }color\ =\ \doxymbox{\hyperlink{classvec}{vec<3>}};}
+\DoxyCodeLine{00126\ \textcolor{keyword}{using\ }point\ =\ \doxymbox{\hyperlink{classvec}{vec<4>}};}
+\DoxyCodeLine{00127\ \textcolor{keyword}{using\ }point2D\ =\ \doxymbox{\hyperlink{classvec}{vec<2>}};}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00132\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ M>}
+\DoxyCodeLine{00133\ \textcolor{keyword}{class\ }mat\ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ mat()\ :\ elem\{\}\ \{\}}
+\DoxyCodeLine{00137\ \ \ \ \ mat(\textcolor{keyword}{const}\ mat\&)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \ \ \ \ std::array<double,\ M>\&\ operator[](\textcolor{keywordtype}{int}\ ind)\ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ind\ <\ 0\ ||\ ind\ >=\ N)}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}vec\ index\ out\ of\ range"{}});}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ elem[ind];}
+\DoxyCodeLine{00143\ \ \ \ \ \}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ std::array<double,\ M>\ operator[](\textcolor{keywordtype}{int}\ ind)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (ind\ <\ 0\ ||\ ind\ >=\ N)}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::out\_of\_range(\textcolor{stringliteral}{"{}vec\ index\ out\ of\ range"{}});}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ elem[ind];}
+\DoxyCodeLine{00149\ \ \ \ \ \}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ mat<N,M>\&\ operator=(\textcolor{keyword}{const}\ mat<N,M>\&\ m)\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ mat<N,M>\&\ operator=(\textcolor{keywordtype}{double}\ d)\ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ M;\ j++)\ \{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ elem[i][j]\ =\ d;}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *\textcolor{keyword}{this};}
+\DoxyCodeLine{00161\ \ \ \ \ \}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size\_rows()\ \{\textcolor{keywordflow}{return}\ N;\}}
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size\_cols()\ \{\textcolor{keywordflow}{return}\ M;\}}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ size\_elem()\ \{\textcolor{keywordflow}{return}\ N\ *\ M;\}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ std::array<std::array<double,\ M>,\ N>\ elem;}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \};}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00172\ \textcolor{comment}{\ *\ Linear\ Vector\ Operations\ }}
+\DoxyCodeLine{00173\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00176\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ operator+=(\doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v1,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v2)\ \{}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ v1.elem[i]\ +=\ v2.elem[i];}
+\DoxyCodeLine{00179\ \ \ \ \ \}}
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{keywordflow}{return}\ v1;}
+\DoxyCodeLine{00181\ \}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00184\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ operator-\/=(\doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v1,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v2)\ \{}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ v1.elem[i]\ -\/=\ v2.elem[i];}
+\DoxyCodeLine{00187\ \ \ \ \ \}}
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keywordflow}{return}\ v1;}
+\DoxyCodeLine{00189\ \}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00192\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ operator*=(\doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ d)\ \{}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ v1.elem[i]\ *=\ d;}
+\DoxyCodeLine{00195\ \ \ \ \ \}}
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keywordflow}{return}\ v1;}
+\DoxyCodeLine{00197\ \}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00200\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ operator*=(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ d,\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v)\ \{}
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ v.elem[i]\ *=\ d;}
+\DoxyCodeLine{00203\ \ \ \ \ \}}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keywordflow}{return}\ v;}
+\DoxyCodeLine{00205\ \}}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00208\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ operator/=(\doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ d)\ \{}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ v1.elem[i]\ /=\ d;}
+\DoxyCodeLine{00211\ \ \ \ \ \}}
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keywordflow}{return}\ v1;}
+\DoxyCodeLine{00213\ \}}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00216\ \doxymbox{\hyperlink{classvec}{vec<N>}}\ operator-\/(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v)\ \{}
+\DoxyCodeLine{00217\ \ \ \ \ \doxymbox{\hyperlink{classvec}{vec<N>}}\ res;}
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ res.elem[i]\ =\ -\/v.elem[i];}
+\DoxyCodeLine{00220\ \ \ \ \ \}}
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00222\ \}}
+\DoxyCodeLine{00223\ }
+\DoxyCodeLine{00224\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00225\ \doxymbox{\hyperlink{classvec}{vec<N>}}\ operator+(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v1,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v2)\ \{}
+\DoxyCodeLine{00226\ \ \ \ \ \doxymbox{\hyperlink{classvec}{vec<N>}}\ res;}
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ res[i]\ =\ v1[i]\ +\ v2[i];}
+\DoxyCodeLine{00229\ \ \ \ \ \}}
+\DoxyCodeLine{00230\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00231\ \}}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00234\ \doxymbox{\hyperlink{classvec}{vec<N>}}\ operator-\/(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v1,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v2)\ \{}
+\DoxyCodeLine{00235\ \ \ \ \ \doxymbox{\hyperlink{classvec}{vec<N>}}\ res;}
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ res[i]\ =\ v1[i]\ -\/\ v2[i];}
+\DoxyCodeLine{00238\ \ \ \ \ \}}
+\DoxyCodeLine{00239\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00240\ \}}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00244\ \doxymbox{\hyperlink{classvec}{vec<N>}}\ operator*(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ d,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v)\ \{}
+\DoxyCodeLine{00245\ \ \ \ \ \doxymbox{\hyperlink{classvec}{vec<N>}}\ res\ =\ v;}
+\DoxyCodeLine{00246\ \ \ \ \ res\ *=\ d;}
+\DoxyCodeLine{00247\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00248\ \}}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00251\ \doxymbox{\hyperlink{classvec}{vec<N>}}\ operator*(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ d)\ \{}
+\DoxyCodeLine{00252\ \ \ \ \ \textcolor{keywordflow}{return}\ d\ *\ v;}
+\DoxyCodeLine{00253\ \}}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00256\ \doxymbox{\hyperlink{classvec}{vec<N>}}\ operator*(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v1,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v2)\ \{}
+\DoxyCodeLine{00257\ \ \ \ \ \doxymbox{\hyperlink{classvec}{vec<N>}}\ res;}
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ res[i]\ =\ v1[i]\ *\ v2[i];}
+\DoxyCodeLine{00260\ \ \ \ \ \}}
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00262\ \}}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00265\ \doxymbox{\hyperlink{classvec}{vec<N>}}\ operator/(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ d)\ \{}
+\DoxyCodeLine{00266\ \ \ \ \ \textcolor{keywordflow}{return}\ (1/d)\ *\ v;}
+\DoxyCodeLine{00267\ \}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00271\ \textcolor{comment}{\ *\ Vector\ Products}}
+\DoxyCodeLine{00272\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00275\ \textcolor{keywordtype}{double}\ dot(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v1,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v2)\ \{}
+\DoxyCodeLine{00276\ \ \ \ \ \textcolor{keywordtype}{double}\ res\ =\ 0;}
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{keywordtype}{int}\ start\ =\ (N\ >=\ 4)\ ?\ 1\ :\ 0;}
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ start;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ res\ +=\ v1[i]\ *\ v2[i];}
+\DoxyCodeLine{00280\ \ \ \ \ \}}
+\DoxyCodeLine{00281\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00282\ \}}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00285\ \textcolor{keywordtype}{double}\ norm\_squared(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v)\ \{}
+\DoxyCodeLine{00286\ \ \ \ \ \textcolor{keywordflow}{return}\ dot(v,\ v);}
+\DoxyCodeLine{00287\ \}}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00290\ \textcolor{keywordtype}{double}\ norm(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v)\ \{}
+\DoxyCodeLine{00291\ \ \ \ \ \textcolor{keywordflow}{return}\ std::sqrt(norm\_squared(v));}
+\DoxyCodeLine{00292\ \}}
+\DoxyCodeLine{00293\ }
+\DoxyCodeLine{00297\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{classvec}{vec<3>}}\ cross(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<3>}}\&\ v1,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<3>}}\&\ v2)\ \{}
+\DoxyCodeLine{00298\ \ \ \ \ \doxymbox{\hyperlink{classvec}{vec<3>}}\ res;}
+\DoxyCodeLine{00299\ \ \ \ \ }
+\DoxyCodeLine{00300\ \ \ \ \ res[0]\ =\ v1[1]\ *\ v2[2]\ -\/\ v1[2]\ *\ v2[1];}
+\DoxyCodeLine{00301\ \ \ \ \ res[1]\ =\ v1[2]\ *\ v2[0]\ -\/\ v1[0]\ *\ v2[2];}
+\DoxyCodeLine{00302\ \ \ \ \ res[2]\ =\ v1[0]\ *\ v2[1]\ -\/\ v1[1]\ *\ v2[0];}
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00305\ \}}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00310\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{classvec}{vec<4>}}\ cross(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<4>}}\&\ v1,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<4>}}\&\ v2)\ \{}
+\DoxyCodeLine{00311\ \ \ \ \ \doxymbox{\hyperlink{classvec}{vec<4>}}\ res;}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \ \ \ \ \doxymbox{\hyperlink{classvec}{vec<4>}}\ a1\ =\ homogenize(v1);}
+\DoxyCodeLine{00314\ \ \ \ \ \doxymbox{\hyperlink{classvec}{vec<4>}}\ a2\ =\ homogenize(v2);}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \ \ \ \ \textcolor{comment}{//\ Spatial\ coordinates\ live\ in\ X/Y/Z;\ the\ homogeneous\ coordinate\ is\ always\ w.}}
+\DoxyCodeLine{00317\ \ \ \ \ \textcolor{comment}{//\ For\ a\ 4D\ point/vector\ layout\ [w,\ x,\ y,\ z],\ the\ 3D\ cross\ product\ is:}}
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{comment}{//\ (x,y,z)\ x\ (x2,y2,z2)\ =\ (y*z2\ -\/\ z*y2,\ z*x2\ -\/\ x*z2,\ x*y2\ -\/\ y*x2)}}
+\DoxyCodeLine{00319\ \ \ \ \ res[P]\ =\ 0;}
+\DoxyCodeLine{00320\ \ \ \ \ res[X]\ =\ a1[Y]\ *\ a2[Z]\ -\/\ a1[Z]\ *\ a2[Y];}
+\DoxyCodeLine{00321\ \ \ \ \ res[Y]\ =\ a1[Z]\ *\ a2[X]\ -\/\ a1[X]\ *\ a2[Z];}
+\DoxyCodeLine{00322\ \ \ \ \ res[Z]\ =\ a1[X]\ *\ a2[Y]\ -\/\ a1[Y]\ *\ a2[X];}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00325\ \}}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ }
+\DoxyCodeLine{00328\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00329\ \textcolor{comment}{\ *\ Vector\ Utilities\ }}
+\DoxyCodeLine{00330\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00331\ }
+\DoxyCodeLine{00332\ \ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00333\ \doxymbox{\hyperlink{classvec}{vec<N>}}\ unit\_vector(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v)\ \{}
+\DoxyCodeLine{00334\ \ \ \ \ \textcolor{keywordflow}{return}\ v\ /\ norm(v);}
+\DoxyCodeLine{00335\ \}}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00338\ \doxymbox{\hyperlink{classvec}{vec<N>}}\ reflect(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ n)\ \{}
+\DoxyCodeLine{00339\ \ \ \ \ \textcolor{keywordflow}{return}\ v\ -\/\ 2*dot(v,n)*n;}
+\DoxyCodeLine{00340\ \}}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00342\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00343\ \doxymbox{\hyperlink{classvec}{vec<N>}}\ refract(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ uv,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ n,\ \textcolor{keywordtype}{double}\ etai\_over\_etat)\ \{}
+\DoxyCodeLine{00344\ \ \ \ \ \textcolor{keyword}{auto}\ cos\_theta\ =\ std::fmin(dot(-\/uv,\ n),\ 1.0);}
+\DoxyCodeLine{00345\ \ \ \ \ \doxymbox{\hyperlink{classvec}{vec<N>}}\ r\_out\_perp\ =\ \ etai\_over\_etat\ *\ (uv\ +\ cos\_theta*n);}
+\DoxyCodeLine{00346\ \ \ \ \ \doxymbox{\hyperlink{classvec}{vec<N>}}\ r\_out\_parallel\ =\ -\/std::sqrt(std::fabs(1.0\ -\/\ norm\_squared(r\_out\_perp)))\ *\ n;}
+\DoxyCodeLine{00347\ \ \ \ \ \textcolor{keywordflow}{return}\ r\_out\_perp\ +\ r\_out\_parallel;}
+\DoxyCodeLine{00348\ \}}
+\DoxyCodeLine{00349\ }
+\DoxyCodeLine{00350\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00351\ \textcolor{keywordtype}{bool}\ near\_zero(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v)\ \{}
+\DoxyCodeLine{00352\ \ \ \ \ \textcolor{comment}{//\ Return\ true\ if\ the\ vector\ is\ close\ to\ zero\ in\ all\ dimensions.}}
+\DoxyCodeLine{00353\ \ \ \ \ \textcolor{keyword}{auto}\ s\ =\ 1e-\/8;}
+\DoxyCodeLine{00354\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::fabs(v.elem[i])\ >=\ s)\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00356\ \ \ \ \ \}}
+\DoxyCodeLine{00357\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00358\ \}}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00360\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00361\ \doxymbox{\hyperlink{classvec}{vec<N>}}\ random()\ \{}
+\DoxyCodeLine{00362\ \ \ \ \ \doxymbox{\hyperlink{classvec}{vec<N>}}\ res;}
+\DoxyCodeLine{00363\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ res.elem[i]\ =\ random\_double();}
+\DoxyCodeLine{00365\ \ \ \ \ \}}
+\DoxyCodeLine{00366\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00367\ \}}
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00369\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00370\ \doxymbox{\hyperlink{classvec}{vec<N>}}\ random(\textcolor{keywordtype}{double}\ min,\ \textcolor{keywordtype}{double}\ max)\ \{}
+\DoxyCodeLine{00371\ \ \ \ \ \doxymbox{\hyperlink{classvec}{vec<N>}}\ res;}
+\DoxyCodeLine{00372\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ res.elem[i]\ =\ random\_double(min,\ max);}
+\DoxyCodeLine{00374\ \ \ \ \ \}}
+\DoxyCodeLine{00375\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00376\ \}}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00378\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00379\ \doxymbox{\hyperlink{classvec}{vec<N>}}\ random\_vec()\ \{}
+\DoxyCodeLine{00380\ \ \ \ \ \textcolor{keywordflow}{return}\ random<N>();}
+\DoxyCodeLine{00381\ \}}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00383\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00384\ \doxymbox{\hyperlink{classvec}{vec<N>}}\ random\_vec(\textcolor{keywordtype}{double}\ min,\ \textcolor{keywordtype}{double}\ max)\ \{}
+\DoxyCodeLine{00385\ \ \ \ \ \textcolor{keywordflow}{return}\ random<N>(min,\ max);}
+\DoxyCodeLine{00386\ \}}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00389\ \doxymbox{\hyperlink{classvec}{vec<N>}}\ random\_unit\_vector()\ \{}
+\DoxyCodeLine{00390\ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classvec}{vec<N>}}\ p\ =\ random\_vec<N>(-\/1,\ 1);}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (N\ >=\ 4)\ p[P]\ =\ 0;}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ lensq\ =\ norm\_squared(p);}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (1e-\/160\ <\ lensq\ \&\&\ lensq\ <=\ 1)}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ p\ /\ norm(p);}
+\DoxyCodeLine{00396\ \ \ \ \ \}}
+\DoxyCodeLine{00397\ \}}
+\DoxyCodeLine{00398\ }
+\DoxyCodeLine{00399\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00400\ \doxymbox{\hyperlink{classvec}{vec<N>}}\ random\_on\_hemisphere(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ normal)\ \{}
+\DoxyCodeLine{00401\ \ \ \ \ \doxymbox{\hyperlink{classvec}{vec<N>}}\ on\_unit\_sphere\ =\ random\_unit\_vector<N>();}
+\DoxyCodeLine{00402\ \ \ \ \ \textcolor{keywordflow}{if}\ (dot(on\_unit\_sphere,\ normal)\ >\ 0.0)\ \textcolor{comment}{//\ In\ the\ same\ hemisphere\ as\ the\ normal}}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ on\_unit\_sphere;}
+\DoxyCodeLine{00404\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/on\_unit\_sphere;}
+\DoxyCodeLine{00406\ \}}
+\DoxyCodeLine{00407\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00408\ \doxymbox{\hyperlink{classvec}{vec<N>}}\ random\_in\_unit\_disk()\ \{}
+\DoxyCodeLine{00409\ \ \ \ \ \textcolor{keywordflow}{while}\ (\textcolor{keyword}{true})\ \{}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classvec}{vec<N>}}\ p\ =\ \doxymbox{\hyperlink{classvec}{vec<N>}}();}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ p[P]\ =\ 0;}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ p[X]\ =\ random\_double(-\/1,1);}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ p[Y]\ =\ random\_double(-\/1,1);}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (N\ >\ Z)\ p[Z]\ =\ 0;}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (norm\_squared(p)\ <\ 1)}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ p;}
+\DoxyCodeLine{00417\ \ \ \ \ \}}
+\DoxyCodeLine{00418\ \}}
+\DoxyCodeLine{00419\ }
+\DoxyCodeLine{00420\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00421\ \doxymbox{\hyperlink{classvec}{vec<N>}}\ as\_vector(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v)\ \{}
+\DoxyCodeLine{00422\ \ \ \ \ \doxymbox{\hyperlink{classvec}{vec<N>}}\ res\ =\ v;}
+\DoxyCodeLine{00423\ \ \ \ \ \textcolor{keywordflow}{if}\ (N\ >=\ 4)\ res[P]\ =\ 0;}
+\DoxyCodeLine{00424\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00425\ \}}
+\DoxyCodeLine{00426\ }
+\DoxyCodeLine{00427\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00428\ \doxymbox{\hyperlink{classvec}{vec<N>}}\ as\_point(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v)\ \{}
+\DoxyCodeLine{00429\ \ \ \ \ \doxymbox{\hyperlink{classvec}{vec<N>}}\ res\ =\ v;}
+\DoxyCodeLine{00430\ \ \ \ \ \textcolor{keywordflow}{if}\ (N\ >=\ 4)\ res[P]\ =\ 1;}
+\DoxyCodeLine{00431\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00432\ \}}
+\DoxyCodeLine{00433\ }
+\DoxyCodeLine{00434\ \textcolor{keyword}{inline}\ point\ make\_point(\textcolor{keywordtype}{double}\ x,\ \textcolor{keywordtype}{double}\ y,\ \textcolor{keywordtype}{double}\ z)\ \{}
+\DoxyCodeLine{00435\ \ \ \ \ point\ p;}
+\DoxyCodeLine{00436\ \ \ \ \ p[P]\ =\ 1;}
+\DoxyCodeLine{00437\ \ \ \ \ p[X]\ =\ x;}
+\DoxyCodeLine{00438\ \ \ \ \ p[Y]\ =\ y;}
+\DoxyCodeLine{00439\ \ \ \ \ p[Z]\ =\ z;}
+\DoxyCodeLine{00440\ \ \ \ \ \textcolor{keywordflow}{return}\ p;}
+\DoxyCodeLine{00441\ \}}
+\DoxyCodeLine{00442\ }
+\DoxyCodeLine{00443\ \textcolor{keyword}{inline}\ point\ make\_vector(\textcolor{keywordtype}{double}\ x,\ \textcolor{keywordtype}{double}\ y,\ \textcolor{keywordtype}{double}\ z)\ \{}
+\DoxyCodeLine{00444\ \ \ \ \ point\ v;}
+\DoxyCodeLine{00445\ \ \ \ \ v[P]\ =\ 0;}
+\DoxyCodeLine{00446\ \ \ \ \ v[X]\ =\ x;}
+\DoxyCodeLine{00447\ \ \ \ \ v[Y]\ =\ y;}
+\DoxyCodeLine{00448\ \ \ \ \ v[Z]\ =\ z;}
+\DoxyCodeLine{00449\ \ \ \ \ \textcolor{keywordflow}{return}\ v;}
+\DoxyCodeLine{00450\ \}}
+\DoxyCodeLine{00451\ }
+\DoxyCodeLine{00452\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00453\ \textcolor{keywordtype}{bool}\ is\_at\_infinity(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v)\ \{}
+\DoxyCodeLine{00454\ \ \ \ \ \textcolor{keywordflow}{return}\ v[P]\ ==\ 0;}
+\DoxyCodeLine{00455\ \}}
+\DoxyCodeLine{00456\ }
+\DoxyCodeLine{00457\ }
+\DoxyCodeLine{00458\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00459\ \doxymbox{\hyperlink{classvec}{vec<N>}}\ homogenize(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v)\ \{}
+\DoxyCodeLine{00460\ \ \ \ \ \textcolor{keywordflow}{if}\ (is\_at\_infinity(v))\ \{}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ v;}
+\DoxyCodeLine{00462\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classvec}{vec<N>}}\ res\ =\ v;}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 1;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \ \ \ \ res[i]\ /=\ res[P];}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00468\ \ \ \ \ \}}
+\DoxyCodeLine{00469\ \}}
+\DoxyCodeLine{00470\ }
+\DoxyCodeLine{00471\ }
+\DoxyCodeLine{00475\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00476\ std::ostream\&\ operator<<(std::ostream\&\ out,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v)\ \{}
+\DoxyCodeLine{00477\ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}["{}};}
+\DoxyCodeLine{00478\ \ \ \ \ \textcolor{keywordflow}{if}\ (v.elem.size()\ >\ 0)\ out\ <<\ v.elem[0];}
+\DoxyCodeLine{00479\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 1;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ v.elem[i];}
+\DoxyCodeLine{00481\ \ \ \ \ \}}
+\DoxyCodeLine{00482\ \ \ \ \ out\ <<\ \textcolor{stringliteral}{"{}]"{}};}
+\DoxyCodeLine{00483\ \ \ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{00484\ \}}
+\DoxyCodeLine{00485\ }
+\DoxyCodeLine{00486\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00487\ \textcolor{comment}{\ *\ Matrix\ Operations}}
+\DoxyCodeLine{00488\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00489\ }
+\DoxyCodeLine{00493\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ M,\ \textcolor{keywordtype}{int}\ K>}
+\DoxyCodeLine{00494\ \doxymbox{\hyperlink{classmat}{mat<N,K>}}\ operator*(\doxymbox{\hyperlink{classmat}{mat<N,M>}}\&\ m1,\ \doxymbox{\hyperlink{classmat}{mat<M,K>}}\&\ m2)\ \{}
+\DoxyCodeLine{00495\ \ \ \ \ \doxymbox{\hyperlink{classmat}{mat<N,K>}}\ res;}
+\DoxyCodeLine{00496\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ K;\ j++)\ \{}
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ k\ =\ 0;\ k\ <\ M;\ k++)\ \{}
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ res[i][j]\ +=\ m1[i][k]\ *\ m2[k][j];}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00502\ \ \ \ \ \}}
+\DoxyCodeLine{00503\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00504\ \}}
+\DoxyCodeLine{00505\ }
+\DoxyCodeLine{00506\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ M>}
+\DoxyCodeLine{00507\ \doxymbox{\hyperlink{classvec}{vec<M>}}\ operator*(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<N>}}\&\ v,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\&\ m)\ \{}
+\DoxyCodeLine{00508\ \ \ \ \ \doxymbox{\hyperlink{classvec}{vec<M>}}\ res;}
+\DoxyCodeLine{00509\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ M;\ i++)\ \{}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ k\ =\ 0;\ k\ <\ N;\ k++)\ \{}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \ \ \ \ res[i]\ +=\ v[k]\ *\ m[k][i];}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00513\ \ \ \ \ \}}
+\DoxyCodeLine{00514\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00515\ \}}
+\DoxyCodeLine{00516\ }
+\DoxyCodeLine{00517\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ M>}
+\DoxyCodeLine{00518\ \doxymbox{\hyperlink{classvec}{vec<N>}}\ operator*(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\&\ m,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec}{vec<M>}}\&\ v)\ \{}
+\DoxyCodeLine{00519\ \ \ \ \ \doxymbox{\hyperlink{classvec}{vec<N>}}\ res;}
+\DoxyCodeLine{00520\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ k\ =\ 0;\ k\ <\ M;\ k++)\ \{}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \ \ \ \ res[i]\ +=\ m[i][k]\ *\ v[k];}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00524\ \ \ \ \ \}}
+\DoxyCodeLine{00525\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00526\ \}}
+\DoxyCodeLine{00527\ }
+\DoxyCodeLine{00528\ }
+\DoxyCodeLine{00529\ \textcolor{comment}{//\ Addition/Inversion}}
+\DoxyCodeLine{00530\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ M>}
+\DoxyCodeLine{00531\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\ operator+(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\&\ m1,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\&\ m2)\ \{}
+\DoxyCodeLine{00532\ \ \ \ \ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\ res\ =\ m1;}
+\DoxyCodeLine{00533\ \ \ \ \ res\ +=\ m2;}
+\DoxyCodeLine{00534\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00535\ \}}
+\DoxyCodeLine{00536\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ M>}
+\DoxyCodeLine{00537\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\ operator-\/(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\&\ m1,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\&\ m2)\ \{}
+\DoxyCodeLine{00538\ \ \ \ \ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\ res\ =\ m1;}
+\DoxyCodeLine{00539\ \ \ \ \ res\ -\/=\ m2;}
+\DoxyCodeLine{00540\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00541\ \}}
+\DoxyCodeLine{00542\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ M>}
+\DoxyCodeLine{00543\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\ operator-\/(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\&\ m1)\ \{}
+\DoxyCodeLine{00544\ \ \ \ \ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\ res;}
+\DoxyCodeLine{00545\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00546\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ M;\ j++)\ \{}
+\DoxyCodeLine{00547\ \ \ \ \ \ \ \ \ \ \ \ \ res[i][j]\ =\ -\/m1[i][j];}
+\DoxyCodeLine{00548\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00549\ \ \ \ \ \}}
+\DoxyCodeLine{00550\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00551\ \}}
+\DoxyCodeLine{00552\ }
+\DoxyCodeLine{00553\ \textcolor{comment}{//\ Scalar\ multiplication}}
+\DoxyCodeLine{00554\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ M>}
+\DoxyCodeLine{00555\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\ operator*(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\&\ m1,\ \textcolor{keywordtype}{double}\ d)\ \{}
+\DoxyCodeLine{00556\ \ \ \ \ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\ res\ =\ m1;}
+\DoxyCodeLine{00557\ \ \ \ \ res\ *=\ d;}
+\DoxyCodeLine{00558\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00559\ \}}
+\DoxyCodeLine{00560\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ M>}
+\DoxyCodeLine{00561\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\ operator*(\textcolor{keywordtype}{double}\ d,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\&\ m1)\ \{}
+\DoxyCodeLine{00562\ \ \ \ \ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\ res\ =\ m1;}
+\DoxyCodeLine{00563\ \ \ \ \ res\ *=\ d;}
+\DoxyCodeLine{00564\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00565\ \}}
+\DoxyCodeLine{00566\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ M>}
+\DoxyCodeLine{00567\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\ operator/(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\&\ m1,\ \textcolor{keywordtype}{double}\ d)\ \{}
+\DoxyCodeLine{00568\ \ \ \ \ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\ res\ =\ m1;}
+\DoxyCodeLine{00569\ \ \ \ \ res\ /=\ d;}
+\DoxyCodeLine{00570\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00571\ \}}
+\DoxyCodeLine{00572\ }
+\DoxyCodeLine{00573\ \textcolor{comment}{//\ Addition/Inversion}}
+\DoxyCodeLine{00574\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ M>}
+\DoxyCodeLine{00575\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\&\ operator+=(\doxymbox{\hyperlink{classmat}{mat<N,M>}}\&\ m1,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\&\ m2)\ \{}
+\DoxyCodeLine{00576\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00577\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ M;\ j++)\ \{}
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ \ \ \ \ m1[i][j]\ +=\ m2[i][j];}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00580\ \ \ \ \ \}}
+\DoxyCodeLine{00581\ \ \ \ \ \textcolor{keywordflow}{return}\ m1;}
+\DoxyCodeLine{00582\ \}}
+\DoxyCodeLine{00583\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ M>}
+\DoxyCodeLine{00584\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\&\ operator-\/=(\doxymbox{\hyperlink{classmat}{mat<N,M>}}\&\ m1,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\&\ m2)\ \{}
+\DoxyCodeLine{00585\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00586\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ M;\ j++)\ \{}
+\DoxyCodeLine{00587\ \ \ \ \ \ \ \ \ \ \ \ \ m1[i][j]\ -\/=\ m2[i][j];}
+\DoxyCodeLine{00588\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00589\ \ \ \ \ \}}
+\DoxyCodeLine{00590\ \ \ \ \ \textcolor{keywordflow}{return}\ m1;}
+\DoxyCodeLine{00591\ \}}
+\DoxyCodeLine{00592\ }
+\DoxyCodeLine{00593\ }
+\DoxyCodeLine{00594\ \textcolor{comment}{//\ Scalar\ multiplication}}
+\DoxyCodeLine{00595\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ M>}
+\DoxyCodeLine{00596\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\&\ operator*=(\doxymbox{\hyperlink{classmat}{mat<N,M>}}\&\ m,\ \textcolor{keywordtype}{double}\ d)\ \{}
+\DoxyCodeLine{00597\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00598\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ M;\ j++)\ \{}
+\DoxyCodeLine{00599\ \ \ \ \ \ \ \ \ \ \ \ \ m[i][j]\ *=\ d;}
+\DoxyCodeLine{00600\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00601\ \ \ \ \ \}}
+\DoxyCodeLine{00602\ \ \ \ \ \textcolor{keywordflow}{return}\ m;}
+\DoxyCodeLine{00603\ \}}
+\DoxyCodeLine{00604\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ M>}
+\DoxyCodeLine{00605\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\&\ operator*=(\textcolor{keywordtype}{double}\ d,\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\&\ m)\ \{}
+\DoxyCodeLine{00606\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00607\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ M;\ j++)\ \{}
+\DoxyCodeLine{00608\ \ \ \ \ \ \ \ \ \ \ \ \ m[i][j]\ *=\ d;}
+\DoxyCodeLine{00609\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00610\ \ \ \ \ \}}
+\DoxyCodeLine{00611\ \ \ \ \ \textcolor{keywordflow}{return}\ m;}
+\DoxyCodeLine{00612\ \}}
+\DoxyCodeLine{00613\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ M>}
+\DoxyCodeLine{00614\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\&\ operator/=(\doxymbox{\hyperlink{classmat}{mat<N,M>}}\&\ m,\ \textcolor{keywordtype}{double}\ d)\ \{}
+\DoxyCodeLine{00615\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)\ \{}
+\DoxyCodeLine{00616\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ M;\ j++)\ \{}
+\DoxyCodeLine{00617\ \ \ \ \ \ \ \ \ \ \ \ \ m[i][j]\ /=\ d;}
+\DoxyCodeLine{00618\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00619\ \ \ \ \ \}}
+\DoxyCodeLine{00620\ \ \ \ \ \textcolor{keywordflow}{return}\ m;}
+\DoxyCodeLine{00621\ \}}
+\DoxyCodeLine{00622\ }
+\DoxyCodeLine{00623\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{double}\ determinant(\doxymbox{\hyperlink{classmat}{mat<2,2>}}\ \doxymbox{\hyperlink{classmat}{mat}})\ \{}
+\DoxyCodeLine{00624\ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classmat}{mat}}[0][0]*\doxymbox{\hyperlink{classmat}{mat}}[1][1]-\/\doxymbox{\hyperlink{classmat}{mat}}[0][1]*\doxymbox{\hyperlink{classmat}{mat}}[1][0];}
+\DoxyCodeLine{00625\ \}}
+\DoxyCodeLine{00626\ }
+\DoxyCodeLine{00627\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ M>}
+\DoxyCodeLine{00628\ std::ostream\&\ operator<<(std::ostream\&\ out,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classmat}{mat<N,M>}}\&\ m)\ \{}
+\DoxyCodeLine{00629\ }
+\DoxyCodeLine{00630\ \ \ \ \ \textcolor{keywordflow}{return}\ out;}
+\DoxyCodeLine{00631\ \}}
+\DoxyCodeLine{00632\ }
+\DoxyCodeLine{00633\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{int}\ m\_ind(\textcolor{keywordtype}{int}\ w,\ \textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j)\ \{}
+\DoxyCodeLine{00634\ \ \ \ \ \textcolor{keywordflow}{return}\ i\ *\ w\ +\ j;}
+\DoxyCodeLine{00635\ \}}
+\DoxyCodeLine{00636\ }
+\DoxyCodeLine{00637\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{classmat}{mat<4,4>}}\ world\_to\_camera\_matrix(\textcolor{keyword}{const}\ point\&\ u,\ \textcolor{keyword}{const}\ point\&\ v,\ \textcolor{keyword}{const}\ point\&\ w,\ point\ cam)\ \{}
+\DoxyCodeLine{00638\ \ \ \ \ \doxymbox{\hyperlink{classmat}{mat<4,4>}}\ res;}
+\DoxyCodeLine{00639\ }
+\DoxyCodeLine{00640\ \ \ \ \ res[0][0]\ =\ 1;}
+\DoxyCodeLine{00641\ \ \ \ \ res[1][0]\ =\ dot<4>(-\/u,\ cam);}
+\DoxyCodeLine{00642\ \ \ \ \ res[1][1]\ =\ u[X];}
+\DoxyCodeLine{00643\ \ \ \ \ res[1][2]\ =\ u[Y];}
+\DoxyCodeLine{00644\ \ \ \ \ res[1][3]\ =\ u[Z];}
+\DoxyCodeLine{00645\ \ \ \ \ res[2][0]\ =\ dot<4>(-\/v,\ cam);}
+\DoxyCodeLine{00646\ \ \ \ \ res[2][1]\ =\ v[X];}
+\DoxyCodeLine{00647\ \ \ \ \ res[2][2]\ =\ v[Y];}
+\DoxyCodeLine{00648\ \ \ \ \ res[2][3]\ =\ v[Z];}
+\DoxyCodeLine{00649\ \ \ \ \ res[3][0]\ =\ dot<4>(-\/w,\ cam);}
+\DoxyCodeLine{00650\ \ \ \ \ res[3][1]\ =\ w[X];}
+\DoxyCodeLine{00651\ \ \ \ \ res[3][2]\ =\ w[Y];}
+\DoxyCodeLine{00652\ \ \ \ \ res[3][3]\ =\ w[Z];}
+\DoxyCodeLine{00653\ }
+\DoxyCodeLine{00654\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00655\ \}}
+\DoxyCodeLine{00656\ }
+\DoxyCodeLine{00657\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{classmat}{mat<4,4>}}\ projection\_matrix(\textcolor{keywordtype}{float}\ n,\ \textcolor{keywordtype}{float}\ f,\ \textcolor{keywordtype}{float}\ t,\ \textcolor{keywordtype}{float}\ b,\ \textcolor{keywordtype}{float}\ l,\ \textcolor{keywordtype}{float}\ r)\ \{}
+\DoxyCodeLine{00658\ \ \ \ \ \doxymbox{\hyperlink{classmat}{mat<4,4>}}\ res;}
+\DoxyCodeLine{00659\ }
+\DoxyCodeLine{00660\ \ \ \ \ res[0][3]\ =\ -\/1;}
+\DoxyCodeLine{00661\ \ \ \ \ res[1][1]\ =\ (2*n)\ /\ (r-\/l);}
+\DoxyCodeLine{00662\ \ \ \ \ res[1][3]\ =\ (r+l)\ /\ (r-\/l);}
+\DoxyCodeLine{00663\ \ \ \ \ res[2][2]\ =\ (2*n)\ /\ (t-\/b);}
+\DoxyCodeLine{00664\ \ \ \ \ res[2][3]\ =\ (t+b)\ /\ (t-\/b);}
+\DoxyCodeLine{00665\ \ \ \ \ res[3][0]\ =\ -\/(2*f*n)\ /\ (f-\/n);}
+\DoxyCodeLine{00666\ \ \ \ \ res[3][3]\ =\ -\/((f+n)/(f-\/n));}
+\DoxyCodeLine{00667\ }
+\DoxyCodeLine{00668\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00669\ \}}
+\DoxyCodeLine{00670\ }
+\DoxyCodeLine{00671\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{classmat}{mat<4,4>}}\ viewport\_matrix(\textcolor{keywordtype}{int}\ w,\ \textcolor{keywordtype}{int}\ h)\ \{}
+\DoxyCodeLine{00672\ \ \ \ \ \doxymbox{\hyperlink{classmat}{mat<4,4>}}\ res;}
+\DoxyCodeLine{00673\ }
+\DoxyCodeLine{00674\ \ \ \ \ res[0][0]\ =\ 1;}
+\DoxyCodeLine{00675\ \ \ \ \ res[1][0]\ =\ w/2;}
+\DoxyCodeLine{00676\ \ \ \ \ res[1][1]\ =\ w/2;}
+\DoxyCodeLine{00677\ \ \ \ \ res[2][0]\ =\ h/2;}
+\DoxyCodeLine{00678\ \ \ \ \ res[2][2]\ =\ -\/h/2;}
+\DoxyCodeLine{00679\ \ \ \ \ res[3][0]\ =\ 0.5;}
+\DoxyCodeLine{00680\ \ \ \ \ res[3][3]\ =\ 0.5;}
+\DoxyCodeLine{00681\ }
+\DoxyCodeLine{00682\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00683\ \}}
+\DoxyCodeLine{00684\ }
+
+\end{DoxyCode}

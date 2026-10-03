@@ -1,0 +1,47 @@
+\doxysection{geometric\+\_\+primitive.\+hpp}
+\hypertarget{geometric__primitive_8hpp_source}{}\label{geometric__primitive_8hpp_source}\index{src/entities/objects/primitives/geometric\_primitive.hpp@{src/entities/objects/primitives/geometric\_primitive.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}../../../main.hpp"{}}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_geometric_primitive_a3d6d0cf3dcce57e6dcb15c1ef6bde5bc}{GeometricPrimitive}}\ :\ \textcolor{keyword}{public}\ CollisionObject\ \{}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{typename}...\ Args>}
+\DoxyCodeLine{00014\ \ \ \ \ \doxymbox{\hyperlink{class_geometric_primitive_a3d6d0cf3dcce57e6dcb15c1ef6bde5bc}{GeometricPrimitive}}(std::shared\_ptr<Surface>\ surface,\ Args\&\&...\ args)\ :\ CollisionObject(surface),\ skeleton\{\}\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}...(Args)\ ==\ N,\ \textcolor{stringliteral}{"{}primitive\ requires\ N\ points"{}});}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_geometric_primitive_ace9112b166c9598725163a69dce47830}{assign\_skeleton<0>}}(std::forward<Args>(args)...);}
+\DoxyCodeLine{00017\ \ \ \ \ \}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ hit(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_ray}{Ray}}\&\ r,\ \doxymbox{\hyperlink{class_interval}{Interval}}\ ray\_t,\ \doxymbox{\hyperlink{class_collision_record}{CollisionRecord}}\&\ rec)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ rasterize(\textcolor{keywordtype}{int}\ screen\_size[2],\ \doxymbox{\hyperlink{classmat}{mat<4,4>}}\&\ viewport\_matrix,\ \doxymbox{\hyperlink{classmat}{mat<4,4>}}\&\ projection\_to\_camera\_matrix,\ \textcolor{keywordtype}{double}*\ depth\_buff,\ \doxymbox{\hyperlink{classrgb}{rgb}}*\ color\_buff,\ \textcolor{keywordtype}{double}\ time)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{virtual}\ point2D\ get\_tcoords(\textcolor{keyword}{const}\ point\&\ p,\ \textcolor{keywordtype}{double}\ time)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ std::array<point,\ N>\ skeleton;}
+\DoxyCodeLine{00024\ \ \ \ \ \doxymbox{\hyperlink{class_motion}{Motion}}\ motion;}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ set\_motion(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_motion}{Motion}}\&\ value)\ \{\ motion\ =\ value;\ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keywordtype}{size\_t}\ Index,\ \textcolor{keyword}{typename}\ First,\ \textcolor{keyword}{typename}...\ Rest>}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_geometric_primitive_ace9112b166c9598725163a69dce47830}{assign\_skeleton}}(First\&\&\ first,\ Rest\&\&...\ rest)\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ the\ first\ element}}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ skeleton[Index]\ =\ std::forward<First>(first);}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ the\ rest\ if\ you\ can}}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}\ (\textcolor{keyword}{sizeof}...(Rest)\ >\ 0)\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_geometric_primitive_ace9112b166c9598725163a69dce47830}{assign\_skeleton<Index\ +\ 1>}}(std::forward<Rest>(rest)...);}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00046\ \ \ \ \ point\ \doxymbox{\hyperlink{class_geometric_primitive_afaded1ac06edfd930b0e4c9c52d0dc7f}{moved\_point}}(\textcolor{keywordtype}{int}\ index,\ \textcolor{keywordtype}{double}\ time)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ motion.transform(skeleton[index],\ time);}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \};}
+
+\end{DoxyCode}

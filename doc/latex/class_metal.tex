@@ -15,6 +15,8 @@ Collaboration diagram for Metal:
 {\bfseries Metal} (const color \&albedo, double fuzziness)
 \item 
 bool \doxymbox{\hyperlink{class_metal_a332496bcdbf79c3240d2978faa124ef0}{scatter}} (const \doxymbox{\hyperlink{class_ray}{Ray}} \&r\+\_\+in, const \doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&rec, color \&attenuation, \doxymbox{\hyperlink{class_ray}{Ray}} \&scattered) const override
+\item 
+color \doxymbox{\hyperlink{class_metal_acb8fd3c99b373cddc52350e943ad9501}{at}} (int u, int v, const point \&p) const override
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_material}{Material}}}
 \begin{DoxyCompactItemize}
@@ -26,6 +28,16 @@ virtual color {\bfseries emitted} (double u, double v, const point \&p) const
 \label{class_metal_doc-func-members}
 \Hypertarget{class_metal_doc-func-members}
 \doxysubsection{Member Function Documentation}
+\Hypertarget{class_metal_acb8fd3c99b373cddc52350e943ad9501}\index{Metal@{Metal}!at@{at}}
+\index{at@{at}!Metal@{Metal}}
+\doxysubsubsection{\texorpdfstring{at()}{at()}}
+{\footnotesize\ttfamily \label{class_metal_acb8fd3c99b373cddc52350e943ad9501} 
+color Metal::\+at (\begin{DoxyParamCaption}\item[{int}]{u}{, }\item[{int}]{v}{, }\item[{const point \&}]{p}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \doxymbox{\hyperlink{class_material}{Material}}.
+
 \Hypertarget{class_metal_a332496bcdbf79c3240d2978faa124ef0}\index{Metal@{Metal}!scatter@{scatter}}
 \index{scatter@{scatter}!Metal@{Metal}}
 \doxysubsubsection{\texorpdfstring{scatter()}{scatter()}}
@@ -40,4 +52,4 @@ Reimplemented from \doxymbox{\hyperlink{class_material}{Material}}.
 
 The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
 \item 
-src/\+objects/\+surfaces/\+materials/metal.\+hpp\end{DoxyCompactItemize}
+src/\+entities/\+objects/\+surfaces/\+materials/metal.\+hpp\end{DoxyCompactItemize}

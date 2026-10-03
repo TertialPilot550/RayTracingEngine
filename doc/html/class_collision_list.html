@@ -100,6 +100,11 @@ document.addEventListener('DOMContentLoaded', codefold.init);
   <div class="headertitle"><div class="title">CollisionList Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>A list of collidable objects.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="collidable_8hpp_source.html">collidable.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for CollisionList:</div>
 <div class="dyncontent">
@@ -121,23 +126,30 @@ Public Member Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight"><b>clear</b> ()</td></tr>
 <tr class="memitem:a59f61468b831dea28497b0396779e1fa" id="r_a59f61468b831dea28497b0396779e1fa"><td class="memItemLeft"><a id="a59f61468b831dea28497b0396779e1fa" name="a59f61468b831dea28497b0396779e1fa"></a>
 void&#160;</td><td class="memItemRight"><b>add</b> (std::shared_ptr&lt; <a class="el" href="class_collision_object.html">CollisionObject</a> &gt; object)</td></tr>
-<tr class="memitem:a08aa4e290ab1a64a8232dca1401b3748" id="r_a08aa4e290ab1a64a8232dca1401b3748"><td class="memItemLeft"><a class="el" href="classvec2.html">vec2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a08aa4e290ab1a64a8232dca1401b3748">get_tcoords</a> (const point &amp;p) const override</td></tr>
+<tr class="memitem:a168de8bbbce0236984a57472aeea5168" id="r_a168de8bbbce0236984a57472aeea5168"><td class="memItemLeft">point2D&#160;</td><td class="memItemRight"><a class="el" href="#a168de8bbbce0236984a57472aeea5168">get_tcoords</a> (const point &amp;p, double time) const override</td></tr>
+<tr class="memdesc:a168de8bbbce0236984a57472aeea5168"><td class="mdescLeft">&#160;</td><td class="mdescRight">A default implementation of get_tcoords that returns [0,0].  <br /></td></tr>
 <tr class="memitem:aca17aa67b81b4923f832d547239a7875" id="r_aca17aa67b81b4923f832d547239a7875"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aca17aa67b81b4923f832d547239a7875">hit</a> (const <a class="el" href="class_ray.html">Ray</a> &amp;r, <a class="el" href="class_interval.html">Interval</a> ray_t, <a class="el" href="class_collision_record.html">CollisionRecord</a> &amp;rec) const override</td></tr>
+<tr class="memdesc:aca17aa67b81b4923f832d547239a7875"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pass a hit call onto the child objects.  <br /></td></tr>
+<tr class="memitem:aa15d97d5420b591d408febef81d76b94" id="r_aa15d97d5420b591d408febef81d76b94"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#aa15d97d5420b591d408febef81d76b94">rasterize</a> (int screen_size[2], <a class="el" href="classmat.html">mat</a>&lt; 4, 4 &gt; &amp;viewport_matrix, <a class="el" href="classmat.html">mat</a>&lt; 4, 4 &gt; &amp;projection_to_camera_matrix, double *depth_buff, <a class="el" href="classrgb.html">rgb</a> *color_buff, double time) const override</td></tr>
+<tr class="memdesc:aa15d97d5420b591d408febef81d76b94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pass a rasterize call onto the child objects.  <br /></td></tr>
 <tr class="inherit_header pub_methods_class_collision_object"><td colspan="2">Public Member Functions inherited from <a class="el" href="class_collision_object.html">CollisionObject</a></td></tr>
-<tr class="memitem:a41b23864c3d328dedd6a24960b1db175 pub_methods_class_collision_object" id="r_a41b23864c3d328dedd6a24960b1db175"><td class="memItemLeft">
-&#160;</td><td class="memItemRight"><b>CollisionObject</b> (std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt; m)</td></tr>
+<tr class="memitem:af40e7b23b2175efe517c99ad9d0c5eba pub_methods_class_collision_object" id="r_af40e7b23b2175efe517c99ad9d0c5eba"><td class="memItemLeft">
+&#160;</td><td class="memItemRight"><b>CollisionObject</b> (std::shared_ptr&lt; <a class="el" href="class_surface.html">Surface</a> &gt; surf)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a4fe9b69d7198dbe159f571bdb6b84913" id="r_a4fe9b69d7198dbe159f571bdb6b84913"><td class="memItemLeft"><a id="a4fe9b69d7198dbe159f571bdb6b84913" name="a4fe9b69d7198dbe159f571bdb6b84913"></a>
 std::vector&lt; std::shared_ptr&lt; <a class="el" href="class_collision_object.html">CollisionObject</a> &gt; &gt;&#160;</td><td class="memItemRight"><b>objects</b></td></tr>
 <tr class="inherit_header pub_attribs_class_collision_object"><td colspan="2">Public Attributes inherited from <a class="el" href="class_collision_object.html">CollisionObject</a></td></tr>
-<tr class="memitem:ac56621bb78200766d5d04b44f88d308a pub_attribs_class_collision_object" id="r_ac56621bb78200766d5d04b44f88d308a"><td class="memItemLeft">
-std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt;&#160;</td><td class="memItemRight"><b>mat</b></td></tr>
+<tr class="memitem:a5c01e204daf49278f261086acefb7cb2 pub_attribs_class_collision_object" id="r_a5c01e204daf49278f261086acefb7cb2"><td class="memItemLeft">
+std::shared_ptr&lt; <a class="el" href="class_surface.html">Surface</a> &gt;&#160;</td><td class="memItemRight"><b>surf</b></td></tr>
 </table>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="a08aa4e290ab1a64a8232dca1401b3748" name="a08aa4e290ab1a64a8232dca1401b3748"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08aa4e290ab1a64a8232dca1401b3748">&#9670;&#160;</a></span>get_tcoords()</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A list of collidable objects. </p>
+<p>Used to create collections of primitives that function as a single object </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a168de8bbbce0236984a57472aeea5168" name="a168de8bbbce0236984a57472aeea5168"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a168de8bbbce0236984a57472aeea5168">&#9670;&#160;</a></span>get_tcoords()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -146,10 +158,14 @@ std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt;&#
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classvec2.html">vec2</a> CollisionList::get_tcoords </td>
+          <td class="memname">point2D CollisionList::get_tcoords </td>
           <td>(</td>
-          <td class="paramtype">const point &amp;</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">const point &amp;</td>          <td class="paramname"><span class="paramname"><em>p</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>time</em></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -158,6 +174,8 @@ std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt;&#
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>A default implementation of get_tcoords that returns [0,0]. </p>
 
 <p>Implements <a class="el" href="class_collision_object.html">CollisionObject</a>.</p>
 
@@ -195,12 +213,67 @@ std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt;&#
 </table>
 </div><div class="memdoc">
 
+<p>Pass a hit call onto the child objects. </p>
+
 <p>Implements <a class="el" href="class_collision_object.html">CollisionObject</a>.</p>
 
 </div>
 </div>
+<a id="aa15d97d5420b591d408febef81d76b94" name="aa15d97d5420b591d408febef81d76b94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa15d97d5420b591d408febef81d76b94">&#9670;&#160;</a></span>rasterize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CollisionList::rasterize </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>screen_size</em></span>[2], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classmat.html">mat</a>&lt; 4, 4 &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>viewport_matrix</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classmat.html">mat</a>&lt; 4, 4 &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>projection_to_camera_matrix</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *</td>          <td class="paramname"><span class="paramname"><em>depth_buff</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classrgb.html">rgb</a> *</td>          <td class="paramname"><span class="paramname"><em>color_buff</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>time</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Pass a rasterize call onto the child objects. </p>
+
+<p>Reimplemented from <a class="el" href="class_collision_object.html">CollisionObject</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/objects/<a class="el" href="collidable_8hpp_source.html">collidable.hpp</a></li>
+<li>src/entities/objects/<a class="el" href="collidable_8hpp_source.html">collidable.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

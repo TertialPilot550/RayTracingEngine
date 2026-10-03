@@ -18,6 +18,8 @@ Collaboration diagram for Diffuse\+Light:
 {\bfseries Diffuse\+Light} (const color \&emit)
 \item 
 color \doxymbox{\hyperlink{class_diffuse_light_abc881fdd804729422e8455c15b7f6862}{emitted}} (double u, double v, const point \&p) const override
+\item 
+color \doxymbox{\hyperlink{class_diffuse_light_a1dc41c44533b066c376715b1ae4dc5a8}{at}} (int u, int v, const point \&p) const override
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_material}{Material}}}
 \begin{DoxyCompactItemize}
@@ -29,6 +31,16 @@ virtual bool {\bfseries scatter} (const \doxymbox{\hyperlink{class_ray}{Ray}} \&
 \label{class_diffuse_light_doc-func-members}
 \Hypertarget{class_diffuse_light_doc-func-members}
 \doxysubsection{Member Function Documentation}
+\Hypertarget{class_diffuse_light_a1dc41c44533b066c376715b1ae4dc5a8}\index{DiffuseLight@{DiffuseLight}!at@{at}}
+\index{at@{at}!DiffuseLight@{DiffuseLight}}
+\doxysubsubsection{\texorpdfstring{at()}{at()}}
+{\footnotesize\ttfamily \label{class_diffuse_light_a1dc41c44533b066c376715b1ae4dc5a8} 
+color Diffuse\+Light::\+at (\begin{DoxyParamCaption}\item[{int}]{u}{, }\item[{int}]{v}{, }\item[{const point \&}]{p}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \doxymbox{\hyperlink{class_material}{Material}}.
+
 \Hypertarget{class_diffuse_light_abc881fdd804729422e8455c15b7f6862}\index{DiffuseLight@{DiffuseLight}!emitted@{emitted}}
 \index{emitted@{emitted}!DiffuseLight@{DiffuseLight}}
 \doxysubsubsection{\texorpdfstring{emitted()}{emitted()}}
@@ -43,4 +55,4 @@ Reimplemented from \doxymbox{\hyperlink{class_material}{Material}}.
 
 The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
 \item 
-src/\+objects/\+surfaces/\+materials/diffuse\+\_\+light.\+hpp\end{DoxyCompactItemize}
+src/\+entities/\+objects/\+surfaces/\+materials/diffuse\+\_\+light.\+hpp\end{DoxyCompactItemize}

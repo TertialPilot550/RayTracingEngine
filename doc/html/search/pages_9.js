@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['list_0',['Feature List',['../index.html#autotoc_md2',1,'']]],
-  ['lists_20of_20primitives_1',['Lists of Primitives',['../index.html#autotoc_md6',1,'']]]
+  ['todo_20list_0',['COMS 3360 PROJECT TODO LIST',['../index.html',1,'']]]
 ];

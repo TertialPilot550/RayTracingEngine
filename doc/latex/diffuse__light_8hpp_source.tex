@@ -1,9 +1,9 @@
 \doxysection{diffuse\+\_\+light.\+hpp}
-\hypertarget{diffuse__light_8hpp_source}{}\label{diffuse__light_8hpp_source}\index{src/objects/surfaces/materials/diffuse\_light.hpp@{src/objects/surfaces/materials/diffuse\_light.hpp}}
+\hypertarget{diffuse__light_8hpp_source}{}\label{diffuse__light_8hpp_source}\index{src/entities/objects/surfaces/materials/diffuse\_light.hpp@{src/entities/objects/surfaces/materials/diffuse\_light.hpp}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
-\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}../../../main.hpp"{}}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}../../../../main.hpp"{}}}
 \DoxyCodeLine{00003\ }
 \DoxyCodeLine{00004\ \textcolor{keyword}{class\ }DiffuseLight\ :\ \textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_material}{Material}}\ \{}
 \DoxyCodeLine{00005\ \ \ \textcolor{keyword}{public}:}
@@ -14,8 +14,12 @@
 \DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tex-\/>value(u,\ v,\ p);}
 \DoxyCodeLine{00011\ \ \ \ \ \}}
 \DoxyCodeLine{00012\ }
-\DoxyCodeLine{00013\ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00014\ \ \ \ \ std::shared\_ptr<Texture>\ tex;}
-\DoxyCodeLine{00015\ \};}
+\DoxyCodeLine{00013\ \ \ \ \ color\ at(\textcolor{keywordtype}{int}\ u,\ \textcolor{keywordtype}{int}\ v,\ \textcolor{keyword}{const}\ point\&\ p)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ tex-\/>value(u,\ v,\ p);}
+\DoxyCodeLine{00015\ \ \ \ \ \}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00018\ \ \ \ \ std::shared\_ptr<Texture>\ tex;}
+\DoxyCodeLine{00019\ \};}
 
 \end{DoxyCode}

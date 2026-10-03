@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.18.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Ray-Tracing Engine: src/objects/primitives/quad.hpp Source File</title>
+<title>Ray-Tracing Engine: src/entities/objects/primitives/quad.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>src</b></li><li class="navelem"><b>objects</b></li><li class="navelem"><b>primitives</b></li>  </ul>
+<li class="navelem"><b>src</b></li><li class="navelem"><b>entities</b></li><li class="navelem"><b>objects</b></li><li class="navelem"><b>primitives</b></li>  </ul>
 </div>
 </div><!-- top -->
 <div id="doc-content">
@@ -101,64 +101,98 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;../../main.hpp&quot;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="foldopen" id="foldopen00004" data-start="{" data-end="};">
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno"><a class="line" href="class_quad.html">    4</a></span><span class="keyword">class </span>Quad : <span class="keyword">public</span> CollisionObject {</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    Quad(<span class="keyword">const</span> point&amp; p, <span class="keyword">const</span> <a class="code hl_class" href="classvec3.html">vec3</a>&amp; u, <span class="keyword">const</span> <a class="code hl_class" href="classvec3.html">vec3</a>&amp; v, std::shared_ptr&lt;Material&gt; mat): CollisionObject(mat), p(p), u(u), v(v) {</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>        <span class="keyword">auto</span> n = cross(u, v);</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>        normal = unit_vector(n);</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>        D = dot(normal, p);</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        w = n / dot(n,n);</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    }</div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;../../../main.hpp&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span></div>
+<div class="foldopen" id="foldopen00009" data-start="{" data-end="};">
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="class_quad.html">    9</a></span><span class="keyword">class </span>Quad : <span class="keyword">public</span> <a class="code hl_function" href="class_geometric_primitive.html#a3d6d0cf3dcce57e6dcb15c1ef6bde5bc">GeometricPrimitive</a>&lt;1&gt; {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordtype">bool</span> hit(<span class="keyword">const</span> <a class="code hl_class" href="class_ray.html">Ray</a>&amp; r, <a class="code hl_class" href="class_interval.html">Interval</a> ray_t, <a class="code hl_class" href="class_collision_record.html">CollisionRecord</a>&amp; rec)<span class="keyword"> const override </span>{</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        <span class="keyword">auto</span> denom = dot(normal, r.direction());</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <span class="comment">// No hit if the ray is parallel to the plane.</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="keywordflow">if</span> (std::fabs(denom) &lt; 1e-8)</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="comment">// Return false if the hit point parameter t is outside the ray interval.</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keyword">auto</span> t = (D - dot(normal, r.origin())) / denom;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordflow">if</span> (!ray_t.contains(t))</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="comment">// Determine if the hit point lies within the planar shape using its plane coordinates.</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keyword">auto</span> intersection = r.at(t);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <a class="code hl_class" href="classvec2.html">vec2</a> t_coords = get_tcoords(r.at(t));</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">if</span> (<a class="code hl_class" href="class_interval.html">Interval</a>(0, 1).contains(t_coords.f1) || <a class="code hl_class" href="class_interval.html">Interval</a>(0, 1).contains(t_coords.f2)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="comment">// Ray hits the 2D shape; set the rest of the hit record and return true.</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        rec.record(r, t, normal, <span class="keyword">this</span>);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    }</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_class" href="classvec2.html">vec2</a> get_tcoords(<span class="keyword">const</span> point&amp; p)<span class="keyword"> const override </span>{</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <a class="code hl_class" href="classvec3.html">vec3</a> p_vector = p - this-&gt;p;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordtype">float</span> a = dot(w, cross(p_vector, v));</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordtype">float</span> b = dot(w, cross(u, p_vector));</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordflow">return</span> <a class="code hl_class" href="classvec2.html">vec2</a>(a, b);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    }</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    point p;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_class" href="classvec3.html">vec3</a> u, v;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <a class="code hl_class" href="classvec3.html">vec3</a> w;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <a class="code hl_class" href="classvec3.html">vec3</a> normal;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordtype">double</span> D;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>};</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    Quad(<span class="keyword">const</span> point&amp; p, <span class="keyword">const</span> point&amp; u, <span class="keyword">const</span> point&amp; v, std::shared_ptr&lt;Surface&gt; surface) : <a class="code hl_function" href="class_geometric_primitive.html#a3d6d0cf3dcce57e6dcb15c1ef6bde5bc">GeometricPrimitive&lt;1&gt;</a>(surface, p), u(as_vector(u)), v(as_vector(v)) {}</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span></div>
+<div class="foldopen" id="foldopen00019" data-start="{" data-end="}">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="class_quad.html#a57d5acdd46ba12aa81e468617adb4b11">   19</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="class_quad.html#a57d5acdd46ba12aa81e468617adb4b11">hit</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_ray.html">Ray</a>&amp; r, <a class="code hl_class" href="class_interval.html">Interval</a> ray_t, <a class="code hl_class" href="class_collision_record.html">CollisionRecord</a>&amp; rec)<span class="keyword"> const override </span>{</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="comment">// Find the object at this particular moment in time</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keyword">const</span> point origin = <a class="code hl_function" href="class_geometric_primitive.html#afaded1ac06edfd930b0e4c9c52d0dc7f">moved_point</a>(0, r.time());</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keyword">const</span> point edge_u = as_vector(motion.transform(as_point(u), r.time()));</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keyword">const</span> point edge_v = as_vector(motion.transform(as_point(v), r.time()));</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keyword">const</span> point n = cross(edge_u, edge_v);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="comment">// Make sure that the normal vector is valid</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keyword">const</span> <span class="keywordtype">double</span> n_length = norm(n);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordflow">if</span> (n_length &lt; 1e-12) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keyword">const</span> point normal = n / n_length;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="comment">// Barycentric Coordinates</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keyword">const</span> <span class="keywordtype">double</span> denom = dot(normal, r.direction());</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordflow">if</span> (std::fabs(denom) &lt; 1e-8) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keyword">const</span> <span class="keywordtype">double</span> t = (dot(normal, origin) - dot(normal, r.origin())) / denom;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordflow">if</span> (!ray_t.contains(t)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keyword">const</span> point q = r.at(t) - origin;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keyword">const</span> <span class="keywordtype">double</span> uu = dot(edge_u, edge_u);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keyword">const</span> <span class="keywordtype">double</span> vv = dot(edge_v, edge_v);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keyword">const</span> <span class="keywordtype">double</span> a = dot(q, edge_u) / uu;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keyword">const</span> <span class="keywordtype">double</span> b = dot(q, edge_v) / vv;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="comment">// If the point is not inside the quadrilateral, return false</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordflow">if</span> (a &lt; 0.0 || a &gt; 1.0 || b &lt; 0.0 || b &gt; 1.0) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="comment">// Hit! Populate the record and return</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        rec.<a class="code hl_function" href="class_collision_record.html#a3794b58a1fd326cc2a71c4fa27b0a25b">record</a>(r, t, normal, <span class="keyword">this</span>);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    }</div>
 </div>
-<div class="ttc" id="aclass_collision_record_html"><div class="ttname"><a href="class_collision_record.html">CollisionRecord</a></div><div class="ttdef"><b>Definition</b> collidable.hpp:8</div></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span></div>
+<div class="foldopen" id="foldopen00053" data-start="{" data-end="}">
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="class_quad.html#abfae4c7d53ce0bf7fb5835df7c129f53">   53</a></span>    point2D <a class="code hl_function" href="class_quad.html#abfae4c7d53ce0bf7fb5835df7c129f53">get_tcoords</a>(<span class="keyword">const</span> point&amp; p, <span class="keywordtype">double</span> time)<span class="keyword"> const override </span>{</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="comment">// Find the object at this particular moment in time</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keyword">const</span> point origin = <a class="code hl_function" href="class_geometric_primitive.html#afaded1ac06edfd930b0e4c9c52d0dc7f">moved_point</a>(0, time);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keyword">const</span> point edge_u = as_vector(motion.transform(as_point(u), time));</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keyword">const</span> point edge_v = as_vector(motion.transform(as_point(v), time));</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keyword">const</span> point q = p - origin;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="comment">// Return the interpolated coordinates</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">return</span> point2D(dot(q, edge_u) / dot(edge_u, edge_u), dot(q, edge_v) / dot(edge_v, edge_v));</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    }</div>
+</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span></div>
+<div class="foldopen" id="foldopen00067" data-start="{" data-end="}">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="class_quad.html#a499488313419e57252e1d3410b632df7">   67</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="class_quad.html#a499488313419e57252e1d3410b632df7">rasterize</a>(<span class="keywordtype">int</span> screen_size[2], <a class="code hl_class" href="classmat.html">mat&lt;4,4&gt;</a>&amp; viewport, <a class="code hl_class" href="classmat.html">mat&lt;4,4&gt;</a>&amp; projection, <span class="keywordtype">double</span>* depth_buffer, <a class="code hl_class" href="classrgb.html">rgb</a>* color_buffer, <span class="keywordtype">double</span> time)<span class="keyword"> const override </span>{</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="comment">// Find the object at this particular moment in time</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keyword">const</span> point p0 = <a class="code hl_function" href="class_geometric_primitive.html#afaded1ac06edfd930b0e4c9c52d0dc7f">moved_point</a>(0, time);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keyword">const</span> point p1 = p0 + motion.transform(as_point(u), time);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keyword">const</span> point p2 = p1 + motion.transform(as_point(v), time);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keyword">const</span> point p3 = p0 + motion.transform(as_point(v), time);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>       </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="comment">// Split the quad into 2 triangles</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <a class="code hl_class" href="class_triangle.html">Triangle</a> first(p0, p1, p2, surf);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <a class="code hl_class" href="class_triangle.html">Triangle</a> second(p0, p2, p3, surf);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="comment">// Rasterize the two triangles</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        first.<a class="code hl_function" href="class_triangle.html#a0c1cdba55e4a5b77efbadb36b3724780">rasterize</a>(screen_size, viewport, projection, depth_buffer, color_buffer, time);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        second.<a class="code hl_function" href="class_triangle.html#a0c1cdba55e4a5b77efbadb36b3724780">rasterize</a>(screen_size, viewport, projection, depth_buffer, color_buffer, time);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    }</div>
+</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    point u;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    point v;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>};</div>
+</div>
+<div class="ttc" id="aclass_collision_record_html"><div class="ttname"><a href="class_collision_record.html">CollisionRecord</a></div><div class="ttdoc">Track collisions.</div><div class="ttdef"><b>Definition</b> collidable.hpp:37</div></div>
+<div class="ttc" id="aclass_collision_record_html_a3794b58a1fd326cc2a71c4fa27b0a25b"><div class="ttname"><a href="class_collision_record.html#a3794b58a1fd326cc2a71c4fa27b0a25b">CollisionRecord::record</a></div><div class="ttdeci">void record(const Ray &amp;r, float t, const point &amp;outward_normal, const CollisionObject *obj)</div><div class="ttdoc">Automatically record collision details given the collision intersection time, normal,...</div><div class="ttdef"><b>Definition</b> collidable.hpp:50</div></div>
+<div class="ttc" id="aclass_geometric_primitive_html_a3d6d0cf3dcce57e6dcb15c1ef6bde5bc"><div class="ttname"><a href="class_geometric_primitive.html#a3d6d0cf3dcce57e6dcb15c1ef6bde5bc">GeometricPrimitive&lt; 1 &gt;::GeometricPrimitive</a></div><div class="ttdeci">GeometricPrimitive(std::shared_ptr&lt; Surface &gt; surface, Args &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> geometric_primitive.hpp:14</div></div>
+<div class="ttc" id="aclass_geometric_primitive_html_afaded1ac06edfd930b0e4c9c52d0dc7f"><div class="ttname"><a href="class_geometric_primitive.html#afaded1ac06edfd930b0e4c9c52d0dc7f">GeometricPrimitive&lt; 1 &gt;::moved_point</a></div><div class="ttdeci">point moved_point(int index, double time) const</div><div class="ttdef"><b>Definition</b> geometric_primitive.hpp:46</div></div>
 <div class="ttc" id="aclass_interval_html"><div class="ttname"><a href="class_interval.html">Interval</a></div><div class="ttdoc">Represents an interval of real numbers, used through the ray tracing algorithm.</div><div class="ttdef"><b>Definition</b> interval.hpp:8</div></div>
+<div class="ttc" id="aclass_quad_html_a499488313419e57252e1d3410b632df7"><div class="ttname"><a href="class_quad.html#a499488313419e57252e1d3410b632df7">Quad::rasterize</a></div><div class="ttdeci">void rasterize(int screen_size[2], mat&lt; 4, 4 &gt; &amp;viewport, mat&lt; 4, 4 &gt; &amp;projection, double *depth_buffer, rgb *color_buffer, double time) const override</div><div class="ttdoc">Depth Buffer Rasterization.</div><div class="ttdef"><b>Definition</b> quad.hpp:67</div></div>
+<div class="ttc" id="aclass_quad_html_a57d5acdd46ba12aa81e468617adb4b11"><div class="ttname"><a href="class_quad.html#a57d5acdd46ba12aa81e468617adb4b11">Quad::hit</a></div><div class="ttdeci">bool hit(const Ray &amp;r, Interval ray_t, CollisionRecord &amp;rec) const override</div><div class="ttdoc">Ray Tracing Collision.</div><div class="ttdef"><b>Definition</b> quad.hpp:19</div></div>
+<div class="ttc" id="aclass_quad_html_abfae4c7d53ce0bf7fb5835df7c129f53"><div class="ttname"><a href="class_quad.html#abfae4c7d53ce0bf7fb5835df7c129f53">Quad::get_tcoords</a></div><div class="ttdeci">point2D get_tcoords(const point &amp;p, double time) const override</div><div class="ttdoc">Texture Mapping.</div><div class="ttdef"><b>Definition</b> quad.hpp:53</div></div>
 <div class="ttc" id="aclass_ray_html"><div class="ttname"><a href="class_ray.html">Ray</a></div><div class="ttdoc">Represents a ray used in the ray tracing algorithm.</div><div class="ttdef"><b>Definition</b> ray.hpp:8</div></div>
-<div class="ttc" id="aclassvec2_html"><div class="ttname"><a href="classvec2.html">vec2</a></div><div class="ttdoc">Vector of 2 floats, used primarily for representing texture coordinates.</div><div class="ttdef"><b>Definition</b> vector.hpp:12</div></div>
-<div class="ttc" id="aclassvec3_html"><div class="ttname"><a href="classvec3.html">vec3</a></div><div class="ttdoc">Vector of 3 floats, used for a variety of purposes such as points, vectors, and colors.</div><div class="ttdef"><b>Definition</b> vector.hpp:65</div></div>
+<div class="ttc" id="aclass_triangle_html"><div class="ttname"><a href="class_triangle.html">Triangle</a></div><div class="ttdoc">Triangle Primitive.</div><div class="ttdef"><b>Definition</b> triangle.hpp:29</div></div>
+<div class="ttc" id="aclass_triangle_html_a0c1cdba55e4a5b77efbadb36b3724780"><div class="ttname"><a href="class_triangle.html#a0c1cdba55e4a5b77efbadb36b3724780">Triangle::rasterize</a></div><div class="ttdeci">void rasterize(int screen_size[2], mat&lt; 4, 4 &gt; &amp;viewport_matrix, mat&lt; 4, 4 &gt; &amp;proj_matrix, double *depth_buff, rgb *color_buff, double time) const override</div><div class="ttdoc">Rasterize a triangle to the screen.</div><div class="ttdef"><b>Definition</b> triangle.hpp:112</div></div>
+<div class="ttc" id="aclassmat_html"><div class="ttname"><a href="classmat.html">mat</a></div><div class="ttdoc">Arbitrary NxM matrix of doubles.</div><div class="ttdef"><b>Definition</b> linear_algebra.hpp:133</div></div>
+<div class="ttc" id="aclassrgb_html"><div class="ttname"><a href="classrgb.html">rgb</a></div><div class="ttdoc">Simple RGB color object.</div><div class="ttdef"><b>Definition</b> rgb.hpp:10</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

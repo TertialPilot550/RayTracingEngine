@@ -100,6 +100,11 @@ document.addEventListener('DOMContentLoaded', codefold.init);
   <div class="headertitle"><div class="title">Triangle Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p><a class="el" href="class_triangle.html" title="Triangle Primitive.">Triangle</a> Primitive.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="triangle_8hpp_source.html">triangle.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Triangle:</div>
 <div class="dyncontent">
@@ -115,25 +120,52 @@ Collaboration diagram for Triangle:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae98d446a9df043b3ebd4775821ee8c53" id="r_ae98d446a9df043b3ebd4775821ee8c53"><td class="memItemLeft"><a id="ae98d446a9df043b3ebd4775821ee8c53" name="ae98d446a9df043b3ebd4775821ee8c53"></a>
-&#160;</td><td class="memItemRight"><b>Triangle</b> (point p1, point p2, point p3, std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt; mat, <a class="el" href="classvec2.html">vec2</a> t1=vec2::vertex_0(), <a class="el" href="classvec2.html">vec2</a> t2=vec2::vertex_1(), <a class="el" href="classvec2.html">vec2</a> t3=vec2::vertex_2())</td></tr>
+<tr class="memitem:ae10e652e2de9880eb4b1ba471b87fd87" id="r_ae10e652e2de9880eb4b1ba471b87fd87"><td class="memItemLeft"><a id="ae10e652e2de9880eb4b1ba471b87fd87" name="ae10e652e2de9880eb4b1ba471b87fd87"></a>
+&#160;</td><td class="memItemRight"><b>Triangle</b> (point p1, point p2, point p3, std::shared_ptr&lt; <a class="el" href="class_surface.html">Surface</a> &gt; surface, point2D t1=vertex_0(), point2D t2=vertex_1(), point2D t3=vertex_2())</td></tr>
 <tr class="memitem:afef2c51374e6502f3166ae42e9512514" id="r_afef2c51374e6502f3166ae42e9512514"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#afef2c51374e6502f3166ae42e9512514">hit</a> (const <a class="el" href="class_ray.html">Ray</a> &amp;r, <a class="el" href="class_interval.html">Interval</a> ray_t, <a class="el" href="class_collision_record.html">CollisionRecord</a> &amp;rec) const override</td></tr>
-<tr class="memitem:a5605393c9304bf07bcd3d3de0579c440" id="r_a5605393c9304bf07bcd3d3de0579c440"><td class="memItemLeft"><a class="el" href="classvec2.html">vec2</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5605393c9304bf07bcd3d3de0579c440">get_tcoords</a> (const point &amp;p) const override</td></tr>
+<tr class="memdesc:afef2c51374e6502f3166ae42e9512514"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_ray.html" title="Represents a ray used in the ray tracing algorithm.">Ray</a> Tracing Collision.  <br /></td></tr>
+<tr class="memitem:a687bf64da6a6249ccc2aa9d5324b64c8" id="r_a687bf64da6a6249ccc2aa9d5324b64c8"><td class="memItemLeft">point2D&#160;</td><td class="memItemRight"><a class="el" href="#a687bf64da6a6249ccc2aa9d5324b64c8">get_tcoords</a> (const point &amp;p, double time) const override</td></tr>
+<tr class="memdesc:a687bf64da6a6249ccc2aa9d5324b64c8"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_triangle.html" title="Triangle Primitive.">Triangle</a> texture mapping.  <br /></td></tr>
+<tr class="memitem:a0c1cdba55e4a5b77efbadb36b3724780" id="r_a0c1cdba55e4a5b77efbadb36b3724780"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a0c1cdba55e4a5b77efbadb36b3724780">rasterize</a> (int screen_size[2], <a class="el" href="classmat.html">mat</a>&lt; 4, 4 &gt; &amp;viewport_matrix, <a class="el" href="classmat.html">mat</a>&lt; 4, 4 &gt; &amp;proj_matrix, double *depth_buff, <a class="el" href="classrgb.html">rgb</a> *color_buff, double time) const override</td></tr>
+<tr class="memdesc:a0c1cdba55e4a5b77efbadb36b3724780"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rasterize a triangle to the screen.  <br /></td></tr>
+<tr class="inherit_header pub_methods_class_geometric_primitive"><td colspan="2">Public Member Functions inherited from <a class="el" href="class_geometric_primitive.html">GeometricPrimitive&lt; 3 &gt;</a></td></tr>
+<tr class="memitem:a3d6d0cf3dcce57e6dcb15c1ef6bde5bc pub_methods_class_geometric_primitive" id="r_a3d6d0cf3dcce57e6dcb15c1ef6bde5bc"><td class="memItemLeft">
+&#160;</td><td class="memItemRight"><b>GeometricPrimitive</b> (std::shared_ptr&lt; <a class="el" href="class_surface.html">Surface</a> &gt; surface, Args &amp;&amp;... args)</td></tr>
+<tr class="memdesc:a3d6d0cf3dcce57e6dcb15c1ef6bde5bc pub_methods_class_geometric_primitive"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wack ass constructor because I was getting tons of errors. <br /></td></tr>
+<tr class="memitem:a1aadaad762b900d55c9f7a165c1d6924 pub_methods_class_geometric_primitive" id="r_a1aadaad762b900d55c9f7a165c1d6924"><td class="memItemLeft">
+void&#160;</td><td class="memItemRight"><b>set_motion</b> (const <a class="el" href="class_motion.html">Motion</a> &amp;value)</td></tr>
 <tr class="inherit_header pub_methods_class_collision_object"><td colspan="2">Public Member Functions inherited from <a class="el" href="class_collision_object.html">CollisionObject</a></td></tr>
-<tr class="memitem:a41b23864c3d328dedd6a24960b1db175 pub_methods_class_collision_object" id="r_a41b23864c3d328dedd6a24960b1db175"><td class="memItemLeft">
-&#160;</td><td class="memItemRight"><b>CollisionObject</b> (std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt; m)</td></tr>
+<tr class="memitem:af40e7b23b2175efe517c99ad9d0c5eba pub_methods_class_collision_object" id="r_af40e7b23b2175efe517c99ad9d0c5eba"><td class="memItemLeft">
+&#160;</td><td class="memItemRight"><b>CollisionObject</b> (std::shared_ptr&lt; <a class="el" href="class_surface.html">Surface</a> &gt; surf)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a07c880e4a109e62b262279be199eb920" id="r_a07c880e4a109e62b262279be199eb920"><td class="memItemLeft"><a id="a07c880e4a109e62b262279be199eb920" name="a07c880e4a109e62b262279be199eb920"></a>
-<a class="el" href="class_vertex.html">Vertex</a>&#160;</td><td class="memItemRight"><b>v</b> [3]</td></tr>
+<tr class="memitem:a717f08dcb17b44d53668c9e02b6ee6c7" id="r_a717f08dcb17b44d53668c9e02b6ee6c7"><td class="memItemLeft"><a id="a717f08dcb17b44d53668c9e02b6ee6c7" name="a717f08dcb17b44d53668c9e02b6ee6c7"></a>
+point2D&#160;</td><td class="memItemRight"><b>t_coords</b> [3]</td></tr>
+<tr class="inherit_header pub_attribs_class_geometric_primitive"><td colspan="2">Public Attributes inherited from <a class="el" href="class_geometric_primitive.html">GeometricPrimitive&lt; 3 &gt;</a></td></tr>
+<tr class="memitem:a74aa3cd27e4c26aade8d687c4a236a74 pub_attribs_class_geometric_primitive" id="r_a74aa3cd27e4c26aade8d687c4a236a74"><td class="memItemLeft">
+std::array&lt; point, N &gt;&#160;</td><td class="memItemRight"><b>skeleton</b></td></tr>
+<tr class="memitem:a19ed630067e0107aa2035adad2ff6a44 pub_attribs_class_geometric_primitive" id="r_a19ed630067e0107aa2035adad2ff6a44"><td class="memItemLeft">
+<a class="el" href="class_motion.html">Motion</a>&#160;</td><td class="memItemRight"><b>motion</b></td></tr>
 <tr class="inherit_header pub_attribs_class_collision_object"><td colspan="2">Public Attributes inherited from <a class="el" href="class_collision_object.html">CollisionObject</a></td></tr>
-<tr class="memitem:ac56621bb78200766d5d04b44f88d308a pub_attribs_class_collision_object" id="r_ac56621bb78200766d5d04b44f88d308a"><td class="memItemLeft">
-std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt;&#160;</td><td class="memItemRight"><b>mat</b></td></tr>
+<tr class="memitem:a5c01e204daf49278f261086acefb7cb2 pub_attribs_class_collision_object" id="r_a5c01e204daf49278f261086acefb7cb2"><td class="memItemLeft">
+std::shared_ptr&lt; <a class="el" href="class_surface.html">Surface</a> &gt;&#160;</td><td class="memItemRight"><b>surf</b></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-inherited" class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_class_geometric_primitive"><td colspan="2">Protected Member Functions inherited from <a class="el" href="class_geometric_primitive.html">GeometricPrimitive&lt; 3 &gt;</a></td></tr>
+<tr class="memitem:ace9112b166c9598725163a69dce47830 pro_methods_class_geometric_primitive" id="r_ace9112b166c9598725163a69dce47830"><td class="memItemLeft">
+void&#160;</td><td class="memItemRight"><b>assign_skeleton</b> (First &amp;&amp;first, Rest &amp;&amp;... rest)</td></tr>
+<tr class="memdesc:ace9112b166c9598725163a69dce47830 pro_methods_class_geometric_primitive"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment helper for the wack ass constructor. <br /></td></tr>
+<tr class="memitem:afaded1ac06edfd930b0e4c9c52d0dc7f pro_methods_class_geometric_primitive" id="r_afaded1ac06edfd930b0e4c9c52d0dc7f"><td class="memItemLeft">
+point&#160;</td><td class="memItemRight"><b>moved_point</b> (int index, double time) const</td></tr>
+<tr class="memdesc:afaded1ac06edfd930b0e4c9c52d0dc7f pro_methods_class_geometric_primitive"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move the point at a given index in the skeleton using the provided time. <br /></td></tr>
 </table>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="a5605393c9304bf07bcd3d3de0579c440" name="a5605393c9304bf07bcd3d3de0579c440"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5605393c9304bf07bcd3d3de0579c440">&#9670;&#160;</a></span>get_tcoords()</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="class_triangle.html" title="Triangle Primitive.">Triangle</a> Primitive. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a687bf64da6a6249ccc2aa9d5324b64c8" name="a687bf64da6a6249ccc2aa9d5324b64c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a687bf64da6a6249ccc2aa9d5324b64c8">&#9670;&#160;</a></span>get_tcoords()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -142,10 +174,14 @@ std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt;&#
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classvec2.html">vec2</a> Triangle::get_tcoords </td>
+          <td class="memname">point2D Triangle::get_tcoords </td>
           <td>(</td>
-          <td class="paramtype">const point &amp;</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">const point &amp;</td>          <td class="paramname"><span class="paramname"><em>p</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>time</em></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -155,7 +191,9 @@ std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt;&#
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="class_collision_object.html">CollisionObject</a>.</p>
+<p><a class="el" href="class_triangle.html" title="Triangle Primitive.">Triangle</a> texture mapping. </p>
+
+<p>Implements <a class="el" href="class_geometric_primitive.html">GeometricPrimitive&lt; 3 &gt;</a>.</p>
 
 </div>
 </div>
@@ -191,12 +229,67 @@ std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt;&#
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="class_collision_object.html">CollisionObject</a>.</p>
+<p><a class="el" href="class_ray.html" title="Represents a ray used in the ray tracing algorithm.">Ray</a> Tracing Collision. </p>
+
+<p>Implements <a class="el" href="class_geometric_primitive.html">GeometricPrimitive&lt; 3 &gt;</a>.</p>
+
+</div>
+</div>
+<a id="a0c1cdba55e4a5b77efbadb36b3724780" name="a0c1cdba55e4a5b77efbadb36b3724780"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c1cdba55e4a5b77efbadb36b3724780">&#9670;&#160;</a></span>rasterize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Triangle::rasterize </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>screen_size</em></span>[2], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classmat.html">mat</a>&lt; 4, 4 &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>viewport_matrix</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classmat.html">mat</a>&lt; 4, 4 &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>proj_matrix</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *</td>          <td class="paramname"><span class="paramname"><em>depth_buff</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classrgb.html">rgb</a> *</td>          <td class="paramname"><span class="paramname"><em>color_buff</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>time</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Rasterize a triangle to the screen. </p>
+
+<p>Implements <a class="el" href="class_geometric_primitive.html">GeometricPrimitive&lt; 3 &gt;</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/objects/primitives/<a class="el" href="triangle_8hpp_source.html">triangle.hpp</a></li>
+<li>src/entities/objects/primitives/<a class="el" href="triangle_8hpp_source.html">triangle.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

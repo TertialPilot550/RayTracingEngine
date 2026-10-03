@@ -1,114 +1,108 @@
-\chapter{\begin{center} Ray-\/\+Tracing Engine \end{center}  }
-\hypertarget{index}{}\label{index}\index{$<$center$>$ Ray-\/Tracing Engine $<$/center$>$@{$<$center$>$ Ray-\/Tracing Engine $<$/center$>$}}
+\chapter{COMS 3360 PROJECT TODO LIST }
+\hypertarget{index}{}\label{index}\index{COMS 3360 PROJECT TODO LIST@{COMS 3360 PROJECT TODO LIST}}
 \label{index_md__r_e_a_d_m_e}%
 \Hypertarget{index_md__r_e_a_d_m_e}%
-
-
-Class Project for CPRE 3360. Rendering engine implemented using ray tracing. See the feature list below.\hypertarget{index_autotoc_md1}{}\doxysubsection{\texorpdfstring{\begin{center}Table of Contents\end{center} }{\begin{center}Table of Contents\end{center} }}\label{index_autotoc_md1}
-
-\begin{DoxyEnumerate}
-\item src/\+camera
+\hypertarget{index_autotoc_md1}{}\doxysubsection{\texorpdfstring{Finished}{Finished}}\label{index_autotoc_md1}
+\doxylink{class_ray}{Ray} Tracing in One Weekend: Volume One
 \begin{DoxyItemize}
-\item \doxylink{class_cam_controls}{Cam\+Controls}
-\item \doxylink{class_camera_rig}{Camera\+Rig}
+\item[\DoxyChecked] A camera with configurable position, orientation, and field of view: Required
 \end{DoxyItemize}
-\item src/\+objects
 \begin{DoxyItemize}
-\item collidables
-\begin{DoxyItemize}
-\item \doxylink{class_collision_object}{Collision\+Object}
-\item \doxylink{class_collision_record}{Collision\+Record}
-\item \doxylink{class_collision_list}{Collision\+List}
+\item[\DoxyChecked] Anti-\/aliasing: Required
 \end{DoxyItemize}
-\item primitives ~\newline
-
 \begin{DoxyItemize}
-\item \doxylink{class_sphere}{Sphere}
-\item \doxylink{class_triangle}{Triangle}
-\item \doxylink{class_quad}{Quad}
+\item[\DoxyChecked] Ray/\+sphere intersections: Required
 \end{DoxyItemize}
-\item composites
 \begin{DoxyItemize}
-\item \doxylink{class_o_b_j_model}{OBJModel}
+\item[\DoxyChecked] Defocus blur/\+depth of field: 10
 \end{DoxyItemize}
-\item surfaces
 \begin{DoxyItemize}
-\item \doxylink{class_material}{Material}
-\item \doxylink{class_texture}{Texture}
+\item[\DoxyChecked] Specular, diffuse, and dielectric materials
 \end{DoxyItemize}
-\end{DoxyItemize}
-\item src/\+scenes
 \begin{DoxyItemize}
-\item \doxylink{class_scene}{Scene}
-\end{DoxyItemize}
-\item src/\+accel
-\begin{DoxyItemize}
-\item \doxylink{class_task_master}{Task\+Master}
-\end{DoxyItemize}
-\item src/\+util
-\begin{DoxyItemize}
-\item \doxylink{class_ray}{Ray}
-\item \doxylink{class_interval}{Interval}
-\item \doxylink{classvec2}{vec2}
-\item \doxylink{classvec3}{vec3}
-\item \doxylink{class_perlin}{Perlin}
-\end{DoxyItemize}
-\end{DoxyEnumerate}\hypertarget{index_autotoc_md2}{}\doxysection{\texorpdfstring{Feature List}{Feature List}}\label{index_autotoc_md2}
-\hypertarget{index_autotoc_md3}{}\doxysubsection{\texorpdfstring{Camera}{Camera}}\label{index_autotoc_md3}
-
-\begin{DoxyItemize}
-\item Configurable Position, Orientation, and FOV
-\item Anti-\/\+Aliasing
-\item Defocus Blur / Depth of Field (10 points)
-\item \{Motion Blur\} (10 Points)
-\item Ray/\+\+Primitive Intersection
-\item Textured Primitives
+\item[\DoxyChecked] \doxylink{class_motion}{Motion} blur: 10
 \end{DoxyItemize}
 
-Performance: See Acceleration
+Independently Written
 \begin{DoxyItemize}
-\item Spatial Subdivision (Pixel Chunking based on image width)
-\end{DoxyItemize}\hypertarget{index_autotoc_md4}{}\doxysubsection{\texorpdfstring{Objects}{Objects}}\label{index_autotoc_md4}
-\hypertarget{index_autotoc_md5}{}\doxysubsubsection{\texorpdfstring{Geometric Primitives}{Geometric Primitives}}\label{index_autotoc_md5}
+\item[\DoxyChecked] A spatial subdivision acceleration structure of your choice
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] Parallelization: 10
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] Ray/\+triangle intersections: Required
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] Textured triangles: Required
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] The ability to load and render triangle meshes (file format(s) of your choice; may use third-\/party libraries for loading): Required
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] Homogeneous coordinates
+\end{DoxyItemize}
 
-\begin{DoxyEnumerate}
-\item Spheres
-\item Triangles
-\item Quads (10 Points)
-\end{DoxyEnumerate}\hypertarget{index_autotoc_md6}{}\doxysubsubsection{\texorpdfstring{Lists of Primitives}{Lists of Primitives}}\label{index_autotoc_md6}
-\hypertarget{index_autotoc_md7}{}\doxysubsubsubsection{\texorpdfstring{Predefined Triangle Meshes (.obj)}{Predefined Triangle Meshes (.obj)}}\label{index_autotoc_md7}
+\doxylink{class_ray}{Ray} Tracing in One Weekend: Volume Two
+\begin{DoxyItemize}
+\item[\DoxyChecked] \doxylink{class_perlin}{Perlin} noise: 10 ~\newline
+
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] The ability to load textures: Required ~\newline
+
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] Textured spheres: Required ~\newline
+
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] Textured quads: 10 ~\newline
+
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] Emissive materials (lights): Required ~\newline
+
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyChecked] Object Instancing: 10 (represented by 4d matrix)
+\end{DoxyItemize}
+
+ALL REQUIRED FEATURES COMPLETE POINTS SO FAR: 60
+
+--- THIS WEEK ---
+
 
 \begin{DoxyItemize}
-\item TODO: NOT FUNCTIONAL
-\end{DoxyItemize}\hypertarget{index_autotoc_md8}{}\doxysubsubsection{\texorpdfstring{Surfaces}{Surfaces}}\label{index_autotoc_md8}
-\hypertarget{index_autotoc_md9}{}\doxysubsubsubsection{\texorpdfstring{Materials}{Materials}}\label{index_autotoc_md9}
+\item Update chunking in camera\+\_\+rig to work in square chunks? in render\+\_\+parallel, not the individual functions, though \+\_\+\+\_\+\+\_\+\+\_\+workers will need to be adjusted
+\item \doxylink{class_ray}{Ray} tracing acceleration with gpu
+\item Depth buffer acceleration with gpu
+\end{DoxyItemize}\hypertarget{index_autotoc_md2}{}\doxysubsection{\texorpdfstring{IN PROGRESS}{IN PROGRESS}}\label{index_autotoc_md2}
 
 \begin{DoxyItemize}
-\item \doxylink{class_dielectric}{Dielectric}
-\item \doxylink{class_diffuse_light}{Diffuse\+Light}
-\item \doxylink{class_lambertian}{Lambertian}
-\item \doxylink{class_metal}{Metal} 
-\end{DoxyItemize}\hypertarget{index_autotoc_md10}{}\doxysubsubsubsection{\texorpdfstring{Textures}{Textures}}\label{index_autotoc_md10}
+\item[\DoxyUnchecked] GPU acceleration (GPU computing w/ e.\+g., CUDA): 20
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item[\DoxyUnchecked] Hybrid rendering with a GPU (depth buffer + ray tracing): 20
+\end{DoxyItemize}\hypertarget{index_autotoc_md3}{}\doxysubsection{\texorpdfstring{NEXT}{NEXT}}\label{index_autotoc_md3}
 
 \begin{DoxyItemize}
-\item \doxylink{class_checker_texture}{Checker\+Texture}
-\item \doxylink{class_image_texture}{Image\+Texture}
-\item \doxylink{class_noise_texture}{Noise\+Texture}
-\item \doxylink{class_solid_color}{Solid\+Color}
-\end{DoxyItemize}\hypertarget{index_autotoc_md11}{}\doxysubsection{\texorpdfstring{Acceleration}{Acceleration}}\label{index_autotoc_md11}
+\item[\DoxyUnchecked] Importance Sampling: 15
+\end{DoxyItemize}
+
+Theoretical Point Total before acceleration and animation wrapper: All Required + 100 points (15 points remaining)
+
+\DoxyHorRuler{0}
+
+
+Theoretical Point Total: 115
+\begin{DoxyItemize}
+\item[\DoxyUnchecked] Real good documentation / report
+\end{DoxyItemize}\hypertarget{index_autotoc_md5}{}\doxysubsection{\texorpdfstring{Stretch Goals: GUI}{Stretch Goals: GUI}}\label{index_autotoc_md5}
 
 \begin{DoxyItemize}
-\item Parrallel Rendering (10 points)
-\end{DoxyItemize}\hypertarget{index_autotoc_md12}{}\doxysubsection{\texorpdfstring{Utilies}{Utilies}}\label{index_autotoc_md12}
-
+\item[\DoxyUnchecked] STRETCH: Skeleton articulation system?
+\end{DoxyItemize}
 \begin{DoxyItemize}
-\item \doxylink{class_perlin}{Perlin} Noise (10 Points)
-\end{DoxyItemize}\hypertarget{index_autotoc_md13}{}\doxysubsection{\texorpdfstring{Scenes}{Scenes}}\label{index_autotoc_md13}
-\hypertarget{index_autotoc_md14}{}\doxysubsubsubsection{\texorpdfstring{Demo Scenes}{Demo Scenes}}\label{index_autotoc_md14}
-
-\begin{DoxyItemize}
-\item \doxylink{class_sphere}{Sphere} Demo
-\item \doxylink{class_triangle}{Triangle} Demo
-\item \doxylink{class_diffuse_light}{Diffuse\+Light} Demo
-\end{DoxyItemize}\hypertarget{index_autotoc_md15}{}\doxysection{\texorpdfstring{REQUIRED FEATURED REMAINING: Triangle Meshes, Bug Fixes}{REQUIRED FEATURED REMAINING: Triangle Meshes, Bug Fixes}}\label{index_autotoc_md15}
-\hypertarget{index_autotoc_md16}{}\doxysection{\texorpdfstring{CUMULATIVE POINT TOTAL: 40 \{50\}}{CUMULATIVE POINT TOTAL: 40 \{50\}}}\label{index_autotoc_md16}
+\item[\DoxyUnchecked] STRETCH: Animation wrapper (monochrome cross hatching texture??) 
+\end{DoxyItemize}

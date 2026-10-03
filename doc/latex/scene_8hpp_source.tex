@@ -1,23 +1,24 @@
 \doxysection{scene.\+hpp}
-\hypertarget{scene_8hpp_source}{}\label{scene_8hpp_source}\index{src/scenes/scene.hpp@{src/scenes/scene.hpp}}
+\hypertarget{scene_8hpp_source}{}\label{scene_8hpp_source}\index{src/entities/scenes/scene.hpp@{src/entities/scenes/scene.hpp}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
-\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}../main.hpp"{}}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}../../main.hpp"{}}}
 \DoxyCodeLine{00003\ }
 \DoxyCodeLine{00014\ \textcolor{keyword}{class\ }Scene\ \{}
 \DoxyCodeLine{00015\ }
 \DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00017\ \ \ \ \ \doxymbox{\hyperlink{class_cam_controls}{CamControls}}\ controls;}
-\DoxyCodeLine{00018\ \ \ \ \ \doxymbox{\hyperlink{class_collision_list}{CollisionList}}\ objects;}
-\DoxyCodeLine{00019\ \ \ \ \ color\ background;}
-\DoxyCodeLine{00020\ }
-\DoxyCodeLine{00021\ \ \ \ \ \textcolor{comment}{//\ Default\ to\ a\ kind\ of\ sky\ blue}}
-\DoxyCodeLine{00022\ \ \ \ \ Scene()\ :\ controls(\doxymbox{\hyperlink{class_cam_controls}{CamControls}}()),\ background(176,\ 252,\ 255)\ \{\}}
-\DoxyCodeLine{00023\ \ \ \ \ }
-\DoxyCodeLine{00024\ \};}
-\DoxyCodeLine{00025\ }
-\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00018\ \ \ \ \ \doxymbox{\hyperlink{class_instance_list}{InstanceList}}\ objects;}
+\DoxyCodeLine{00019\ \ \ \ \ color\ background\ =\ color(0.5,\ 0.7,\ 1.0);}
+\DoxyCodeLine{00020\ \ \ \ \ Scene()\ :\ controls(\doxymbox{\hyperlink{class_cam_controls}{CamControls}}()),\ background(color(0.5,\ 0.7,\ 1.0))\ \{\}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ color\ background\_at(\textcolor{keywordtype}{double}\ u,\ \textcolor{keywordtype}{double}\ v,\ \textcolor{keyword}{const}\ point\&\ p)\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ background;}
+\DoxyCodeLine{00024\ \ \ \ \ \}}
+\DoxyCodeLine{00025\ \ \ \ \ }
+\DoxyCodeLine{00026\ \};}
 \DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ }
 
 \end{DoxyCode}

@@ -2,28 +2,36 @@
 \hypertarget{class_o_b_j_model}{}\label{class_o_b_j_model}\index{OBJModel@{OBJModel}}
 
 
-Collaboration diagram for OBJModel:
-% FIG 0
+Object that represents a .obj model loaded from a file.  
+
+
+
+
+{\ttfamily \+\#include $<$obj\+\_\+loader\+\_\+wrapper.\+hpp$>$}
+
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{class_o_b_j_model_a6853e854fada0cc388c37007c1303a60}\label{class_o_b_j_model_a6853e854fada0cc388c37007c1303a60} 
-void {\bfseries convert\+\_\+to\+\_\+native\+\_\+object} ()
-\item 
+\Hypertarget{class_o_b_j_model_a6758287cf318ec57a12bf0ec44582283}\label{class_o_b_j_model_a6758287cf318ec57a12bf0ec44582283} 
+void {\bfseries convert\+\_\+shape\+\_\+to\+\_\+native\+\_\+object} (const tinyobj::\+shape\+\_\+t \&shape, \doxymbox{\hyperlink{class_collision_list}{Collision\+List}} \&collision\+\_\+list)
+\begin{DoxyCompactList}\small\item\em Convert a single shape object to a triangle mesh. \end{DoxyCompactList}\item 
+\Hypertarget{class_o_b_j_model_ac931645811edc622ef5b791a3e9f4353}\label{class_o_b_j_model_ac931645811edc622ef5b791a3e9f4353} 
+\doxymbox{\hyperlink{class_collision_list}{Collision\+List}} {\bfseries convert\+\_\+to\+\_\+native\+\_\+object} ()
+\begin{DoxyCompactList}\small\item\em Convert all objects to native objects. \end{DoxyCompactList}\item 
 \Hypertarget{class_o_b_j_model_a0b4a05baaa49f0f8d3ce22d9b15e344f}\label{class_o_b_j_model_a0b4a05baaa49f0f8d3ce22d9b15e344f} 
 void {\bfseries display} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Helper to ensure model is properly loaded into the program. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{class_o_b_j_model_afd9472f6bc64dc3f2c6c886513714062}\label{class_o_b_j_model_afd9472f6bc64dc3f2c6c886513714062} 
-\doxymbox{\hyperlink{structtinyobj_1_1attrib__t}{tinyobj::\+attrib\+\_\+t}} {\bfseries attrib}
+tinyobj::\+attrib\+\_\+t {\bfseries attrib}
 \item 
 \Hypertarget{class_o_b_j_model_af7a0911d9a7d819d5caaa145f487d00a}\label{class_o_b_j_model_af7a0911d9a7d819d5caaa145f487d00a} 
-std::\+vector$<$ \doxymbox{\hyperlink{structtinyobj_1_1shape__t}{tinyobj::\+shape\+\_\+t}} $>$ {\bfseries shapes}
+std::\+vector$<$ tinyobj::\+shape\+\_\+t $>$ {\bfseries shapes}
 \item 
 \Hypertarget{class_o_b_j_model_a8414e5368cf9594e77619474d8845681}\label{class_o_b_j_model_a8414e5368cf9594e77619474d8845681} 
-std::\+vector$<$ \doxymbox{\hyperlink{structtinyobj_1_1material__t}{tinyobj::\+material\+\_\+t}} $>$ {\bfseries materials}
+std::\+vector$<$ tinyobj::\+material\+\_\+t $>$ {\bfseries materials}
 \item 
 \Hypertarget{class_o_b_j_model_ad79b0c45a31635f4a5190760dadae026}\label{class_o_b_j_model_ad79b0c45a31635f4a5190760dadae026} 
 std::\+string {\bfseries warn}
@@ -33,6 +41,11 @@ std::\+string {\bfseries err}
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+Object that represents a .obj model loaded from a file. 
+
+Contains code converting this loaded model into a collection of primitives. 
+
 The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
 \item 
-src/\+objects/\+composites/\+tiny\+\_\+obj\+\_\+loader/obj\+\_\+loader\+\_\+wrapper.\+hpp\end{DoxyCompactItemize}
+src/\+entities/\+objects/\+composites/\+tiny\+\_\+obj\+\_\+loader/obj\+\_\+loader\+\_\+wrapper.\+hpp\end{DoxyCompactItemize}

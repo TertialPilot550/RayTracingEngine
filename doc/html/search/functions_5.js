@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['reset_0',['reset',['../classtinyobj_1_1_arena_allocator.html#ab18af8dabaf88c93f73d47740ce1b995',1,'tinyobj::ArenaAllocator']]]
+  ['moved_5fpoint_0',['moved_point',['../class_geometric_primitive.html#afaded1ac06edfd930b0e4c9c52d0dc7f',1,'GeometricPrimitive']]]
 ];

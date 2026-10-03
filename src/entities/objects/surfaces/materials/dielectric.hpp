@@ -28,7 +28,7 @@ class Dielectric : public Material {
         return true;
     }
 
-    color at(int u, int v, const point& p) const override {
+    color at(int, int, const point&) const override {
         return color();
     }
 

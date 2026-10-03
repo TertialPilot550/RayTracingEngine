@@ -1,7 +1,14 @@
 #pragma once
 
 #include "../../../../main.hpp"
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunused-function"
+#endif
 #include "../../../../../lib/tiny_obj_loader/tiny_obj_loader.h"
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
 
 /**
  * @brief Object that represents a .obj model loaded from a file

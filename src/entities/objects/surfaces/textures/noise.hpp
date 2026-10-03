@@ -5,7 +5,7 @@ class NoiseTexture : public Texture {
     public:
     NoiseTexture(double scale) : scale(scale) {}
 
-    color value(double u, double v, const point& p) const override {      
+    color value(double, double, const point& p) const override {
         point hp = homogenize(p);
         
         color s;

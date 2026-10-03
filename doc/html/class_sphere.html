@@ -95,7 +95,6 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="class_sphere-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Sphere Class Reference</div></div>
 </div><!--header-->
@@ -115,27 +114,29 @@ Collaboration diagram for Sphere:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aebf0d851ac00890b5f8ba1d27dbeebab" id="r_aebf0d851ac00890b5f8ba1d27dbeebab"><td class="memItemLeft"><a id="aebf0d851ac00890b5f8ba1d27dbeebab" name="aebf0d851ac00890b5f8ba1d27dbeebab"></a>
-&#160;</td><td class="memItemRight"><b>Sphere</b> (const point &amp;center, double radius, std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt; material)</td></tr>
+<tr class="memitem:ab9fc7e701a5b1e50d6f8e4b3726c7931" id="r_ab9fc7e701a5b1e50d6f8e4b3726c7931"><td class="memItemLeft"><a id="ab9fc7e701a5b1e50d6f8e4b3726c7931" name="ab9fc7e701a5b1e50d6f8e4b3726c7931"></a>
+&#160;</td><td class="memItemRight"><b>Sphere</b> (const point &amp;center, double radius, std::shared_ptr&lt; <a class="el" href="class_surface.html">Surface</a> &gt; surface)</td></tr>
+<tr class="memitem:a2f945116ac0fc4d2d260902e7491d221" id="r_a2f945116ac0fc4d2d260902e7491d221"><td class="memItemLeft"><a id="a2f945116ac0fc4d2d260902e7491d221" name="a2f945116ac0fc4d2d260902e7491d221"></a>
+void&#160;</td><td class="memItemRight"><b>set_motion</b> (const <a class="el" href="class_motion.html">Motion</a> &amp;value)</td></tr>
 <tr class="memitem:a9b170d963bcecb3ffddc802fbddfe356" id="r_a9b170d963bcecb3ffddc802fbddfe356"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a9b170d963bcecb3ffddc802fbddfe356">hit</a> (const <a class="el" href="class_ray.html">Ray</a> &amp;r, <a class="el" href="class_interval.html">Interval</a> ray_t, <a class="el" href="class_collision_record.html">CollisionRecord</a> &amp;rec) const override</td></tr>
-<tr class="memitem:aa4a745a1038350f2eefe0384b312fa9f" id="r_aa4a745a1038350f2eefe0384b312fa9f"><td class="memItemLeft"><a class="el" href="classvec2.html">vec2</a>&#160;</td><td class="memItemRight"><a class="el" href="#aa4a745a1038350f2eefe0384b312fa9f">get_tcoords</a> (const point &amp;p) const override</td></tr>
+<tr class="memdesc:a9b170d963bcecb3ffddc802fbddfe356"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine whether the sphere is hit or not.  <br /></td></tr>
+<tr class="memitem:aab368fb4ab731d3662f6905894ba614b" id="r_aab368fb4ab731d3662f6905894ba614b"><td class="memItemLeft">point2D&#160;</td><td class="memItemRight"><a class="el" href="#aab368fb4ab731d3662f6905894ba614b">get_tcoords</a> (const point &amp;p, double time) const override</td></tr>
+<tr class="memdesc:aab368fb4ab731d3662f6905894ba614b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Describes texture mapping for spheres.  <br /></td></tr>
+<tr class="memitem:ac14c3a5e7440c7f3d37cc4f74a5d5ba2" id="r_ac14c3a5e7440c7f3d37cc4f74a5d5ba2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac14c3a5e7440c7f3d37cc4f74a5d5ba2">rasterize</a> (int screen_size[2], <a class="el" href="classmat.html">mat</a>&lt; 4, 4 &gt; &amp;viewport_matrix, <a class="el" href="classmat.html">mat</a>&lt; 4, 4 &gt; &amp;projection, double *depth_buffer, <a class="el" href="classrgb.html">rgb</a> *color_buffer, double time) const override</td></tr>
+<tr class="memdesc:ac14c3a5e7440c7f3d37cc4f74a5d5ba2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rasterize a sphere to the screen.  <br /></td></tr>
 <tr class="inherit_header pub_methods_class_collision_object"><td colspan="2">Public Member Functions inherited from <a class="el" href="class_collision_object.html">CollisionObject</a></td></tr>
-<tr class="memitem:a41b23864c3d328dedd6a24960b1db175 pub_methods_class_collision_object" id="r_a41b23864c3d328dedd6a24960b1db175"><td class="memItemLeft">
-&#160;</td><td class="memItemRight"><b>CollisionObject</b> (std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt; m)</td></tr>
+<tr class="memitem:af40e7b23b2175efe517c99ad9d0c5eba pub_methods_class_collision_object" id="r_af40e7b23b2175efe517c99ad9d0c5eba"><td class="memItemLeft">
+&#160;</td><td class="memItemRight"><b>CollisionObject</b> (std::shared_ptr&lt; <a class="el" href="class_surface.html">Surface</a> &gt; surf)</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a90a9b332c054fe9b2ec5519137c2d3f3" id="r_a90a9b332c054fe9b2ec5519137c2d3f3"><td class="memItemLeft"><a id="a90a9b332c054fe9b2ec5519137c2d3f3" name="a90a9b332c054fe9b2ec5519137c2d3f3"></a>
-point&#160;</td><td class="memItemRight"><b>center</b></td></tr>
-<tr class="memitem:a45d6c6c870fac7c2a885ad2e226334ad" id="r_a45d6c6c870fac7c2a885ad2e226334ad"><td class="memItemLeft"><a id="a45d6c6c870fac7c2a885ad2e226334ad" name="a45d6c6c870fac7c2a885ad2e226334ad"></a>
-double&#160;</td><td class="memItemRight"><b>radius</b></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-inherited" class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_attribs_class_collision_object"><td colspan="2">Public Attributes inherited from <a class="el" href="class_collision_object.html">CollisionObject</a></td></tr>
-<tr class="memitem:ac56621bb78200766d5d04b44f88d308a pub_attribs_class_collision_object" id="r_ac56621bb78200766d5d04b44f88d308a"><td class="memItemLeft">
-std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt;&#160;</td><td class="memItemRight"><b>mat</b></td></tr>
+<tr class="memitem:a5c01e204daf49278f261086acefb7cb2 pub_attribs_class_collision_object" id="r_a5c01e204daf49278f261086acefb7cb2"><td class="memItemLeft">
+std::shared_ptr&lt; <a class="el" href="class_surface.html">Surface</a> &gt;&#160;</td><td class="memItemRight"><b>surf</b></td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="aa4a745a1038350f2eefe0384b312fa9f" name="aa4a745a1038350f2eefe0384b312fa9f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4a745a1038350f2eefe0384b312fa9f">&#9670;&#160;</a></span>get_tcoords()</h2>
+<a id="aab368fb4ab731d3662f6905894ba614b" name="aab368fb4ab731d3662f6905894ba614b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab368fb4ab731d3662f6905894ba614b">&#9670;&#160;</a></span>get_tcoords()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -144,10 +145,14 @@ std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt;&#
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classvec2.html">vec2</a> Sphere::get_tcoords </td>
+          <td class="memname">point2D Sphere::get_tcoords </td>
           <td>(</td>
-          <td class="paramtype">const point &amp;</td>          <td class="paramname"><span class="paramname"><em>p</em></span></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">const point &amp;</td>          <td class="paramname"><span class="paramname"><em>p</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>time</em></span>&#160;) const</td>
         </tr>
       </table>
   </td>
@@ -156,6 +161,8 @@ std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt;&#
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Describes texture mapping for spheres. </p>
 
 <p>Implements <a class="el" href="class_collision_object.html">CollisionObject</a>.</p>
 
@@ -193,12 +200,67 @@ std::shared_ptr&lt; <a class="el" href="class_material.html">Material</a> &gt;&#
 </table>
 </div><div class="memdoc">
 
+<p>Determine whether the sphere is hit or not. </p>
+
 <p>Implements <a class="el" href="class_collision_object.html">CollisionObject</a>.</p>
 
 </div>
 </div>
+<a id="ac14c3a5e7440c7f3d37cc4f74a5d5ba2" name="ac14c3a5e7440c7f3d37cc4f74a5d5ba2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac14c3a5e7440c7f3d37cc4f74a5d5ba2">&#9670;&#160;</a></span>rasterize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Sphere::rasterize </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>screen_size</em></span>[2], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classmat.html">mat</a>&lt; 4, 4 &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>viewport_matrix</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classmat.html">mat</a>&lt; 4, 4 &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>projection</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double *</td>          <td class="paramname"><span class="paramname"><em>depth_buffer</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classrgb.html">rgb</a> *</td>          <td class="paramname"><span class="paramname"><em>color_buffer</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double</td>          <td class="paramname"><span class="paramname"><em>time</em></span>&#160;) const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel override">override</span><span class="mlabel virtual">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Rasterize a sphere to the screen. </p>
+
+<p>Reimplemented from <a class="el" href="class_collision_object.html">CollisionObject</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/objects/primitives/<a class="el" href="sphere_8hpp_source.html">sphere.hpp</a></li>
+<li>src/entities/objects/primitives/<a class="el" href="sphere_8hpp_source.html">sphere.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

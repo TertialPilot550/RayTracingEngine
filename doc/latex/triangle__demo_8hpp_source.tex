@@ -1,36 +1,39 @@
 \doxysection{triangle\+\_\+demo.\+hpp}
-\hypertarget{triangle__demo_8hpp_source}{}\label{triangle__demo_8hpp_source}\index{src/scenes/demos/triangle\_demo.hpp@{src/scenes/demos/triangle\_demo.hpp}}
+\hypertarget{triangle__demo_8hpp_source}{}\label{triangle__demo_8hpp_source}\index{src/entities/scenes/demos/triangle\_demo.hpp@{src/entities/scenes/demos/triangle\_demo.hpp}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
-\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}../../main.hpp"{}}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}../../../main.hpp"{}}}
 \DoxyCodeLine{00003\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{class_scene}{Scene}}\ triangle\_demo()\ \{}
 \DoxyCodeLine{00004\ \ \ \ \ \doxymbox{\hyperlink{class_scene}{Scene}}\ s;}
-\DoxyCodeLine{00005\ }
-\DoxyCodeLine{00006\ \ \ \ \ s.controls.set\_image\_width(1200);}
-\DoxyCodeLine{00007\ \ \ \ \ s.controls.set\_samples\_per\_pixel(10);}
-\DoxyCodeLine{00008\ \ \ \ \ s.controls.set\_image\_width(1200);}
+\DoxyCodeLine{00005\ \ \ \ \ s.controls.mode\ =\ CameraMode::DEPTH\_BUFFER;}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \ \ \ \ s.controls.set\_image\_width(1200);}
+\DoxyCodeLine{00008\ \ \ \ \ s.controls.set\_samples\_per\_pixel(10);}
 \DoxyCodeLine{00009\ \ \ \ \ s.controls.set\_vertical\_fov(20);}
-\DoxyCodeLine{00010\ \ \ \ \ s.controls.set\_camera\_pos(point(10,-\/50,\ 10),\ point(0,0,0),\ \doxymbox{\hyperlink{classvec3}{vec3}}(0,0,1));}
+\DoxyCodeLine{00010\ \ \ \ \ s.controls.set\_camera\_pos(make\_point(10,-\/50,10),\ make\_point(0,0,0),\ make\_vector(0,0,1));}
 \DoxyCodeLine{00011\ \ \ \ \ s.controls.set\_defocus\_angle(0.6);}
 \DoxyCodeLine{00012\ \ \ \ \ s.controls.set\_focus\_distance(50.0);}
 \DoxyCodeLine{00013\ \ \ \ \ s.controls.max\_depth\ =\ 50;}
-\DoxyCodeLine{00014\ }
-\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keyword}{auto}\ difflight\ =\ std::make\_shared<DiffuseLight>(color(4,4,4));}
-\DoxyCodeLine{00016\ \ \ \ \ s.objects.add(std::make\_shared<Sphere>(point(0,0,20),\ 2,\ difflight));}
-\DoxyCodeLine{00017\ }
-\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{auto}\ ground\_material\ =\ std::make\_shared<Lambertian>(color(0.5,\ 0.5,\ 0.5));}
-\DoxyCodeLine{00019\ \ \ \ \ s.objects.add(std::make\_shared<Sphere>(point(0,0,-\/1000),\ 1000,\ ground\_material));}
+\DoxyCodeLine{00014\ \ \ \ \ s.background\ =\ color(0,0,0);}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{auto}\ difflight\ =\ std::make\_shared<DiffuseLight>(color(4,4,4));}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{auto}\ ground\_material\ =\ std::make\_shared<Lambertian>(color(0.1,\ 0.5,\ 0.1));}
+\DoxyCodeLine{00018\ \ \ \ \ s.objects.add(std::make\_shared<Sphere>(make\_point(0,0,3),\ 7,\ make\_surface(difflight)));}
+\DoxyCodeLine{00019\ \ \ \ \ s.objects.add(std::make\_shared<Sphere>(make\_point(0,0,-\/1000),\ 1000,\ make\_surface(ground\_material)));}
 \DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{auto}\ pertext\ =\ std::make\_shared<NoiseTexture>(4);}
 \DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{auto}\ l\ =\ std::make\_shared<Lambertian>(pertext);}
 \DoxyCodeLine{00022\ }
 \DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 10;\ i++)\ \{}
-\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ s.objects.add(std::make\_shared<Triangle>(point((i-\/5)*5,\ (i-\/5)*5,\ 0),\ point((i-\/5)*5+2,\ (i-\/5)*5+2,\ 0),\ point((i-\/5)*5+1,\ (i-\/5)*5+1,\ 5),\ l));}
-\DoxyCodeLine{00025\ \ \ \ \ \}}
-\DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ }
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordflow}{return}\ s;}
-\DoxyCodeLine{00029\ \}}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ s.objects.add(std::make\_shared<Triangle>(}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ make\_point((i-\/5)*5,\ (i-\/5)*5,\ 0),}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ make\_point(((i-\/5)*5)+2,\ ((i-\/5)*5)+2,\ 0),}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ make\_point(((i-\/5)*5)+1,\ ((i-\/5)*5)+1,\ 5),}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ make\_surface(l)));}
+\DoxyCodeLine{00029\ \ \ \ \ \}}
 \DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordflow}{return}\ s;}
+\DoxyCodeLine{00033\ \}}
 
 \end{DoxyCode}

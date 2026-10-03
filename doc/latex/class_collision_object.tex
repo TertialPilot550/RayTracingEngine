@@ -2,28 +2,75 @@
 \hypertarget{class_collision_object}{}\label{class_collision_object}\index{CollisionObject@{CollisionObject}}
 
 
+Abstract class representing a collidable object.  
+
+
+
+
+{\ttfamily \+\#include $<$collidable.\+hpp$>$}
+
+
+
 Inheritance diagram for Collision\+Object:
 % FIG 0
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{class_collision_object_a41b23864c3d328dedd6a24960b1db175}\label{class_collision_object_a41b23864c3d328dedd6a24960b1db175} 
-{\bfseries Collision\+Object} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_material}{Material}} $>$ m)
+\Hypertarget{class_collision_object_af40e7b23b2175efe517c99ad9d0c5eba}\label{class_collision_object_af40e7b23b2175efe517c99ad9d0c5eba} 
+{\bfseries Collision\+Object} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ surf)
 \item 
-\Hypertarget{class_collision_object_aadefb8dd7763361ab17505cbd826e76b}\label{class_collision_object_aadefb8dd7763361ab17505cbd826e76b} 
-virtual bool {\bfseries hit} (const \doxymbox{\hyperlink{class_ray}{Ray}} \&r, \doxymbox{\hyperlink{class_interval}{Interval}} ray\+\_\+t, \doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&rec) const =0
+virtual bool \doxymbox{\hyperlink{class_collision_object_aadefb8dd7763361ab17505cbd826e76b}{hit}} (const \doxymbox{\hyperlink{class_ray}{Ray}} \&r, \doxymbox{\hyperlink{class_interval}{Interval}} ray\+\_\+t, \doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&rec) const =0
 \item 
-\Hypertarget{class_collision_object_aa2daa36b0f7dfbb81098bbb4fce6027a}\label{class_collision_object_aa2daa36b0f7dfbb81098bbb4fce6027a} 
-virtual \doxymbox{\hyperlink{classvec2}{vec2}} {\bfseries get\+\_\+tcoords} (const point \&p) const =0
+virtual void \doxymbox{\hyperlink{class_collision_object_a2463594540c50d5c7a050a8ff174f42a}{rasterize}} (int screen\+\_\+size\+[2]\+, \doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&viewport\+\_\+matrix, \doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&projection\+\_\+to\+\_\+camera\+\_\+matrix, double \texorpdfstring{$\ast$}{*}depth\+\_\+buff, \doxymbox{\hyperlink{classrgb}{rgb}} \texorpdfstring{$\ast$}{*}color\+\_\+buff, double time) const
+\item 
+virtual point2D \doxymbox{\hyperlink{class_collision_object_ab4d1ff3d47917544f6feba24e6f8ffb7}{get\+\_\+tcoords}} (const point \&p, double time) const =0
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{class_collision_object_ac56621bb78200766d5d04b44f88d308a}\label{class_collision_object_ac56621bb78200766d5d04b44f88d308a} 
-std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_material}{Material}} $>$ {\bfseries mat}
+\Hypertarget{class_collision_object_a5c01e204daf49278f261086acefb7cb2}\label{class_collision_object_a5c01e204daf49278f261086acefb7cb2} 
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ {\bfseries surf}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Abstract class representing a collidable object. 
+
+\label{class_collision_object_doc-func-members}
+\Hypertarget{class_collision_object_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_collision_object_ab4d1ff3d47917544f6feba24e6f8ffb7}\index{CollisionObject@{CollisionObject}!get\_tcoords@{get\_tcoords}}
+\index{get\_tcoords@{get\_tcoords}!CollisionObject@{CollisionObject}}
+\doxysubsubsection{\texorpdfstring{get\_tcoords()}{get\_tcoords()}}
+{\footnotesize\ttfamily \label{class_collision_object_ab4d1ff3d47917544f6feba24e6f8ffb7} 
+virtual point2D Collision\+Object::\+get\+\_\+tcoords (\begin{DoxyParamCaption}\item[{const point \&}]{p}{, }\item[{double}]{time}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \doxymbox{\hyperlink{class_collision_list_a168de8bbbce0236984a57472aeea5168}{Collision\+List}}, \doxymbox{\hyperlink{class_instance_a01f1907ca7b8dafd4853dcc94a1fd98a}{Instance}}, \doxymbox{\hyperlink{class_instance_list_a97ed8658d7f8e176190d739dc8f491fc}{Instance\+List}}, \doxymbox{\hyperlink{class_quad_abfae4c7d53ce0bf7fb5835df7c129f53}{Quad}}, \doxymbox{\hyperlink{class_sphere_aab368fb4ab731d3662f6905894ba614b}{Sphere}}, and \doxymbox{\hyperlink{class_triangle_a687bf64da6a6249ccc2aa9d5324b64c8}{Triangle}}.
+
+\Hypertarget{class_collision_object_aadefb8dd7763361ab17505cbd826e76b}\index{CollisionObject@{CollisionObject}!hit@{hit}}
+\index{hit@{hit}!CollisionObject@{CollisionObject}}
+\doxysubsubsection{\texorpdfstring{hit()}{hit()}}
+{\footnotesize\ttfamily \label{class_collision_object_aadefb8dd7763361ab17505cbd826e76b} 
+virtual bool Collision\+Object::\+hit (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{class_ray}{Ray}} \&}]{r}{, }\item[{\doxymbox{\hyperlink{class_interval}{Interval}}}]{ray\+\_\+t}{, }\item[{\doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&}]{rec}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \doxymbox{\hyperlink{class_collision_list_aca17aa67b81b4923f832d547239a7875}{Collision\+List}}, \doxymbox{\hyperlink{class_instance_a5cacc9d1afdd1b91dc2fe61c25c4fa2f}{Instance}}, \doxymbox{\hyperlink{class_instance_list_a80058ae5cf4993f0785d109248206d85}{Instance\+List}}, \doxymbox{\hyperlink{class_quad_a57d5acdd46ba12aa81e468617adb4b11}{Quad}}, \doxymbox{\hyperlink{class_sphere_a9b170d963bcecb3ffddc802fbddfe356}{Sphere}}, and \doxymbox{\hyperlink{class_triangle_afef2c51374e6502f3166ae42e9512514}{Triangle}}.
+
+\Hypertarget{class_collision_object_a2463594540c50d5c7a050a8ff174f42a}\index{CollisionObject@{CollisionObject}!rasterize@{rasterize}}
+\index{rasterize@{rasterize}!CollisionObject@{CollisionObject}}
+\doxysubsubsection{\texorpdfstring{rasterize()}{rasterize()}}
+{\footnotesize\ttfamily \label{class_collision_object_a2463594540c50d5c7a050a8ff174f42a} 
+virtual void Collision\+Object::\+rasterize (\begin{DoxyParamCaption}\item[{int}]{screen\+\_\+size}{\+[2], }\item[{\doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&}]{viewport\+\_\+matrix}{, }\item[{\doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&}]{projection\+\_\+to\+\_\+camera\+\_\+matrix}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{depth\+\_\+buff}{, }\item[{\doxymbox{\hyperlink{classrgb}{rgb}} \texorpdfstring{$\ast$}{*}}]{color\+\_\+buff}{, }\item[{double}]{time}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \doxymbox{\hyperlink{class_collision_list_aa15d97d5420b591d408febef81d76b94}{Collision\+List}}, \doxymbox{\hyperlink{class_instance_af04602d9d18950049cec1846e5df4cbf}{Instance}}, \doxymbox{\hyperlink{class_instance_list_ac0d2474a90d4be6ede2dbe5cfe41d6b2}{Instance\+List}}, \doxymbox{\hyperlink{class_quad_a499488313419e57252e1d3410b632df7}{Quad}}, \doxymbox{\hyperlink{class_sphere_ac14c3a5e7440c7f3d37cc4f74a5d5ba2}{Sphere}}, and \doxymbox{\hyperlink{class_triangle_a0c1cdba55e4a5b77efbadb36b3724780}{Triangle}}.
+
 
 
 The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
 \item 
-src/\+objects/collidable.\+hpp\end{DoxyCompactItemize}
+src/\+entities/\+objects/collidable.\+hpp\end{DoxyCompactItemize}

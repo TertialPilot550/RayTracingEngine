@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['bug_20fixes_0',['REQUIRED FEATURED REMAINING: Triangle Meshes, Bug Fixes',['../index.html#autotoc_md15',1,'']]]
+  ['goals_3a_20gui_0',['Stretch Goals: GUI',['../index.html#autotoc_md5',1,'']]],
+  ['gui_1',['Stretch Goals: GUI',['../index.html#autotoc_md5',1,'']]]
 ];

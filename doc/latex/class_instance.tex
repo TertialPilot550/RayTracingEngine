@@ -1,0 +1,111 @@
+\doxysection{Instance Class Reference}
+\hypertarget{class_instance}{}\label{class_instance}\index{Instance@{Instance}}
+
+
+Represents an object with an assigned position, and a list of motions that are applied to the object based on the moment in time.  
+
+
+
+
+{\ttfamily \+\#include $<$instance.\+hpp$>$}
+
+
+
+Inheritance diagram for Instance:
+% FIG 0
+
+
+Collaboration diagram for Instance:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_instance_a5e9bdf344043d55797346353f1f9f72f}\label{class_instance_a5e9bdf344043d55797346353f1f9f72f} 
+{\bfseries Instance} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}} $>$ obj, std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ sur)
+\item 
+bool \doxymbox{\hyperlink{class_instance_a5cacc9d1afdd1b91dc2fe61c25c4fa2f}{hit}} (const \doxymbox{\hyperlink{class_ray}{Ray}} \&r, \doxymbox{\hyperlink{class_interval}{Interval}} ray\+\_\+t, \doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&rec) const override
+\begin{DoxyCompactList}\small\item\em Pass the hit call to the original object. \end{DoxyCompactList}\item 
+point2D \doxymbox{\hyperlink{class_instance_a01f1907ca7b8dafd4853dcc94a1fd98a}{get\+\_\+tcoords}} (const point \&p, double time) const override
+\begin{DoxyCompactList}\small\item\em Pass the tcoords call to the original object. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_instance_af04602d9d18950049cec1846e5df4cbf}{rasterize}} (int screen\+\_\+size\+[2]\+, \doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&viewport\+\_\+matrix, \doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&projection\+\_\+to\+\_\+camera\+\_\+matrix, double \texorpdfstring{$\ast$}{*}depth\+\_\+buff, \doxymbox{\hyperlink{classrgb}{rgb}} \texorpdfstring{$\ast$}{*}color\+\_\+buff, double time) const override
+\begin{DoxyCompactList}\small\item\em Pass the raster call to the original object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Collision\+Object} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ surf)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_instance_a7797d6f9b52fcb4ad52fe4c661773ae5}\label{class_instance_a7797d6f9b52fcb4ad52fe4c661773ae5} 
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}} $>$ {\bfseries obj}
+\item 
+\Hypertarget{class_instance_a26d68f09684a16d5f0789839b1a1f677}\label{class_instance_a26d68f09684a16d5f0789839b1a1f677} 
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ {\bfseries sur}
+\item 
+\Hypertarget{class_instance_a230a49c17c547cb1ea63c7747ea25efe}\label{class_instance_a230a49c17c547cb1ea63c7747ea25efe} 
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ $>$ {\bfseries loc}
+\item 
+\Hypertarget{class_instance_a834dfada03a7744ec7b2769ef8f4755f}\label{class_instance_a834dfada03a7744ec7b2769ef8f4755f} 
+std::\+vector$<$ std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_motion}{Motion}} $>$ $>$ {\bfseries mov}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ {\bfseries surf}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents an object with an assigned position, and a list of motions that are applied to the object based on the moment in time. 
+
+\label{class_instance_doc-func-members}
+\Hypertarget{class_instance_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_instance_a01f1907ca7b8dafd4853dcc94a1fd98a}\index{Instance@{Instance}!get\_tcoords@{get\_tcoords}}
+\index{get\_tcoords@{get\_tcoords}!Instance@{Instance}}
+\doxysubsubsection{\texorpdfstring{get\_tcoords()}{get\_tcoords()}}
+{\footnotesize\ttfamily \label{class_instance_a01f1907ca7b8dafd4853dcc94a1fd98a} 
+point2D Instance::\+get\+\_\+tcoords (\begin{DoxyParamCaption}\item[{const point \&}]{p}{, }\item[{double}]{time}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Pass the tcoords call to the original object. 
+
+
+
+Implements \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}.
+
+\Hypertarget{class_instance_a5cacc9d1afdd1b91dc2fe61c25c4fa2f}\index{Instance@{Instance}!hit@{hit}}
+\index{hit@{hit}!Instance@{Instance}}
+\doxysubsubsection{\texorpdfstring{hit()}{hit()}}
+{\footnotesize\ttfamily \label{class_instance_a5cacc9d1afdd1b91dc2fe61c25c4fa2f} 
+bool Instance::\+hit (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{class_ray}{Ray}} \&}]{r}{, }\item[{\doxymbox{\hyperlink{class_interval}{Interval}}}]{ray\+\_\+t}{, }\item[{\doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&}]{rec}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Pass the hit call to the original object. 
+
+
+
+Implements \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}.
+
+\Hypertarget{class_instance_af04602d9d18950049cec1846e5df4cbf}\index{Instance@{Instance}!rasterize@{rasterize}}
+\index{rasterize@{rasterize}!Instance@{Instance}}
+\doxysubsubsection{\texorpdfstring{rasterize()}{rasterize()}}
+{\footnotesize\ttfamily \label{class_instance_af04602d9d18950049cec1846e5df4cbf} 
+void Instance::\+rasterize (\begin{DoxyParamCaption}\item[{int}]{screen\+\_\+size}{\+[2], }\item[{\doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&}]{viewport\+\_\+matrix}{, }\item[{\doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&}]{projection\+\_\+to\+\_\+camera\+\_\+matrix}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{depth\+\_\+buff}{, }\item[{\doxymbox{\hyperlink{classrgb}{rgb}} \texorpdfstring{$\ast$}{*}}]{color\+\_\+buff}{, }\item[{double}]{time}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Pass the raster call to the original object. 
+
+
+
+Reimplemented from \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+src/\+entities/\+objects/instance.\+hpp\end{DoxyCompactItemize}

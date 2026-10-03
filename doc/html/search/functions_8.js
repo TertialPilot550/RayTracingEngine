@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['valid_0',['Valid',['../classtinyobj_1_1_obj_reader.html#ac4c689535db68c233dd063e7c726139d',1,'tinyobj::ObjReader']]]
+  ['set_5fface_5fnormal_0',['set_face_normal',['../class_collision_record.html#a4bfb1a7b4f35f954571904e32b676e02',1,'CollisionRecord']]]
 ];

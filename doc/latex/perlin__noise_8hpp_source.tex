@@ -12,7 +12,7 @@
 \DoxyCodeLine{00011\ }
 \DoxyCodeLine{00012\ \ \ \ \ Perlin()\ \{}
 \DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ point\_count;\ i++)\ \{}
-\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ randvec[i]\ =\ unit\_vector(vec3::random(-\/1,1));}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ randvec[i]\ =\ unit\_vector(random\_vec<4>(-\/1,1));}
 \DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{00016\ }
 \DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ perlin\_generate\_perm(perm\_x);}
@@ -21,87 +21,92 @@
 \DoxyCodeLine{00020\ \ \ \ \ \}}
 \DoxyCodeLine{00021\ }
 \DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{double}\ noise(\textcolor{keyword}{const}\ point\&\ p)\textcolor{keyword}{\ const\ }\{}
-\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ u\ =\ p.x()\ -\/\ std::floor(p.x());}
-\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ v\ =\ p.y()\ -\/\ std::floor(p.y());}
-\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ w\ =\ p.z()\ -\/\ std::floor(p.z());}
-\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ u\ =\ u*u*(3-\/2*u);}
-\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ v\ =\ v*v*(3-\/2*v);}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ w\ =\ w*w*(3-\/2*w);}
-\DoxyCodeLine{00029\ }
-\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ i\ =\ int(std::floor(p.x()));}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ j\ =\ int(std::floor(p.y()));}
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ k\ =\ int(std::floor(p.z()));}
-\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ c[2][2][2];}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ di=0;\ di\ <\ 2;\ di++)}
-\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ dj=0;\ dj\ <\ 2;\ dj++)}
-\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ dk=0;\ dk\ <\ 2;\ dk++)}
-\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ c[di][dj][dk]\ =\ randvec[}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ perm\_x[(i+di)\ \&\ 255]\ \string^}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ perm\_y[(j+dj)\ \&\ 255]\ \string^}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ perm\_z[(k+dk)\ \&\ 255]}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ];}
-\DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ perlin\_interp(c,\ u,\ v,\ w);}
-\DoxyCodeLine{00045\ \ \ \ \ \}}
-\DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordtype}{double}\ turb(\textcolor{keyword}{const}\ point\&\ p,\ \textcolor{keywordtype}{int}\ depth)\textcolor{keyword}{\ const\ }\{}
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ accum\ =\ 0.0;}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ temp\_p\ =\ p;}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ weight\ =\ 1.0;}
-\DoxyCodeLine{00051\ }
-\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ depth;\ i++)\ \{}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ accum\ +=\ weight\ *\ noise(temp\_p);}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ weight\ *=\ 0.5;}
-\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ temp\_p\ *=\ 2;}
-\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00057\ }
-\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::fabs(accum);}
-\DoxyCodeLine{00059\ \ \ \ \ \}}
-\DoxyCodeLine{00060\ }
-\DoxyCodeLine{00061\ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ point\_count\ =\ 256;}
-\DoxyCodeLine{00063\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ randvec[point\_count];}
-\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{double}\ randfloat[point\_count];}
-\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{int}\ perm\_x[point\_count];}
-\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{int}\ perm\_y[point\_count];}
-\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{int}\ perm\_z[point\_count];}
-\DoxyCodeLine{00068\ }
-\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ perlin\_generate\_perm(\textcolor{keywordtype}{int}*\ p)\ \{}
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ point\_count;\ i++)}
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ p[i]\ =\ i;}
-\DoxyCodeLine{00072\ }
-\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ permute(p,\ point\_count);}
-\DoxyCodeLine{00074\ \ \ \ \ \}}
-\DoxyCodeLine{00075\ }
-\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ permute(\textcolor{keywordtype}{int}*\ p,\ \textcolor{keywordtype}{int}\ n)\ \{}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ n-\/1;\ i\ >\ 0;\ i-\/-\/)\ \{}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ target\ =\ random\_int(0,\ i);}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ tmp\ =\ p[i];}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ p[i]\ =\ p[target];}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ p[target]\ =\ tmp;}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00083\ \ \ \ \ \}}
-\DoxyCodeLine{00084\ }
-\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ perlin\_interp(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec3}{vec3}}\ c[2][2][2],\ \textcolor{keywordtype}{double}\ u,\ \textcolor{keywordtype}{double}\ v,\ \textcolor{keywordtype}{double}\ w)\ \{}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ uu\ =\ u*u*(3-\/2*u);}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ vv\ =\ v*v*(3-\/2*v);}
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ww\ =\ w*w*(3-\/2*w);}
-\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ accum\ =\ 0.0;}
-\DoxyCodeLine{00090\ }
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;\ i\ <\ 2;\ i++)}
-\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j=0;\ j\ <\ 2;\ j++)}
-\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ k=0;\ k\ <\ 2;\ k++)\ \{}
-\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ weight\_v(u-\/i,\ v-\/j,\ w-\/k);}
-\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ accum\ +=\ (i*uu\ +\ (1-\/i)*(1-\/uu))}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\ (j*vv\ +\ (1-\/j)*(1-\/vv))}
-\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\ (k*ww\ +\ (1-\/k)*(1-\/ww))}
-\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\ dot(c[i][j][k],\ weight\_v);}
-\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00100\ }
-\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ accum;}
-\DoxyCodeLine{00102\ \ \ \ \ \}}
-\DoxyCodeLine{00103\ }
-\DoxyCodeLine{00104\ \};}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ point\ hp\ =\ homogenize(p);}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ u\ =\ hp[X]\ -\/\ std::floor(hp[X]);}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ v\ =\ hp[Y]\ -\/\ std::floor(hp[Y]);}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ w\ =\ hp[Z]\ -\/\ std::floor(hp[Z]);}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ u\ =\ u*u*(3-\/2*u);}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ v\ =\ v*v*(3-\/2*v);}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ w\ =\ w*w*(3-\/2*w);}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ i\ =\ int(std::floor(hp[X]));}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ j\ =\ int(std::floor(hp[Y]));}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ k\ =\ int(std::floor(hp[Z]));}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ point\ c[2][2][2];}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ di=0;\ di\ <\ 2;\ di++)}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ dj=0;\ dj\ <\ 2;\ dj++)}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ dk=0;\ dk\ <\ 2;\ dk++)}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ c[di][dj][dk]\ =\ randvec[}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ perm\_x[(i+di)\ \&\ 255]\ \string^}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ perm\_y[(j+dj)\ \&\ 255]\ \string^}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ perm\_z[(k+dk)\ \&\ 255]}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ];}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ perlin\_interp(c,\ u,\ v,\ w);}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{double}\ turb(\textcolor{keyword}{const}\ point\&\ p,\ \textcolor{keywordtype}{int}\ depth)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ accum\ =\ 0.0;}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ temp\_p\ =\ p;}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ weight\ =\ 1.0;}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ depth;\ i++)\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ accum\ +=\ weight\ *\ noise(temp\_p);}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ weight\ *=\ 0.5;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ temp\_p\ *=\ 2;}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::fabs(accum);}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ point\_count\ =\ 256;}
+\DoxyCodeLine{00065\ \ \ \ \ point\ randvec[point\_count];}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{int}\ perm\_x[point\_count];}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{int}\ perm\_y[point\_count];}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{int}\ perm\_z[point\_count];}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ perlin\_generate\_perm(\textcolor{keywordtype}{int}*\ p)\ \{}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ point\_count;\ i++)}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ p[i]\ =\ i;}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ permute(p,\ point\_count);}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ permute(\textcolor{keywordtype}{int}*\ p,\ \textcolor{keywordtype}{int}\ n)\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ n-\/1;\ i\ >\ 0;\ i-\/-\/)\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ target\ =\ random\_int(0,\ i);}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ tmp\ =\ p[i];}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ p[i]\ =\ p[target];}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ p[target]\ =\ tmp;}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00084\ \ \ \ \ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ perlin\_interp(\textcolor{keyword}{const}\ point\ c[2][2][2],\ \textcolor{keywordtype}{double}\ u,\ \textcolor{keywordtype}{double}\ v,\ \textcolor{keywordtype}{double}\ w)\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ uu\ =\ u*u*(3-\/2*u);}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ vv\ =\ v*v*(3-\/2*v);}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ww\ =\ w*w*(3-\/2*w);}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ accum\ =\ 0.0;}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;\ i\ <\ 2;\ i++)}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j=0;\ j\ <\ 2;\ j++)}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ k=0;\ k\ <\ 2;\ k++)\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ point\ weight\_v;}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ weight\_v[P]\ =\ 1;}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ weight\_v[X]\ =\ u-\/i;}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ weight\_v[Y]\ =\ v-\/j;}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ weight\_v[Z]\ =\ w-\/k;}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ accum\ +=\ (i*uu\ +\ (1-\/i)*(1-\/uu))}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\ (j*vv\ +\ (1-\/j)*(1-\/vv))}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\ (k*ww\ +\ (1-\/k)*(1-\/ww))}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\ dot<4>(c[i][j][k],\ weight\_v);}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ accum;}
+\DoxyCodeLine{00107\ \ \ \ \ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \};}
 
 \end{DoxyCode}

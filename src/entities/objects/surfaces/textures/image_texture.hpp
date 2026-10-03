@@ -10,7 +10,7 @@ class ImageTexture : public Texture {
 
     ImageTexture(const char* filename) : img(filename) {}
 
-    color value(double u, double v, const point& p) const override {
+    color value(double u, double v, const point&) const override {
         if (img.get_height() <= 0) {
             color res;
             res[RED] = 0;

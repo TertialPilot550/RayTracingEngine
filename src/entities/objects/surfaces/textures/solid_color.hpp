@@ -15,7 +15,7 @@ class SolidColor : public Texture {
         albedo = solid;
     }
 
-    color value(double u, double v, const point& p) const override {
+    color value(double, double, const point&) const override {
         return albedo;
     }
 

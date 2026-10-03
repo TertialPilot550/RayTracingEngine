@@ -2,6 +2,15 @@
 \hypertarget{class_quad}{}\label{class_quad}\index{Quad@{Quad}}
 
 
+Quadrilateral Primitive.  
+
+
+
+
+{\ttfamily \+\#include $<$quad.\+hpp$>$}
+
+
+
 Inheritance diagram for Quad:
 % FIG 0
 
@@ -11,38 +20,70 @@ Collaboration diagram for Quad:
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{class_quad_a492fbca68047327e61e2a2f7e24e114f}\label{class_quad_a492fbca68047327e61e2a2f7e24e114f} 
-{\bfseries Quad} (const point \&p, const \doxymbox{\hyperlink{classvec3}{vec3}} \&u, const \doxymbox{\hyperlink{classvec3}{vec3}} \&v, std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_material}{Material}} $>$ mat)
+\Hypertarget{class_quad_a76dcc63c4f7721487701e284ba241398}\label{class_quad_a76dcc63c4f7721487701e284ba241398} 
+{\bfseries Quad} (const point \&p, const point \&u, const point \&v, std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ surface)
 \item 
 bool \doxymbox{\hyperlink{class_quad_a57d5acdd46ba12aa81e468617adb4b11}{hit}} (const \doxymbox{\hyperlink{class_ray}{Ray}} \&r, \doxymbox{\hyperlink{class_interval}{Interval}} ray\+\_\+t, \doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&rec) const override
+\begin{DoxyCompactList}\small\item\em \doxylink{class_ray}{Ray} Tracing Collision. \end{DoxyCompactList}\item 
+point2D \doxymbox{\hyperlink{class_quad_abfae4c7d53ce0bf7fb5835df7c129f53}{get\+\_\+tcoords}} (const point \&p, double time) const override
+\begin{DoxyCompactList}\small\item\em \doxylink{class_texture}{Texture} Mapping. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_quad_a499488313419e57252e1d3410b632df7}{rasterize}} (int screen\+\_\+size\+[2]\+, \doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&viewport, \doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&projection, double \texorpdfstring{$\ast$}{*}depth\+\_\+buffer, \doxymbox{\hyperlink{classrgb}{rgb}} \texorpdfstring{$\ast$}{*}color\+\_\+buffer, double time) const override
+\begin{DoxyCompactList}\small\item\em Depth Buffer Rasterization. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_geometric_primitive}{Geometric\+Primitive$<$ 1 $>$}}}
+\begin{DoxyCompactItemize}
 \item 
-\doxymbox{\hyperlink{classvec2}{vec2}} \doxymbox{\hyperlink{class_quad_ae97e1f332d82235fd41672625b80f5d2}{get\+\_\+tcoords}} (const point \&p) const override
+{\bfseries Geometric\+Primitive} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ surface, Args \&\&... args)
+\begin{DoxyCompactList}\small\item\em Wack ass constructor because I was getting tons of errors. \end{DoxyCompactList}\item 
+void {\bfseries set\+\_\+motion} (const \doxymbox{\hyperlink{class_motion}{Motion}} \&value)
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries Collision\+Object} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_material}{Material}} $>$ m)
+{\bfseries Collision\+Object} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ surf)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Attributes inherited from \doxymbox{\hyperlink{class_geometric_primitive}{Geometric\+Primitive$<$ 1 $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+std::\+array$<$ point, N $>$ {\bfseries skeleton}
+\item 
+\doxymbox{\hyperlink{class_motion}{Motion}} {\bfseries motion}
+\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes inherited from \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
-std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_material}{Material}} $>$ {\bfseries mat}
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ {\bfseries surf}
 \end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \doxymbox{\hyperlink{class_geometric_primitive}{Geometric\+Primitive$<$ 1 $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries assign\+\_\+skeleton} (First \&\&first, Rest \&\&... rest)
+\begin{DoxyCompactList}\small\item\em Assignment helper for the wack ass constructor. \end{DoxyCompactList}\item 
+point {\bfseries moved\+\_\+point} (int index, double time) const
+\begin{DoxyCompactList}\small\item\em Move the point at a given index in the skeleton using the provided time. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+Quadrilateral Primitive. 
+
+When rasterized, is converted to two triangles rather than directly rendering as a quadrilateral 
 
 \label{class_quad_doc-func-members}
 \Hypertarget{class_quad_doc-func-members}
 \doxysubsection{Member Function Documentation}
-\Hypertarget{class_quad_ae97e1f332d82235fd41672625b80f5d2}\index{Quad@{Quad}!get\_tcoords@{get\_tcoords}}
+\Hypertarget{class_quad_abfae4c7d53ce0bf7fb5835df7c129f53}\index{Quad@{Quad}!get\_tcoords@{get\_tcoords}}
 \index{get\_tcoords@{get\_tcoords}!Quad@{Quad}}
 \doxysubsubsection{\texorpdfstring{get\_tcoords()}{get\_tcoords()}}
-{\footnotesize\ttfamily \label{class_quad_ae97e1f332d82235fd41672625b80f5d2} 
-\doxymbox{\hyperlink{classvec2}{vec2}} Quad::\+get\+\_\+tcoords (\begin{DoxyParamCaption}\item[{const point \&}]{p}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily \label{class_quad_abfae4c7d53ce0bf7fb5835df7c129f53} 
+point2D Quad::\+get\+\_\+tcoords (\begin{DoxyParamCaption}\item[{const point \&}]{p}{, }\item[{double}]{time}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
-Implements \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}.
+\doxylink{class_texture}{Texture} Mapping. 
+
+
+
+Implements \doxymbox{\hyperlink{class_geometric_primitive}{Geometric\+Primitive$<$ 1 $>$}}.
 
 \Hypertarget{class_quad_a57d5acdd46ba12aa81e468617adb4b11}\index{Quad@{Quad}!hit@{hit}}
 \index{hit@{hit}!Quad@{Quad}}
@@ -52,10 +93,28 @@ bool Quad::\+hit (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{clas
 
 
 
-Implements \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}.
+\doxylink{class_ray}{Ray} Tracing Collision. 
+
+
+
+Implements \doxymbox{\hyperlink{class_geometric_primitive}{Geometric\+Primitive$<$ 1 $>$}}.
+
+\Hypertarget{class_quad_a499488313419e57252e1d3410b632df7}\index{Quad@{Quad}!rasterize@{rasterize}}
+\index{rasterize@{rasterize}!Quad@{Quad}}
+\doxysubsubsection{\texorpdfstring{rasterize()}{rasterize()}}
+{\footnotesize\ttfamily \label{class_quad_a499488313419e57252e1d3410b632df7} 
+void Quad::\+rasterize (\begin{DoxyParamCaption}\item[{int}]{screen\+\_\+size}{\+[2], }\item[{\doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&}]{viewport}{, }\item[{\doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&}]{projection}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{depth\+\_\+buffer}{, }\item[{\doxymbox{\hyperlink{classrgb}{rgb}} \texorpdfstring{$\ast$}{*}}]{color\+\_\+buffer}{, }\item[{double}]{time}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Depth Buffer Rasterization. 
+
+
+
+Implements \doxymbox{\hyperlink{class_geometric_primitive}{Geometric\+Primitive$<$ 1 $>$}}.
 
 
 
 The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
 \item 
-src/\+objects/\+primitives/quad.\+hpp\end{DoxyCompactItemize}
+src/\+entities/\+objects/\+primitives/quad.\+hpp\end{DoxyCompactItemize}

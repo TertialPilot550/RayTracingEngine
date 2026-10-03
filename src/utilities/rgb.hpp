@@ -49,3 +49,4 @@ inline rgb color_correction_to_rgb(const color& pixel_color) {
 
         return rgb(rbyte, gbyte, bbyte);
 }
+

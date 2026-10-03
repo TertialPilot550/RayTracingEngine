@@ -1,0 +1,34 @@
+\doxysection{model\+\_\+demo.\+hpp}
+\hypertarget{model__demo_8hpp_source}{}\label{model__demo_8hpp_source}\index{src/entities/scenes/demos/model\_demo.hpp@{src/entities/scenes/demos/model\_demo.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}../../../main.hpp"{}}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{class_scene}{Scene}}\ model\_demo()\ \{}
+\DoxyCodeLine{00005\ \ \ \ \ \doxymbox{\hyperlink{class_scene}{Scene}}\ s;}
+\DoxyCodeLine{00006\ \ \ \ \ s.controls.mode\ =\ CameraMode::DEPTH\_BUFFER;}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \ \ \ \ s.controls.set\_image\_width(1200);}
+\DoxyCodeLine{00009\ \ \ \ \ s.controls.set\_samples\_per\_pixel(10);}
+\DoxyCodeLine{00010\ \ \ \ \ s.controls.set\_vertical\_fov(20);}
+\DoxyCodeLine{00011\ \ \ \ \ s.controls.set\_camera\_pos(make\_point(10,-\/50,10),\ make\_point(0,0,0),\ make\_vector(0,0,1));}
+\DoxyCodeLine{00012\ \ \ \ \ s.controls.set\_defocus\_angle(0.6);}
+\DoxyCodeLine{00013\ \ \ \ \ s.controls.set\_focus\_distance(50.0);}
+\DoxyCodeLine{00014\ \ \ \ \ s.controls.max\_depth\ =\ 50;}
+\DoxyCodeLine{00015\ \ \ \ \ s.background\ =\ color(0,0,0);}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{auto}\ difflight\ =\ std::make\_shared<DiffuseLight>(color(4,4,4));}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{auto}\ ground\_material\ =\ std::make\_shared<Lambertian>(color(0.1,\ 0.5,\ 0.1));}
+\DoxyCodeLine{00019\ \ \ \ \ s.objects.add(std::make\_shared<Sphere>(make\_point(0,0,4),\ 2,\ make\_surface(difflight)));}
+\DoxyCodeLine{00020\ \ \ \ \ s.objects.add(std::make\_shared<Sphere>(make\_point(0,0,-\/1000),\ 1000,\ make\_surface(ground\_material)));}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \doxymbox{\hyperlink{class_o_b_j_model}{OBJModel}}\ model;}
+\DoxyCodeLine{00023\ \ \ \ \ load\_model(model,\ \textcolor{stringliteral}{"{}res/cube.obj"{}});}
+\DoxyCodeLine{00024\ \ \ \ \ \doxymbox{\hyperlink{class_collision_list}{CollisionList}}\ l\ =\ model.\doxymbox{\hyperlink{class_o_b_j_model_ac931645811edc622ef5b791a3e9f4353}{convert\_to\_native\_object}}();}
+\DoxyCodeLine{00025\ \ \ \ \ s.objects.add(std::make\_shared<CollisionList>(l));}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordflow}{return}\ s;}
+\DoxyCodeLine{00028\ \}}
+
+\end{DoxyCode}

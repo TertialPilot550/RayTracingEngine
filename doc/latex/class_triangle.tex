@@ -2,6 +2,15 @@
 \hypertarget{class_triangle}{}\label{class_triangle}\index{Triangle@{Triangle}}
 
 
+\doxylink{class_triangle}{Triangle} Primitive.  
+
+
+
+
+{\ttfamily \+\#include $<$triangle.\+hpp$>$}
+
+
+
 Inheritance diagram for Triangle:
 % FIG 0
 
@@ -11,43 +20,74 @@ Collaboration diagram for Triangle:
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{class_triangle_ae98d446a9df043b3ebd4775821ee8c53}\label{class_triangle_ae98d446a9df043b3ebd4775821ee8c53} 
-{\bfseries Triangle} (point p1, point p2, point p3, std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_material}{Material}} $>$ mat, \doxymbox{\hyperlink{classvec2}{vec2}} t1=vec2::\+vertex\+\_\+0(), \doxymbox{\hyperlink{classvec2}{vec2}} t2=vec2::\+vertex\+\_\+1(), \doxymbox{\hyperlink{classvec2}{vec2}} t3=vec2::\+vertex\+\_\+2())
+\Hypertarget{class_triangle_ae10e652e2de9880eb4b1ba471b87fd87}\label{class_triangle_ae10e652e2de9880eb4b1ba471b87fd87} 
+{\bfseries Triangle} (point p1, point p2, point p3, std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ surface, point2D t1=vertex\+\_\+0(), point2D t2=vertex\+\_\+1(), point2D t3=vertex\+\_\+2())
 \item 
 bool \doxymbox{\hyperlink{class_triangle_afef2c51374e6502f3166ae42e9512514}{hit}} (const \doxymbox{\hyperlink{class_ray}{Ray}} \&r, \doxymbox{\hyperlink{class_interval}{Interval}} ray\+\_\+t, \doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&rec) const override
+\begin{DoxyCompactList}\small\item\em \doxylink{class_ray}{Ray} Tracing Collision. \end{DoxyCompactList}\item 
+point2D \doxymbox{\hyperlink{class_triangle_a687bf64da6a6249ccc2aa9d5324b64c8}{get\+\_\+tcoords}} (const point \&p, double time) const override
+\begin{DoxyCompactList}\small\item\em \doxylink{class_triangle}{Triangle} texture mapping. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_triangle_a0c1cdba55e4a5b77efbadb36b3724780}{rasterize}} (int screen\+\_\+size\+[2]\+, \doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&viewport\+\_\+matrix, \doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&proj\+\_\+matrix, double \texorpdfstring{$\ast$}{*}depth\+\_\+buff, \doxymbox{\hyperlink{classrgb}{rgb}} \texorpdfstring{$\ast$}{*}color\+\_\+buff, double time) const override
+\begin{DoxyCompactList}\small\item\em Rasterize a triangle to the screen. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_geometric_primitive}{Geometric\+Primitive$<$ 3 $>$}}}
+\begin{DoxyCompactItemize}
 \item 
-\doxymbox{\hyperlink{classvec2}{vec2}} \doxymbox{\hyperlink{class_triangle_a5605393c9304bf07bcd3d3de0579c440}{get\+\_\+tcoords}} (const point \&p) const override
+{\bfseries Geometric\+Primitive} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ surface, Args \&\&... args)
+\begin{DoxyCompactList}\small\item\em Wack ass constructor because I was getting tons of errors. \end{DoxyCompactList}\item 
+void {\bfseries set\+\_\+motion} (const \doxymbox{\hyperlink{class_motion}{Motion}} \&value)
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries Collision\+Object} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_material}{Material}} $>$ m)
+{\bfseries Collision\+Object} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ surf)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{class_triangle_a07c880e4a109e62b262279be199eb920}\label{class_triangle_a07c880e4a109e62b262279be199eb920} 
-\doxymbox{\hyperlink{class_vertex}{Vertex}} {\bfseries v} \+[3]
+\Hypertarget{class_triangle_a717f08dcb17b44d53668c9e02b6ee6c7}\label{class_triangle_a717f08dcb17b44d53668c9e02b6ee6c7} 
+point2D {\bfseries t\+\_\+coords} \+[3]
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \doxymbox{\hyperlink{class_geometric_primitive}{Geometric\+Primitive$<$ 3 $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+std::\+array$<$ point, N $>$ {\bfseries skeleton}
+\item 
+\doxymbox{\hyperlink{class_motion}{Motion}} {\bfseries motion}
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes inherited from \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
-std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_material}{Material}} $>$ {\bfseries mat}
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ {\bfseries surf}
 \end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \doxymbox{\hyperlink{class_geometric_primitive}{Geometric\+Primitive$<$ 3 $>$}}}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries assign\+\_\+skeleton} (First \&\&first, Rest \&\&... rest)
+\begin{DoxyCompactList}\small\item\em Assignment helper for the wack ass constructor. \end{DoxyCompactList}\item 
+point {\bfseries moved\+\_\+point} (int index, double time) const
+\begin{DoxyCompactList}\small\item\em Move the point at a given index in the skeleton using the provided time. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+\doxylink{class_triangle}{Triangle} Primitive. 
 
 \label{class_triangle_doc-func-members}
 \Hypertarget{class_triangle_doc-func-members}
 \doxysubsection{Member Function Documentation}
-\Hypertarget{class_triangle_a5605393c9304bf07bcd3d3de0579c440}\index{Triangle@{Triangle}!get\_tcoords@{get\_tcoords}}
+\Hypertarget{class_triangle_a687bf64da6a6249ccc2aa9d5324b64c8}\index{Triangle@{Triangle}!get\_tcoords@{get\_tcoords}}
 \index{get\_tcoords@{get\_tcoords}!Triangle@{Triangle}}
 \doxysubsubsection{\texorpdfstring{get\_tcoords()}{get\_tcoords()}}
-{\footnotesize\ttfamily \label{class_triangle_a5605393c9304bf07bcd3d3de0579c440} 
-\doxymbox{\hyperlink{classvec2}{vec2}} Triangle::\+get\+\_\+tcoords (\begin{DoxyParamCaption}\item[{const point \&}]{p}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily \label{class_triangle_a687bf64da6a6249ccc2aa9d5324b64c8} 
+point2D Triangle::\+get\+\_\+tcoords (\begin{DoxyParamCaption}\item[{const point \&}]{p}{, }\item[{double}]{time}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
-Implements \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}.
+\doxylink{class_triangle}{Triangle} texture mapping. 
+
+
+
+Implements \doxymbox{\hyperlink{class_geometric_primitive}{Geometric\+Primitive$<$ 3 $>$}}.
 
 \Hypertarget{class_triangle_afef2c51374e6502f3166ae42e9512514}\index{Triangle@{Triangle}!hit@{hit}}
 \index{hit@{hit}!Triangle@{Triangle}}
@@ -57,10 +97,28 @@ bool Triangle::\+hit (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{
 
 
 
-Implements \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}.
+\doxylink{class_ray}{Ray} Tracing Collision. 
+
+
+
+Implements \doxymbox{\hyperlink{class_geometric_primitive}{Geometric\+Primitive$<$ 3 $>$}}.
+
+\Hypertarget{class_triangle_a0c1cdba55e4a5b77efbadb36b3724780}\index{Triangle@{Triangle}!rasterize@{rasterize}}
+\index{rasterize@{rasterize}!Triangle@{Triangle}}
+\doxysubsubsection{\texorpdfstring{rasterize()}{rasterize()}}
+{\footnotesize\ttfamily \label{class_triangle_a0c1cdba55e4a5b77efbadb36b3724780} 
+void Triangle::\+rasterize (\begin{DoxyParamCaption}\item[{int}]{screen\+\_\+size}{\+[2], }\item[{\doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&}]{viewport\+\_\+matrix}{, }\item[{\doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&}]{proj\+\_\+matrix}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{depth\+\_\+buff}{, }\item[{\doxymbox{\hyperlink{classrgb}{rgb}} \texorpdfstring{$\ast$}{*}}]{color\+\_\+buff}{, }\item[{double}]{time}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Rasterize a triangle to the screen. 
+
+
+
+Implements \doxymbox{\hyperlink{class_geometric_primitive}{Geometric\+Primitive$<$ 3 $>$}}.
 
 
 
 The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
 \item 
-src/\+objects/\+primitives/triangle.\+hpp\end{DoxyCompactItemize}
+src/\+entities/\+objects/\+primitives/triangle.\+hpp\end{DoxyCompactItemize}

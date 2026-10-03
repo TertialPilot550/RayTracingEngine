@@ -3,7 +3,8 @@
 #include "../../main.hpp"
 
 /**
- * A time-varying object transform.  The current renderer uses affine
+ * @brief A time-varying object transform.  
+ * @details The current renderer uses affine
  * transforms, so interpolation is performed component-wise and clamped to
  * the configured shutter interval.
  */
@@ -14,6 +15,7 @@ public:
     double start_time = 0.0;
     double stop_time = 1.0;
 
+    // Default Constructor (Identity Matrix)
     Motion() {
         start = 0.0;
         end = 0.0;
@@ -23,18 +25,20 @@ public:
         }
     }
 
-    Motion(const mat<4, 4>& start_transform, const mat<4, 4>& end_transform,
-           double start_time = 0.0, double stop_time = 1.0)
-        : start(start_transform), end(end_transform),
-          start_time(start_time), stop_time(stop_time) {}
+    Motion(const mat<4, 4>& start_transform, const mat<4, 4>& end_transform, double start_time = 0.0, double stop_time = 1.0) : start(start_transform), end(end_transform), start_time(start_time), stop_time(stop_time) {}
 
+    /**
+     * @brief Calculate the transform at a given point in time
+     */
     mat<4, 4> at(double time) const {
         if (stop_time <= start_time) return start;
-        const double amount = std::clamp((time - start_time) /
-                                         (stop_time - start_time), 0.0, 1.0);
+        const double amount = std::clamp((time - start_time) / (stop_time - start_time), 0.0, 1.0);
         return (1.0 - amount) * start + amount * end;
     }
 
+    /**
+     * Transform a point at a given time during the transform
+     */
     point transform(const point& value, double time) const {
         return at(time) * value;
     }

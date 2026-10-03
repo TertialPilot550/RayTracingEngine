@@ -100,35 +100,42 @@ document.addEventListener('DOMContentLoaded', codefold.init);
   <div class="headertitle"><div class="title">OBJModel Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="dynheader">
-Collaboration diagram for OBJModel:</div>
-<div class="dyncontent">
-<div class="center"><img src="class_o_b_j_model__coll__graph.png" border="0" usemap="#a_o_b_j_model_coll__map" loading="lazy" alt="Collaboration graph"/></div>
-<!-- MAP 0 -->
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+
+<p>Object that represents a .obj model loaded from a file.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="obj__loader__wrapper_8hpp_source.html">obj_loader_wrapper.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6853e854fada0cc388c37007c1303a60" id="r_a6853e854fada0cc388c37007c1303a60"><td class="memItemLeft"><a id="a6853e854fada0cc388c37007c1303a60" name="a6853e854fada0cc388c37007c1303a60"></a>
-void&#160;</td><td class="memItemRight"><b>convert_to_native_object</b> ()</td></tr>
+<tr class="memitem:a6758287cf318ec57a12bf0ec44582283" id="r_a6758287cf318ec57a12bf0ec44582283"><td class="memItemLeft"><a id="a6758287cf318ec57a12bf0ec44582283" name="a6758287cf318ec57a12bf0ec44582283"></a>
+void&#160;</td><td class="memItemRight"><b>convert_shape_to_native_object</b> (const tinyobj::shape_t &amp;shape, <a class="el" href="class_collision_list.html">CollisionList</a> &amp;collision_list)</td></tr>
+<tr class="memdesc:a6758287cf318ec57a12bf0ec44582283"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert a single shape object to a triangle mesh. <br /></td></tr>
+<tr class="memitem:ac931645811edc622ef5b791a3e9f4353" id="r_ac931645811edc622ef5b791a3e9f4353"><td class="memItemLeft"><a id="ac931645811edc622ef5b791a3e9f4353" name="ac931645811edc622ef5b791a3e9f4353"></a>
+<a class="el" href="class_collision_list.html">CollisionList</a>&#160;</td><td class="memItemRight"><b>convert_to_native_object</b> ()</td></tr>
+<tr class="memdesc:ac931645811edc622ef5b791a3e9f4353"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert all objects to native objects. <br /></td></tr>
 <tr class="memitem:a0b4a05baaa49f0f8d3ce22d9b15e344f" id="r_a0b4a05baaa49f0f8d3ce22d9b15e344f"><td class="memItemLeft"><a id="a0b4a05baaa49f0f8d3ce22d9b15e344f" name="a0b4a05baaa49f0f8d3ce22d9b15e344f"></a>
 void&#160;</td><td class="memItemRight"><b>display</b> ()</td></tr>
+<tr class="memdesc:a0b4a05baaa49f0f8d3ce22d9b15e344f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper to ensure model is properly loaded into the program. <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:afd9472f6bc64dc3f2c6c886513714062" id="r_afd9472f6bc64dc3f2c6c886513714062"><td class="memItemLeft"><a id="afd9472f6bc64dc3f2c6c886513714062" name="afd9472f6bc64dc3f2c6c886513714062"></a>
-<a class="el" href="structtinyobj_1_1attrib__t.html">tinyobj::attrib_t</a>&#160;</td><td class="memItemRight"><b>attrib</b></td></tr>
+tinyobj::attrib_t&#160;</td><td class="memItemRight"><b>attrib</b></td></tr>
 <tr class="memitem:af7a0911d9a7d819d5caaa145f487d00a" id="r_af7a0911d9a7d819d5caaa145f487d00a"><td class="memItemLeft"><a id="af7a0911d9a7d819d5caaa145f487d00a" name="af7a0911d9a7d819d5caaa145f487d00a"></a>
-std::vector&lt; <a class="el" href="structtinyobj_1_1shape__t.html">tinyobj::shape_t</a> &gt;&#160;</td><td class="memItemRight"><b>shapes</b></td></tr>
+std::vector&lt; tinyobj::shape_t &gt;&#160;</td><td class="memItemRight"><b>shapes</b></td></tr>
 <tr class="memitem:a8414e5368cf9594e77619474d8845681" id="r_a8414e5368cf9594e77619474d8845681"><td class="memItemLeft"><a id="a8414e5368cf9594e77619474d8845681" name="a8414e5368cf9594e77619474d8845681"></a>
-std::vector&lt; <a class="el" href="structtinyobj_1_1material__t.html">tinyobj::material_t</a> &gt;&#160;</td><td class="memItemRight"><b>materials</b></td></tr>
+std::vector&lt; tinyobj::material_t &gt;&#160;</td><td class="memItemRight"><b>materials</b></td></tr>
 <tr class="memitem:ad79b0c45a31635f4a5190760dadae026" id="r_ad79b0c45a31635f4a5190760dadae026"><td class="memItemLeft"><a id="ad79b0c45a31635f4a5190760dadae026" name="ad79b0c45a31635f4a5190760dadae026"></a>
 std::string&#160;</td><td class="memItemRight"><b>warn</b></td></tr>
 <tr class="memitem:a42f04a90b98bbfab8dcd4a50f7e66536" id="r_a42f04a90b98bbfab8dcd4a50f7e66536"><td class="memItemLeft"><a id="a42f04a90b98bbfab8dcd4a50f7e66536" name="a42f04a90b98bbfab8dcd4a50f7e66536"></a>
 std::string&#160;</td><td class="memItemRight"><b>err</b></td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/objects/composites/tiny_obj_loader/<a class="el" href="obj__loader__wrapper_8hpp_source.html">obj_loader_wrapper.hpp</a></li>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Object that represents a .obj model loaded from a file. </p>
+<p>Contains code converting this loaded model into a collection of primitives. </p>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
+<li>src/entities/objects/composites/tiny_obj_loader/<a class="el" href="obj__loader__wrapper_8hpp_source.html">obj_loader_wrapper.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

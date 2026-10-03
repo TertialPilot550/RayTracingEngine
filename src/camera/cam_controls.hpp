@@ -38,7 +38,7 @@ class CamControls {
     int image_width = 400;
     int samples_per_pixel = 10;
     double vertical_fov = 90;
-    double defocus_angle = 0; // setting defocus angle <= disables defocus blur / depth of field
+    double defocus_angle = 0; // setting defocus angle <= 0 disables defocus blur / depth of field
     double focus_dist = 10;
 
     int image_height = 0;

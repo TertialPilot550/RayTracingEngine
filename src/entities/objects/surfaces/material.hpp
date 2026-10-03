@@ -8,15 +8,15 @@ class Material {
   public:
     virtual ~Material() = default;
 
-    virtual color emitted(double u, double v, const point& p) const {
+    virtual color emitted(double, double, const point&) const {
         return color();
     }
 
-    virtual bool scatter(const Ray& r_in, const CollisionRecord& rec, color& attenuation, Ray& scattered) const {
+    virtual bool scatter(const Ray&, const CollisionRecord&, color&, Ray&) const {
         return false;
     }
 
-    virtual color at(int u, int v, const point& p) const {
+    virtual color at(int, int, const point&) const {
         return color();
     }
 };

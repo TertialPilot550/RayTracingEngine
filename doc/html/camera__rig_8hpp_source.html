@@ -121,37 +121,59 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">private</span>: </div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordtype">void</span> render(<a class="code hl_class" href="class_scene.html">Scene</a>&amp; s);</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordtype">void</span> write_color(<span class="keyword">const</span> <a class="code hl_class" href="classrgb.html">rgb</a>&amp; <a class="code hl_class" href="classrgb.html">rgb</a>, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    color process_ray(<span class="keyword">const</span> <a class="code hl_class" href="class_ray.html">Ray</a>&amp; r, <span class="keywordtype">int</span> depth, <a class="code hl_class" href="class_scene.html">Scene</a>&amp; s);</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <a class="code hl_class" href="classvec3.html">vec3</a> sample_square() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    point defocus_disk_sample(<a class="code hl_class" href="class_cam_controls.html">CamControls</a>&amp; controls) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span></div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <a class="code hl_class" href="class_ray.html">Ray</a> get_ray_for_pixel(<span class="keywordtype">int</span> i, <span class="keywordtype">int</span> j, <a class="code hl_class" href="class_cam_controls.html">CamControls</a>&amp; controls) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span></div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <a class="code hl_class" href="classrgb.html">rgb</a> sample_for_pixel_color(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <a class="code hl_class" href="class_scene.html">Scene</a>&amp; s);</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span></div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>};</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordtype">void</span> render(<a class="code hl_class" href="class_scene.html">Scene</a>&amp; s, <a class="code hl_class" href="class_interval.html">Interval</a> shutter_event);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordtype">void</span> render_locally(<a class="code hl_class" href="class_scene.html">Scene</a>&amp; s, <a class="code hl_class" href="class_interval.html">Interval</a> shutter_event) {</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    }</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordtype">void</span> render_parallel(Scene&amp; s, Interval shutter_event);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordtype">void</span> render_gpu(Scene&amp; s, Interval shutter_event);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordtype">void</span> ray_trace(Scene&amp; s, Interval shutter_event);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keywordtype">void</span> ray_trace_worker(Scene&amp; s, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, Interval shutter_event);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keywordtype">void</span> depth_buffer(Scene&amp; s, Interval shutter_event);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordtype">void</span> depth_buffer_worker(Scene&amp; s, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, Interval shutter_event);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordtype">void</span> hybrid(Scene&amp; s, Interval shutter_event);</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keywordtype">void</span> hybrid_worker(Scene&amp; s, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, Interval shutter_event);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keywordtype">void</span> write_color(<span class="keyword">const</span> rgb&amp; rgb, <span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    color process_ray(<span class="keyword">const</span> Ray&amp; r, <span class="keywordtype">int</span> depth, Scene&amp; s);</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    point anti_aliasing_offset() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    point random_point_on_camera_lens(CamControls&amp; controls) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    Ray get_ray_for_pixel(<span class="keywordtype">int</span> i, <span class="keywordtype">int</span> j, Interval shutter_event, CamControls&amp; controls) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    rgb sample_for_pixel_color(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, Interval shutter_event, Scene&amp; s);</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    std::vector&lt;double&gt; depth_buffer_data;</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    std::vector&lt;rgb&gt; color_buffer_data;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="keywordtype">int</span> depth_buffer_width = 0;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <span class="keywordtype">int</span> depth_buffer_height = 0;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span></div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    </div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>};</div>
 </div>
-<div class="ttc" id="aclass_cam_controls_html"><div class="ttname"><a href="class_cam_controls.html">CamControls</a></div><div class="ttdoc">Camera control class which details how rendering should be performed for a given scene....</div><div class="ttdef"><b>Definition</b> cam_controls.hpp:17</div></div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
 <div class="ttc" id="aclass_camera_rig_html_a0a2261b49c5a5c003af8e5f64dea0d3d"><div class="ttname"><a href="class_camera_rig.html#a0a2261b49c5a5c003af8e5f64dea0d3d">CameraRig::img_buffer</a></div><div class="ttdeci">Image * img_buffer</div><div class="ttdoc">Pointer to internal image buffer used by the camera.</div><div class="ttdef"><b>Definition</b> camera_rig.hpp:23</div></div>
-<div class="ttc" id="aclass_camera_rig_html_a6933249f866dacd24775f5f770cbc90b"><div class="ttname"><a href="class_camera_rig.html#a6933249f866dacd24775f5f770cbc90b">CameraRig::capture</a></div><div class="ttdeci">Image &amp; capture(Scene &amp;s)</div><div class="ttdoc">The only visible member function for a camera.</div><div class="ttdef"><b>Definition</b> camera_rig.cpp:4</div></div>
+<div class="ttc" id="aclass_camera_rig_html_a6933249f866dacd24775f5f770cbc90b"><div class="ttname"><a href="class_camera_rig.html#a6933249f866dacd24775f5f770cbc90b">CameraRig::capture</a></div><div class="ttdeci">Image &amp; capture(Scene &amp;s)</div><div class="ttdoc">The only visible member function for a camera.</div><div class="ttdef"><b>Definition</b> camera_rig.cpp:13</div></div>
 <div class="ttc" id="aclass_camera_rig_html_ad36e9daa7322b0f48b466df372bdb710"><div class="ttname"><a href="class_camera_rig.html#ad36e9daa7322b0f48b466df372bdb710">CameraRig::CameraRig</a></div><div class="ttdeci">CameraRig()</div><div class="ttdoc">Default Constructor.</div><div class="ttdef"><b>Definition</b> camera_rig.hpp:28</div></div>
-<div class="ttc" id="aclass_ray_html"><div class="ttname"><a href="class_ray.html">Ray</a></div><div class="ttdoc">Represents a ray used in the ray tracing algorithm.</div><div class="ttdef"><b>Definition</b> ray.hpp:8</div></div>
+<div class="ttc" id="aclass_interval_html"><div class="ttname"><a href="class_interval.html">Interval</a></div><div class="ttdoc">Represents an interval of real numbers, used through the ray tracing algorithm.</div><div class="ttdef"><b>Definition</b> interval.hpp:8</div></div>
 <div class="ttc" id="aclass_scene_html"><div class="ttname"><a href="class_scene.html">Scene</a></div><div class="ttdoc">Object which represents all of the context for a particular instance of the ray tracing algorithm,...</div><div class="ttdef"><b>Definition</b> scene.hpp:14</div></div>
-<div class="ttc" id="aclassrgb_html"><div class="ttname"><a href="classrgb.html">rgb</a></div><div class="ttdoc">Simple RGB color object.</div><div class="ttdef"><b>Definition</b> rgb.hpp:9</div></div>
-<div class="ttc" id="aclassvec3_html"><div class="ttname"><a href="classvec3.html">vec3</a></div><div class="ttdoc">Vector of 3 floats, used for a variety of purposes such as points, vectors, and colors.</div><div class="ttdef"><b>Definition</b> vector.hpp:65</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

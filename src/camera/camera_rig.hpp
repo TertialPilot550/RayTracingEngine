@@ -40,13 +40,20 @@ class CameraRig {
     private: 
 
     /**
-     * @name Impure Member Functions
+     * @name Impure Helper Functions
      * Impure functions within the camera object, i.e. need to consider parralelization explicitely
      * when working with these functions
      */
+    ///@{
 
     /**
-     * @brief Use the ray tracing algorithm to render a scene to an image.
+     * @name Rendering Functions
+     */
+
+    ///@{
+
+    /**
+     * @brief Render an image based on the CamControls object inside of scene s.
      * 
      * @details Uses an abstract computational helper (TaskMaster object) to 
      * perform various accerations for ray tracing. Uses the internal camera
@@ -57,6 +64,51 @@ class CameraRig {
     void render(Scene& s, Interval shutter_event);
 
     /**
+     * @brief Render without any acceleration
+     */
+    void render_locally(Scene& s, Interval shutter_event);
+    /**
+     * @brief Use parralelism to accelerate rendering
+     */
+    void render_parallel(Scene& s, Interval shutter_event);
+    /**
+     * @brief Use a gpu to accelerate rendering
+     */
+    void render_gpu(Scene& s, Interval shutter_event);
+
+    /**
+     * @brief Run the ray tracing algorithm to generate an 
+     * image using the internal image buffer. 
+     */
+    void ray_trace(Scene& s, Interval shutter_event);
+    /**
+     * @brief Worker for executing ray tracing algorithm with parralellism
+     */
+    void ray_trace_worker(Scene& s, int x, int y, Interval shutter_event);
+
+    /**
+     * @brief Run the depth buffer algorithm to generate an
+     * image using the internal image buffer.
+     */
+    void depth_buffer(Scene& s, Interval shutter_event);
+    /**
+     * @brief Worker for executing depth buffer algorithm with parralellism
+     */
+    void depth_buffer_worker(Scene& s, int x, int y, Interval shutter_event);
+
+    /**
+     * @brief Run a hybrid algorithm to generate an image using
+     * the internal image buffer.
+     */
+    void hybrid(Scene& s, Interval shutter_event);
+    /**
+     * @brief Worker for executing hybrid algorithm with parralellism
+     */
+    void hybrid_worker(Scene& s, int x, int y, Interval shutter_event);
+
+    ///@}
+
+    /**
      * @brief Writes the provided rgb color to the provided pixel on
      * the internal image buffer. 
      * 
@@ -64,18 +116,8 @@ class CameraRig {
      */
     void write_color(const rgb& rgb, int x, int y);
 
-
-    void render_locally(Scene& s, Interval shutter_event);
-    void render_parallel(Scene& s, Interval shutter_event);
-    void render_gpu(Scene& s, Interval shutter_event);
-
-    void ray_trace_worker(Scene& s, int s_x, int s_y, Interval shutter_event);
-    void hybrid_worker(Scene& s, int chunk_size, int s_x, int s_y, Interval shutter_event);
-    void depth_buffer_worker(Scene& s, int chunk_size, int s_x, int s_y, Interval shutter_event);
-
-
     /**
-     * @name Pure Member Functions
+     * @name Pure Helper Functions
      * Pure functions within the camera object, i.e. easily parralelizable.
      */
 
@@ -91,11 +133,7 @@ class CameraRig {
      */
     color process_ray(const Ray& r, int depth, Scene& s);
 
-
-    void depth_buffer(Scene& s, Interval shutter_event);
-    void depth_buffer_parallel(Scene& s, Interval shutter_event);
-    void hybrid(Scene& s, Interval shutter_event);
-    void ray_trace(Scene& s, Interval shutter_event);
+    ///@}
 
 
     /**

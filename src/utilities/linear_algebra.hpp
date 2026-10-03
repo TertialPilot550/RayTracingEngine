@@ -625,7 +625,7 @@ inline double determinant(mat<2,2> mat) {
 }
 
 template <int N, int M>
-std::ostream& operator<<(std::ostream& out, const mat<N,M>& m) {
+std::ostream& operator<<(std::ostream& out, const mat<N,M>&) {
 
     return out;
 }
@@ -681,4 +681,3 @@ inline mat<4,4> viewport_matrix(int w, int h) {
 
     return res;
 }
-

@@ -1,96 +1,114 @@
 \doxysection{collidable.\+hpp}
-\hypertarget{collidable_8hpp_source}{}\label{collidable_8hpp_source}\index{src/objects/collidable.hpp@{src/objects/collidable.hpp}}
+\hypertarget{collidable_8hpp_source}{}\label{collidable_8hpp_source}\index{src/entities/objects/collidable.hpp@{src/entities/objects/collidable.hpp}}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
 \DoxyCodeLine{00002\ }
-\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}../main.hpp"{}}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}../../main.hpp"{}}}
 \DoxyCodeLine{00004\ }
 \DoxyCodeLine{00005\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_material}{Material}};}
-\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_collision_object}{CollisionObject}};}
-\DoxyCodeLine{00007\ }
-\DoxyCodeLine{00008\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_collision_record}{CollisionRecord}}\ \{}
-\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ point\ p;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ point\ of\ intersection}}
-\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ normal;\ \ \ \ \textcolor{comment}{//\ normal\ vector\ at\ the\ intersection}}
-\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ std::shared\_ptr<Material>\ mat;\ \textcolor{comment}{//\ pointer\ to\ the\ material\ of\ the\ object\ hit}}
-\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ t;\ \ \ \ \ \ \ \textcolor{comment}{//\ time\ of\ collision}}
-\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{classvec2}{vec2}}\ t\_coords;}
-\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ front\_face;}
-\DoxyCodeLine{00016\ }
-\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ record(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_ray}{Ray}}\&r,\ \textcolor{keywordtype}{float}\ t,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec3}{vec3}}\&\ outward\_normal,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_collision_object}{CollisionObject}}*\ obj);}
-\DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set\_face\_normal(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_ray}{Ray}}\&\ r,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec3}{vec3}}\&\ outward\_normal)\ \{}
-\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sets\ the\ hit\ record\ normal\ vector.}}
-\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ NOTE:\ the\ parameter\ \`{}outward\_normal`\ is\ assumed\ to\ have\ unit\ length.}}
-\DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ front\_face\ =\ dot(r.direction(),\ outward\_normal)\ <\ 0;}
-\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ normal\ =\ front\_face\ ?\ outward\_normal\ :\ -\/outward\_normal;}
-\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00026\ }
-\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ operator=(\doxymbox{\hyperlink{class_collision_record}{CollisionRecord}}\&\ r)\ \{}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ p\ =\ r.p;}
-\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ normal\ =\ r.normal;}
-\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ mat\ =\ r.mat;}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ t\ =\ r.t;}
-\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ t\_coords\ =\ r.t\_coords;}
-\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ front\_face\ =\ r.front\_face;}
-\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00035\ \};}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \textcolor{keyword}{class\ }CollisionObject\ \{}
+\DoxyCodeLine{00006\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_surface}{Surface}};}
+\DoxyCodeLine{00007\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_collision_record}{CollisionRecord}};}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00012\ \ \textcolor{keyword}{class\ }CollisionObject\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00014\ \ \ \ \ }
+\DoxyCodeLine{00015\ \ \ \ \ std::shared\_ptr<Surface>\ surf;}
+\DoxyCodeLine{00016\ \ \ \ \ CollisionObject(std::shared\_ptr<Surface>\ surf):\ surf(surf)\ \{\}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ hit(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_ray}{Ray}}\&\ r,\ \doxymbox{\hyperlink{class_interval}{Interval}}\ ray\_t,\ \doxymbox{\hyperlink{class_collision_record}{CollisionRecord}}\&\ rec)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ rasterize(\textcolor{keywordtype}{int}\ screen\_size[2],\ \doxymbox{\hyperlink{classmat}{mat<4,4>}}\&\ viewport\_matrix,\ \doxymbox{\hyperlink{classmat}{mat<4,4>}}\&\ projection\_to\_camera\_matrix,\ \textcolor{keywordtype}{double}*\ depth\_buff,\ \doxymbox{\hyperlink{classrgb}{rgb}}*\ color\_buff,\ \textcolor{keywordtype}{double}\ time)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ (void)screen\_size;}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ (void)viewport\_matrix;}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ (void)projection\_to\_camera\_matrix;}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ (void)depth\_buff;}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ (void)color\_buff;}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ (void)time;}
+\DoxyCodeLine{00026\ \ \ \ \ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{virtual}\ point2D\ get\_tcoords(\textcolor{keyword}{const}\ point\&\ p,\ \textcolor{keywordtype}{double}\ time)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_collision_record}{CollisionRecord}}\ \{}
 \DoxyCodeLine{00038\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00039\ \ \ \ \ std::shared\_ptr<Material>\ mat;}
-\DoxyCodeLine{00040\ \ \ \ \ CollisionObject(std::shared\_ptr<Material>\ m):\ mat(m)\ \{\}}
-\DoxyCodeLine{00041\ }
-\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ hit(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_ray}{Ray}}\&\ r,\ \doxymbox{\hyperlink{class_interval}{Interval}}\ ray\_t,\ \doxymbox{\hyperlink{class_collision_record}{CollisionRecord}}\&\ rec)\ \textcolor{keyword}{const}\ =\ 0;}
-\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{virtual}\ \doxymbox{\hyperlink{classvec2}{vec2}}\ get\_tcoords(\textcolor{keyword}{const}\ point\&\ p)\ \textcolor{keyword}{const}\ =\ 0;}
-\DoxyCodeLine{00044\ }
-\DoxyCodeLine{00045\ \};}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ point\ p;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ point\ of\ intersection}}
+\DoxyCodeLine{00041\ \ \ \ \ point\ normal;\ \ \ \ \textcolor{comment}{//\ normal\ vector\ at\ the\ intersection}}
+\DoxyCodeLine{00042\ \ \ \ \ std::shared\_ptr<Surface>\ surf;\ \textcolor{comment}{//\ pointer\ to\ the\ material\ of\ the\ object\ hit}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{double}\ t;\ \ \ \ \ \ \ \textcolor{comment}{//\ time\ of\ collision}}
+\DoxyCodeLine{00044\ \ \ \ \ point2D\ t\_coords;}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{bool}\ front\_face;}
 \DoxyCodeLine{00046\ }
-\DoxyCodeLine{00047\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ CollisionRecord::record(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_ray}{Ray}}\&r,\ \textcolor{keywordtype}{float}\ t,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{classvec3}{vec3}}\&\ outward\_normal,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_collision_object}{CollisionObject}}*\ obj)\ \{}
-\DoxyCodeLine{00048\ \ \ \ \ this-\/>t\ =\ t;}
-\DoxyCodeLine{00049\ \ \ \ \ this-\/>p\ =\ r.at(t);}
-\DoxyCodeLine{00050\ \ \ \ \ set\_face\_normal(r,\ outward\_normal);}
-\DoxyCodeLine{00051\ \ \ \ \ \doxymbox{\hyperlink{classvec2}{vec2}}\ t\_coords\ =\ obj-\/>get\_tcoords(p);}
-\DoxyCodeLine{00052\ \ \ \ \ this-\/>t\_coords\ =\ t\_coords;}
-\DoxyCodeLine{00053\ \ \ \ \ this-\/>mat\ =\ obj-\/>mat;}
-\DoxyCodeLine{00054\ \}}
-\DoxyCodeLine{00055\ }
-\DoxyCodeLine{00056\ }
-\DoxyCodeLine{00057\ \textcolor{keyword}{class\ }CollisionList\ :\ \textcolor{keyword}{public}\ CollisionObject\ \{}
-\DoxyCodeLine{00058\ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00059\ \ \ \ \ std::vector<std::shared\_ptr<CollisionObject>>\ objects;}
-\DoxyCodeLine{00060\ }
-\DoxyCodeLine{00061\ \ \ \ \ CollisionList()\ :\ CollisionObject(NULL)\ \{\}}
-\DoxyCodeLine{00062\ \ \ \ \ CollisionList(std::shared\_ptr<CollisionObject>\ \textcolor{keywordtype}{object})\ :\ CollisionObject(NULL)\ \{\ add(\textcolor{keywordtype}{object});\ \}}
-\DoxyCodeLine{00063\ }
-\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ clear()\ \{\ objects.clear();\ \}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_collision_record_a3794b58a1fd326cc2a71c4fa27b0a25b}{record}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_ray}{Ray}}\&r,\ \textcolor{keywordtype}{float}\ t,\ \textcolor{keyword}{const}\ point\&\ outward\_normal,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_collision_object}{CollisionObject}}*\ obj)\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ this-\/>t\ =\ t;}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ this-\/>p\ =\ r.at(t);}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_collision_record_a4bfb1a7b4f35f954571904e32b676e02}{set\_face\_normal}}(r,\ outward\_normal);}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ point2D\ t\_c\ =\ obj-\/>get\_tcoords(p,\ r.time());}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ this-\/>t\_coords\ =\ t\_c;}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ this-\/>surf\ =\ obj-\/>surf;}
+\DoxyCodeLine{00057\ \ \ \ \ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_collision_record_a4bfb1a7b4f35f954571904e32b676e02}{set\_face\_normal}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_ray}{Ray}}\&\ r,\ \textcolor{keyword}{const}\ point\&\ outward\_normal)\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sets\ the\ hit\ record\ normal\ vector.}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ NOTE:\ the\ parameter\ \`{}outward\_normal`\ is\ assumed\ to\ have\ unit\ length.}}
 \DoxyCodeLine{00065\ }
-\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{void}\ add(std::shared\_ptr<CollisionObject>\ \textcolor{keywordtype}{object})\ \{}
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ objects.push\_back(\textcolor{keywordtype}{object});}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ front\_face\ =\ dot<4>(r.direction(),\ outward\_normal)\ <\ 0;}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ normal\ =\ front\_face\ ?\ outward\_normal\ :\ -\/outward\_normal;}
 \DoxyCodeLine{00068\ \ \ \ \ \}}
 \DoxyCodeLine{00069\ }
-\DoxyCodeLine{00070\ \ \ \ \ \doxymbox{\hyperlink{classvec2}{vec2}}\ get\_tcoords(\textcolor{keyword}{const}\ point\&\ p)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{classvec2}{vec2}}(0,0);}
-\DoxyCodeLine{00072\ \ \ \ \ \}}
-\DoxyCodeLine{00073\ }
-\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{bool}\ hit(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_ray}{Ray}}\&\ r,\ \doxymbox{\hyperlink{class_interval}{Interval}}\ ray\_t,\ \doxymbox{\hyperlink{class_collision_record}{CollisionRecord}}\&\ rec)\textcolor{keyword}{\ const\ override\ }\{}
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_collision_record}{CollisionRecord}}\ temp\_rec;}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ hit\_anything\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ closest\_so\_far\ =\ ray\_t.max;}
-\DoxyCodeLine{00078\ }
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ \textcolor{keywordtype}{object}\ :\ objects)\ \{}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (object-\/>hit(r,\ \doxymbox{\hyperlink{class_interval}{Interval}}(ray\_t.min,\ closest\_so\_far),\ temp\_rec))\ \{}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hit\_anything\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ closest\_so\_far\ =\ temp\_rec.t;}
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rec\ =\ temp\_rec;}
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{00086\ }
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ hit\_anything;}
-\DoxyCodeLine{00088\ \ \ \ \ \}}
-\DoxyCodeLine{00089\ \};}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_collision_record_adfc17ee9633de5a4e60165dde77fa1b0}{operator=}}(\doxymbox{\hyperlink{class_collision_record}{CollisionRecord}}\&\ r)\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ p\ =\ r.p;}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ normal\ =\ r.normal;}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ surf\ =\ r.surf;}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ t\ =\ r.t;}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ t\_coords\ =\ r.t\_coords;}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ front\_face\ =\ r.front\_face;}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00088\ \textcolor{keyword}{class\ }CollisionList\ :\ \textcolor{keyword}{public}\ CollisionObject\ \{}
+\DoxyCodeLine{00089\ \ \ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ std::vector<std::shared\_ptr<CollisionObject>>\ objects;}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ CollisionList()\ :\ CollisionObject(NULL)\ \{\}}
+\DoxyCodeLine{00094\ \ \ \ \ CollisionList(std::shared\_ptr<CollisionObject>\ \textcolor{keywordtype}{object})\ :\ CollisionObject(NULL)\ \{\ add(\textcolor{keywordtype}{object});\ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{void}\ clear()\ \{\ objects.clear();\ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{void}\ add(std::shared\_ptr<CollisionObject>\ \textcolor{keywordtype}{object})\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ objects.push\_back(\textcolor{keywordtype}{object});}
+\DoxyCodeLine{00100\ \ \ \ \ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00105\ \ \ \ \ point2D\ \doxymbox{\hyperlink{class_collision_list_a168de8bbbce0236984a57472aeea5168}{get\_tcoords}}(\textcolor{keyword}{const}\ point\&\ p,\ \textcolor{keywordtype}{double}\ time)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ (void)\ time;}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ point2D();}
+\DoxyCodeLine{00108\ \ \ \ \ \}}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_collision_list_aca17aa67b81b4923f832d547239a7875}{hit}}(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_ray}{Ray}}\&\ r,\ \doxymbox{\hyperlink{class_interval}{Interval}}\ ray\_t,\ \doxymbox{\hyperlink{class_collision_record}{CollisionRecord}}\&\ rec)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_collision_record}{CollisionRecord}}\ temp\_rec;}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ hit\_anything\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ closest\_so\_far\ =\ ray\_t.max;}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ \textcolor{keywordtype}{object}\ :\ objects)\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (object-\/>hit(r,\ \doxymbox{\hyperlink{class_interval}{Interval}}(ray\_t.min,\ closest\_so\_far),\ temp\_rec))\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hit\_anything\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ closest\_so\_far\ =\ temp\_rec.t;}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rec\ =\ temp\_rec;}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ hit\_anything;}
+\DoxyCodeLine{00127\ \ \ \ \ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_collision_list_aa15d97d5420b591d408febef81d76b94}{rasterize}}(\textcolor{keywordtype}{int}\ screen\_size[2],\ \doxymbox{\hyperlink{classmat}{mat<4,4>}}\&\ viewport\_matrix,\ \doxymbox{\hyperlink{classmat}{mat<4,4>}}\&\ projection\_to\_camera\_matrix,\ \textcolor{keywordtype}{double}*\ depth\_buff,\ \doxymbox{\hyperlink{classrgb}{rgb}}*\ color\_buff,\ \textcolor{keywordtype}{double}\ time)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ objects.size();\ i++)\ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ objects[i]-\/>rasterize(screen\_size,\ viewport\_matrix,\ projection\_to\_camera\_matrix,\ depth\_buff,\ color\_buff,\ time);}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00136\ \ \ \ \ \}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \};}
 
 \end{DoxyCode}

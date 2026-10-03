@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['geometric_20primitives_0',['Geometric Primitives',['../index.html#autotoc_md5',1,'']]]
+  ['lambertian_0',['Lambertian',['../class_lambertian.html',1,'']]],
+  ['list_1',['COMS 3360 PROJECT TODO LIST',['../index.html',1,'']]]
 ];

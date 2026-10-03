@@ -2,6 +2,15 @@
 \hypertarget{class_collision_list}{}\label{class_collision_list}\index{CollisionList@{CollisionList}}
 
 
+A list of collidable objects.  
+
+
+
+
+{\ttfamily \+\#include $<$collidable.\+hpp$>$}
+
+
+
 Inheritance diagram for Collision\+List:
 % FIG 0
 
@@ -20,14 +29,16 @@ void {\bfseries clear} ()
 \Hypertarget{class_collision_list_a59f61468b831dea28497b0396779e1fa}\label{class_collision_list_a59f61468b831dea28497b0396779e1fa} 
 void {\bfseries add} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}} $>$ object)
 \item 
-\doxymbox{\hyperlink{classvec2}{vec2}} \doxymbox{\hyperlink{class_collision_list_a08aa4e290ab1a64a8232dca1401b3748}{get\+\_\+tcoords}} (const point \&p) const override
-\item 
+point2D \doxymbox{\hyperlink{class_collision_list_a168de8bbbce0236984a57472aeea5168}{get\+\_\+tcoords}} (const point \&p, double time) const override
+\begin{DoxyCompactList}\small\item\em A default implementation of get\+\_\+tcoords that returns \+[0,0]. \end{DoxyCompactList}\item 
 bool \doxymbox{\hyperlink{class_collision_list_aca17aa67b81b4923f832d547239a7875}{hit}} (const \doxymbox{\hyperlink{class_ray}{Ray}} \&r, \doxymbox{\hyperlink{class_interval}{Interval}} ray\+\_\+t, \doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&rec) const override
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Pass a hit call onto the child objects. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_collision_list_aa15d97d5420b591d408febef81d76b94}{rasterize}} (int screen\+\_\+size\+[2]\+, \doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&viewport\+\_\+matrix, \doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&projection\+\_\+to\+\_\+camera\+\_\+matrix, double \texorpdfstring{$\ast$}{*}depth\+\_\+buff, \doxymbox{\hyperlink{classrgb}{rgb}} \texorpdfstring{$\ast$}{*}color\+\_\+buff, double time) const override
+\begin{DoxyCompactList}\small\item\em Pass a rasterize call onto the child objects. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries Collision\+Object} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_material}{Material}} $>$ m)
+{\bfseries Collision\+Object} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ surf)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -38,18 +49,27 @@ std::\+vector$<$ std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_collision_
 \doxysubsection*{Public Attributes inherited from \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
-std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_material}{Material}} $>$ {\bfseries mat}
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ {\bfseries surf}
 \end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+A list of collidable objects. 
+
+Used to create collections of primitives that function as a single object 
 
 \label{class_collision_list_doc-func-members}
 \Hypertarget{class_collision_list_doc-func-members}
 \doxysubsection{Member Function Documentation}
-\Hypertarget{class_collision_list_a08aa4e290ab1a64a8232dca1401b3748}\index{CollisionList@{CollisionList}!get\_tcoords@{get\_tcoords}}
+\Hypertarget{class_collision_list_a168de8bbbce0236984a57472aeea5168}\index{CollisionList@{CollisionList}!get\_tcoords@{get\_tcoords}}
 \index{get\_tcoords@{get\_tcoords}!CollisionList@{CollisionList}}
 \doxysubsubsection{\texorpdfstring{get\_tcoords()}{get\_tcoords()}}
-{\footnotesize\ttfamily \label{class_collision_list_a08aa4e290ab1a64a8232dca1401b3748} 
-\doxymbox{\hyperlink{classvec2}{vec2}} Collision\+List::\+get\+\_\+tcoords (\begin{DoxyParamCaption}\item[{const point \&}]{p}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily \label{class_collision_list_a168de8bbbce0236984a57472aeea5168} 
+point2D Collision\+List::\+get\+\_\+tcoords (\begin{DoxyParamCaption}\item[{const point \&}]{p}{, }\item[{double}]{time}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+A default implementation of get\+\_\+tcoords that returns \+[0,0]. 
 
 
 
@@ -63,10 +83,28 @@ bool Collision\+List::\+hit (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyp
 
 
 
+Pass a hit call onto the child objects. 
+
+
+
 Implements \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}.
+
+\Hypertarget{class_collision_list_aa15d97d5420b591d408febef81d76b94}\index{CollisionList@{CollisionList}!rasterize@{rasterize}}
+\index{rasterize@{rasterize}!CollisionList@{CollisionList}}
+\doxysubsubsection{\texorpdfstring{rasterize()}{rasterize()}}
+{\footnotesize\ttfamily \label{class_collision_list_aa15d97d5420b591d408febef81d76b94} 
+void Collision\+List::\+rasterize (\begin{DoxyParamCaption}\item[{int}]{screen\+\_\+size}{\+[2], }\item[{\doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&}]{viewport\+\_\+matrix}{, }\item[{\doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&}]{projection\+\_\+to\+\_\+camera\+\_\+matrix}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{depth\+\_\+buff}{, }\item[{\doxymbox{\hyperlink{classrgb}{rgb}} \texorpdfstring{$\ast$}{*}}]{color\+\_\+buff}{, }\item[{double}]{time}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Pass a rasterize call onto the child objects. 
+
+
+
+Reimplemented from \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}.
 
 
 
 The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
 \item 
-src/\+objects/collidable.\+hpp\end{DoxyCompactItemize}
+src/\+entities/\+objects/collidable.\+hpp\end{DoxyCompactItemize}

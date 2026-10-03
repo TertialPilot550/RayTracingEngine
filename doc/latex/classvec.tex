@@ -1,0 +1,49 @@
+\doxysection{vec\texorpdfstring{$<$}{<} N \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classvec}{}\label{classvec}\index{vec$<$ N $>$@{vec$<$ N $>$}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvec_ab5b7a146166859fc59994a3b45b6763f}\label{classvec_ab5b7a146166859fc59994a3b45b6763f} 
+{\bfseries vec} (const \doxymbox{\hyperlink{classvec}{vec}} \&)=default
+\item 
+\Hypertarget{classvec_adec5595d5d440742c5f0df182e8d68dc}\label{classvec_adec5595d5d440742c5f0df182e8d68dc} 
+{\footnotesize template$<$typename T, typename U, typename V, typename std::\+enable\+\_\+if$<$ N==4 \&\&std::\+is\+\_\+arithmetic$<$ T $>$::\+value \&\&std::\+is\+\_\+arithmetic$<$ U $>$::\+value \&\&std::\+is\+\_\+arithmetic$<$ V $>$::\+value, int $>$::\+type = 0$>$ }\\{\bfseries vec} (T x, U y, V z)
+\item 
+\Hypertarget{classvec_a2d087b6fe8042b75e9393cc883e8f6f7}\label{classvec_a2d087b6fe8042b75e9393cc883e8f6f7} 
+{\footnotesize template$<$typename... Args, typename std::\+enable\+\_\+if$<$ \doxymbox{\hyperlink{structare__arithmetic}{are\+\_\+arithmetic}}$<$ Args... $>$::\+value, int $>$::\+type = 0$>$ }\\{\bfseries vec} (Args... args)
+\item 
+\Hypertarget{classvec_ad986da365413083c94100271edeb7419}\label{classvec_ad986da365413083c94100271edeb7419} 
+double \& {\bfseries operator\+[$\,$]} (int ind)
+\item 
+\Hypertarget{classvec_ad4dd25e75da0905c4349b44aa9a29793}\label{classvec_ad4dd25e75da0905c4349b44aa9a29793} 
+double {\bfseries operator\+[$\,$]} (int ind) const
+\item 
+\Hypertarget{classvec_a0ed4a5fbb6d16cab917d6d83e42c0848}\label{classvec_a0ed4a5fbb6d16cab917d6d83e42c0848} 
+\doxymbox{\hyperlink{classvec}{vec}}$<$ N $>$ \& {\bfseries operator=} (const \doxymbox{\hyperlink{classvec}{vec}}$<$ N $>$ \&v)=default
+\item 
+\Hypertarget{classvec_af539eabafaac98f9ce3ef7db475ad0ae}\label{classvec_af539eabafaac98f9ce3ef7db475ad0ae} 
+\doxymbox{\hyperlink{classvec}{vec}}$<$ N $>$ \& {\bfseries operator=} (double d)
+\item 
+\Hypertarget{classvec_a006adf627376062505d81875083115f8}\label{classvec_a006adf627376062505d81875083115f8} 
+size\+\_\+t {\bfseries size} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvec_a3591ea924be491838cbdfd85f14929fe}\label{classvec_a3591ea924be491838cbdfd85f14929fe} 
+static \doxymbox{\hyperlink{classvec}{vec}}$<$ N $>$ {\bfseries random} ()
+\item 
+\Hypertarget{classvec_aab993c41fe0647df9c6def87afaf0551}\label{classvec_aab993c41fe0647df9c6def87afaf0551} 
+static \doxymbox{\hyperlink{classvec}{vec}}$<$ N $>$ {\bfseries random} (double min, double max)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classvec_a0d5eb43f5d8ffc736b91a5f82b649f28}\label{classvec_a0d5eb43f5d8ffc736b91a5f82b649f28} 
+std::\+array$<$ double, N $>$ {\bfseries elem}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+src/\+utilities/linear\+\_\+algebra.\+hpp\end{DoxyCompactItemize}

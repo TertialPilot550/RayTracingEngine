@@ -14,6 +14,7 @@ class CollisionRecord;
     
     std::shared_ptr<Surface> surf;
     CollisionObject(std::shared_ptr<Surface> surf): surf(surf) {}
+    virtual ~CollisionObject() = default;
 
     virtual bool hit(const Ray& r, Interval ray_t, CollisionRecord& rec) const = 0;
     virtual void rasterize(int screen_size[2], mat<4,4>& viewport_matrix, mat<4,4>& projection_to_camera_matrix, double* depth_buff, rgb* color_buff, double time) const {
@@ -24,11 +25,8 @@ class CollisionRecord;
         (void)color_buff;
         (void)time;
     }
-    virtual point2D get_tcoords(const point& p) const = 0;
-    virtual point2D get_tcoords(const point& p, double time) const {
-        (void)time;
-        return get_tcoords(p);
-    }
+
+    virtual point2D get_tcoords(const point& p, double time) const = 0;
 
 };
 
@@ -59,6 +57,9 @@ class CollisionRecord {
         this->surf = obj->surf;
     }
 
+    /**
+     * @brief Set the hit record normal vector
+     */
     void set_face_normal(const Ray& r, const point& outward_normal) {
         // Sets the hit record normal vector.
         // NOTE: the parameter `outward_normal` is assumed to have unit length.
@@ -67,6 +68,9 @@ class CollisionRecord {
         normal = front_face ? outward_normal : -outward_normal;
     }
 
+    /**
+     * @brief Copy assignment operator
+     */
     void operator=(CollisionRecord& r) {
         p = r.p;
         normal = r.normal;
@@ -96,13 +100,17 @@ class CollisionList : public CollisionObject {
         objects.push_back(object);
     }
 
-    point2D get_tcoords(const point& p) const override {
-        point2D res;
-        res[0] = 0;
-        res[1] = 0;
-        return res;
+    /**
+     * @brief A default implementation of get_tcoords that returns [0,0]
+     */
+    point2D get_tcoords(const point&, double time) const override {
+        (void) time;
+        return point2D();
     }
 
+    /**
+     * @brief Pass a hit call onto the child objects
+     */
     bool hit(const Ray& r, Interval ray_t, CollisionRecord& rec) const override {
         CollisionRecord temp_rec;
         bool hit_anything = false;
@@ -119,8 +127,11 @@ class CollisionList : public CollisionObject {
         return hit_anything;
     }
 
+    /**
+     * @brief Pass a rasterize call onto the child objects
+     */
     void rasterize(int screen_size[2], mat<4,4>& viewport_matrix, mat<4,4>& projection_to_camera_matrix, double* depth_buff, rgb* color_buff, double time) const override {
-        for (int i = 0; i < objects.size(); i++) {
+        for (size_t i = 0; i < objects.size(); i++) {
             objects[i]->rasterize(screen_size, viewport_matrix, projection_to_camera_matrix, depth_buff, color_buff, time);
         }
     }

@@ -6,29 +6,6 @@ void rasterize_scene(Scene& s, double* depth_buffer, rgb* color_buffer, double t
 
 
 
-// SHORT TODO:
-// - Motion / Transformations on objects
-
-// Theres an issue with motions now???? how am i gonna do this. motions aren't integrated with any rendering type, and need to be implemented in a way
-// that the objects internal thing? idk
-
-// objects need a link to a motion? somehow?
-// and motions need a link to objects?
-
-// should motions be part of the scene or the object?
-// when I have skeltons, it'll be part of the object and the scene???????????
-// an internal motion linking the parts, which is not time based, and time based transformations on each individual part/the whole things
-// so it should be external
-// plus then multiple objects can use the same motion
-
-/*
-Depth Buffer: account for shutter events
-    - For each shutter event start point:
-        - generate a picture, somehow combining results across the interval
-            - needs more consideration
-        - move onto the next picture
-*/
-
 // ---------------------------- High Level Interface ---------------------------- //
 
 
@@ -42,8 +19,7 @@ Image& CameraRig::capture(Scene& s) {
         render(s, Interval(0.0, 1.0));
     } else {
         for (int i = 0; i < s.controls.get_shutter_event_count(); i++) {
-            Interval shutter_event = s.controls.get_shutter_events()[i];
-            render(s, shutter_event);
+            render(s, s.controls.get_shutter_events()[i]);
         }
     }
 
@@ -57,7 +33,7 @@ void CameraRig::render_locally(Scene& s, Interval shutter_event) {
             ray_trace(s, shutter_event);    
             break;
         case CameraMode::HYBRID :
-
+            hybrid(s, shutter_event);
             break;
         case CameraMode::DEPTH_BUFFER :
             depth_buffer(s, shutter_event);
@@ -66,15 +42,6 @@ void CameraRig::render_locally(Scene& s, Interval shutter_event) {
 }
 
 void CameraRig::render_parallel(Scene& s, Interval shutter_event) {
-    if (s.controls.mode == CameraMode::DEPTH_BUFFER) {
-        depth_buffer_parallel(s, shutter_event);
-        return;
-    }
-    if (s.controls.mode == CameraMode::HYBRID) {
-        hybrid(s, shutter_event);
-        return;
-    }
-
     TaskMaster tm(s.controls.thread_count);
     std::vector<std::function<void()>> tasks;
 
@@ -92,21 +59,25 @@ void CameraRig::render_parallel(Scene& s, Interval shutter_event) {
                     break;
 
                 case CameraMode::HYBRID :
+                    // Hybrid Rendering
+                    tasks.emplace_back([this, &s, x, y, shutter_event]() {
+                        hybrid_worker(s, x, y, shutter_event);
+                    });
+
                 case CameraMode::DEPTH_BUFFER :
+                    tasks.emplace_back([this, &s, x, y, shutter_event]() {
+                        depth_buffer_worker(s, x, y, shutter_event);
+                    });
                     break;
             }
 
         }
     }
 
-    if (s.controls.mode == CameraMode::DEPTH_BUFFER) {
-        depth_buffer_parallel(s, shutter_event);
-    } else {
-        tm.dispatch(tasks);
-    }
+    tm.dispatch(tasks);
 }
 
-void CameraRig::render_gpu(Scene& s, Interval shutter_event) {
+void CameraRig::render_gpu(Scene&, Interval) {
     throw new std::runtime_error("GPU Acceleration not yet implemented.");
 }
 
@@ -130,14 +101,15 @@ void CameraRig::render(Scene& s, Interval shutter_event) {
 
 // Ray tracing without any acceleration
 void CameraRig::ray_trace(Scene& s, Interval shutter_event) {
+    s.controls.chunk_size = 1;
     for (int y = 0; y < s.controls.img_h(); y++) {
         for (int x = 0; x < s.controls.img_w(); x++) {
-            write_color(sample_for_pixel_color(x, y, shutter_event, s), x, y);
+            ray_trace_worker(s, x, y, shutter_event);
         }
     } 
 }
 
-// Ray tracing worker function for parralelization
+// >>>>>>> Ray tracing worker function for parralelization (This is what should be turned into the kernel function!!!!!!!!)
 void CameraRig::ray_trace_worker(Scene& s, int s_x, int s_y, Interval shutter_event) {
     // Build Buffer
     int chunk_size = s.controls.chunk_size;
@@ -161,13 +133,13 @@ void CameraRig::ray_trace_worker(Scene& s, int s_x, int s_y, Interval shutter_ev
 // (Pure) Get a ray to send to pixel (i, j)
 Ray CameraRig::get_ray_for_pixel(int i, int j, Interval shutter_event, CamControls& controls) const {
     // Determine the ray parameters
-    point offset = (controls.do_antialiasing) ? anti_aliasing_offset() : make_vector(0,0,0);
+    const point offset = (controls.do_antialiasing) ? anti_aliasing_offset() : make_vector(0,0,0);
 
     // Construct the ray
-    point r_origin = (controls.defcs_angle() <= 0) ? controls.center() : random_point_on_camera_lens(controls);
-    point r_towards = controls.viewport_origin() + ((i + offset[X]) * controls.du()) + ((j + offset[Y]) * controls.dv());
-    point r_direction = r_towards - r_origin;
-    double r_time = random_double(shutter_event.min, shutter_event.max);
+    const point r_origin = (controls.defcs_angle() <= 0) ? controls.center() : random_point_on_camera_lens(controls);
+    const point r_towards = controls.viewport_origin() + ((i + offset[X]) * controls.du()) + ((j + offset[Y]) * controls.dv());
+    const point r_direction = r_towards - r_origin;
+    const double r_time = random_double(shutter_event.min, shutter_event.max);
     return Ray(r_origin, r_direction, r_time);
 }
 
@@ -243,37 +215,27 @@ color process_ray_without_lighting(const Ray& r, int depth, Scene& s) {
 // ---------------------------- Hybrid Rendering ---------------------------- //
 
 void CameraRig::hybrid(Scene& s, Interval shutter_event) {
-    depth_buffer_parallel(s, shutter_event);
+    depth_buffer(s, shutter_event);
 
-    TaskMaster tm(s.controls.thread_count);
-    std::vector<std::function<void()>> tasks;
     for (int y = 0; y < s.controls.img_h(); ++y) {
         for (int x = 0; x < s.controls.img_w(); x += s.controls.chunk_size) {
-            tasks.emplace_back([this, &s, x, y, shutter_event]() {
-                hybrid_worker(s, s.controls.chunk_size, x, y, shutter_event);
-            });
+            hybrid_worker(s, x, y, shutter_event);
         }
     }
-    tm.dispatch(tasks);
 }
 
-void CameraRig::hybrid_worker(Scene& s, int chunk_size, int s_x, int s_y, Interval shutter_event) {
-    const int max_x = std::min(s_x + chunk_size, s.controls.img_w());
-    const int samples = std::max(1, static_cast<int>(s.controls.samples_per_pix()));
+void CameraRig::hybrid_worker(Scene& s, int s_x, int s_y, Interval shutter_event) {
+
+    const int max_x = std::min(s_x + s.controls.chunk_size, s.controls.img_w());
+
+    // For each chunk...
     for (int x = s_x; x < max_x; ++x) {
         if (!std::isfinite(depth_buffer_data[x + s_y * depth_buffer_width])) {
             write_color(rgb(0, 0, 0), x, s_y);
             continue;
         }
-
-        color pixel_color;
-        for (int sample = 0; sample < samples; ++sample) {
-            pixel_color += process_ray(
-                get_ray_for_pixel(x, s_y, shutter_event, s.controls),
-                s.controls.max_depth, s);
-        }
-        write_color(color_correction_to_rgb(
-            s.controls.pscale() * pixel_color), x, s_y);
+        rgb pixel_color = sample_for_pixel_color(x, s_y, shutter_event, s);
+        write_color(pixel_color, x, s_y);
     }
 }
 
@@ -327,37 +289,12 @@ void CameraRig::depth_buffer(Scene& s, Interval shutter_event) {
     // Drop the buffers
 }
 
-void CameraRig::depth_buffer_parallel(Scene& s, Interval shutter_event) {
-    const int w = s.controls.img_w();
-    const int h = s.controls.img_h();
-    depth_buffer_width = w;
-    depth_buffer_height = h;
-    depth_buffer_data.assign(static_cast<size_t>(w) * h, infinity);
-    color_buffer_data.assign(static_cast<size_t>(w) * h, rgb(0, 0, 0));
 
-    TaskMaster tm(s.controls.thread_count);
-    std::vector<std::function<void()>> tasks;
-    for (int y = 0; y < h; y += s.controls.chunk_size) {
-        for (int x = 0; x < w; x += s.controls.chunk_size) {
-            tasks.emplace_back([this, &s, x, y, shutter_event]() {
-                depth_buffer_worker(s, s.controls.chunk_size, x, y, shutter_event);
-            });
-        }
-    }
-    tm.dispatch(tasks);
-
-    for (int y = 0; y < h; ++y) {
-        for (int x = 0; x < w; ++x) {
-            write_color(color_buffer_data[x + y * w], x, y);
-        }
-    }
-}
-
-void CameraRig::depth_buffer_worker(Scene& s, int chunk_size, int s_x, int s_y, Interval shutter_event) {
+void CameraRig::depth_buffer_worker(Scene& s, int s_x, int s_y, Interval shutter_event) {
     const double time = 0.5 * (shutter_event.min + shutter_event.max);
     const Interval sample_interval(time, time);
-    const int max_x = std::min(s_x + chunk_size, depth_buffer_width);
-    const int max_y = std::min(s_y + chunk_size, depth_buffer_height);
+    const int max_x = std::min(s_x + s.controls.chunk_size, depth_buffer_width);
+    const int max_y = std::min(s_y + s.controls.chunk_size, depth_buffer_height);
 
     for (int y = s_y; y < max_y; ++y) {
         for (int x = s_x; x < max_x; ++x) {
@@ -404,7 +341,7 @@ void rasterize_scene(Scene& s, double* depth_buffer, rgb* color_buffer, double t
     mat<4,4> world_to_cam = world_to_camera_matrix(s.controls.u(), s.controls.v(), s.controls.w(), s.controls.center());
     mat<4,4> proj_to_cam = projection * world_to_cam;
 
-    for (int i = 0; i < s.objects.instances.size(); i++) {
+    for (size_t i = 0; i < s.objects.instances.size(); i++) {
         s.objects[i]->rasterize(s_size, view, proj_to_cam, depth_buffer, color_buffer, time);
     }
 }

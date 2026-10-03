@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['dispatch_0',['dispatch',['../class_task_master.html#ab13a598c5c2ae1ff5d52bfb666c6fdf9',1,'TaskMaster']]]
+  ['dispatch_0',['dispatch',['../class_task_master.html#ab13a598c5c2ae1ff5d52bfb666c6fdf9',1,'TaskMaster']]],
+  ['display_1',['display',['../class_o_b_j_model.html#a0b4a05baaa49f0f8d3ce22d9b15e344f',1,'OBJModel']]]
 ];

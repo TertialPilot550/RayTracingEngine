@@ -11,42 +11,43 @@ Collaboration diagram for Sphere:
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{class_sphere_aebf0d851ac00890b5f8ba1d27dbeebab}\label{class_sphere_aebf0d851ac00890b5f8ba1d27dbeebab} 
-{\bfseries Sphere} (const point \&center, double radius, std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_material}{Material}} $>$ material)
+\Hypertarget{class_sphere_ab9fc7e701a5b1e50d6f8e4b3726c7931}\label{class_sphere_ab9fc7e701a5b1e50d6f8e4b3726c7931} 
+{\bfseries Sphere} (const point \&center, double radius, std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ surface)
+\item 
+\Hypertarget{class_sphere_a2f945116ac0fc4d2d260902e7491d221}\label{class_sphere_a2f945116ac0fc4d2d260902e7491d221} 
+void {\bfseries set\+\_\+motion} (const \doxymbox{\hyperlink{class_motion}{Motion}} \&value)
 \item 
 bool \doxymbox{\hyperlink{class_sphere_a9b170d963bcecb3ffddc802fbddfe356}{hit}} (const \doxymbox{\hyperlink{class_ray}{Ray}} \&r, \doxymbox{\hyperlink{class_interval}{Interval}} ray\+\_\+t, \doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&rec) const override
-\item 
-\doxymbox{\hyperlink{classvec2}{vec2}} \doxymbox{\hyperlink{class_sphere_aa4a745a1038350f2eefe0384b312fa9f}{get\+\_\+tcoords}} (const point \&p) const override
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Determine whether the sphere is hit or not. \end{DoxyCompactList}\item 
+point2D \doxymbox{\hyperlink{class_sphere_aab368fb4ab731d3662f6905894ba614b}{get\+\_\+tcoords}} (const point \&p, double time) const override
+\begin{DoxyCompactList}\small\item\em Describes texture mapping for spheres. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_sphere_ac14c3a5e7440c7f3d37cc4f74a5d5ba2}{rasterize}} (int screen\+\_\+size\+[2]\+, \doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&viewport\+\_\+matrix, \doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&projection, double \texorpdfstring{$\ast$}{*}depth\+\_\+buffer, \doxymbox{\hyperlink{classrgb}{rgb}} \texorpdfstring{$\ast$}{*}color\+\_\+buffer, double time) const override
+\begin{DoxyCompactList}\small\item\em Rasterize a sphere to the screen. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries Collision\+Object} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_material}{Material}} $>$ m)
+{\bfseries Collision\+Object} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ surf)
 \end{DoxyCompactItemize}
-\doxysubsubsection*{Public Attributes}
-\begin{DoxyCompactItemize}
-\item 
-\Hypertarget{class_sphere_a90a9b332c054fe9b2ec5519137c2d3f3}\label{class_sphere_a90a9b332c054fe9b2ec5519137c2d3f3} 
-point {\bfseries center}
-\item 
-\Hypertarget{class_sphere_a45d6c6c870fac7c2a885ad2e226334ad}\label{class_sphere_a45d6c6c870fac7c2a885ad2e226334ad} 
-double {\bfseries radius}
-\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
 \doxysubsection*{Public Attributes inherited from \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}}
 \begin{DoxyCompactItemize}
 \item 
-std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_material}{Material}} $>$ {\bfseries mat}
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ {\bfseries surf}
 \end{DoxyCompactItemize}
 
 
 \label{class_sphere_doc-func-members}
 \Hypertarget{class_sphere_doc-func-members}
 \doxysubsection{Member Function Documentation}
-\Hypertarget{class_sphere_aa4a745a1038350f2eefe0384b312fa9f}\index{Sphere@{Sphere}!get\_tcoords@{get\_tcoords}}
+\Hypertarget{class_sphere_aab368fb4ab731d3662f6905894ba614b}\index{Sphere@{Sphere}!get\_tcoords@{get\_tcoords}}
 \index{get\_tcoords@{get\_tcoords}!Sphere@{Sphere}}
 \doxysubsubsection{\texorpdfstring{get\_tcoords()}{get\_tcoords()}}
-{\footnotesize\ttfamily \label{class_sphere_aa4a745a1038350f2eefe0384b312fa9f} 
-\doxymbox{\hyperlink{classvec2}{vec2}} Sphere::\+get\+\_\+tcoords (\begin{DoxyParamCaption}\item[{const point \&}]{p}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily \label{class_sphere_aab368fb4ab731d3662f6905894ba614b} 
+point2D Sphere::\+get\+\_\+tcoords (\begin{DoxyParamCaption}\item[{const point \&}]{p}{, }\item[{double}]{time}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Describes texture mapping for spheres. 
 
 
 
@@ -60,10 +61,28 @@ bool Sphere::\+hit (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{cl
 
 
 
+Determine whether the sphere is hit or not. 
+
+
+
 Implements \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}.
+
+\Hypertarget{class_sphere_ac14c3a5e7440c7f3d37cc4f74a5d5ba2}\index{Sphere@{Sphere}!rasterize@{rasterize}}
+\index{rasterize@{rasterize}!Sphere@{Sphere}}
+\doxysubsubsection{\texorpdfstring{rasterize()}{rasterize()}}
+{\footnotesize\ttfamily \label{class_sphere_ac14c3a5e7440c7f3d37cc4f74a5d5ba2} 
+void Sphere::\+rasterize (\begin{DoxyParamCaption}\item[{int}]{screen\+\_\+size}{\+[2], }\item[{\doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&}]{viewport\+\_\+matrix}{, }\item[{\doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&}]{projection}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{depth\+\_\+buffer}{, }\item[{\doxymbox{\hyperlink{classrgb}{rgb}} \texorpdfstring{$\ast$}{*}}]{color\+\_\+buffer}{, }\item[{double}]{time}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Rasterize a sphere to the screen. 
+
+
+
+Reimplemented from \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}.
 
 
 
 The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
 \item 
-src/\+objects/\+primitives/sphere.\+hpp\end{DoxyCompactItemize}
+src/\+entities/\+objects/\+primitives/sphere.\+hpp\end{DoxyCompactItemize}

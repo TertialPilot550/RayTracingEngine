@@ -22,27 +22,52 @@
 \DoxyCodeLine{00039\ }
 \DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{private}:\ }
 \DoxyCodeLine{00041\ }
-\DoxyCodeLine{00047\ }
-\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{void}\ render(\doxymbox{\hyperlink{class_scene}{Scene}}\&\ s);}
-\DoxyCodeLine{00058\ }
-\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{void}\ write\_color(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{classrgb}{rgb}}\&\ \doxymbox{\hyperlink{classrgb}{rgb}},\ \textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y);}
-\DoxyCodeLine{00066\ }
-\DoxyCodeLine{00067\ }
-\DoxyCodeLine{00072\ }
-\DoxyCodeLine{00074\ }
-\DoxyCodeLine{00083\ \ \ \ \ color\ process\_ray(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{class_ray}{Ray}}\&\ r,\ \textcolor{keywordtype}{int}\ depth,\ \doxymbox{\hyperlink{class_scene}{Scene}}\&\ s);}
-\DoxyCodeLine{00084\ }
-\DoxyCodeLine{00085\ }
-\DoxyCodeLine{00092\ \ \ \ \ \doxymbox{\hyperlink{classvec3}{vec3}}\ sample\_square()\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00093\ }
-\DoxyCodeLine{00094\ }
-\DoxyCodeLine{00103\ \ \ \ \ point\ defocus\_disk\_sample(\doxymbox{\hyperlink{class_cam_controls}{CamControls}}\&\ controls)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00104\ }
-\DoxyCodeLine{00112\ \ \ \ \ \doxymbox{\hyperlink{class_ray}{Ray}}\ get\_ray\_for\_pixel(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j,\ \doxymbox{\hyperlink{class_cam_controls}{CamControls}}\&\ controls)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00113\ }
-\DoxyCodeLine{00120\ \ \ \ \ \doxymbox{\hyperlink{classrgb}{rgb}}\ sample\_for\_pixel\_color(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ \doxymbox{\hyperlink{class_scene}{Scene}}\&\ s);}
-\DoxyCodeLine{00121\ }
-\DoxyCodeLine{00123\ }
-\DoxyCodeLine{00124\ \};}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ render(\doxymbox{\hyperlink{class_scene}{Scene}}\&\ s,\ \doxymbox{\hyperlink{class_interval}{Interval}}\ shutter\_event);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{void}\ render\_locally(\doxymbox{\hyperlink{class_scene}{Scene}}\&\ s,\ \doxymbox{\hyperlink{class_interval}{Interval}}\ shutter\_event)\ \{}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{void}\ render\_parallel(Scene\&\ s,\ Interval\ shutter\_event);}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{void}\ render\_gpu(Scene\&\ s,\ Interval\ shutter\_event);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordtype}{void}\ ray\_trace(Scene\&\ s,\ Interval\ shutter\_event);}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{void}\ ray\_trace\_worker(Scene\&\ s,\ \textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ Interval\ shutter\_event);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{void}\ depth\_buffer(Scene\&\ s,\ Interval\ shutter\_event);}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{void}\ depth\_buffer\_worker(Scene\&\ s,\ \textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ Interval\ shutter\_event);}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{void}\ hybrid(Scene\&\ s,\ Interval\ shutter\_event);}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{void}\ hybrid\_worker(Scene\&\ s,\ \textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ Interval\ shutter\_event);}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{void}\ write\_color(\textcolor{keyword}{const}\ rgb\&\ rgb,\ \textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y);}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00136\ \ \ \ \ color\ process\_ray(\textcolor{keyword}{const}\ Ray\&\ r,\ \textcolor{keywordtype}{int}\ depth,\ Scene\&\ s);}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00147\ \ \ \ \ point\ anti\_aliasing\_offset()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00157\ \ \ \ \ point\ random\_point\_on\_camera\_lens(CamControls\&\ controls)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00166\ \ \ \ \ Ray\ get\_ray\_for\_pixel(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j,\ Interval\ shutter\_event,\ CamControls\&\ controls)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00174\ \ \ \ \ rgb\ sample\_for\_pixel\_color(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y,\ Interval\ shutter\_event,\ Scene\&\ s);}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \ \ std::vector<double>\ depth\_buffer\_data;}
+\DoxyCodeLine{00177\ \ \ \ \ std::vector<rgb>\ color\_buffer\_data;}
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keywordtype}{int}\ depth\_buffer\_width\ =\ 0;}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordtype}{int}\ depth\_buffer\_height\ =\ 0;}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \ \ }
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \};}
+\DoxyCodeLine{00186\ }
 
 \end{DoxyCode}

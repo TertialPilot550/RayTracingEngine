@@ -99,6 +99,11 @@ document.addEventListener('DOMContentLoaded', codefold.init);
   <div class="headertitle"><div class="title">Material Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Abstract <a class="el" href="class_material.html" title="Abstract Material class that describes how light bounces off of / interacts with the object.">Material</a> class that describes how light bounces off of / interacts with the object.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="material_8hpp_source.html">material.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Material:</div>
 <div class="dyncontent">
@@ -112,9 +117,13 @@ Public Member Functions</h2></td></tr>
 virtual color&#160;</td><td class="memItemRight"><b>emitted</b> (double u, double v, const point &amp;p) const</td></tr>
 <tr class="memitem:af5ef0aa54c77a805d36686b117ee83dc" id="r_af5ef0aa54c77a805d36686b117ee83dc"><td class="memItemLeft"><a id="af5ef0aa54c77a805d36686b117ee83dc" name="af5ef0aa54c77a805d36686b117ee83dc"></a>
 virtual bool&#160;</td><td class="memItemRight"><b>scatter</b> (const <a class="el" href="class_ray.html">Ray</a> &amp;r_in, const <a class="el" href="class_collision_record.html">CollisionRecord</a> &amp;rec, color &amp;attenuation, <a class="el" href="class_ray.html">Ray</a> &amp;scattered) const</td></tr>
+<tr class="memitem:a9fdb2c453c6fb4fd67edae952d7382ae" id="r_a9fdb2c453c6fb4fd67edae952d7382ae"><td class="memItemLeft"><a id="a9fdb2c453c6fb4fd67edae952d7382ae" name="a9fdb2c453c6fb4fd67edae952d7382ae"></a>
+virtual color&#160;</td><td class="memItemRight"><b>at</b> (int u, int v, const point &amp;p) const</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/objects/surfaces/<a class="el" href="material_8hpp_source.html">material.hpp</a></li>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Abstract <a class="el" href="class_material.html" title="Abstract Material class that describes how light bounces off of / interacts with the object.">Material</a> class that describes how light bounces off of / interacts with the object. </p>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
+<li>src/entities/objects/surfaces/<a class="el" href="material_8hpp_source.html">material.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

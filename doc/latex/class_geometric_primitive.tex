@@ -1,0 +1,108 @@
+\doxysection{Geometric\+Primitive\texorpdfstring{$<$}{<} N \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_geometric_primitive}{}\label{class_geometric_primitive}\index{GeometricPrimitive$<$ N $>$@{GeometricPrimitive$<$ N $>$}}
+
+
+Inheritance diagram for Geometric\+Primitive\texorpdfstring{$<$}{<} N \texorpdfstring{$>$}{>}:
+% FIG 0
+
+
+Collaboration diagram for Geometric\+Primitive\texorpdfstring{$<$}{<} N \texorpdfstring{$>$}{>}:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_geometric_primitive_a3d6d0cf3dcce57e6dcb15c1ef6bde5bc}\label{class_geometric_primitive_a3d6d0cf3dcce57e6dcb15c1ef6bde5bc} 
+{\footnotesize template$<$typename... Args$>$ }\\{\bfseries Geometric\+Primitive} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ surface, Args \&\&... args)
+\begin{DoxyCompactList}\small\item\em Wack ass constructor because I was getting tons of errors. \end{DoxyCompactList}\item 
+virtual bool \doxymbox{\hyperlink{class_geometric_primitive_ab460b4f8b2ccd21218141b39d24d6c7f}{hit}} (const \doxymbox{\hyperlink{class_ray}{Ray}} \&r, \doxymbox{\hyperlink{class_interval}{Interval}} ray\+\_\+t, \doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&rec) const =0
+\item 
+virtual void \doxymbox{\hyperlink{class_geometric_primitive_a82c6eabfec47e4f39c1fc25e7cf6d1bb}{rasterize}} (int screen\+\_\+size\+[2]\+, \doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&viewport\+\_\+matrix, \doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&projection\+\_\+to\+\_\+camera\+\_\+matrix, double \texorpdfstring{$\ast$}{*}depth\+\_\+buff, \doxymbox{\hyperlink{classrgb}{rgb}} \texorpdfstring{$\ast$}{*}color\+\_\+buff, double time) const =0
+\item 
+virtual point2D \doxymbox{\hyperlink{class_geometric_primitive_aef3a5631f280f89d0a9493de31004da7}{get\+\_\+tcoords}} (const point \&p, double time) const =0
+\item 
+\Hypertarget{class_geometric_primitive_a1aadaad762b900d55c9f7a165c1d6924}\label{class_geometric_primitive_a1aadaad762b900d55c9f7a165c1d6924} 
+void {\bfseries set\+\_\+motion} (const \doxymbox{\hyperlink{class_motion}{Motion}} \&value)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Collision\+Object} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ surf)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_geometric_primitive_a74aa3cd27e4c26aade8d687c4a236a74}\label{class_geometric_primitive_a74aa3cd27e4c26aade8d687c4a236a74} 
+std::\+array$<$ point, N $>$ {\bfseries skeleton}
+\item 
+\Hypertarget{class_geometric_primitive_a19ed630067e0107aa2035adad2ff6a44}\label{class_geometric_primitive_a19ed630067e0107aa2035adad2ff6a44} 
+\doxymbox{\hyperlink{class_motion}{Motion}} {\bfseries motion}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ {\bfseries surf}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_geometric_primitive_ace9112b166c9598725163a69dce47830}\label{class_geometric_primitive_ace9112b166c9598725163a69dce47830} 
+{\footnotesize template$<$size\+\_\+t Index, typename First, typename... Rest$>$ }\\void {\bfseries assign\+\_\+skeleton} (First \&\&first, Rest \&\&... rest)
+\begin{DoxyCompactList}\small\item\em Assignment helper for the wack ass constructor. \end{DoxyCompactList}\item 
+\Hypertarget{class_geometric_primitive_afaded1ac06edfd930b0e4c9c52d0dc7f}\label{class_geometric_primitive_afaded1ac06edfd930b0e4c9c52d0dc7f} 
+point {\bfseries moved\+\_\+point} (int index, double time) const
+\begin{DoxyCompactList}\small\item\em Move the point at a given index in the skeleton using the provided time. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{class_geometric_primitive_doc-func-members}
+\Hypertarget{class_geometric_primitive_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_geometric_primitive_aef3a5631f280f89d0a9493de31004da7}\index{GeometricPrimitive$<$ N $>$@{GeometricPrimitive$<$ N $>$}!get\_tcoords@{get\_tcoords}}
+\index{get\_tcoords@{get\_tcoords}!GeometricPrimitive$<$ N $>$@{GeometricPrimitive$<$ N $>$}}
+\doxysubsubsection{\texorpdfstring{get\_tcoords()}{get\_tcoords()}}
+{\footnotesize\ttfamily \label{class_geometric_primitive_aef3a5631f280f89d0a9493de31004da7} 
+template$<$int N$>$ \\
+virtual point2D \doxymbox{\hyperlink{class_geometric_primitive}{Geometric\+Primitive}}$<$ N $>$::\+get\+\_\+tcoords (\begin{DoxyParamCaption}\item[{const point \&}]{p}{, }\item[{double}]{time}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implements \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}.
+
+
+
+Implemented in \doxymbox{\hyperlink{class_quad_abfae4c7d53ce0bf7fb5835df7c129f53}{Quad}}, and \doxymbox{\hyperlink{class_triangle_a687bf64da6a6249ccc2aa9d5324b64c8}{Triangle}}.
+
+\Hypertarget{class_geometric_primitive_ab460b4f8b2ccd21218141b39d24d6c7f}\index{GeometricPrimitive$<$ N $>$@{GeometricPrimitive$<$ N $>$}!hit@{hit}}
+\index{hit@{hit}!GeometricPrimitive$<$ N $>$@{GeometricPrimitive$<$ N $>$}}
+\doxysubsubsection{\texorpdfstring{hit()}{hit()}}
+{\footnotesize\ttfamily \label{class_geometric_primitive_ab460b4f8b2ccd21218141b39d24d6c7f} 
+template$<$int N$>$ \\
+virtual bool \doxymbox{\hyperlink{class_geometric_primitive}{Geometric\+Primitive}}$<$ N $>$::\+hit (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{class_ray}{Ray}} \&}]{r}{, }\item[{\doxymbox{\hyperlink{class_interval}{Interval}}}]{ray\+\_\+t}{, }\item[{\doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&}]{rec}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implements \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}.
+
+
+
+Implemented in \doxymbox{\hyperlink{class_quad_a57d5acdd46ba12aa81e468617adb4b11}{Quad}}, and \doxymbox{\hyperlink{class_triangle_afef2c51374e6502f3166ae42e9512514}{Triangle}}.
+
+\Hypertarget{class_geometric_primitive_a82c6eabfec47e4f39c1fc25e7cf6d1bb}\index{GeometricPrimitive$<$ N $>$@{GeometricPrimitive$<$ N $>$}!rasterize@{rasterize}}
+\index{rasterize@{rasterize}!GeometricPrimitive$<$ N $>$@{GeometricPrimitive$<$ N $>$}}
+\doxysubsubsection{\texorpdfstring{rasterize()}{rasterize()}}
+{\footnotesize\ttfamily \label{class_geometric_primitive_a82c6eabfec47e4f39c1fc25e7cf6d1bb} 
+template$<$int N$>$ \\
+virtual void \doxymbox{\hyperlink{class_geometric_primitive}{Geometric\+Primitive}}$<$ N $>$::\+rasterize (\begin{DoxyParamCaption}\item[{int}]{screen\+\_\+size}{\+[2], }\item[{\doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&}]{viewport\+\_\+matrix}{, }\item[{\doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&}]{projection\+\_\+to\+\_\+camera\+\_\+matrix}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{depth\+\_\+buff}{, }\item[{\doxymbox{\hyperlink{classrgb}{rgb}} \texorpdfstring{$\ast$}{*}}]{color\+\_\+buff}{, }\item[{double}]{time}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Reimplemented from \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}.
+
+
+
+Implemented in \doxymbox{\hyperlink{class_quad_a499488313419e57252e1d3410b632df7}{Quad}}, and \doxymbox{\hyperlink{class_triangle_a0c1cdba55e4a5b77efbadb36b3724780}{Triangle}}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+src/\+entities/\+objects/\+primitives/geometric\+\_\+primitive.\+hpp\end{DoxyCompactItemize}

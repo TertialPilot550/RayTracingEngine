@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['ray_0',['Ray',['../class_ray.html',1,'']]],
-  ['rebind_1',['rebind',['../structtinyobj_1_1arena__adapter_1_1rebind.html',1,'tinyobj::arena_adapter']]],
-  ['rgb_2',['rgb',['../classrgb.html',1,'']]]
+  ['scene_0',['Scene',['../class_scene.html',1,'']]],
+  ['solidcolor_1',['SolidColor',['../class_solid_color.html',1,'']]],
+  ['sphere_2',['Sphere',['../class_sphere.html',1,'']]],
+  ['surface_3',['Surface',['../class_surface.html',1,'']]]
 ];

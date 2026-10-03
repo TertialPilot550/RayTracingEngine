@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.18.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Ray-Tracing Engine: Ray-Tracing Engine</title>
+<title>Ray-Tracing Engine: COMS 3360 PROJECT TODO LIST</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="codefolding.js"></script>
 <script type="text/javascript" src="clipboard.js"></script>
@@ -93,133 +93,104 @@ document.addEventListener('DOMContentLoaded', codefold.init);
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title"><center> Ray-Tracing Engine </center> </div></div>
+  <div class="headertitle"><div class="title">COMS 3360 PROJECT TODO LIST </div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md__r_e_a_d_m_e"></a></p>
-<p>Class Project for CPRE 3360. Rendering engine implemented using ray tracing. See the feature list below.</p>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md1"></a>
-<center>Table of Contents</center></h2>
-<ol type="1">
-<li>src/camera<ul>
-<li><a class="el" href="class_cam_controls.html" title="Camera control class which details how rendering should be performed for a given scene....">CamControls</a></li>
-<li><a class="el" href="class_camera_rig.html" title="Object which can rendering object to a 2D image using ray tracing algorithm.">CameraRig</a></li>
+Finished</h2>
+<p><a class="el" href="class_ray.html" title="Represents a ray used in the ray tracing algorithm.">Ray</a> Tracing in One Weekend: Volume One</p><ul class="check">
+<li class="checked">A camera with configurable position, orientation, and field of view: Required</li>
 </ul>
-</li>
-<li>src/objects<ul>
-<li>collidables<ul>
-<li><a class="el" href="class_collision_object.html">CollisionObject</a></li>
-<li><a class="el" href="class_collision_record.html">CollisionRecord</a></li>
-<li><a class="el" href="class_collision_list.html">CollisionList</a></li>
+<ul class="check">
+<li class="checked">Anti-aliasing: Required</li>
 </ul>
+<ul class="check">
+<li class="checked">Ray/sphere intersections: Required</li>
+</ul>
+<ul class="check">
+<li class="checked">Defocus blur/depth of field: 10</li>
+</ul>
+<ul class="check">
+<li class="checked">Specular, diffuse, and dielectric materials</li>
+</ul>
+<ul class="check">
+<li class="checked"><a class="el" href="class_motion.html" title="A time-varying object transform.">Motion</a> blur: 10</li>
+</ul>
+<p>Independently Written</p><ul class="check">
+<li class="checked">A spatial subdivision acceleration structure of your choice</li>
+</ul>
+<ul class="check">
+<li class="checked">Parallelization: 10</li>
+</ul>
+<ul class="check">
+<li class="checked">Ray/triangle intersections: Required</li>
+</ul>
+<ul class="check">
+<li class="checked">Textured triangles: Required</li>
+</ul>
+<ul class="check">
+<li class="checked">The ability to load and render triangle meshes (file format(s) of your choice; may use third-party libraries for loading): Required</li>
+</ul>
+<ul class="check">
+<li class="checked">Homogeneous coordinates</li>
+</ul>
+<p><a class="el" href="class_ray.html" title="Represents a ray used in the ray tracing algorithm.">Ray</a> Tracing in One Weekend: Volume Two</p><ul class="check">
+<li class="checked"><a class="el" href="class_perlin.html" title="Generate a Perlin noise map.">Perlin</a> noise: 10 <br  />
 </li>
-<li>primitives <br  />
+</ul>
+<ul class="check">
+<li class="checked">The ability to load textures: Required <br  />
+</li>
+</ul>
+<ul class="check">
+<li class="checked">Textured spheres: Required <br  />
+</li>
+</ul>
+<ul class="check">
+<li class="checked">Textured quads: 10 <br  />
+</li>
+</ul>
+<ul class="check">
+<li class="checked">Emissive materials (lights): Required <br  />
+</li>
+</ul>
+<ul class="check">
+<li class="checked">Object Instancing: 10 (represented by 4d matrix)</li>
+</ul>
+<p>ALL REQUIRED FEATURES COMPLETE POINTS SO FAR: 60</p>
+<p>&mdash; THIS WEEK &mdash;</p>
 <ul>
-<li><a class="el" href="class_sphere.html">Sphere</a></li>
-<li><a class="el" href="class_triangle.html">Triangle</a></li>
-<li><a class="el" href="class_quad.html">Quad</a></li>
+<li>Update chunking in camera_rig to work in square chunks? in render_parallel, not the individual functions, though ____workers will need to be adjusted</li>
+<li><a class="el" href="class_ray.html" title="Represents a ray used in the ray tracing algorithm.">Ray</a> tracing acceleration with gpu</li>
+<li>Depth buffer acceleration with gpu</li>
 </ul>
-</li>
-<li>composites<ul>
-<li><a class="el" href="class_o_b_j_model.html">OBJModel</a></li>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
+IN PROGRESS</h2>
+<ul class="check">
+<li class="unchecked">GPU acceleration (GPU computing w/ e.g., CUDA): 20</li>
 </ul>
-</li>
-<li>surfaces<ul>
-<li><a class="el" href="class_material.html">Material</a></li>
-<li><a class="el" href="class_texture.html">Texture</a></li>
+<ul class="check">
+<li class="unchecked">Hybrid rendering with a GPU (depth buffer + ray tracing): 20</li>
 </ul>
-</li>
-</ul>
-</li>
-<li>src/scenes<ul>
-<li><a class="el" href="class_scene.html" title="Object which represents all of the context for a particular instance of the ray tracing algorithm,...">Scene</a></li>
-</ul>
-</li>
-<li>src/accel<ul>
-<li><a class="el" href="class_task_master.html" title="Generic Thread Pool Implementation.">TaskMaster</a></li>
-</ul>
-</li>
-<li>src/util<ul>
-<li><a class="el" href="class_ray.html" title="Represents a ray used in the ray tracing algorithm.">Ray</a></li>
-<li><a class="el" href="class_interval.html" title="Represents an interval of real numbers, used through the ray tracing algorithm.">Interval</a></li>
-<li><a class="el" href="classvec2.html" title="Vector of 2 floats, used primarily for representing texture coordinates.">vec2</a></li>
-<li><a class="el" href="classvec3.html" title="Vector of 3 floats, used for a variety of purposes such as points, vectors, and colors.">vec3</a></li>
-<li><a class="el" href="class_perlin.html" title="Generate a Perlin noise map.">Perlin</a></li>
-</ul>
-</li>
-</ol>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
-Feature List</h1>
 <h2 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
-Camera</h2>
-<ul>
-<li>Configurable Position, Orientation, and FOV</li>
-<li>Anti-Aliasing</li>
-<li>Defocus Blur / Depth of Field (10 points)</li>
-<li>{Motion Blur} (10 Points)</li>
-<li>Ray/Primitive Intersection</li>
-<li>Textured Primitives</li>
+NEXT</h2>
+<ul class="check">
+<li class="unchecked">Importance Sampling: 15</li>
 </ul>
-<p>Performance: See Acceleration</p><ul>
-<li>Spatial Subdivision (Pixel Chunking based on image width)</li>
+<p>Theoretical Point Total before acceleration and animation wrapper: All Required + 100 points (15 points remaining)</p>
+<hr  />
+<p>Theoretical Point Total: 115</p><ul class="check">
+<li class="unchecked">Real good documentation / report</li>
 </ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md4"></a>
-Objects</h2>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
-Geometric Primitives</h3>
-<ol type="1">
-<li>Spheres</li>
-<li>Triangles</li>
-<li>Quads (10 Points)</li>
-</ol>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md6"></a>
-Lists of Primitives</h3>
-<h4 class="doxsection"><a class="anchor" id="autotoc_md7"></a>
-Predefined Triangle Meshes (.obj)</h4>
-<ul>
-<li>TODO: NOT FUNCTIONAL</li>
+<h2 class="doxsection"><a class="anchor" id="autotoc_md5"></a>
+Stretch Goals: GUI</h2>
+<ul class="check">
+<li class="unchecked">STRETCH: Skeleton articulation system?</li>
 </ul>
-<h3 class="doxsection"><a class="anchor" id="autotoc_md8"></a>
-Surfaces</h3>
-<h4 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
-Materials</h4>
-<ul>
-<li><a class="el" href="class_dielectric.html">Dielectric</a></li>
-<li><a class="el" href="class_diffuse_light.html">DiffuseLight</a></li>
-<li><a class="el" href="class_lambertian.html">Lambertian</a></li>
-<li><a class="el" href="class_metal.html">Metal</a> </li>
+<ul class="check">
+<li class="unchecked">STRETCH: Animation wrapper (monochrome cross hatching texture??) </li>
 </ul>
-<h4 class="doxsection"><a class="anchor" id="autotoc_md10"></a>
-Textures</h4>
-<ul>
-<li><a class="el" href="class_checker_texture.html">CheckerTexture</a></li>
-<li><a class="el" href="class_image_texture.html">ImageTexture</a></li>
-<li><a class="el" href="class_noise_texture.html">NoiseTexture</a></li>
-<li><a class="el" href="class_solid_color.html">SolidColor</a></li>
-</ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md11"></a>
-Acceleration</h2>
-<ul>
-<li>Parrallel Rendering (10 points)</li>
-</ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md12"></a>
-Utilies</h2>
-<ul>
-<li><a class="el" href="class_perlin.html" title="Generate a Perlin noise map.">Perlin</a> Noise (10 Points)</li>
-</ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md13"></a>
-Scenes</h2>
-<h4 class="doxsection"><a class="anchor" id="autotoc_md14"></a>
-Demo Scenes</h4>
-<ul>
-<li><a class="el" href="class_sphere.html">Sphere</a> Demo</li>
-<li><a class="el" href="class_triangle.html">Triangle</a> Demo</li>
-<li><a class="el" href="class_diffuse_light.html">DiffuseLight</a> Demo</li>
-</ul>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md15"></a>
-REQUIRED FEATURED REMAINING: Triangle Meshes, Bug Fixes</h1>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md16"></a>
-CUMULATIVE POINT TOTAL: 40 {50}</h1>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->

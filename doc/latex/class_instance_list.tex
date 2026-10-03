@@ -1,0 +1,111 @@
+\doxysection{Instance\+List Class Reference}
+\hypertarget{class_instance_list}{}\label{class_instance_list}\index{InstanceList@{InstanceList}}
+
+
+A wrapper for a vector of instances, which is itself a collision object and so can be used to represent one object, composed of multiple instances.  
+
+
+
+
+{\ttfamily \+\#include $<$instance.\+hpp$>$}
+
+
+
+Inheritance diagram for Instance\+List:
+% FIG 0
+
+
+Collaboration diagram for Instance\+List:
+% FIG 1
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_instance_list_a8a58979be0df21517968dc132c28120b}\label{class_instance_list_a8a58979be0df21517968dc132c28120b} 
+{\bfseries Instance\+List} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ surf)
+\item 
+\Hypertarget{class_instance_list_acdf8a3ad33eefaa09434b9165c2d7d95}\label{class_instance_list_acdf8a3ad33eefaa09434b9165c2d7d95} 
+void {\bfseries add} (const \doxymbox{\hyperlink{class_instance}{Instance}} \&instance)
+\item 
+\Hypertarget{class_instance_list_af281225443a2496439153cba574e75dc}\label{class_instance_list_af281225443a2496439153cba574e75dc} 
+void {\bfseries add} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}} $>$ object)
+\item 
+bool \doxymbox{\hyperlink{class_instance_list_a80058ae5cf4993f0785d109248206d85}{hit}} (const \doxymbox{\hyperlink{class_ray}{Ray}} \&r, \doxymbox{\hyperlink{class_interval}{Interval}} ray\+\_\+t, \doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&rec) const override
+\begin{DoxyCompactList}\small\item\em Pass a hit call onto each child instance. \end{DoxyCompactList}\item 
+point2D \doxymbox{\hyperlink{class_instance_list_a97ed8658d7f8e176190d739dc8f491fc}{get\+\_\+tcoords}} (const point \&p, double time) const override
+\begin{DoxyCompactList}\small\item\em Default implementation that returns \+[0, 0]. \end{DoxyCompactList}\item 
+void \doxymbox{\hyperlink{class_instance_list_ac0d2474a90d4be6ede2dbe5cfe41d6b2}{rasterize}} (int screen\+\_\+size\+[2]\+, \doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&viewport\+\_\+matrix, \doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&projection\+\_\+to\+\_\+camera\+\_\+matrix, double \texorpdfstring{$\ast$}{*}depth\+\_\+buff, \doxymbox{\hyperlink{classrgb}{rgb}} \texorpdfstring{$\ast$}{*}color\+\_\+buff, double time) const override
+\begin{DoxyCompactList}\small\item\em Pass a rasterize call onto the child instances. \end{DoxyCompactList}\item 
+\Hypertarget{class_instance_list_a9b4fbc60bf33129ebb7fbb28a6582b10}\label{class_instance_list_a9b4fbc60bf33129ebb7fbb28a6582b10} 
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}} $>$ \& {\bfseries operator\+[$\,$]} (size\+\_\+t index)
+\begin{DoxyCompactList}\small\item\em Allow accessing indexing into the child instances. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Collision\+Object} (std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ surf)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_instance_list_a1bb124be284acee6d874c5929dd0b802}\label{class_instance_list_a1bb124be284acee6d874c5929dd0b802} 
+std::\+vector$<$ std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}} $>$ $>$ {\bfseries instances}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}}
+\begin{DoxyCompactItemize}
+\item 
+std::\+shared\+\_\+ptr$<$ \doxymbox{\hyperlink{class_surface}{Surface}} $>$ {\bfseries surf}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A wrapper for a vector of instances, which is itself a collision object and so can be used to represent one object, composed of multiple instances. 
+
+\label{class_instance_list_doc-func-members}
+\Hypertarget{class_instance_list_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_instance_list_a97ed8658d7f8e176190d739dc8f491fc}\index{InstanceList@{InstanceList}!get\_tcoords@{get\_tcoords}}
+\index{get\_tcoords@{get\_tcoords}!InstanceList@{InstanceList}}
+\doxysubsubsection{\texorpdfstring{get\_tcoords()}{get\_tcoords()}}
+{\footnotesize\ttfamily \label{class_instance_list_a97ed8658d7f8e176190d739dc8f491fc} 
+point2D Instance\+List::\+get\+\_\+tcoords (\begin{DoxyParamCaption}\item[{const point \&}]{p}{, }\item[{double}]{time}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Default implementation that returns \+[0, 0]. 
+
+
+
+Implements \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}.
+
+\Hypertarget{class_instance_list_a80058ae5cf4993f0785d109248206d85}\index{InstanceList@{InstanceList}!hit@{hit}}
+\index{hit@{hit}!InstanceList@{InstanceList}}
+\doxysubsubsection{\texorpdfstring{hit()}{hit()}}
+{\footnotesize\ttfamily \label{class_instance_list_a80058ae5cf4993f0785d109248206d85} 
+bool Instance\+List::\+hit (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{class_ray}{Ray}} \&}]{r}{, }\item[{\doxymbox{\hyperlink{class_interval}{Interval}}}]{ray\+\_\+t}{, }\item[{\doxymbox{\hyperlink{class_collision_record}{Collision\+Record}} \&}]{rec}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Pass a hit call onto each child instance. 
+
+
+
+Implements \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}.
+
+\Hypertarget{class_instance_list_ac0d2474a90d4be6ede2dbe5cfe41d6b2}\index{InstanceList@{InstanceList}!rasterize@{rasterize}}
+\index{rasterize@{rasterize}!InstanceList@{InstanceList}}
+\doxysubsubsection{\texorpdfstring{rasterize()}{rasterize()}}
+{\footnotesize\ttfamily \label{class_instance_list_ac0d2474a90d4be6ede2dbe5cfe41d6b2} 
+void Instance\+List::\+rasterize (\begin{DoxyParamCaption}\item[{int}]{screen\+\_\+size}{\+[2], }\item[{\doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&}]{viewport\+\_\+matrix}{, }\item[{\doxymbox{\hyperlink{classmat}{mat}}$<$ 4, 4 $>$ \&}]{projection\+\_\+to\+\_\+camera\+\_\+matrix}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{depth\+\_\+buff}{, }\item[{\doxymbox{\hyperlink{classrgb}{rgb}} \texorpdfstring{$\ast$}{*}}]{color\+\_\+buff}{, }\item[{double}]{time}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Pass a rasterize call onto the child instances. 
+
+
+
+Reimplemented from \doxymbox{\hyperlink{class_collision_object}{Collision\+Object}}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+src/\+entities/\+objects/instance.\+hpp\end{DoxyCompactItemize}

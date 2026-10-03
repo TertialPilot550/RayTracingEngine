@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['colors_0',['colors',['../structtinyobj_1_1_opt_attrib.html#a57827cab9ef85de07b31ceb51ea0e5fa',1,'tinyobj::OptAttrib']]]
+  ['img_5fbuffer_0',['img_buffer',['../class_camera_rig.html#a0a2261b49c5a5c003af8e5f64dea0d3d',1,'CameraRig']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['50_0',['CUMULATIVE POINT TOTAL: 40 {50}',['../index.html#autotoc_md16',1,'']]]
+  ['coms_203360_20project_20todo_20list_0',['COMS 3360 PROJECT TODO LIST',['../index.html',1,'']]]
 ];

@@ -1,0 +1,59 @@
+\doxysection{motion\+\_\+demo.\+hpp}
+\hypertarget{motion__demo_8hpp_source}{}\label{motion__demo_8hpp_source}\index{src/entities/scenes/demos/motion\_demo.hpp@{src/entities/scenes/demos/motion\_demo.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}../../../main.hpp"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{classmat}{mat<4,\ 4>}}\ translation\_matrix(\textcolor{keywordtype}{double}\ x,\ \textcolor{keywordtype}{double}\ y,\ \textcolor{keywordtype}{double}\ z)\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ \doxymbox{\hyperlink{classmat}{mat<4,\ 4>}}\ result;}
+\DoxyCodeLine{00007\ \ \ \ \ result[0][0]\ =\ 1.0;}
+\DoxyCodeLine{00008\ \ \ \ \ result[1][1]\ =\ 1.0;}
+\DoxyCodeLine{00009\ \ \ \ \ result[2][2]\ =\ 1.0;}
+\DoxyCodeLine{00010\ \ \ \ \ result[3][3]\ =\ 1.0;}
+\DoxyCodeLine{00011\ \ \ \ \ result[1][0]\ =\ x;}
+\DoxyCodeLine{00012\ \ \ \ \ result[2][0]\ =\ y;}
+\DoxyCodeLine{00013\ \ \ \ \ result[3][0]\ =\ z;}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00015\ \}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{keyword}{inline}\ \doxymbox{\hyperlink{class_scene}{Scene}}\ motion\_demo()\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \doxymbox{\hyperlink{class_scene}{Scene}}\ s;}
+\DoxyCodeLine{00019\ \ \ \ \ s.controls.mode\ =\ CameraMode::RAY\_TRACING;}
+\DoxyCodeLine{00020\ \ \ \ \ s.controls.accel\_mode\ =\ AccelerationMode::PARALLEL;}
+\DoxyCodeLine{00021\ \ \ \ \ s.controls.set\_aspect\_ratio(16.0\ /\ 9.0);}
+\DoxyCodeLine{00022\ \ \ \ \ s.controls.set\_image\_width(640);}
+\DoxyCodeLine{00023\ \ \ \ \ s.controls.set\_samples\_per\_pixel(40);}
+\DoxyCodeLine{00024\ \ \ \ \ s.controls.set\_vertical\_fov(35);}
+\DoxyCodeLine{00025\ \ \ \ \ s.controls.set\_camera\_pos(make\_point(10,\ -\/18,\ 8),\ make\_point(0,\ 0,\ 1),\ make\_vector(0,\ 0,\ 1));}
+\DoxyCodeLine{00026\ \ \ \ \ s.controls.set\_defocus\_angle(0);}
+\DoxyCodeLine{00027\ \ \ \ \ s.controls.set\_focus\_distance(20);}
+\DoxyCodeLine{00028\ \ \ \ \ s.controls.max\_depth\ =\ 20;}
+\DoxyCodeLine{00029\ \ \ \ \ s.background\ =\ color(0.02,\ 0.03,\ 0.07);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keyword}{auto}\ ground\ =\ std::make\_shared<Lambertian>(color(0.12,\ 0.16,\ 0.22));}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keyword}{auto}\ stationary\_material\ =\ std::make\_shared<Lambertian>(color(0.1,\ 0.7,\ 0.95));}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{auto}\ moving\_material\ =\ std::make\_shared<Lambertian>(color(0.95,\ 0.02,\ 0.01));}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ s.objects.add(std::make\_shared<Sphere>(}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ make\_point(0,\ 0,\ -\/1001),\ 1000,\ make\_surface(ground)));}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ s.objects.add(std::make\_shared<Sphere>(}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ make\_point(-\/3,\ 0,\ 1.5),\ 1.5,\ make\_surface(stationary\_material)));}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keyword}{auto}\ moving\_sphere\ =\ std::make\_shared<Sphere>(}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ make\_point(0,\ 0,\ 1.5),\ 1.5,\ make\_surface(moving\_material));}
+\DoxyCodeLine{00043\ \ \ \ \ moving\_sphere-\/>set\_motion(\doxymbox{\hyperlink{class_motion}{Motion}}(}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ translation\_matrix(0,\ 0,\ 0),}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ translation\_matrix(8,\ 0,\ 0)));}
+\DoxyCodeLine{00046\ \ \ \ \ s.objects.add(moving\_sphere);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keyword}{auto}\ light\ =\ std::make\_shared<DiffuseLight>(color(4,\ 4,\ 4));}
+\DoxyCodeLine{00049\ \ \ \ \ s.objects.add(std::make\_shared<Sphere>(}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ make\_point(0,\ 2,\ 8),\ 2,\ make\_surface(light)));}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordflow}{return}\ s;}
+\DoxyCodeLine{00053\ \}}
+
+\end{DoxyCode}

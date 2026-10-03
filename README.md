@@ -32,11 +32,16 @@ POINTS SO FAR: 60
 
 --- THIS WEEK ---
 
+- Ray tracing acceleration with gpu
+- Depth buffer acceleration with gpu
+
 ### IN PROGRESS
-- [ ] Hybrid rendering with a GPU (depth buffer + ray tracing): 20
+
 - [ ] GPU acceleration (GPU computing w/ e.g., CUDA): 20
+- [ ] Hybrid rendering with a GPU (depth buffer + ray tracing): 20
 
 ### NEXT
+
 - [ ] Importance Sampling: 15
 
 

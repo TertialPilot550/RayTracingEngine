@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['engine_0',['&lt;center&gt; Ray-Tracing Engine &lt;/center&gt;',['../index.html',1,'']]]
+  ['next_0',['NEXT',['../index.html#autotoc_md3',1,'']]]
 ];
